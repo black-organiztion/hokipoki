@@ -8,6 +8,6 @@
 <jsp:include page="/common/common.jsp"></jsp:include>
 </head>
 <body>
-신민경 바보
+채다빈 바보
 </body>
 </html>
