@@ -15,7 +15,7 @@ public class Product {
 	private String product_findate;
 	private String product_stock;
 	private String product_reserve;
-	private String product_min;
+	private String product_min; 
 	private String product_caldate;
 	
 	public String getProduct_id() {
