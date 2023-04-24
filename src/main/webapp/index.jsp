@@ -12,15 +12,11 @@ String contentPage = request.getParameter("CONTENTPAGE");
 <jsp:include page="/common/common.jsp"></jsp:include>
 </head>
 <body>
-<<<<<<< HEAD
-   
-=======
 <div id="wrap">
 	<jsp:include page="/user/common/header.jsp"></jsp:include>
 	<jsp:include page="<%=contentPage %>"></jsp:include>
 	
 	<jsp:include page="/user/common/footer.jsp"></jsp:include>
 </div>
->>>>>>> branch 'master' of https://github.com/black-organiztion/hokipoki.git
 </body>
 </html>
