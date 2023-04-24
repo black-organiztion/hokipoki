@@ -8,6 +8,6 @@
 <jsp:include page="/common/common.jsp"></jsp:include>
 </head>
 <body>
-환영합니다.
+신민경 바보
 </body>
 </html>
