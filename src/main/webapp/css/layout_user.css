@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+/* header */
+#header{width:100%; height:90px; background-color:rgb(198,198,198);}
+#header>.inr{width:100%; max-width:1200px; margin:auto;}
+
+
+/* header */
+#footer{width:100%; height:250px; background-color:#111;}
+#footer>.inr{width:100%; max-width:1200px; margin:auto;}
+
+
+@media (min-width: 1400px) {
+	#content.container {max-width:1200px;}
+}

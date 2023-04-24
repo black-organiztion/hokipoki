@@ -12,7 +12,7 @@ public class Delivery {
 	private String zip_code;
 	private String addr1;
 	private String addr2;
-	
+	 
 	public String getDelivery_id() {
 		return delivery_id;
 	}

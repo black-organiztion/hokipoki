@@ -6,7 +6,7 @@ public class Product_imgfile {
 	private String product_id;
 	private String stored_file_name;
 	private String delegate_thumbnail;
-	
+	 
 	public String getImg_id() {
 		return img_id;
 	}

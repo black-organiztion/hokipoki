@@ -6,7 +6,7 @@ public class Seller {
 	private String seller_number;
 	private String seller_pw;
 	private String seller_name;
-	
+	 
 	public String getSeller_id() {
 		return seller_id;
 	} 

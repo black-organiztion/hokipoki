@@ -6,7 +6,7 @@ public class MemberOrder {
 	private String product_id;
 	private String member_id;
 	private String delivery_id;
-	private String order_date;
+	private String order_date; 
 	private String order_count;
 	private String order_end_date; 
 	private String order_price;

@@ -6,7 +6,7 @@ public class Member {
 	private String membership_id;
 	private String member_name;
 	private String member_pw;
-	private String member_tel; 
+	private String member_tel;  
 	private String member_email;
 	private String recommend_id;
 	private String member_date;
