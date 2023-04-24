@@ -8,7 +8,7 @@ public class MemberOrder {
 	private String delivery_id;
 	private String order_date;
 	private String order_count;
-	private String order_end_date;
+	private String order_end_date; 
 	private String order_price;
 	private String order_status;
 	

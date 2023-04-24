@@ -8,7 +8,7 @@
 </head>
 <body>
 <form action="" method="post">
-<label for="id">
+<label for="id"> 
 아이디<input type="text" id="id" name="id">
 </label>
 <label for="pw">
