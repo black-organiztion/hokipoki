@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+<Resource name="jdbc/hokipoki"
+			 auth="Container"
+			 type="javax.sql.DataSource"
+			 username="sdt22sc"
+			 password="sdt22sc"
+			 driverClassName="com.mysql.cj.jdbc.Driver"
+			 factory="org.apache.tomcat.dbcp.dbcp2.BasicDataSourceFactory"
+			 url="jdbc:mysql://118.131.179.138:3306/sdt22sc?serverTimezone=Asia/Seoul"
+			 maxTotal="500"/>
+			 
+</Context>
