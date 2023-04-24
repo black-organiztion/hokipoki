@@ -6,7 +6,7 @@ public class Product {
 	private String category_id;
 	private String seller_id;
 	private String product_name; 
-	private String product_price;
+	private String product_price;  
 	private String product_date;
 	private String product_discount_price;
 	private String prodcut_view_count;
