@@ -42,11 +42,8 @@ public class MemberJoinAction implements Action {
 		}else {
 			forward =new ActionForward();
 			forward.setRedirect(true);
-			forward.setPath("./member/memberLogin.me");
-			
-		}
-		
-		
+			forward.setPath("./member/memberloginForm.jsp");			
+		}		
 		
 		return forward;
 	}

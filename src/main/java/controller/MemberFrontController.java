@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
 import member.action.MemberJoinAction;
+import member.action.MemberLoginAction;
 import vo.ActionForward;
 
 /**
@@ -42,28 +43,38 @@ public class MemberFrontController extends HttpServlet {
 	
 	private void doProcess(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		String command = request.getServletPath();
+		String RequestURI = request.getRequestURI();
+		String ContextPath = request.getContextPath();
+		String command = RequestURI.substring(ContextPath.length());
 		
 		System.out.println("command:"+command);
 		ActionForward forward = null;
 		Action action = null;
 		
-		if(command.equals("/member/memberJoinAction.me")) {
+		if(command.equals("/memberJoinAction.me")) {
 			action = new MemberJoinAction();
 			try {
 				forward = action.execute(request, response);
 			}catch(Exception e) {
 				e.printStackTrace();
 			}			
-		}else if(command.equals("/memberJoin.me")) {
+		}else if(command.contains("/memberJoin.me")) {
+			forward = new ActionForward();
+			forward.setRedirect(false);
+			forward.setPath("./member/memberjoinForm.jsp");	
+		}
+	else if(command.equals("/memberLogin.me")) {
 			forward = new ActionForward();
 			forward.setRedirect(false);
 			forward.setPath("./member/memberloginForm.jsp");
-		
-		}else if(command.equals("/memberLogin.me")) {
-			forward = new ActionForward();
-			forward.setRedirect(false);
-			forward.setPath("./member/memberloginForm.jsp");
+			
+		}else if(command.equals("/memberLoginAction.me")) {
+			action = new MemberLoginAction();
+			try {
+				forward = action.execute(request, response);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
 		}
 		
 		if(forward!=null) {

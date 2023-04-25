@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="" method="post">
+<form action="${pageContext.request.contextPath}/memberLoginAction.me" method="post">
 <label for="id"> 
 아이디<input type="text" id="id" name="id">
 </label>

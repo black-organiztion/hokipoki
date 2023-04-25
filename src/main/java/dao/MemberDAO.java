@@ -34,21 +34,29 @@ public class MemberDAO {
 		this.con = con;
 	}
 
-	/*
-	 * public String selectLogin(Member member) { String loginId = null; String sql
-	 * = "select member_id from member1 where member_id = ? and member_pw = ?";
-	 * 
-	 * try { pstmt = con.prepareStatement(sql); pstmt.setString(1,
-	 * member.getMember_id()); pstmt.setString(2, member.getMember_pw()); rs =
-	 * pstmt.executeQuery();
-	 * 
-	 * if (rs.next()) { loginId = rs.getString("member_id"); }
-	 * 
-	 * } catch (Exception e) { e.printStackTrace(); } finally { close(rs);
-	 * close(pstmt); } return loginId;
-	 * 
-	 * }
-	 */
+	public String selectLogin(Member member) {
+		String loginId = null;
+		String sql = "select member_id from member where member_id = ? and member_pw = ?";
+
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, member.getMember_id());
+			pstmt.setString(2, member.getMember_pw());
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				loginId = rs.getString("member_id");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return loginId;
+
+	}
 
 	public int insertMember(Member member) {
 
@@ -60,11 +68,11 @@ public class MemberDAO {
 			pstmt.setString(2, member.getMember_pw());
 			pstmt.setString(3, member.getMember_name());
 			pstmt.setString(4, member.getMember_tel());
-			pstmt.setString(5, member.getMember_email());			
+			pstmt.setString(5, member.getMember_email());
 			pstmt.setString(6, member.getMembership_id());
 			pstmt.setString(7, member.getRecommend_id());
-			System.out.println("pstmt:"+pstmt);
-			
+			System.out.println("pstmt:" + pstmt);
+
 			insertCount = pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -98,7 +106,7 @@ public class MemberDAO {
 	/*
 	 * public MemberBean selectMember(String id) { MemberBean member = null;
 	 * PreparedStatement pstmt = null; ResultSet rs = null; String sql =
-	 * "select * from member1 where member_id = ?"; try { pstmt =
+	 * "select * from member where member_id = ?"; try { pstmt =
 	 * con.prepareStatement(sql);
 	 * 
 	 * pstmt.setString(1, id); rs = pstmt.executeQuery(); if (rs.next()) { member =
@@ -118,7 +126,7 @@ public class MemberDAO {
 	 * public boolean MemberDelete(String id) { boolean deleteResult = false; int
 	 * count = 0;
 	 * 
-	 * String sql = "delete from member1 where member_id = ?";
+	 * String sql = "delete from member where member_id = ?";
 	 * 
 	 * try { pstmt = con.prepareStatement(sql); pstmt.setString(1, id); count =
 	 * pstmt.executeUpdate(); System.out.println("count:" + count); if (count > 0) {
@@ -134,7 +142,7 @@ public class MemberDAO {
 	/*
 	 * public boolean updateMember(Member member) { int count = 0; boolean modResult
 	 * = false; String sql =
-	 * "update from member1 set meber_name = ?, member_age = ?, member_gen = ?, member_email = ?,"
+	 * "update from member set meber_name = ?, member_age = ?, member_gen = ?, member_email = ?,"
 	 * ;
 	 * 
 	 * if (member.getMember_pw() != null) { sql += "member_pw = " +
