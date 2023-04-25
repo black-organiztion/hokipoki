@@ -16,7 +16,7 @@ import vo.ActionForward;
 /**
  * Servlet implementation class HokipokiFrontController
  */
-@WebServlet("*.do")
+@WebServlet("*.ad")
 public class adminFrontController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -41,11 +41,11 @@ public class adminFrontController extends HttpServlet {
     	Action action = null;
     	ActionForward forward = null;
     	
-    	if(command.equals("/adminLogin.do")) {
-    		forward = new ActionForward("./adminLogin.jsp", false);
+    	if(command.equals("/adminLogin.ad")) {
+    		forward = new ActionForward("./admin/adminLogin.jsp", false);
     	}
-    	else if(command.equals("/adminJoin.do")){
-    		forward = new ActionForward("./adminJoinForm.jsp", false);
+    	else if(command.equals("/adminJoin.ad")){
+    		forward = new ActionForward("./admin/adminJoinForm.jsp", false);
     	}
     	
     	

@@ -11,6 +11,6 @@
 			<a href="">회원가입</a>
 			
 		</nav>
-		<a href="adminLogin.do" class="btn btn-primary">호키포키 biz</a>
+		<a href="adminLogin.ad" class="btn btn-primary">호키포키 biz</a>
 	</div>
 </header>
