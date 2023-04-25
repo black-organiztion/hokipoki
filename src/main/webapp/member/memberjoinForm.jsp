@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="#" method="post">
+<form action="memberJoinAction.me" method="post">
 <label for="id">
 아이디<input type="text" id="id" name="id">  
 </label
@@ -31,8 +31,6 @@
 <label for="recommend_id">
 추천인 아이디<input type="text" id="recommend_id" name="recommend_id">
 </label>
-
-<input type="hidden" id="date" name="date">
 <input type="hidden" id="membership_id" name="membership_id" value="e">
 <input type="submit" value="회원가입">
 </form>
