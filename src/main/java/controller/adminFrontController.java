@@ -16,14 +16,14 @@ import vo.ActionForward;
 /**
  * Servlet implementation class HokipokiFrontController
  */
-@WebServlet("*.do")
-public class HokipokiFrontController extends HttpServlet {
+@WebServlet("*.ad")
+public class adminFrontController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public HokipokiFrontController() {
+    public adminFrontController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -41,7 +41,13 @@ public class HokipokiFrontController extends HttpServlet {
     	Action action = null;
     	ActionForward forward = null;
     	
-    	//if() {}
+    	if(command.equals("/adminLogin.ad")) {
+    		forward = new ActionForward("./admin/adminLogin.jsp", false);
+    	}
+    	else if(command.equals("/adminJoin.ad")){
+    		forward = new ActionForward("./admin/adminJoinForm.jsp", false);
+    	}
+    	
     	
     	//포워딩
     	if(forward != null) {
