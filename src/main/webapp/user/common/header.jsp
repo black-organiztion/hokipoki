@@ -7,8 +7,7 @@
 		<nav class="d-flex ms-auto">
 			<a href="#">메뉴1</a>
 			<a href="#">메뉴2</a>
-			<a href="#">메뉴3</a>
-			
+			<a href="#">메뉴3</a>			
 			<a href="${pageContext.request.contextPath}/memberLogin.me">로그인</a>			
 			<a href="${pageContext.request.contextPath}/memberJoin.me">회원가입</a>
 		</nav>
