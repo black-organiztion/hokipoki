@@ -15,8 +15,7 @@ public class JdbcUtil {
 			Context envCtx = (Context)initCtx.lookup("java:comp/env");
 			DataSource ds = (DataSource)envCtx.lookup("jdbc/hokipoki");
 			con = ds.getConnection();
-			con.setAutoCommit(false); //transaction 사용하려고
-			
+			con.setAutoCommit(false); //transaction 사용하려고		
 			
 		}catch(Exception e) {
 			e.printStackTrace();
