@@ -4,6 +4,9 @@
 <%
 String pageTitle = (String)request.getParameter("PAGETITLE");
 String contentPage = request.getParameter("CONTENTPAGE");
+
+pageTitle = "호키포키";
+
 %>
 <!DOCTYPE html>
 <html>
@@ -14,9 +17,9 @@ String contentPage = request.getParameter("CONTENTPAGE");
 </head>
 <body>
 <div id="wrap">
-	<jsp:include page="/user/common/header.jsp"></jsp:include>
+	<jsp:include page="/common/user/header.jsp"></jsp:include>
 	<jsp:include page="${pagefile eq null ? 'main.jsp':pagefile }"></jsp:include>
-	<jsp:include page="/user/common/footer.jsp"></jsp:include>
+	<jsp:include page="/common/user/footer.jsp"></jsp:include>
 </div>
 </body>
 </html>
