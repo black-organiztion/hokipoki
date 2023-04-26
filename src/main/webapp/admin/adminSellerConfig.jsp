@@ -9,5 +9,8 @@
 		${seller.seller_pw }<br>
 		${seller.seller_name }<br>
 		${seller.seller_number }
+		<c:if test="${seller.seller_author == 99 }">
+			<a href="adminSellerJoinCheck.ad?seller_id=${seller.seller_id}" class="btn btn-primary">승인</a>
+		</c:if>
 	</div>
 </c:forEach>

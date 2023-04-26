@@ -37,8 +37,8 @@ public class AdminDAO {
 			psmt = con.prepareStatement(sql);
 			psmt.setString(1, seller.getSeller_id());
 			psmt.setString(2, seller.getSeller_pw());
-			psmt.setString(3, seller.getSeller_number());
-			psmt.setString(4, seller.getSeller_name());
+			psmt.setString(3, seller.getSeller_name());
+			psmt.setString(4, seller.getSeller_number());
 			psmt.setInt(5, seller.getSeller_author());
 			
 			insertCount = psmt.executeUpdate();
@@ -121,6 +121,30 @@ public class AdminDAO {
 		
 		
 		return sellerList;
+	}
+
+	public int setSellerAuthor(String seller_id) {
+		int result = 0;
+		PreparedStatement psmt = null;
+		String sql = "UPDATE seller SET seller_author = 1 WHERE seller_id = ?";
+		
+		System.out.println(sql);
+		
+		try {
+			psmt = con.prepareStatement(sql);
+			psmt.setString(1, seller_id);
+			
+			result = psmt.executeUpdate();
+			
+		}catch(Exception e) {
+			System.out.println("판매자권한수정 오류:"+e);
+			
+		}finally{
+			close(psmt);
+		}
+		
+		
+		return result;
 	}
 
 	

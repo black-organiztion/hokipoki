@@ -88,6 +88,15 @@ public class AdminFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
     	}
+    	else if(command.equals("/adminSellerJoinCheck.ad")){
+    		action = new AdminSellerJoinCheckAction();
+    		try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
     	
     	
     	

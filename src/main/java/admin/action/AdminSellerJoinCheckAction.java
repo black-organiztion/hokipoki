@@ -8,11 +8,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import action.Action;
+import admin.svc.AdminSellerJoinCheckService;
 import admin.svc.AdminSellerListService;
 import vo.ActionForward;
 import vo.Seller;
 
-public class AdminSellerListAction implements Action {
+public class AdminSellerJoinCheckAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -33,17 +34,30 @@ public class AdminSellerListAction implements Action {
 			
 		}else {//권한이 있다면
 			
-			//판매자 리스트 가져오기(정렬순서  99->1, 오름차순)
-			AdminSellerListService adminSellerListService = new AdminSellerListService();
+			//파라미터 처리
+			String seller_id = request.getParameter("seller_id");
 			
-			ArrayList<Seller> sellerList = adminSellerListService.getSellerList();
+			//서비스 생성
+			AdminSellerJoinCheckService adminSellerJoinCheckService = new AdminSellerJoinCheckService();
 			
-			if(sellerList.size() > 0) {
-				request.setAttribute("sellerList", sellerList);
-				request.setAttribute("pagefile", "/admin/adminSellerConfig.jsp");
-				forward = new ActionForward("/admin/adminTemplate.jsp",false);
+			//회원가입 체크 여부
+			boolean isCheckSuccess = false;
+			isCheckSuccess = adminSellerJoinCheckService.setAuthor(seller_id);
+			
+			if(isCheckSuccess) {
+				forward = new ActionForward("adminSellerListAction.ad",true);
+			}else {
+				//회원가입 승인 실패
+				response.setContentType("text/html;charset=utf-8");
+				PrintWriter out = response.getWriter();
+				out.print("<script>");
+				out.print("alert('판매자 회원가입 승인에 실패하였습니다. 다시 시도해주세요');");
+				out.print("/adminSellerListAction.ad");
+				out.print("</script>");
 			}
 		}
+		
+		
 		
 		return forward;
 	}
