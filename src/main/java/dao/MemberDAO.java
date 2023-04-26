@@ -82,6 +82,24 @@ public class MemberDAO {
 		return insertCount;
 	}
 
+	public boolean idcheckMember(String id) {
+		String sql = "select member_id from member where member_id = "+id;
+		boolean idchkflag = false;
+		try {
+			pstmt = con.prepareStatement(sql);			
+			System.out.println("idcheckMember pstmt:" + pstmt);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				idchkflag=true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return idchkflag;
+	}
+
 	/*
 	 * public ArrayList<MemberBean> selectMemberList() { String sql =
 	 * "select * from member1"; ArrayList<MemberBean> memberList = new

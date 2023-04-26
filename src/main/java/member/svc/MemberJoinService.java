@@ -19,7 +19,7 @@ public class MemberJoinService {
 			if(insertCount>0) {
 				joinsuccess = true;
 				commit(con);
-			}
+				}
 			}catch(Exception e) {
 			System.out.println("MemberJoinService에서 오류발생");
 			e.printStackTrace();
