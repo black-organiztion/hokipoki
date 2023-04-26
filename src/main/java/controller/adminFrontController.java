@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import admin.action.adminJoinAction;
+import admin.action.adminLoginAction;
+import admin.action.adminSellerListAction;
 import vo.ActionForward;
 
 /**
@@ -46,6 +49,45 @@ public class adminFrontController extends HttpServlet {
     	}
     	else if(command.equals("/adminJoin.ad")){
     		forward = new ActionForward("./admin/adminJoinForm.jsp", false);
+    	}
+    	else if(command.equals("/adminLogout.ad")){
+    		request.getSession().invalidate();
+    		forward = new ActionForward("/adminLogin.ad", false);
+    	}
+    	else if(command.equals("/adminMain.ad")){
+    		request.setAttribute("pagefile", "/admin/adminMain.jsp");
+    		forward = new ActionForward("/admin/adminTemplate.jsp", false);
+    	}
+    	else if(command.equals("/adminStandby.ad")){
+    		forward = new ActionForward("./admin/adminStandby.jsp", false);
+    	}
+    	else if(command.equals("/adminJoinAction.ad")){
+    		action = new adminJoinAction();
+    		try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
+    	else if(command.equals("/adminLoginAction.ad")){
+    		action = new adminLoginAction();
+    		try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
+    	
+    	else if(command.equals("/adminSellerListAction.ad")){
+    		action = new adminSellerListAction();
+    		try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
     	}
     	
     	
