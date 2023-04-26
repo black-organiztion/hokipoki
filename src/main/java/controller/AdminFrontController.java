@@ -70,10 +70,8 @@ public class AdminFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
     	}
-    	
-    	/*
     	else if(command.equals("/adminLoginAction.ad")){
-    		action = new adminLoginAction();
+    		action = new AdminLoginAction();
     		try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
@@ -81,9 +79,8 @@ public class AdminFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
     	}
-    	
     	else if(command.equals("/adminSellerListAction.ad")){
-    		action = new adminSellerListAction();
+    		action = new AdminSellerListAction();
     		try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
@@ -92,7 +89,7 @@ public class AdminFrontController extends HttpServlet {
 			}
     	}
     	
-    	*/
+    	
     	
     	
     	//포워딩
