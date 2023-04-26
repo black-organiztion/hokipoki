@@ -11,22 +11,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import admin.action.adminJoinAction;
-import admin.action.adminLoginAction;
-import admin.action.adminSellerListAction;
+import admin.action.*;
+/*import admin.action.adminLoginAction;
+import admin.action.adminSellerListAction;*/
 import vo.ActionForward;
 
 /**
  * Servlet implementation class HokipokiFrontController
  */
 @WebServlet("*.ad")
-public class adminFrontController extends HttpServlet {
+public class AdminFrontController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public adminFrontController() {
+    public AdminFrontController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -62,7 +62,7 @@ public class adminFrontController extends HttpServlet {
     		forward = new ActionForward("./admin/adminStandby.jsp", false);
     	}
     	else if(command.equals("/adminJoinAction.ad")){
-    		action = new adminJoinAction();
+    		action = new AdminJoinAction();
     		try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
@@ -70,6 +70,8 @@ public class adminFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
     	}
+    	
+    	/*
     	else if(command.equals("/adminLoginAction.ad")){
     		action = new adminLoginAction();
     		try {
@@ -89,6 +91,8 @@ public class adminFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
     	}
+    	
+    	*/
     	
     	
     	//포워딩
