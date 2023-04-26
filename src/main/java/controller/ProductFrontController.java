@@ -1,11 +1,14 @@
 package controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import action.Action;
 
 /**
  * Servlet implementation class ProductFrontController
@@ -27,6 +30,10 @@ public class ProductFrontController extends HttpServlet {
 	 */
     private void doProcess(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
     	String command = request.getServletPath();
+    	System.out.println(command);
+    	
+    	Action action = null; 
+ 
     	
     }
     
