@@ -1,6 +1,6 @@
 package vo;
 
-public class Product_imgfile {
+public class Gongu_imgfile {
 	
 	private String img_id;
 	private String product_id;
