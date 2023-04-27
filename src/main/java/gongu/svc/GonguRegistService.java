@@ -1,4 +1,4 @@
-package product.svc;
+package gongu.svc;
 
 
 import static db.JdbcUtil.close;
@@ -8,20 +8,21 @@ import static db.JdbcUtil.rollback;
 
 import java.sql.Connection;
 
-import dao.ProductDAO;
-import vo.Product;
+import dao.GonguDAO;
+import vo.Gongu;
+import vo.Gongu_imgfile;
 
-public class ProductRegistService {
+public class GonguRegistService {
 
-	public boolean isRegistSuccess(Product product) {
+	public boolean isRegistSuccess(Gongu gongu) {
 		boolean isregistSuccess= false;
 		Connection con = null;
 		try {
 			con=getConnection();
-			ProductDAO productDAO = ProductDAO.getInstance();
-			productDAO.setConnection(con);
+			GonguDAO gonguDAO = GonguDAO.getInstance();
+			gonguDAO.setConnection(con);
 			
-			int insertCount = productDAO.insertProduct(product);
+			int insertCount = gonguDAO.insertGongu(gongu);
 			if(insertCount>0) {
 				commit(con);
 				isregistSuccess = true;				

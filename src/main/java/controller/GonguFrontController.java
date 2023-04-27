@@ -10,20 +10,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import product.action.ProductRegistAction;
+import gongu.action.GonguRegistAction;
 import vo.ActionForward;
 
 /**
  * Servlet implementation class ProductFrontController
  */
-@WebServlet("*.pro")
-public class ProductFrontController extends HttpServlet {
+@WebServlet("*.go")
+public class GonguFrontController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProductFrontController() {
+    public GonguFrontController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -39,14 +39,14 @@ public class ProductFrontController extends HttpServlet {
     	Action action = null;
     	ActionForward forward = null;
     	
-    	if(command.equals("/productRegist.pro")) {
-    		action = new ProductRegistAction();
+    	if(command.equals("/gonguRegist.go")) {
+    		action = new GonguRegistAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-    	}
+    	} 
     	
     	
     	

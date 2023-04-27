@@ -17,7 +17,25 @@ public class Gongu {
 	private String gongu_reserve;
 	private String gongu_min; 
 	private String gongu_caldate;
+	private String detail_img;
+	private String thumbail_img;
 	
+	public String getDetail_img() {
+		return detail_img;
+	}
+
+	public void setDetail_img(String detail_img) {
+		this.detail_img = detail_img;
+	}
+
+	public String getThumbail_img() {
+		return thumbail_img;
+	}
+
+	public void setThumbail_img(String thumbail_img) {
+		this.thumbail_img = thumbail_img;
+	}
+
 	public Gongu() {}
 
 	public int getGongu_id() {
@@ -138,6 +156,16 @@ public class Gongu {
 
 	public void setGongu_caldate(String gongu_caldate) {
 		this.gongu_caldate = gongu_caldate;
+	}
+
+	@Override
+	public String toString() {
+		return "Gongu [gongu_id=" + gongu_id + ", category=" + category + ", seller_id=" + seller_id + ", gongu_name="
+				+ gongu_name + ", gongu_price=" + gongu_price + ", gongu_discount_price=" + gongu_discount_price
+				+ ", gongu_date=" + gongu_date + ", gongu_view_count=" + gongu_view_count + ", gongu_status="
+				+ gongu_status + ", gongu_startdate=" + gongu_startdate + ", gongu_findate=" + gongu_findate
+				+ ", gongu_stock=" + gongu_stock + ", gongu_reserve=" + gongu_reserve + ", gongu_min=" + gongu_min
+				+ ", gongu_caldate=" + gongu_caldate + "]";
 	}
 
 	
