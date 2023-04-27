@@ -81,12 +81,9 @@
 	</div>		
 	<div class="memberinfo">		
 		구매자 성함:${membername}
-		구매자 이메일:${memberemail}
-		
+		구매자 이메일:${memberemail}		
 		* 남겨주신 정보로 공구 진행상황을 알려드립니다.
 	</div>	
-	
-
 	<div id="delivery">
 	배송정보 <br>
 	배송지<input type="text" id="sample4_postcode" placeholder="우편번호">

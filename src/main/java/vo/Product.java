@@ -2,14 +2,14 @@ package vo;
 
 public class Product {
 
-	private String product_id;
-	private String category_id;
+	private int product_id;
+	private String category;
 	private String seller_id;
 	private String product_name; 
 	private String product_price;  
-	private String product_date;
 	private String product_discount_price;
-	private String prodcut_view_count;
+	private String product_date;
+	private int prodcut_view_count;
 	private String product_status;
 	private String product_startdate;
 	private String product_findate;
@@ -18,17 +18,20 @@ public class Product {
 	private String product_min; 
 	private String product_caldate;
 	
-	public String getProduct_id() {
+	public Product() {}
+
+	
+	public int getProduct_id() {
 		return product_id;
 	}
-	public void setProduct_id(String product_id) {
+	public void setProduct_id(int product_id) {
 		this.product_id = product_id;
 	}
-	public String getCategory_id() {
-		return category_id;
+	public String getCategory() {
+		return category;
 	}
-	public void setCategory_id(String category_id) {
-		this.category_id = category_id;
+	public void setCategory(String category) {
+		this.category = category;
 	}
 	public String getSeller_id() {
 		return seller_id;
@@ -48,22 +51,22 @@ public class Product {
 	public void setProduct_price(String product_price) {
 		this.product_price = product_price;
 	}
-	public String getProduct_date() {
-		return product_date;
-	}
-	public void setProduct_date(String product_date) {
-		this.product_date = product_date;
-	}
 	public String getProduct_discount_price() {
 		return product_discount_price;
 	}
 	public void setProduct_discount_price(String product_discount_price) {
 		this.product_discount_price = product_discount_price;
 	}
-	public String getProdcut_view_count() {
+	public String getProduct_date() {
+		return product_date;
+	}
+	public void setProduct_date(String product_date) {
+		this.product_date = product_date;
+	}
+	public int getProdcut_view_count() {
 		return prodcut_view_count;
 	}
-	public void setProdcut_view_count(String prodcut_view_count) {
+	public void setProdcut_view_count(int prodcut_view_count) {
 		this.prodcut_view_count = prodcut_view_count;
 	}
 	public String getProduct_status() {
@@ -108,6 +111,10 @@ public class Product {
 	public void setProduct_caldate(String product_caldate) {
 		this.product_caldate = product_caldate;
 	}
+	
+	
+	
+	
 		
 	
 }
