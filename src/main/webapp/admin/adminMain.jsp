@@ -13,7 +13,7 @@
 		<h1>판매자 페이지 입니다.</h1>
 	</c:otherwise>
 </c:choose>
-<a href="adminGongguListAction.ad" class="btn btn-warning">공구관리</a>
-<a href="adminOrderListAction.ad" class="btn btn-success">주문관리</a>
-<a href="adminQnaListAction.ad" class="btn btn-danger">문의관리</a>
+<a href="gonguListAction.go" class="btn btn-warning">공구관리</a>
+<a href="orderListAction.or" class="btn btn-success">주문관리</a>
+<a href="qnaListAction.ad" class="btn btn-danger">문의관리</a>
 </div>

@@ -106,9 +106,7 @@ public class AdminFrontController extends HttpServlet {
     		if(forward.isRedirect()) {
     			response.sendRedirect(forward.getPath());
 	    	}else {
-	    		RequestDispatcher dispatcher = request.getRequestDispatcher(forward.getPath()); 
-				//데이터 넘겨줄것이 없는데 redirect아니고 dispatcher 쓴 이유? 경로때문에, 서블릿은 루트에서 실행시켜야함 //루트에서 안하면? 경로가 꼬일 수 있다 //화면과 페이지 이름을 매칭하기 위해(디스팻쳑로 보내면 url이 안바뀐다)
-				
+	    		RequestDispatcher dispatcher = request.getRequestDispatcher(forward.getPath()); 				
 				dispatcher.forward(request, response);
 	    	}
     	}

@@ -10,7 +10,7 @@ public class MemberOrder {
 	private int order_count;
 	private String order_end_date; 
 	private int order_price;
-	private char order_status;
+	private String order_status;
 	
 	
 	public int getOrder_id() {
@@ -61,10 +61,10 @@ public class MemberOrder {
 	public void setOrder_price(int order_price) {
 		this.order_price = order_price;
 	}
-	public char getOrder_status() {
+	public String getOrder_status() {
 		return order_status;
 	}
-	public void setOrder_status(char order_status) {
+	public void setOrder_status(String order_status) {
 		this.order_status = order_status;
 	}
 	

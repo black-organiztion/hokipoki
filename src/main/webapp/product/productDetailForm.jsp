@@ -1,7 +1,7 @@
  <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import ="vo.Product" %>    
-<%@ page import ="vo.Product_imgfile" %>    
+<%@ page import ="vo.Gongu" %>    
+<%@ page import ="vo.Gongu_imgfile" %>    
 <!DOCTYPE html>
 <html>
 <head>
