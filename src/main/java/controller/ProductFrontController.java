@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import product.action.ProductRegistAction;
+import vo.ActionForward;
 
 /**
  * Servlet implementation class ProductFrontController
@@ -29,11 +32,33 @@ public class ProductFrontController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
     private void doProcess(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+    	request.setCharacterEncoding("utf-8");
     	String command = request.getServletPath();
-    	System.out.println(command);
+    	System.out.println("command:"+command);
     	
-    	Action action = null; 
- 
+    	Action action = null;
+    	ActionForward forward = null;
+    	
+    	if(command.equals("/productRegist.pro")) {
+    		action = new ProductRegistAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+    	}
+    	
+    	
+    	
+    	if (forward != null) {
+			if (forward.isRedirect()) {
+				response.sendRedirect(forward.getPath());
+			} else {
+				RequestDispatcher dispatcher = request.getRequestDispatcher(forward.getPath());
+				dispatcher.forward(request, response);
+			}
+
+		}
     	
     }
     
