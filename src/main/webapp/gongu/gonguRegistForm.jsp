@@ -115,7 +115,7 @@ function getDate( element ) {
 				</label>
 		
 				<label for="originprice">원가
-					<input type="text" name="originprice" id="originprice">
+					<input type="text" name="originprice" id="originprice"> 
 				</label>	
 				<label for="shareprice">공구가
 					<input type="text" name="gonguprice" id="gonguprice">

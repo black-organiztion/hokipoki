@@ -34,7 +34,7 @@ public class GonguRegistAction implements Action {
 		String seller_id= (String)session.getAttribute("seller_id");		
 	
 		Gongu gongu = new Gongu();	
-		
+		 
 		gongu.setSeller_id(seller_id);
 		gongu.setCategory(multi.getParameter("category"));
 		gongu.setGongu_name(multi.getParameter("gonguname"));

@@ -30,7 +30,7 @@ public class GonguDAO {
 		PreparedStatement pstmt = null;
 		PreparedStatement pstmt2 = null;
 		try {
-			
+			 
 			String sql = "insert into gongu (category_name, seller_id, gongu_name, gongu_price,"
 					+ "gongu_discount_price, gongu_date,gongu_view_count,gongu_status,gongu_startdate,"
 					+ "gongu_findate, gongu_stock, gongu_reserve, gongu_min, gongu_caldate,detail_img,thumbnail_img"

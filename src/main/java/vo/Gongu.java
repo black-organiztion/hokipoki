@@ -10,7 +10,7 @@ public class Gongu {
 	private String gongu_discount_price;
 	private String gongu_date;
 	private int gongu_view_count;
-	private String gongu_status;
+	private String gongu_status; 
 	private String gongu_startdate;
 	private String gongu_findate;
 	private String gongu_stock; 

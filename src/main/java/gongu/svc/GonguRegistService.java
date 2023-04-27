@@ -15,7 +15,7 @@ import vo.Gongu_imgfile;
 public class GonguRegistService {
 
 	public boolean isRegistSuccess(Gongu gongu) {
-		boolean isregistSuccess= false;
+		boolean isregistSuccess= false; 
 		Connection con = null;
 		try {
 			con=getConnection();
