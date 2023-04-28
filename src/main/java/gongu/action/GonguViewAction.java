@@ -1,6 +1,5 @@
 package gongu.action;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,10 +16,10 @@ public class GonguViewAction implements Action {
 
 		int id = Integer.parseInt(request.getParameter("id"));
 		Gongu gongu = GonguViewService.getGonguView(id);
-		request.setAttribute("Gongu", gongu);
+		request.setAttribute("gongu", gongu);
 
 
-		forward = new ActionForward("dogView.jsp", false);
+		forward = new ActionForward("gongu/gonguView.jsp", false);
 
 		return forward;
 	}

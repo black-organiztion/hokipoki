@@ -2,23 +2,23 @@ package vo;
 
 public class Gongu {
 
-	private int gongu_id;
-	private String category;
-	private String seller_id;
-	private String gongu_name; 
-	private String gongu_price;  
-	private String gongu_discount_price;
-	private String gongu_date;
-	private int gongu_view_count;
-	private String gongu_status; 
-	private String gongu_startdate;
-	private String gongu_findate;
-	private String gongu_stock; 
-	private String gongu_reserve;
-	private String gongu_min; 
-	private String gongu_caldate;
-	private String detail_img;
-	private String thumbail_img;
+	public int gongu_id;
+	public String category;
+	public String seller_id;
+	public String gongu_name; 
+	public String gongu_price;  
+	public String gongu_discount_price;
+	public String gongu_date;
+	public int gongu_view_count;
+	public String gongu_status; 
+	public String gongu_startdate;
+	public String gongu_findate;
+	public String gongu_stock; 
+	public String gongu_reserve;
+	public String gongu_min; 
+	public String gongu_caldate;
+	public String detail_img;
+	public String thumbnail_img;
 	
 	public String getDetail_img() {
 		return detail_img;
@@ -28,12 +28,12 @@ public class Gongu {
 		this.detail_img = detail_img;
 	}
 
-	public String getThumbail_img() {
-		return thumbail_img;
+	public String getThumbnail_img() {
+		return thumbnail_img;
 	}
 
-	public void setThumbail_img(String thumbail_img) {
-		this.thumbail_img = thumbail_img;
+	public void setThumbnail_img(String thumbnail_img) {
+		this.thumbnail_img = thumbnail_img;
 	}
 
 	public Gongu() {}
@@ -165,8 +165,11 @@ public class Gongu {
 				+ ", gongu_date=" + gongu_date + ", gongu_view_count=" + gongu_view_count + ", gongu_status="
 				+ gongu_status + ", gongu_startdate=" + gongu_startdate + ", gongu_findate=" + gongu_findate
 				+ ", gongu_stock=" + gongu_stock + ", gongu_reserve=" + gongu_reserve + ", gongu_min=" + gongu_min
-				+ ", gongu_caldate=" + gongu_caldate + "]";
+				+ ", gongu_caldate=" + gongu_caldate + ", detail_img=" + detail_img + ", thumbnail_img=" + thumbnail_img
+				+ "]";
 	}
+
+	
 
 	
 	

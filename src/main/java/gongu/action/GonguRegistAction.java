@@ -49,7 +49,7 @@ public class GonguRegistAction implements Action {
 		gongu.setGongu_caldate(multi.getParameter("caldate"));
 		gongu.setDetail_img(multi.getFilesystemName("image"));
 		gongu.setGongu_caldate(multi.getParameter("caldate"));
-		gongu.setThumbail_img(multi.getFilesystemName("nailimage"));
+		gongu.setThumbnail_img(multi.getFilesystemName("nailimage"));
 		
 		
 		System.out.println("action에서 생성된 gongu객체 :"+gongu);

@@ -1,10 +1,11 @@
 package dao;
-import static db.JdbcUtil.*;
+import static db.JdbcUtil.close;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import vo.Gongu;
-import vo.Gongu_imgfile;
 
 public class GonguDAO {
 
@@ -28,7 +29,7 @@ public class GonguDAO {
 	public int insertGongu(Gongu gongu) {
 		int insertCount = 0;
 		PreparedStatement pstmt = null;
-		PreparedStatement pstmt2 = null;
+		
 		try {
 			 
 			String sql = "insert into gongu (category_name, seller_id, gongu_name, gongu_price,"
@@ -53,7 +54,7 @@ public class GonguDAO {
 			pstmt.setString(12,gongu.getGongu_min());
 			pstmt.setString(13,gongu.getGongu_caldate());
 			pstmt.setString(14,gongu.getDetail_img());
-			pstmt.setString(15,gongu.getThumbail_img());
+			pstmt.setString(15,gongu.getThumbnail_img());
 			
 			System.out.println("pstmt:"+pstmt);
 			
@@ -67,5 +68,37 @@ public class GonguDAO {
 		return insertCount;
 
 	}
-	
+
+	public Gongu selectgongu(int id) {
+		Gongu gongu = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = con.prepareStatement("select * from gongu where gongu_id = ?");
+			pstmt.setInt(1, id);
+			System.out.println(pstmt);			
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				gongu = new Gongu();
+				gongu.setGongu_id(Integer.parseInt(rs.getString("gongu_id")));
+				gongu.setSeller_id(rs.getString("seller_id"));
+				gongu.setCategory(rs.getString("category_name"));
+				gongu.setGongu_discount_price(rs.getString("gongu_discount_price"));
+				gongu.setGongu_startdate(rs.getString("gongu_startdate"));
+				gongu.setGongu_caldate(rs.getString("gongu_caldate"));
+				gongu.setThumbnail_img(rs.getString("thumbnail_img"));
+				gongu.setDetail_img(rs.getString("detail_img"));
+				gongu.setGongu_reserve(rs.getString("gongu_reserve"));
+				gongu.setGongu_min(rs.getString("gongu_min"));
+				System.out.println(gongu);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return gongu;
+
+	}
 }
