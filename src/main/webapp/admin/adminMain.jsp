@@ -14,6 +14,6 @@
 	</c:otherwise>
 </c:choose>
 <a href="gonguListAction.go" class="btn btn-warning">공구관리</a>
-<a href="orderListAction.or" class="btn btn-success">주문관리</a>
+<a href="adminOrderListAction.or" class="btn btn-success">주문관리</a>
 <a href="qnaListAction.ad" class="btn btn-danger">문의관리</a>
 </div>

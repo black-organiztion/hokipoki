@@ -43,13 +43,14 @@ public class OrderDAO {
 			
 			switch(loginAuthor) {
 			case 1: sql+="o.gongu_id = (SELECT gongu_id FROM gongu WHERE seller_id = '"+loginId+"')"; break;
-			default: sql+="o.member_id = '"+loginId+"')"; break;
+			default: sql+="o.member_id = '"+loginId+"'"; break;
 			}	
 		}
 		
 
 		try {
 			System.out.println(sql);
+			System.out.println(loginAuthor);
 			
 			psmt = con.prepareStatement(sql);
 			rs = psmt.executeQuery();
