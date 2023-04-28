@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
 import gongu.action.GonguRegistAction;
+import gongu.action.GonguViewAction;
 import vo.ActionForward;
 
 /**
@@ -46,7 +47,18 @@ public class GonguFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-    	} 
+    	}else if(command.equals("/gonguView.go")) {    		
+    		action = new GonguViewAction();
+			try {
+				forward = action.execute(request, response);
+//				request.setAttribute("pagefile", "/gongu/gonguView.jsp");
+//				forward.setRedirect(false);
+//				forward.setPath("/index.jsp");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+    	}
     	
     	
     	
