@@ -5,12 +5,12 @@
 	<div class="inr d-flex">
 		<a href="logo">호키포키</a>
 		<nav class="d-flex ms-auto">
-			<a href="#">메뉴1</a>
+			<a href="${pageContext.request.contextPath}/gonguList.go">메뉴1</a>
 			<a href="#">메뉴2</a>
 			<a href="#">메뉴3</a>
 			<c:choose>			
-				<c:when test="${id ne null }">
-					<a href="#">${id }</a>님 환영합니다.
+				<c:when test="${member_id ne null }">
+					<a href="#">${member_id }</a>님 환영합니다.
 				</c:when>
 				<c:otherwise>
 					<a href="${pageContext.request.contextPath}/memberLogin.me">로그인</a>

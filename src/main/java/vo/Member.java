@@ -1,6 +1,7 @@
 package vo;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 public class Member {
 
@@ -11,7 +12,7 @@ public class Member {
 	private String member_tel;  
 	private String member_email;
 	private String recommend_id;
-	private LocalDate member_date;
+	private Date member_date;
 	
 	public String getMember_id() {
 		return member_id;
@@ -55,10 +56,10 @@ public class Member {
 	public void setRecommend_id(String recommend_id) {
 		this.recommend_id = recommend_id;
 	}
-	public LocalDate getMember_date() {
+	public Date getMember_date() {
 		return member_date;
 	}
-	public void setMember_date(LocalDate member_date) {
+	public void setMember_date(Date member_date) {
 		this.member_date = member_date;
 	}
 	

@@ -5,7 +5,9 @@ import static db.JdbcUtil.close;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
 
 import javax.sql.DataSource;
 
@@ -99,6 +101,41 @@ public class MemberDAO {
 		}
 		return idchkflag;
 	}
+	
+	public Member returnMember(String member_id) {
+		Member member = null;
+		String sql = "select * from member where member_id = ?";
+
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, member_id);
+			System.out.println(pstmt);
+			rs = pstmt.executeQuery();	
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");  		      
+
+			if (rs.next()) {
+				member= new Member();
+				member.setMember_email(rs.getString("member_email"));
+				member.setMember_id(member_id);
+				member.setMember_name(rs.getString("member_name"));
+				member.setMember_pw(rs.getString("member_pw"));
+				member.setMember_tel(rs.getString("member_tel"));
+				member.setMember_date(format.parse(rs.getString("member_date")));
+				member.setMembership_id(rs.getString("membership_id"));
+				member.setRecommend_id(rs.getString("recommend_id"));			
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return member;
+	}
+
+
 
 	/*
 	 * public ArrayList<MemberBean> selectMemberList() { String sql =

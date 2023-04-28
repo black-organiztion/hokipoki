@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
 import gongu.action.GonguListAction;
+
 import gongu.action.GonguRegistAction;
 import gongu.action.GonguViewAction;
 import vo.ActionForward;
@@ -60,7 +61,7 @@ public class GonguFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 			
-    	}else if(command.equals("/gongu/gonguList.go")) {    		
+    	}else if(command.equals("/gonguList.go")) {    		
     		action = new GonguListAction();
 			try {
 				forward = action.execute(request, response);

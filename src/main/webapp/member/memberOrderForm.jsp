@@ -1,12 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix = "c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix = "c" uri="http://java.sun.com/jsp/jstl/core" %>  
+<%@ page import = "vo.Gongu" %>  
+<%@ page import = "vo.Delivery" %>  
+<%@ page import = "vo.Member" %>  
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<!--카카오 주소 -->
 <script>
     //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
     function sample4_execDaumPostcode() {
@@ -67,21 +71,23 @@
 </head>
 <body>
 <form action = "${pageContext.request.contextPath}/MemberOrderAction" method="post">
-	<div class="productinfo">
-		상품 카테고리:${categoryname }
-		상품명:${productname }
-		상품 가격:${productprice }
-		남은 공구일:${productfindate-sysdate }
+	<div class="gonguinfo">
+		상품 카테고리:${gongu.category }
+		<a href="${pageContext.request.contextPath}/gonguView.go?id=${gongu.gongu_id}">
+<img src="${pageContext.request.contextPath}/gongu/images/${gongu.thumbnail_img }" id="gonguImage">
+</a>
+		상품명:${gongu.gongu_name }
+		상품 가격(원가):${gongu.gongu_price }
+		남은 공구일:${gongu.gongu_findate - sysdate }
 	</div>
-	<div class="memberproductinfo">		
-		상품명:${productname }
-		상품수량:${count }
-		공구가격:${productprice }
-		예상배송일:${productcaldate+5 }
+	<div class="membergonguinfo">		
+		상품명:${gongu.gongu_name}
+		공구가격:${gongu.gongu_discount_price}
+		예상배송일:${gongu.gongu_caldate }
 	</div>		
 	<div class="memberinfo">		
-		구매자 성함:${membername}
-		구매자 이메일:${memberemail}		
+		구매자 성함:${member.member_name}
+		구매자 이메일:${member.member_email}		
 		* 남겨주신 정보로 공구 진행상황을 알려드립니다.
 	</div>	
 	<div id="delivery">

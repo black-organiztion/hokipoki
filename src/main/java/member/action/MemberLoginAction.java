@@ -29,7 +29,7 @@ public class MemberLoginAction implements Action {
 		boolean loginResult = memberLoginService.login(member);
 		if (loginResult) {
 			forward = new ActionForward();
-			session.setAttribute("id", member.getMember_id());
+			session.setAttribute("member_id", member.getMember_id());
 			forward.setRedirect(true);
 			forward.setPath("index.jsp");
 		} else {

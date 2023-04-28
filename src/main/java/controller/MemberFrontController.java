@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import member.action.GonguPurchaseAction;
 import member.action.MemberIdCheckAction;
 import member.action.MemberJoinAction;
 import member.action.MemberLoginAction;
@@ -85,7 +86,18 @@ public class MemberFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}
+		}else if(command.equals("/gonguPurchase.me")) {    		
+    		action = new GonguPurchaseAction();
+			try {
+				forward = action.execute(request, response);
+//				request.setAttribute("pagefile", "/gongu/gonguView.jsp");
+//				forward.setRedirect(false);
+//				forward.setPath("/index.jsp");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+    	}
 
 		if (forward != null) {
 			if (forward.isRedirect()) {

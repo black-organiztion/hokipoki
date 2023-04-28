@@ -130,4 +130,10 @@ public class GonguDAO {
 		return gonguList;
 	}
 
+	public Boolean purchase(String gongu_id) {
+		boolean purchaseflag = false;
+		
+		return purchaseflag ;
+	}
+
 }
