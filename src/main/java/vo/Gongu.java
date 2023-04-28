@@ -20,6 +20,28 @@ public class Gongu {
 	public String detail_img;
 	public String thumbnail_img;
 	
+	
+	public Gongu() {}
+	
+	public Gongu(int gongu_id, String category, String gongu_name, String gongu_price, String gongu_discount_price,
+			String gongu_status, String gongu_startdate, String gongu_findate, String gongu_reserve, String gongu_min,
+			String thumbnail_img) {
+		super();
+		this.gongu_id = gongu_id;
+		this.category = category;
+		this.gongu_name = gongu_name;
+		this.gongu_price = gongu_price;
+		this.gongu_discount_price = gongu_discount_price;
+		this.gongu_status = gongu_status;
+		this.gongu_startdate = gongu_startdate;
+		this.gongu_findate = gongu_findate;
+		this.gongu_reserve = gongu_reserve;
+		this.gongu_min = gongu_min;
+		this.thumbnail_img = thumbnail_img;
+	}
+
+
+
 	public String getDetail_img() {
 		return detail_img;
 	}
@@ -36,7 +58,7 @@ public class Gongu {
 		this.thumbnail_img = thumbnail_img;
 	}
 
-	public Gongu() {}
+	
 
 	public int getGongu_id() {
 		return gongu_id;

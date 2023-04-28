@@ -4,6 +4,7 @@ import static db.JdbcUtil.close;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import vo.Gongu;
 
@@ -101,4 +102,32 @@ public class GonguDAO {
 		return gongu;
 
 	}
+	public ArrayList<Gongu> selectGonguList() {
+		ArrayList<Gongu> gonguList = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = con.prepareStatement("select * from gongu");
+			rs = pstmt.executeQuery();
+			
+			
+			if (rs.next()) {
+				gonguList = new ArrayList<Gongu>();
+				do {
+					gonguList.add(new Gongu(Integer.parseInt(rs.getString("gongu_id")), rs.getString("category_name"),rs.getString("gongu_name"),
+							rs.getString("gongu_price"),rs.getString("gongu_discount_price"),rs.getString("gongu_status"),rs.getString("gongu_startdate"),
+							rs.getString("gongu_findate"),rs.getString("gongu_reserve"),rs.getString("gongu_min"),rs.getString("thumbnail_img")));
+				} while (rs.next());
+			}			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+
+		return gonguList;
+	}
+
 }
