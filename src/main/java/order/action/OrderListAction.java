@@ -2,6 +2,8 @@ package order.action;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,7 +12,6 @@ import javax.servlet.http.HttpSession;
 import action.Action;
 import order.svc.OrderListService;
 import vo.ActionForward;
-import vo.MemberOrder;
 
 public class OrderListAction implements Action {
 
@@ -36,7 +37,8 @@ public class OrderListAction implements Action {
 			OrderListService orderListService = new OrderListService();
 			
 			//주문리스트 가져오기			
-			ArrayList<MemberOrder> orderList = orderListService.getOrderList(loginId,loginAuthor);
+			//ArrayList<MemberOrder> orderList =
+			List<Object> orderList = orderListService.getOrderList(loginId,loginAuthor);
 			
 			if(orderList.size()>0) {
 				request.setAttribute("orderList", orderList);

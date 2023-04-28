@@ -2,6 +2,9 @@ package order.svc;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 
 import dao.OrderDAO;
 import vo.MemberOrder;
@@ -9,8 +12,8 @@ import static db.JdbcUtil.*;
 
 public class OrderListService {
 
-	public ArrayList<MemberOrder> getOrderList(String loginId, int loginAuthor) {
-		ArrayList<MemberOrder> orderList = null;
+	public List<Object> getOrderList(String loginId, int loginAuthor) {
+		List<Object> orderList = null;
 		
 		Connection con = null;
 		
