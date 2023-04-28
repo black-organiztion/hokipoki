@@ -3,7 +3,7 @@ package vo;
 public class Gongu_imgfile {
 	
 	private String img_id;
-	private String product_id;
+	private String gongu_id;
 	private String stored_file_name;
 	private String delegate_thumbnail;
 	 
@@ -13,11 +13,11 @@ public class Gongu_imgfile {
 	public void setImg_id(String img_id) {
 		this.img_id = img_id;
 	}
-	public String getProduct_id() {
-		return product_id; 
+	public String getgongu_id() {
+		return gongu_id; 
 	}
-	public void setProduct_id(String product_id) {
-		this.product_id = product_id;
+	public void setgongu_id(String gongu_id) {
+		this.gongu_id = gongu_id;
 	}
 	public String getStored_file_name() {
 		return stored_file_name;
