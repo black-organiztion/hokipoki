@@ -1,9 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix = "c" uri="http://java.sun.com/jsp/jstl/core" %>  
-<%@ page import = "vo.Gongu" %>  
-<%@ page import = "vo.Delivery" %>  
-<%@ page import = "vo.Member" %>  
+<%@ taglib prefix = "fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -70,7 +69,7 @@
 </script>
 </head>
 <body>
-<form action = "${pageContext.request.contextPath}/MemberOrderAction" method="post">
+<form action = "${pageContext.request.contextPath}/memberOrderAction.me" method="post">
 	<div class="gonguinfo">
 		상품 카테고리:${gongu.category }
 		<a href="${pageContext.request.contextPath}/gonguView.go?id=${gongu.gongu_id}">
@@ -111,18 +110,23 @@
 	사용가능한 쿠폰
 	포인트 
 	결제방법-->
-	주문상품 정보/총 ${count}개
+
 	
 	
 	
 	
 	</div>
 	<div>
-	원가 ${originprice}
-	공구 할인율 ${discount }
-	포인트 ${point }
-	포인트 잔액 ${userpoint}	
-	결제 금액 ${price}
+	원가 ${gongu.gongu_price }
+ 
+ 	할인율:<fmt:formatNumber value="${(gongu.gongu_price-gongu.gongu_discount_price)/gongu.gongu_price }" type="percent"/>
+	공구가격:${gongu.gongu_discount_price }
+	<c:set var="deliveryfee" value="0"/>
+	<c:if test="${gongu.gongu_discount_price < 50000}">
+	<c:set var="deliveryfee" value="2500"/>
+	</c:if>
+	결제 금액 ${gongu.gongu_discount_price + deliveryfee}
+
 	
 	<input type="submit" value="결제">
 	</div>

@@ -14,6 +14,7 @@ import member.action.GonguPurchaseAction;
 import member.action.MemberIdCheckAction;
 import member.action.MemberJoinAction;
 import member.action.MemberLoginAction;
+import member.action.MemberOrderAction;
 import vo.ActionForward;
 
 /**
@@ -88,6 +89,17 @@ public class MemberFrontController extends HttpServlet {
 			}
 		}else if(command.equals("/gonguPurchase.me")) {    		
     		action = new GonguPurchaseAction();
+			try {
+				forward = action.execute(request, response);
+//				request.setAttribute("pagefile", "/gongu/gonguView.jsp");
+//				forward.setRedirect(false);
+//				forward.setPath("/index.jsp");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+    	}else if(command.equals("/memberOrderAction.me")) {    		
+    		action = new MemberOrderAction();
 			try {
 				forward = action.execute(request, response);
 //				request.setAttribute("pagefile", "/gongu/gonguView.jsp");

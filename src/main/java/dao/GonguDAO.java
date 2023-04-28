@@ -82,6 +82,7 @@ public class GonguDAO {
 			if (rs.next()) {
 				gongu = new Gongu();
 				gongu.setGongu_id(Integer.parseInt(rs.getString("gongu_id")));
+				gongu.setGongu_price(rs.getString("gongu_price"));
 				gongu.setSeller_id(rs.getString("seller_id"));
 				gongu.setCategory(rs.getString("category_name"));
 				gongu.setGongu_discount_price(rs.getString("gongu_discount_price"));
