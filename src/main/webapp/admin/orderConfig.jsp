@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:forEach var="order" items="${orderList}" varStatus="">
-	<a href="orderDetailViewAction.or?order_id=${order.order_id }">
+	<a href="adminOrderDetailViewAction.or?order_id=${order.order_id }">
 		<div class="card list_item">
 			주문번호 : ${order.order_id}<br>
 			주문상태 :${order.order_status}<br>

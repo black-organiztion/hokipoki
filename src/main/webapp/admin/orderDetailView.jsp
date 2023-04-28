@@ -19,7 +19,5 @@
 	받는사람 : ${order.receiver_name }<br>
 	받는사람 연락처 : ${order.recevier_tel }<br>
 	주소 : ${order.zipcode} ${order.addr1 } ${order.addr2 }<br>
-	
-	
-	
+
 </div>

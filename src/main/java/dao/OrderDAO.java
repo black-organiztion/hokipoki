@@ -36,10 +36,10 @@ public class OrderDAO {
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
 		
-		String sql = "SELECT * FROM orders";
+		String sql = "SELECT * FROM orders o JOIN gongu g ON o.gongu_id = g.gongu_id JOIN member m ON o.member_id = m.member_id";
 		
 		if(loginAuthor != 0) {
-			sql+= " o JOIN gongu g ON o.gongu_id = g.gongu_id JOIN member m ON o.member_id = m.member_id WHERE ";
+			sql+= " WHERE ";
 			
 			switch(loginAuthor) {
 			case 1: sql+="o.gongu_id = (SELECT gongu_id FROM gongu WHERE seller_id = '"+loginId+"')"; break;
@@ -90,5 +90,54 @@ public class OrderDAO {
 		
 		
 		return orderList;
+	}
+
+	public Map<String, Object> selectOrder(String loginId, int loginAuthor, int order_id) {
+		Map<String,Object> order = new HashMap<>();
+		
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM orders o JOIN gongu g ON o.gongu_id = g.gongu_id "
+				+ "JOIN member m ON o.member_id = m.member_id "
+				+ "JOIN delivery d ON o.delivery_id = d.delivery_id "
+				+ "WHERE order_id = ?";
+		
+		try {
+			psmt = con.prepareStatement(sql);
+			psmt.setInt(1, order_id);
+			rs = psmt.executeQuery();
+			
+			System.out.println(sql);
+			
+			if(rs.next()) {
+				order.put("order_id", rs.getInt("order_id"));
+				order.put("order_status", rs.getString("order_status"));
+				order.put("order_date", rs.getString("order_date"));
+				order.put("gongu_name", rs.getString("gongu_name"));
+				order.put("order_count", rs.getInt("order_count"));
+				order.put("order_price", rs.getInt("order_price"));
+				order.put("member_name", rs.getString("member_name"));
+				order.put("member_tel", rs.getString("member_tel"));
+				order.put("member_email", rs.getString("member_email"));
+				order.put("receiver_name", rs.getString("receiver_name"));
+				order.put("receiver_tel", rs.getString("receiver_tel"));
+				order.put("zipcode", rs.getString("zipcode"));
+				order.put("addr1", rs.getString("addr1"));
+				order.put("addr2", rs.getString("addr2"));
+				
+			}
+			
+
+		}catch(Exception e) {
+			System.out.println("주문상세선택오류:"+e);
+			
+		}finally {
+			close(rs);
+			close(psmt);
+		}
+		
+		
+		
+		return order;
 	}
 }

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
 import admin.action.AdminSellerJoinCheckAction;
-import order.action.OrderDetailViewAction;
+import order.action.AdminOrderDetailViewAction;
 import order.action.AdminOrderListAction;
 import order.action.MemberOrderListAction;
 import vo.ActionForward;
@@ -62,8 +62,9 @@ public class OrderFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
     	}
-    	else if(command.equals("/orderDetailViewAction.or")){
-    		action = new OrderDetailViewAction();
+    	
+    	else if(command.equals("/adminOrderDetailViewAction.or")){
+    		action = new AdminOrderDetailViewAction();
     		try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
@@ -71,6 +72,16 @@ public class OrderFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
     	}
+    	/*
+    	else if(command.equals("/memberOrderDetailViewAction.or")){
+    		action = new MemberOrderDetailViewAction();
+    		try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}*/
     	
     	//포워딩
     	if(forward != null) {
