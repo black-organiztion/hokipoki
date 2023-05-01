@@ -44,7 +44,7 @@ public class GonguRegistAction implements Action {
 		gongu.setGongu_startdate(multi.getParameter("gongustart"));
 		gongu.setGongu_findate(multi.getParameter("gongufinish"));
 		gongu.setGongu_stock(multi.getParameter("gongustock"));
-		gongu.setGongu_reserve("-1");
+		gongu.setGongu_reserve("0");
 		gongu.setGongu_min(multi.getParameter("minGongu"));
 		gongu.setGongu_caldate(multi.getParameter("caldate"));
 		gongu.setDetail_img(multi.getFilesystemName("image"));
@@ -57,7 +57,7 @@ public class GonguRegistAction implements Action {
 		GonguRegistService GonguRegistService = new GonguRegistService();
 		boolean isRegistSuccess = GonguRegistService.isRegistSuccess(gongu);
 		if(isRegistSuccess) {
-			forward = new ActionForward("dogList.dog",true);
+			forward = new ActionForward("gonguList.go",true);
 			}else {
 			response.setContentType("text/html;charset=utf-8");
 			PrintWriter out = response.getWriter();

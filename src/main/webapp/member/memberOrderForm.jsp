@@ -114,10 +114,6 @@
 	포인트 
 	결제방법-->
 
-	
-	
-	
-	
 	</div>
 	<div>
 	원가 ${gongu.gongu_price }

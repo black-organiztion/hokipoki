@@ -161,16 +161,17 @@ public class OrderDAO {
 			e.printStackTrace();
 			}
 		
-		String sql = "insert into orders (gongu_id, member_id, delivery_id, order_date,"
-				+ "order_price, order_status) value(?,?,?,now(),?,?)";
-		
+		String sql = "insert into orders (gongu_id, member_id, delivery_id, order_date,order_price, order_status) values(?,?,?,now(),?,?)";
+		System.out.println(member_id);
 		try {
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, gongu_id);
 			pstmt.setString(2, member_id);
-			pstmt.setString(3, delivery_id);			
+			pstmt.setInt(3, 1);			
 			pstmt.setInt(4, gongu_discount_price);			
 			pstmt.setString(5, "0");
+			
+			System.out.println("인서트오더"+pstmt);
 			
 			insertcount=pstmt.executeUpdate(sql);
 			if(insertcount>0) {

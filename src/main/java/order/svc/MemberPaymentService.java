@@ -11,9 +11,9 @@ public class MemberPaymentService {
 		boolean orderresult = false;
 		try {
 			con = getConnection();
-			OrderDAO orderDAO = OrderDAO.getInstance();
-			orderDAO.setConnection(con);
-			
+			OrderDAO orderDAO = OrderDAO.getInstance();                      
+			orderDAO.setConnection(con);                                    
+			                                                                
 			orderresult= orderDAO.insertOrder(gongu_id, member_id, delivery_id);	
 			
 		}catch(Exception e) {
