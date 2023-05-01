@@ -15,6 +15,7 @@ import admin.action.AdminSellerJoinCheckAction;
 import order.action.AdminOrderDetailViewAction;
 import order.action.AdminOrderListAction;
 import order.action.MemberOrderListAction;
+import order.action.MemberPaymentAction;
 import vo.ActionForward;
 
 /**
@@ -71,7 +72,14 @@ public class OrderFrontController extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-    	}
+    	}else if(command.equals("/memberPayment.or")){
+    		action = new MemberPaymentAction();
+    		try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}}
     	/*
     	else if(command.equals("/memberOrderDetailViewAction.or")){
     		action = new MemberOrderDetailViewAction();

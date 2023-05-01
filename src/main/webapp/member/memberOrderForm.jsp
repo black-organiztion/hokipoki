@@ -69,13 +69,12 @@
 </script>
 </head>
 <body>
-<form action = "${pageContext.request.contextPath}/memberOrderAction.me" method="post">
+<form action = "${pageContext.request.contextPath}/memberPayment.or?gongu_id=${gongu.gongu_id}" method="post">
 	<div class="gonguinfo">
 		상품 카테고리:${gongu.category }
 		<a href="${pageContext.request.contextPath}/gonguView.go?id=${gongu.gongu_id}">
 <img src="${pageContext.request.contextPath}/gongu/images/${gongu.thumbnail_img }" id="gonguImage">
-</a>
-		상품명:${gongu.gongu_name }
+</a>상품명:${gongu.gongu_name }
 		상품 가격(원가):${gongu.gongu_price }
 		남은 공구일:${gongu.gongu_findate - sysdate }
 	</div>
@@ -91,6 +90,10 @@
 	</div>	
 	<div id="delivery">
 	배송정보 <br>
+	<c:if test="delivery.delivery_isdefault = 1"><!--저장된 배송지가 기본 배송지라면, -->
+
+	
+	</c:if>
 	배송지<input type="text" id="sample4_postcode" placeholder="우편번호">
 		<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
 		<input type="text" id="sample4_roadAddress" placeholder="도로명주소">
@@ -129,6 +132,7 @@
 
 	
 	<input type="submit" value="결제">
+	 
 	</div>
 	</form>
 </body>

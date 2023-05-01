@@ -10,10 +10,13 @@ public class GonguViewService {
 	public static Gongu getGonguView(int id) {
 		Gongu gongu=null;
 		Connection con=null;
+		int viewcount = 0;
+		
 		try {
 			con=getConnection();
 			GonguDAO gonguDAO = GonguDAO.getInstance();
 			gonguDAO.setConnection(con);
+			viewcount = gonguDAO.updateReadCount(id);
 			gongu=gonguDAO.selectgongu(id);
 		}catch(Exception e) {
 			e.printStackTrace();

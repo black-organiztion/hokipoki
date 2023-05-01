@@ -88,6 +88,7 @@ public class GonguDAO {
 				gongu.setGongu_discount_price(rs.getString("gongu_discount_price"));
 				gongu.setGongu_startdate(rs.getString("gongu_startdate"));
 				gongu.setGongu_caldate(rs.getString("gongu_caldate"));
+				gongu.setGongu_view_count(rs.getInt("gongu_view_count"));
 				gongu.setThumbnail_img(rs.getString("thumbnail_img"));
 				gongu.setDetail_img(rs.getString("detail_img"));
 				gongu.setGongu_reserve(rs.getString("gongu_reserve"));
@@ -109,8 +110,7 @@ public class GonguDAO {
 		ResultSet rs = null;
 		try {
 			pstmt = con.prepareStatement("select * from gongu");
-			rs = pstmt.executeQuery();
-			
+			rs = pstmt.executeQuery();	
 			
 			if (rs.next()) {
 				gonguList = new ArrayList<Gongu>();
@@ -130,11 +130,39 @@ public class GonguDAO {
 
 		return gonguList;
 	}
-
-	public Boolean purchase(String gongu_id) {
-		boolean purchaseflag = false;
+	
+	public int updateReserveCount(String gongu_id) {
+		int updateCount = 0;
+		PreparedStatement pstmt = null;
+		String sql = "update gongu set gongu_reserve = gongu_reserve +1 where gongu_id="+gongu_id;
+		try {
+			pstmt = con.prepareStatement(sql);
+			System.out.println("reserve count:"+pstmt);
+			updateCount = pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+				
+		return updateCount;
 		
-		return purchaseflag ;
 	}
+
+	public int updateReadCount(int gongu_id) {
+		PreparedStatement pstmt=null;
+		int updateCount=0;
+		String sql = "update gongu set gongu_view_count = gongu_view_count +1 where gongu_id="+gongu_id;
+		try {
+			pstmt = con.prepareStatement(sql);
+			System.out.println("조회수 업데이트"+pstmt);
+			updateCount = pstmt.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return updateCount;
+	} 
 
 }

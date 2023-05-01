@@ -24,6 +24,7 @@
 공구 썸네일 <img src="${pageContext.request.contextPath}/gongu/images/${gongu.thumbnail_img }">
 공구 상세페이지<img src="${pageContext.request.contextPath}/gongu/images/${gongu.detail_img }">
 현재 공구탑승한 인원 ${gongu.gongu_reserve }
+조회수 ${gongu.gongu_view_count }
 공구 달성률 ${(gongu.gongu_reserve/gongu.gongu_min)*100}
 
 
