@@ -18,17 +18,16 @@ public class GonguReserveUpdateService {
 		
 		int updateReserve = gonguDAO.updateReserveCount(gongu_id);
 		if(updateReserve>0) {
+			commit(con);
 			flag=true;
 		}
 		
 	}catch(Exception e) {
 		e.printStackTrace();
-	}
-	
-	
-	
-	return flag;
-	
+	}finally {
+		close(con);
+	}	
+	return flag;	
 	}
 
 }

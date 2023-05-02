@@ -66,10 +66,13 @@
             }
         }).open();
     }
+
+
 </script>
+
 </head>
 <body>
-<form action = "${pageContext.request.contextPath}/memberPayment.or?gongu_id=${gongu.gongu_id}" method="post">
+<form method="post">
 	<div class="gonguinfo">
 		상품 카테고리:${gongu.category }
 		<a href="${pageContext.request.contextPath}/gonguView.go?id=${gongu.gongu_id}">
@@ -88,34 +91,14 @@
 		구매자 이메일:${member.member_email}		
 		* 남겨주신 정보로 공구 진행상황을 알려드립니다.
 	</div>	
-	<div id="delivery">
-	배송정보 <br>
-	<c:if test="delivery.delivery_isdefault = 1"><!--저장된 배송지가 기본 배송지라면, -->
-
+	배송정보
+${delivery.delivery_id }
+	<input type="hidden" name="delivery_id" value="${delivery.delivery_id }">
+ 	배송지명:${delivery.delivery_name }
+	우편번호:${delivery.zip_code }
+	주소:${delivery.addr1 }
+	상세주소:${delivery.addr2 } 
 	
-	</c:if>
-	배송지<input type="text" id="sample4_postcode" placeholder="우편번호">
-		<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
-		<input type="text" id="sample4_roadAddress" placeholder="도로명주소">
-		<input type="text" id="sample4_jibunAddress" placeholder="지번주소">
-		<span id="guide" style="color:#999;display:none"></span>
-		<input type="text" id="sample4_detailAddress" placeholder="상세주소">
-		<input type="text" id="sample4_extraAddress" placeholder="참고항목"><br>
-	수령인 전화번호1
-		<input type="text" maxlength="3" name="tel1.1" id="tel1.1">
-		<input type="text" maxlength="4" name="tel1.2" id="tel1.2">
-		<input type="text" maxlength="4" name="tel1.3" id="tel1.3"><br>
-	수령인 전화번호2
-		<input type="text" maxlength="3" name="tel2.1" id="tel2.1">
-		<input type="text" maxlength="4" name="tel2.2" id="tel2.2">
-		<input type="text" maxlength="4" name="tel2.3" id="tel2.3">
-<!-- 	쿠폰/포인트
-	사용가능한 쿠폰
-	포인트 
-	결제방법-->
-
-	</div>
-	<div>
 	원가 ${gongu.gongu_price }
  
  	할인율:<fmt:formatNumber value="${(gongu.gongu_price-gongu.gongu_discount_price)/gongu.gongu_price }" type="percent"/>
@@ -127,9 +110,9 @@
 	결제 금액 ${gongu.gongu_discount_price + deliveryfee}
 
 	
-	<input type="submit" value="결제">
+	<input type="submit" value="결제" onclick="javascript: form.action='${pageContext.request.contextPath}/memberPayment.or?gongu_id=${gongu.gongu_id}';">
 	 
-	</div>
+
 	</form>
 </body>
 </html>

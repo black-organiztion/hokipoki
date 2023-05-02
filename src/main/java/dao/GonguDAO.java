@@ -141,6 +141,8 @@ public class GonguDAO {
 			updateCount = pstmt.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();
+		}finally {
+			close(pstmt);
 		}
 				
 		return updateCount;
@@ -163,6 +165,8 @@ public class GonguDAO {
 		}
 		
 		return updateCount;
-	} 
+	}
+	
+
 
 }

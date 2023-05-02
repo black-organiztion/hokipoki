@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import action.Action;
 import member.svc.GonguPurchaseService;
 import vo.ActionForward;
+import vo.Delivery;
 import vo.Gongu;
 import vo.Member;
 
@@ -23,13 +24,17 @@ public class GonguPurchaseAction implements Action {
 		
 		Gongu gongu = gonguPurchaseService.purchaseGongu(gongu_id);
 		Member member = gonguPurchaseService.purchaseMember(member_id);
-		
+		Delivery delivery = gonguPurchaseService.getDelivery(member_id);
 		if(gongu!=null) {
 			request.setAttribute("gongu", gongu);
 		}
 		
 		if(member!=null) {
 			request.setAttribute("member", member);
+		}
+		
+		if(delivery != null) {
+			request.setAttribute("delivery", delivery);			
 		}
 		forward = new ActionForward("/member/memberOrderForm.jsp", false);
 		

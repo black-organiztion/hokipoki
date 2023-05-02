@@ -21,7 +21,8 @@ public class MemberPaymentAction implements Action {
 		String gongu_id = request.getParameter("gongu_id");
 		String member_id = (String)session.getAttribute("member_id");
 	
-		String delivery_id = request.getParameter("delivery_id");
+		
+		int delivery_id = Integer.parseInt(request.getParameter("delivery_id"));
 		
 		MemberPaymentService memberPaymentService = new MemberPaymentService();
 		GonguReserveUpdateService gonguReserveUpdateService = new GonguReserveUpdateService();
