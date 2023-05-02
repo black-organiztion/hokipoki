@@ -161,9 +161,10 @@ public class OrderDAO {
 			e.printStackTrace();
 			}
 		
-		String sql = "insert into orders (gongu_id, member_id, delivery_id, order_date,order_price, order_status) values(?,?,?,now(),?,?)";
-		System.out.println(member_id);
+		String sql = "insert into orders (gongu_id, member_id, delivery_id, order_date, order_price, order_status) values (? , ? , ? , now() , ? , ? ) ";
+
 		try {
+		
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, gongu_id);
 			pstmt.setString(2, member_id);
@@ -176,8 +177,7 @@ public class OrderDAO {
 			insertcount=pstmt.executeUpdate(sql);
 			if(insertcount>0) {
 				insertflag = true;
-			}
-			
+			}			
 			
 		}catch(Exception e) {
 			e.printStackTrace();
