@@ -9,6 +9,7 @@
 			<a href="#">메뉴2</a>
 			<a href="#">메뉴3</a>
 			<c:if test="${loginId ne null }">
+				${sessionScope.loginId }님 환영합니다. 
 				<a href="adminLogout.ad">로그아웃</a>
 			</c:if>			
 			

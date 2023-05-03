@@ -22,7 +22,7 @@ public class AdminOrderListAction implements Action {
 		String loginId = (String)session.getAttribute("loginId");
 		int loginAuthor = (int)session.getAttribute("loginAuthor");
 		
-		if(loginId == null || (loginAuthor!=0 && loginAuthor!=1)) {//접근권한이 없음(관리자거나 판매자가 아니면 권한없음)
+		if(loginId == null || loginId.equals("") || (loginAuthor!=0 && loginAuthor!=1) ) {//접근권한이 없음(관리자거나 판매자가 아니면 권한없음)
 			//로그인 이동
 			response.setContentType("text/html;charset=utf-8");
 			PrintWriter out = response.getWriter();
@@ -46,6 +46,11 @@ public class AdminOrderListAction implements Action {
 				forward = new ActionForward("/admin/adminTemplate.jsp",false);
 				
 			}
+			/* 주문실패
+			 * else {
+			 * 
+			 * }
+			 */
 			
 		}
 		
