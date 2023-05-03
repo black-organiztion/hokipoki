@@ -167,6 +167,71 @@ public class GonguDAO {
 		return updateCount;
 	}
 	
+	public int updateGonguStatus(int gongu_id, String nextStatus) {
+		int updateCount = 0;
+		PreparedStatement psmt = null;
+		String sql = "UPDATE gongu SET gongu_status = ? WHERE gongu_id = ?";
+		
+		try {
+			psmt = con.prepareStatement(sql);
+			psmt.setString(1, nextStatus);
+			psmt.setInt(2, gongu_id);
+			System.out.println(psmt);
+
+			updateCount = psmt.executeUpdate();
+			
+		}catch(Exception e) {
+			System.out.println("공구상태업데이트오류:"+e);
+			e.printStackTrace();
+			
+		}finally {
+			close(psmt);
+		}
+		
+		return updateCount;
+	}
+
+	public ArrayList<String[]> startGongu() {
+		ArrayList<String[]> startList = new ArrayList<>();
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		String sql = "UPDATE gongu SET gongu_status = '4' WHERE gongu_status='2' && gongu_startdate = CURDATE()";
+		String sql2 = "SELECT gongu_id, gongu_name FROM gongu WHERE gongu_status = '4' && gongu_startdate = CURDATE()";
+		
+		try {
+			psmt = con.prepareStatement(sql);
+			int startCount = psmt.executeUpdate();
+			if(startCount>0) {
+				psmt = con.prepareStatement(sql2);
+				rs = psmt.executeQuery();
+				
+				if(rs.next()) {
+					do {
+						String[] temp = {"",""} ;
+						temp[0] = rs.getString("gongu_id");
+						temp[1] = rs.getString("gongu_name");
+						startList.add(temp);
+						
+					}while(rs.next());
+					
+				}
+				
+			}else {
+				System.out.println("오늘 게시할 공구가 없습니다.");
+			}
+			
+		}catch(Exception e) {
+			System.out.println("공구시작오류:"+e);
+			
+		}finally {
+			close(con);
+		}
+		
+		return startList;
+	}
+	
+	
+	
 
 
 }

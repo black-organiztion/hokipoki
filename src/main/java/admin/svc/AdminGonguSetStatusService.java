@@ -19,7 +19,7 @@ public class AdminGonguSetStatusService {
 			GonguDAO gonguDAO = GonguDAO.getInstance();
 			gonguDAO.setConnection(con);
 			
-			/*
+			
 			int updateCount = gonguDAO.updateGonguStatus(gongu_id, nextStatus);
 
 			if(updateCount > 0) {
@@ -28,7 +28,7 @@ public class AdminGonguSetStatusService {
 				
 			}else {
 				rollback(con);
-			}*/
+			}
 			
 			
 		}catch(Exception e) {
@@ -52,7 +52,7 @@ public class AdminGonguSetStatusService {
 			con = getConnection();
 			GonguDAO gonguDAO = GonguDAO.getInstance();
 			gonguDAO.setConnection(con);
-			/*
+			
 			startList = gonguDAO.startGongu();
 
 			if(startList.size() > 0) {
@@ -60,7 +60,7 @@ public class AdminGonguSetStatusService {
 				
 			}else {
 				rollback(con);
-			}*/
+			}
 			
 			
 		}catch(Exception e) {
