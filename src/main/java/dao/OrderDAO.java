@@ -1,6 +1,6 @@
 package dao;
 
-import static db.JdbcUtil.close;
+import static db.JdbcUtil.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -99,6 +99,7 @@ public class OrderDAO {
 		Map<String, Object> order = new HashMap<>();
 
 		PreparedStatement psmt = null;
+		
 		ResultSet rs = null;
 		String sql = "SELECT * FROM orders o JOIN gongu g ON o.gongu_id = g.gongu_id "
 				+ "JOIN member m ON o.member_id = m.member_id " + "JOIN delivery d ON o.delivery_id = d.delivery_id "
@@ -138,51 +139,49 @@ public class OrderDAO {
 		}
 
 		return order;
-	}	
-	
+	}
 
-	public boolean insertOrder(String gongu_id, String member_id, String delivery_id) {
-		PreparedStatement pstmt = null;
+	public boolean insertToOrder(String gongu_id, String member_id, int delivery_id) {
+		boolean flag = false;
 		ResultSet rs = null;
-		boolean insertflag = false;
-		int insertcount = 0;
-		int gongu_discount_price=0;
-		
-		String sqls = "select gongu_discount_price from gongu where gongu_id="+gongu_id;
-	
-		try{
-			pstmt=con.prepareStatement(sqls);
-			rs = pstmt.executeQuery();
+		int price = 0;
+		PreparedStatement pstmt = null;		
+		try {
+			String sql="select gongu_discount_price from gongu where gongu_id = "+gongu_id;
+			pstmt=con.prepareStatement(sql);
+			rs=pstmt.executeQuery();
 			if(rs.next()) {
-				gongu_discount_price = rs.getInt(1);			
-			}
-			System.out.println("gongu_discount_price:"+gongu_discount_price);
+			price=rs.getInt(1);}
 		}catch(Exception e) {
 			e.printStackTrace();
-			}
+		}finally {
+			close(rs);
+			close(pstmt);			
+		}
 		
-		String sql = "insert into orders (gongu_id, member_id, delivery_id, order_date, order_price, order_status) values (? , ? , ? , now() , ? , ? ) ";
-
+		int test = 0;
+		
+		String sql = "insert into orders (gongu_id, member_id, delivery_id, order_date, order_count, order_price, order_status) values(?,?,?,now(),default,?,'0')";
 		try {
-		
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, gongu_id);
 			pstmt.setString(2, member_id);
-			pstmt.setInt(3, 1);			
-			pstmt.setInt(4, gongu_discount_price);			
-			pstmt.setString(5, "0");
+			pstmt.setInt(3, delivery_id);
+			pstmt.setInt(4, price);
+			test=pstmt.executeUpdate();
+			if(test>0) {
+				flag = true;
+			}
 			
-			System.out.println("인서트오더"+pstmt);
-			
-			insertcount=pstmt.executeUpdate(sql);
-			if(insertcount>0) {
-				insertflag = true;
-			}			
-			
+			System.out.println(pstmt);			
 		}catch(Exception e) {
 			e.printStackTrace();
+		}finally {
+			close(pstmt);
 		}
+		return flag;
+	}	
+	
 
-		return insertflag;
-	}
+
 }
