@@ -41,7 +41,7 @@ public class GonguDAO {
 			
 	
 			pstmt.setString(1,gongu.getCategory()); 
-			pstmt.setString(2,"dummy seller id");
+			pstmt.setString(2,gongu.getSeller_id());
 			pstmt.setString(3,gongu.getGongu_name());
 			pstmt.setString(4,gongu.getGongu_price());
 			pstmt.setString(5,gongu.getGongu_discount_price());
@@ -93,6 +93,8 @@ public class GonguDAO {
 				gongu.setDetail_img(rs.getString("detail_img"));
 				gongu.setGongu_reserve(rs.getString("gongu_reserve"));
 				gongu.setGongu_min(rs.getString("gongu_min"));
+				gongu.setGongu_status(rs.getString("gongu_status"));
+				
 				System.out.println(gongu);
 			}
 		} catch (Exception e) {
@@ -129,6 +131,11 @@ public class GonguDAO {
 		}
 
 		return gonguList;
+	}
+	
+	public ArrayList<Gongu> selectGonguList(String loginId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	public int updateReserveCount(String gongu_id) {
@@ -193,17 +200,20 @@ public class GonguDAO {
 
 	public ArrayList<String[]> startGongu() {
 		ArrayList<String[]> startList = new ArrayList<>();
+		
 		PreparedStatement psmt = null;
+		PreparedStatement psmt2 = null;
 		ResultSet rs = null;
 		String sql = "UPDATE gongu SET gongu_status = '4' WHERE gongu_status='2' && gongu_startdate = CURDATE()";
 		String sql2 = "SELECT gongu_id, gongu_name FROM gongu WHERE gongu_status = '4' && gongu_startdate = CURDATE()";
 		
 		try {
 			psmt = con.prepareStatement(sql);
+			System.out.println(con);
 			int startCount = psmt.executeUpdate();
 			if(startCount>0) {
-				psmt = con.prepareStatement(sql2);
-				rs = psmt.executeQuery();
+				psmt2 = con.prepareStatement(sql2);
+				rs = psmt2.executeQuery();
 				
 				if(rs.next()) {
 					do {
@@ -224,11 +234,14 @@ public class GonguDAO {
 			System.out.println("공구시작오류:"+e);
 			
 		}finally {
-			close(con);
+			close(psmt2);
+			close(psmt);
 		}
 		
 		return startList;
 	}
+
+	
 	
 	
 	

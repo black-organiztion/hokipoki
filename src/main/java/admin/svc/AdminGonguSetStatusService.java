@@ -50,6 +50,7 @@ public class AdminGonguSetStatusService {
 		
 		try {
 			con = getConnection();
+			//System.out.println(con);
 			GonguDAO gonguDAO = GonguDAO.getInstance();
 			gonguDAO.setConnection(con);
 			
@@ -65,6 +66,7 @@ public class AdminGonguSetStatusService {
 			
 		}catch(Exception e) {
 			System.out.println("공구진행시작오류:"+e);
+			e.printStackTrace();
 			rollback(con);
 			
 		}finally {

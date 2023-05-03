@@ -50,6 +50,10 @@ public class GonguFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+    	}else if(command.equals("/gonguRegistForm.go")) {    		
+    		request.setAttribute("pagefile", "/gongu/gonguRegistForm.jsp");
+    		forward = new ActionForward("./admin/adminTemplate.jsp", false);
+			
     	}else if(command.equals("/gonguView.go")) {    		
     		action = new GonguViewAction();
 			try {

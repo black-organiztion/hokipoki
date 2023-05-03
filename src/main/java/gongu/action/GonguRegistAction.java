@@ -31,7 +31,7 @@ public class GonguRegistAction implements Action {
 		MultipartRequest multi = new MultipartRequest(request, realFolder, maxSize, encoding, new DefaultFileRenamePolicy());
 		
 		HttpSession session = request.getSession();
-		String seller_id= (String)session.getAttribute("seller_id");		
+		String seller_id= (String)session.getAttribute("loginId");		
 	
 		Gongu gongu = new Gongu();	
 		 

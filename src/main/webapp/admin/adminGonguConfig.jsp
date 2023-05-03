@@ -14,9 +14,15 @@
 	<li>종료 : 공구마감일이 되었거나 공구 목표 달성으로 인해 공구가 종료된 상태</li>
 </ul>
 </div>
-<div class="">
-승인된 공구 일괄 게시 <a href="adminGonguStartAction.ad" class="btn btn-primary">게시</a>
-</div>
+<c:if test="${sessionScope.loginId eq 'system' || sessionScope.loginAuthor eq 0 }">
+	<div class="">
+	승인된 공구 일괄 게시 <a href="adminGonguStartAction.ad" class="btn btn-primary">게시</a>
+	</div>
+</c:if>
+<c:if test="${sessionScope.loginAuthor eq 1 }">
+	<a href="gonguRegistForm.go" class="btn btn-primary">공구등록</a>
+</c:if>
+
 <div class="list">
 <c:forEach var="gongu" items="${gonguList}" varStatus="">
 	<a href="adminGonguDetailViewAction.ad?gongu_id=${gongu.gongu_id}">
