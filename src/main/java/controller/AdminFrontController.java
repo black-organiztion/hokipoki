@@ -97,6 +97,44 @@ public class AdminFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
     	}
+    	else if(command.equals("/adminGonguListAction.ad")){
+    		action = new AdminGonguListAction();
+    		try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
+    	else if(command.equals("/adminGonguDetailViewAction.ad")){
+    		action = new AdminGonguDetailViewAction();
+    		try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
+    	else if(command.equals("/adminGonguSetStatus.ad")){
+    		action = new AdminGonguSetStatusAction();
+    		try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
+    	else if(command.equals("/adminGonguStartAction.ad")){
+    		action = new AdminGonguStartAction();
+    		try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
+    	
+    	
     	
     	
     	

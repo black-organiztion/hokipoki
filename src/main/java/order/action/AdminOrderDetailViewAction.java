@@ -23,7 +23,7 @@ public class AdminOrderDetailViewAction implements Action {
 		int loginAuthor = (int)session.getAttribute("loginAuthor");
 		int order_id = Integer.parseInt(request.getParameter("order_id"));
 		
-		if(loginId == null || (loginAuthor!=0 && loginAuthor!=1)) {//접근권한이 없음(관리자거나 판매자가 아니면 권한없음)
+		if(loginId == null || loginId.equals("") || (loginAuthor!=0 && loginAuthor!=1)) {//접근권한이 없음(관리자거나 판매자가 아니면 권한없음)
 			//로그인 이동
 			response.setContentType("text/html;charset=utf-8");
 			PrintWriter out = response.getWriter();
@@ -40,7 +40,8 @@ public class AdminOrderDetailViewAction implements Action {
 			//주문정보 가져오기			
 			Map<String,Object> order = orderDetailViewService.getOrderDetail(loginId,loginAuthor,order_id);
 			
-			if(order.size()>0) {
+			if(order.size()>0) {//주문상세불러오기 성공
+				
 				request.setAttribute("order", order);
 				request.setAttribute("pagefile", "/admin/orderDetailView.jsp");
 				forward = new ActionForward("/admin/adminTemplate.jsp",false);

@@ -20,12 +20,14 @@ public class MemberOrderListAction implements Action {
 		
 		//id 파라미터 받아서 세션에 저장
 		String member_id = request.getParameter("member_id");
+		
+		 
 		session.setAttribute("loginId", member_id);
 		
 		String loginId = (String)session.getAttribute("loginId");
 		int loginAuthor = 10; //일반회원은 무조건 10
 		
-		if(loginId == null) {//로그인 세션 체크
+		if(loginId == null || loginId.equals("")) {//로그인 세션 체크
 			//로그인 이동
 			response.setContentType("text/html;charset=utf-8");
 			PrintWriter out = response.getWriter();
