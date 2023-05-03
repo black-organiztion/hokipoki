@@ -1,5 +1,7 @@
 package order.action;
 
+import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -32,6 +34,13 @@ public class MemberPaymentAction implements Action {
 		
 		if(reserveflag && paymentflag) {
 			return forward;
+		}else {
+			PrintWriter out = response.getWriter();
+			
+			out.println("<script>");
+			out.println("alert('결제 실패')");
+			out.println("history.back()");
+			out.println("</script>");
 		}
 		
 		

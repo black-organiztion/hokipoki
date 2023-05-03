@@ -62,12 +62,19 @@ public class DeliveryDAO {
 		
 	}
 
-	public Delivery returndelivery(String member_id) {
+	public Delivery returndelivery(String member_id, String isdefault) {
 		Delivery delivery = null;
 		ResultSet rs = null;
+		String sql = "";
+		
+		
 		PreparedStatement pstmt = null;
-		String sql = "select * from delivery where member_id = ? and isdefault = '1'";
-
+		if(isdefault.equals("1")) {
+			sql = "select * from delivery where member_id = ? and isdefault = '1'";			
+		}else{
+			sql = "select * from delivery where delivery_id = select(max(delivery_id) from delivery where member_id = ? and isdefault = '0')";			
+			
+		}
 		
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -87,6 +94,7 @@ public class DeliveryDAO {
 				delivery.setZip_code(rs.getString(8));
 				delivery.setAddr1(rs.getString(9));
 				delivery.setAddr2(rs.getString(10));
+				System.out.println(delivery);
 			}
 
 		} catch (Exception e) {

@@ -72,6 +72,15 @@ public class Delivery {
 	}
 	public void setAddr2(String addr2) {
 		this.addr2 = addr2;
+	}
+	@Override
+	public String toString() {
+		return "Delivery [delivery_id=" + delivery_id + ", member_id=" + member_id + ", isdefault=" + isdefault
+				+ ", delivery_name=" + delivery_name + ", receiver_name=" + receiver_name + ", receiver_tel="
+				+ receiver_tel + ", receiver_tel2=" + receiver_tel2 + ", zip_code=" + zip_code + ", addr1=" + addr1
+				+ ", addr2=" + addr2 + "]";
 	}	
+	
+	
 	
 }

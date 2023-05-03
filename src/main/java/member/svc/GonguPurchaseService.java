@@ -57,7 +57,7 @@ public class GonguPurchaseService {
 	}
 
 
-	public Delivery getDelivery(String member_id) {
+	public Delivery getDelivery(String member_id,String isdefault) {
 		
 		Connection con = null;
 		Delivery delivery = null;
@@ -65,7 +65,7 @@ public class GonguPurchaseService {
 			con=getConnection();
 			DeliveryDAO deliveryDAO = DeliveryDAO.getInstance();			
 			deliveryDAO.setConnection(con);
-			delivery =deliveryDAO.returndelivery(member_id);			
+			delivery =deliveryDAO.returndelivery(member_id,isdefault);			
 		
 		}catch(Exception e) {
 			e.printStackTrace();

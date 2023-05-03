@@ -130,8 +130,7 @@ function getDate( element ) {
 				
 				<label for="mingongu">최소수량
 					<input type="text" name="minGongu" id="mingongu">
-				</label>
-				
+				</label>				
 				
 				<label for="datepicker_start">
 					<p>계산마감일<input type="text" id="datepicker_start" name="caldate"></p>

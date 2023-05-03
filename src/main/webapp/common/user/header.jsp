@@ -10,7 +10,8 @@
 			<a href="#">메뉴3</a>
 			<c:choose>			
 				<c:when test="${member_id ne null }">
-					<a href="#">${member_id }</a>님 환영합니다.
+					<a href="${pageContext.request.contextPath}/myInfo.me">${member_id }</a>님 환영합니다.
+					<a href="${pageContext.request.contextPath}/memberLogout.me">로그아웃</a>
 				</c:when>
 				<c:otherwise>
 					<a href="${pageContext.request.contextPath}/memberLogin.me">로그인</a>

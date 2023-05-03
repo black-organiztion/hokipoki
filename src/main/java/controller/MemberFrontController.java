@@ -10,10 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import delivery.action.AddDeliveryAction;
 import member.action.GonguPurchaseAction;
-import member.action.MemberIdCheckAction;
 import member.action.MemberJoinAction;
 import member.action.MemberLoginAction;
+import member.action.MemberLogoutAction;
+import member.action.MyInfoAction;
 import vo.ActionForward;
 
 /**
@@ -79,13 +81,13 @@ public class MemberFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else if (command.equals("/memberIdCheckAction.me")) {
-			action = new MemberIdCheckAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+//		}else if (command.equals("/memberIdCheckAction.me")) {
+//			action = new MemberIdCheckAction();
+//			try {
+//				forward = action.execute(request, response);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
 		}else if(command.equals("/gonguPurchase.me")) {    		
     		action = new GonguPurchaseAction();
 			try {
@@ -96,11 +98,41 @@ public class MemberFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
-    	
+		}
+			else if(command.equals("/myInfo.me")) {    		
+	    		action = new MyInfoAction();
+				try {
+					forward = action.execute(request, response);
+//					request.setAttribute("pagefile", "/gongu/gonguView.jsp");
+//					forward.setRedirect(false);
+//					forward.setPath("/index.jsp");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}else if(command.equals("/memberLogout.me")) {    		
+		    		action = new MemberLogoutAction();
+					try {
+						forward = action.execute(request, response);
+//						request.setAttribute("pagefile", "/gongu/gonguView.jsp");
+//						forward.setRedirect(false);
+//						forward.setPath("/index.jsp");
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					}else if(command.equals("/addDelivery.me")) {    		
+			    		action = new AddDeliveryAction();
+						try {
+							forward = action.execute(request, response);
+//							request.setAttribute("pagefile", "/gongu/gonguView.jsp");
+//							forward.setRedirect(false);
+//							forward.setPath("/index.jsp");
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+				
 			
     	}
-
+		
 		if (forward != null) {
 			if (forward.isRedirect()) {
 				response.sendRedirect(forward.getPath());

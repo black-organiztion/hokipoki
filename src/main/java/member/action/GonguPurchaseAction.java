@@ -20,11 +20,13 @@ public class GonguPurchaseAction implements Action {
 		HttpSession session = request.getSession();
 		int gongu_id = Integer.parseInt(request.getParameter("gongu_id"));
 		String member_id = (String)session.getAttribute("member_id");
+		String isdefault = request.getParameter("isdefault");
+		System.out.println("넘어온isdefault:"+isdefault);
 		GonguPurchaseService gonguPurchaseService = new GonguPurchaseService();
 		
 		Gongu gongu = gonguPurchaseService.purchaseGongu(gongu_id);
 		Member member = gonguPurchaseService.purchaseMember(member_id);
-		Delivery delivery = gonguPurchaseService.getDelivery(member_id);
+		Delivery delivery = gonguPurchaseService.getDelivery(member_id,isdefault);
 		if(gongu!=null) {
 			request.setAttribute("gongu", gongu);
 		}

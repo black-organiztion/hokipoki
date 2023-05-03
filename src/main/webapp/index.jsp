@@ -6,6 +6,7 @@ String pageTitle = (String)request.getParameter("PAGETITLE");
 String contentPage = request.getParameter("CONTENTPAGE");
 pageTitle = "호키포키";
 %>
+
 <!DOCTYPE html>
 <html>
 <head>

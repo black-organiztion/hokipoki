@@ -1,12 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="vo.Gongu" %>        
+<%@ taglib prefix = "c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-
 <html>
 <head>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <!--카카오 주소 -->
 <script>
+
+function selectAddr(f){
+	
+	alert(f.deliveryname.value);
+	opener.document.getElementById("delivery_name").value=f.deliveryname.value;
+	opener.document.getElementById("zip_code").value=f.sample4_postcode.value;
+	window.close();
+}
+
     //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
     function sample4_execDaumPostcode() {
         new daum.Postcode({
@@ -63,68 +73,16 @@
         }).open();
     }
 
-}
-var chkId=false;
-var idCheck;
-function chkForm(f){
-   if(!chkId || idcheck!=f.id.value.trim()){
-      alert("아이디 중복을 확인하세요.");
-      return false;
-   }
-   
-   if(f.pw.value.trim()==""){
-      alert('비밀번호를 입력하세요.');
-      f.pw.focus();
-      
-      return false;
-      
-   }
-   if(f.pw.value.trim()!=f.pw.value.trim()){
-      alert('비밀번호가 일치하지 않습니다.');
-      f.pw.value="";
-      f.passChk.value="";
-      f.pw.focus();
-      return false;
-   }
-
-   f.submit();
-}
-
-    
 </script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
-<form action="${pageContext.request.contextPath}/memberJoinAction.me" method="post" name="joinform">
-	<label for="id"> 
-		아이디<input type="text" id="id" name="id" maxlength="30" >			
-		</label>
-		<input type="button" name="idCheck" value="아이디 중복확인" id="idCheck" onclick="window.open('${pageContext.request.contextPath}/member/memberIdcheckForm.jsp?openInit=true','','width=400,height=200')">
 
-<label for="pw">
-비밀번호<input type="password" id="pw" name="pw">
-</label>
+<form>
 
-<label for="name">
-이름<input type="text" id="name" name="name">
-</label>
-
-<label for="tel">
-전화번호<input type="text" id="tel" name="tel">
-</label>
-
-<label for="email">
-이메일<input type="text" id="email" name="email">
-</label>
-
-<label for="recommend_id">
-추천인 아이디<input type="text" id="recommend_id" name="recommend_id">
-</label>
-<input type="hidden" id="membership_id" name="membership_id" value="e">
-
-<a href="${pageContext.request.contextPath}/addDelivery.me">배송지 추가</a>
-<input type="text" name="deliveryname" placeholder="배송지명">
+	배송지
+<input type="text" name="deliveryname" id="deliveryname"placeholder="배송지명">
 <input type="text" name="receivername" placeholder="수령자명">
 <input type="text" name="zipcode" id="sample4_postcode" placeholder="우편번호">
 전화번호1<input type="text" name = "tel1.1">
@@ -138,12 +96,10 @@ function chkForm(f){
 		<input type="text" id="sample4_roadAddress" placeholder="도로명주소" name="addr1">	
 		<span id="guide" style="color:#999;display:none"></span>
 		<input type="text" id="sample4_detailAddress" placeholder="상세주소" name="addr2">
-		
-
-<input type="submit" value="가입" >
-<!-- <input type="button" value="가입" onClick="chkForm(this.form)"> -->
-<a href ="javascript:joinform.reset()">다시작성</a>
-
-</form>
+	<input type="button" value="선택" onclick="selectAddr(this.form)">
+	
+	
+	
+	</form>
 </body>
 </html>

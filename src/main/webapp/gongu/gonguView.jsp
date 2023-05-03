@@ -32,7 +32,7 @@
 <div style="clear:both"></div>
 <nav id="commandList">
 <a href = "${pageContext.request.contextPath}/gonguList.go">쇼핑계속하기</a>
-<a href="${pageContext.request.contextPath}/gonguPurchase.me?gongu_id=${gongu.gongu_id }">결제하기</a>
+<a href="${pageContext.request.contextPath}/gonguPurchase.me?gongu_id=${gongu.gongu_id }&isdefault=1">결제하기</a>
 </nav>
 </section>
 </section>
