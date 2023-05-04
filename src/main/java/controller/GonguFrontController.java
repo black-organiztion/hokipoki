@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
 import gongu.action.GonguListAction;
-
+import gongu.action.GonguModifyAction;
 import gongu.action.GonguRegistAction;
 import gongu.action.GonguViewAction;
 import vo.ActionForward;
@@ -76,8 +76,14 @@ public class GonguFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 			
+    	}else if(command.equals("/gonguModify.go")) {
+    		action = new GonguModifyAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
     	}
-    	
     	
     	
     	if (forward != null) {

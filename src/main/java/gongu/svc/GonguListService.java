@@ -45,6 +45,7 @@ public class GonguListService {
 			
 		}catch(Exception e) {
 			e.printStackTrace();
+			
 		}finally {
 			close(con);
 		}
