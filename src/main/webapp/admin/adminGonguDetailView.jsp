@@ -2,26 +2,131 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<h5>공구정보</h5>
-공구번호 : ${gongu.gongu_id }<br>
-카테고리 : ${gongu.category }<br>
-공구상태 : ${gongu.gongu_status}<br>
-공구명 : ${gongu.gongu_name }<br>
-정가 : ${gongu.gongu_price }<br>
-공구가격 : ${gongu.gongu_discount_price }<br>
-등록일시 : ${gongu.gongu_date }<br>
-조회수 : ${gongu.gongu_view_count }<br>
-판매시작일 : ${gongu.gongu_startdate }<br>
-판매종료일 : ${gongu.gongu_findate }<br>
-상품재고수 : ${gongu.gongu_stock }<br>
-최소목표수 : ${gongu.gongu_min }<br>
-계산마감일 : ${gongu.gongu_caldate }<br>
-상세정보 : <img src="${pageContext.request.contextPath}/gongu/images/${gongu.thumbnail_img }"><br>
-썸네일 : <img src="${pageContext.request.contextPath}/gongu/images/${gongu.detail_img }"><br>
+<script>
+	$(function(){
+		$("#btn_edit").on('click', function(){
+			modeEdit();
+		});
+		$("#btn_cancel").on('click', function(){
+			modeView();
+		});
+	});
+
+	function modeEdit(){
+		$("#formArea").find(".form-control").attr("disabled",false);
+		$("#btn_edit").hide();
+		$("#btn_save").show();
+		$("#btn_cancel").show();
+	}
+	
+	function modeView(){
+		$("#formArea").find(".form-control").attr("disabled",true);
+		$("#btn_edit").show();
+		$("#btn_save").hide();
+		$("#btn_cancel").hide();
+	}
+
+</script>
+
+<style>
+/* common.css로 옮기기  */
+	/*form 읽기 모드일때 */
+	/* .modeView .form-control:read-only{border:none;} */
+	.modeView .form-control.noEdit{border:none; pointer-events:none;}
+	.modeView .form-control:disabled{background-color:transparent; border:none;}
+	.modeView .form-control:focus {box-shadow:0 0 0 0.25rem rgba(13,110,253,0)!important;}
+	.modeView #btn_edit{display:inline;}
+	.modeView #btn_save,.modeView #btn_cancel {display:none;}
+	
+	/*form 쓰기 모드일때*/
+	.modeEdit .form-control:disabled{background-color:#eee;}
+	.modeEdit #btn_edit{display:none;}
+	.modeEdit #btn_save,.modeEdit #btn_cancel {display:inline;}
+	
+	.img{width:100px;height:100px; }
+	.img img{width:100%; heifht:100%;}
+	
+</style>
+
+<form id="formArea" action="gonguModify.go" method="post" class="modeView" enctype="multipart/form-data">
+	<h5>공구정보</h5>
+	<input type="hidden" name="gongu_id" value="${gongu.gongu_id }" id="" class="form-control noEdit" readonly/> 
+	<div class="form_group">
+		<label>카테고리</label>
+		<select name="category" id="category" class="form-control" disabled>						
+			<option value="life" ${gongu.category eq 'life'? "selected":"" } >생필품</option>
+			<option value="food" ${gongu.category eq 'food'? "selected":"" } >간편식</option>
+			<option value="kitchen" ${gongu.category eq 'kitchen'? "selected":"" } >주방</option>
+			<option value="pet" ${gongu.category eq 'pet'? "selected":"" } >반려견</option>
+		</select> 
+	</div>
+	<div class="form_group">
+		<label>공구상태</label>
+		<input type="text" name="gongu_status"  value="${gongu.gongu_status}" id="" class="form-control noEdit" readonly/> 
+	</div>
+	<div class="form_group">
+		<label>공구명</label>
+		<input type="text" name="gonguname"  value="${gongu.gongu_name }" id="" class="form-control" disabled/> 
+	</div>
+	<div class="form_group">
+		<label>정가</label>
+		<input type="text" name="originprice"  value="${gongu.gongu_price }" id="" class="form-control" disabled/> 
+	</div>
+	<div class="form_group">
+		<label>공구가격</label>
+		<input type="text" name="gonguprice"  value="${gongu.gongu_discount_price }" id="" class="form-control" disabled/> 
+	</div>
+	<div class="form_group">
+		<label>등록일시</label>
+		<input type="text" name="gongudate"  value="${gongu.gongu_date }" id="" class="form-control noEdit" readonly/> 
+	</div>
+	<div class="form_group">
+		<label>판매시작일</label>
+		<input type="text" name="gongustart"  value="${gongu.gongu_startdate }" id="" class="form-control" disabled/> 
+	</div>
+	<div class="form_group">
+		<label>판매종료일</label>
+		<input type="text" name="gongufinish"  value="${gongu.gongu_findate }" id="" class="form-control" disabled/> 
+	</div>
+	<div class="form_group">
+		<label>재고수</label>
+		<input type="text" name="gongustock"  value="${gongu.gongu_stock }" id="" class="form-control" disabled/> 
+	</div>
+	<div class="form_group">
+		<label>최소목표수</label>
+		<input type="text" name="minGongu"  value="${gongu.gongu_min }" id="" class="form-control" disabled/> 
+	</div>
+	<div class="form_group">
+		<label>계산마감일</label>
+		<input type="text" name="caldate"  value="${gongu.gongu_caldate }" id="" class="form-control" disabled/> 
+	</div>
+	<div class="form_group">
+		<div class="img">
+			<img src="${pageContext.request.contextPath}/gongu/images/${gongu.thumbnail_img }"><br>
+		</div>
+		<label>상세정보</label>
+		<input type="file" name="image" id="" class="form-control" disabled/> 
+	</div>
+	<div class="form_group">
+		<div class="img">
+			<img src="${pageContext.request.contextPath}/gongu/images/${gongu.detail_img }">
+		</div>
+		<label>썸네일</label>
+		<input type="file" name="nailimage" id="" class="form-control" disabled/> 
+	</div>
+	<c:if test="${gongu.gongu_status eq '0'}">
+		<button id="btn_edit" class="btn btn-success" type="button">수정</button>
+		<input type="submit" value="저장" id="btn_save" class="btn btn-primary">
+		<button id="btn_cancel" class="btn btn-secondary" type="button">취소</button>
+	</c:if>
+</form>
+
 <c:if test="${gongu.gongu_status ne '0' && gongu.gongu_status ne '1' && gongu.gongu_status ne '2' && gongu.gongu_status ne '3'}">
 	<h5>공구진행현황</h5>
-	현재 공구탑승한 인원 ${gongu.gongu_reserve }
-	공구 달성률 ${(gongu.gongu_reserve/gongu.gongu_min)*100}
+	현재 공구탑승한 인원 ${gongu.gongu_reserve }<br>
+	공구 달성률 ${(gongu.gongu_reserve/gongu.gongu_min)*100}<br>
+	조회수 : ${gongu.gongu_view_count }<br>
+	
 </c:if>
 <c:if test="${sessionScope.loginId eq 'system' || sessionScope.loginAuthor eq 0 }">
 	<hr>
@@ -62,3 +167,4 @@
 		</c:if>
 	</div>
 </c:if>
+

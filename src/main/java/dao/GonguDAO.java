@@ -74,6 +74,7 @@ public class GonguDAO {
 		Gongu gongu = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		
 		try {
 			pstmt = con.prepareStatement("select * from gongu where gongu_id = ?");
 			pstmt.setInt(1, id);
@@ -84,13 +85,16 @@ public class GonguDAO {
 				gongu.setGongu_id(Integer.parseInt(rs.getString("gongu_id")));
 				gongu.setGongu_price(rs.getString("gongu_price"));
 				gongu.setSeller_id(rs.getString("seller_id"));
+				gongu.setGongu_name(rs.getString("gongu_name"));
 				gongu.setCategory(rs.getString("category_name"));
 				gongu.setGongu_discount_price(rs.getString("gongu_discount_price"));
 				gongu.setGongu_startdate(rs.getString("gongu_startdate"));
+				gongu.setGongu_findate(rs.getString("gongu_findate"));
 				gongu.setGongu_caldate(rs.getString("gongu_caldate"));
 				gongu.setGongu_view_count(rs.getInt("gongu_view_count"));
 				gongu.setThumbnail_img(rs.getString("thumbnail_img"));
 				gongu.setDetail_img(rs.getString("detail_img"));
+				gongu.setGongu_stock(rs.getString("gongu_stock"));
 				gongu.setGongu_reserve(rs.getString("gongu_reserve"));
 				gongu.setGongu_min(rs.getString("gongu_min"));
 				gongu.setGongu_status(rs.getString("gongu_status"));
@@ -117,7 +121,7 @@ public class GonguDAO {
 			if (rs.next()) {
 				gonguList = new ArrayList<Gongu>();
 				do {
-					gonguList.add(new Gongu(Integer.parseInt(rs.getString("gongu_id")), rs.getString("category_name"),rs.getString("gongu_name"),
+					gonguList.add(new Gongu(Integer.parseInt(rs.getString("gongu_id")),rs.getString("category_name"),rs.getString("seller_id"),rs.getString("gongu_name"),
 							rs.getString("gongu_price"),rs.getString("gongu_discount_price"),rs.getString("gongu_status"),rs.getString("gongu_startdate"),
 							rs.getString("gongu_findate"),rs.getString("gongu_reserve"),rs.getString("gongu_min"),rs.getString("thumbnail_img")));
 				} while (rs.next());
@@ -134,25 +138,36 @@ public class GonguDAO {
 	}
 	
 	public ArrayList<Gongu> selectGonguList(String loginId) {
-		ArrayList<Gongu> gonguList = null;
+		ArrayList<Gongu> gonguList = new ArrayList<Gongu>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			pstmt = con.prepareStatement("select * from gongu where = ?");
+			pstmt = con.prepareStatement("select * from gongu where seller_id= ?");
 			pstmt.setString(1,loginId);
+			System.out.println(pstmt);
 			rs = pstmt.executeQuery();	
-			
-			
+
 			if (rs.next()) {
-				gonguList = new ArrayList<Gongu>();
 				do {
-					gonguList.add(new Gongu(Integer.parseInt(rs.getString("gongu_id")), rs.getString("category_name"),rs.getString("gongu_name"),
-							rs.getString("gongu_price"),rs.getString("gongu_discount_price"),rs.getString("gongu_status"),rs.getString("gongu_startdate"),
-							rs.getString("gongu_findate"),rs.getString("gongu_reserve"),rs.getString("gongu_min"),rs.getString("thumbnail_img")));
+					Gongu gongu = new Gongu(Integer.parseInt(rs.getString("gongu_id")),
+											rs.getString("category_name"),
+											rs.getString("gongu_name"),
+											rs.getString("gongu_price"),
+											rs.getString("gongu_discount_price"),
+											rs.getString("gongu_status"),
+											rs.getString("gongu_startdate"),
+											rs.getString("gongu_findate"),
+											rs.getString("gongu_reserve"),
+											rs.getString("gongu_min"),
+											rs.getString("thumbnail_img"));
+					gongu.setSeller_id(rs.getString("seller_id"));
+					gonguList.add(gongu);
+					
 				} while (rs.next());
 			}			
 			
 		} catch (Exception e) {
+			System.out.println("공구목록선택오류:"+e);
 			e.printStackTrace();
 		} finally {
 			close(rs);
@@ -263,6 +278,48 @@ public class GonguDAO {
 		}
 		
 		return startList;
+	}
+
+	public int updateGongu(Gongu gongu) {
+		int resultCount = 0;
+		PreparedStatement psmt = null;
+		String sql = "UPDATE gongu SET category_name=?, gongu_name=?, gongu_price=?, "
+				+ "gongu_discount_price=?, gongu_date=now(), gongu_startdate=?, gongu_findate=?, gongu_stock=?, gongu_min=?, "
+				+ "gongu_caldate=?";
+		
+		if(gongu.detail_img != null) {
+			sql+=", detail_img='"+gongu.detail_img+"'";
+		}
+		if(gongu.thumbnail_img != null) {
+			sql+=", thumbnail_img='"+gongu.thumbnail_img+"'";
+		}	
+		sql+=" WHERE gongu_id="+gongu.getGongu_id();
+		
+		
+		try {
+			psmt = con.prepareStatement(sql);
+			psmt.setString(1, gongu.getCategory());
+			psmt.setString(2, gongu.getGongu_name());
+			psmt.setString(3, gongu.getGongu_price());
+			psmt.setString(4, gongu.getGongu_discount_price());
+			psmt.setString(5, gongu.getGongu_startdate());
+			psmt.setString(6, gongu.getGongu_findate());
+			psmt.setString(7, gongu.getGongu_stock());
+			psmt.setString(8, gongu.getGongu_min());
+			psmt.setString(9, gongu.getGongu_caldate());
+			
+			System.out.println(psmt);
+			
+			resultCount = psmt.executeUpdate();
+			
+		}catch(Exception e) {
+			System.out.println("공구업데이트오류:"+e);
+			
+		}finally {
+			close(psmt);
+		}
+
+		return resultCount;
 	}
 
 	

@@ -22,36 +22,48 @@
 <c:if test="${sessionScope.loginAuthor eq 1 }">
 	<a href="gonguRegistForm.go" class="btn btn-primary">공구등록</a>
 </c:if>
-
 <div class="list">
-<c:forEach var="gongu" items="${gonguList}" varStatus="">
-	<a href="adminGonguDetailViewAction.ad?gongu_id=${gongu.gongu_id}">
-		<div class="card list_item d-flex">	
-			<div>
-				<span class="badge bg-primary">
-					<c:choose>
-						<c:when test="${gongu.gongu_status == '0' }">승인대기</c:when>
-						<c:when test="${gongu.gongu_status == '1' }">심사중</c:when>
-						<c:when test="${gongu.gongu_status == '2' }">승인</c:when>
-						<c:when test="${gongu.gongu_status == '3' }">반려</c:when>
-						<c:when test="${gongu.gongu_status == '4' }">진행중</c:when>
-						<c:when test="${gongu.gongu_status == '5' }">비활성화 대기</c:when>
-						<c:when test="${gongu.gongu_status == '6' }">비활성화</c:when>
-						<c:when test="${gongu.gongu_status == '7' }">종료(공구성공)</c:when>
-						<c:when test="${gongu.gongu_status == '8' }">종료(공구실패)</c:when>
-					</c:choose>
-				</span>
-				<br>
-				공구번호 : ${gongu.gongu_id}<br>
-				공구상태 : 
-				공구이름 : ${gongu.gongu_name }<br>
-				판매자 : ${gongu.seller_id }<br>
-				등록일시 : ${gongu.gongu_date }
-			</div>
-			<c:if test="${gongu.gongu_status ne '7' || gongu.gongu_status ne '8'}">
-				<p style="color:red">*공구상태관리는 상세페이지에서 가능합니다(공구항목 클릭시 이동)</p>
-			</c:if>
-			</div>
-	</a>
-</c:forEach>
+<c:choose>
+	<c:when test="${gonguList.size() > 0 }">
+		<c:forEach var="gongu" items="${gonguList}" varStatus="">
+			<a href="adminGonguDetailViewAction.ad?gongu_id=${gongu.gongu_id}">
+				<div class="card list_item d-flex">	
+					<div>
+						<span class="badge bg-primary">
+							<c:choose>
+								<c:when test="${gongu.gongu_status == '0' }">승인대기</c:when>
+								<c:when test="${gongu.gongu_status == '1' }">심사중</c:when>
+								<c:when test="${gongu.gongu_status == '2' }">승인</c:when>
+								<c:when test="${gongu.gongu_status == '3' }">반려</c:when>
+								<c:when test="${gongu.gongu_status == '4' }">진행중</c:when>
+								<c:when test="${gongu.gongu_status == '5' }">비활성화 대기</c:when>
+								<c:when test="${gongu.gongu_status == '6' }">비활성화</c:when>
+								<c:when test="${gongu.gongu_status == '7' }">종료(공구성공)</c:when>
+								<c:when test="${gongu.gongu_status == '8' }">종료(공구실패)</c:when>
+							</c:choose>
+						</span>
+						<br>
+						공구번호 : ${gongu.gongu_id}<br>
+						공구상태 : 
+						공구이름 : ${gongu.gongu_name }<br>
+						판매자 : ${gongu.seller_id }<br>
+						등록일시 : ${gongu.gongu_date }<br>
+						판매시작일 : ${gongu.gongu_startdate }
+					</div>
+					<c:if test="${sessionScope.loginAuthor eq 0}">
+						<p style="color:red">*공구상태관리는 상세페이지에서 가능합니다(공구항목 클릭시 이동)</p>
+					</c:if>
+					<c:if test="${sessionScope.loginAuthor eq 1}">
+						<p style="color:red">*공구수정은 승인대기 상태에서만 가능합니다.(공구항목 클릭시 이동)</p>
+					</c:if>
+				</div>
+			</a>
+		</c:forEach>
+	</c:when>
+	<c:otherwise>
+		<p>등록된 공구가 없습니다.</p>
+	</c:otherwise>	
+</c:choose>
 </div>
+
+

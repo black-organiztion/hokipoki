@@ -41,22 +41,26 @@ public class AdminGonguListAction implements Action {
 			
 			switch(loginAuthor) {
 			//관리자 권한이라면 모두 가져오기
-			case 0: gonguList = gonguListService.getGonguList();
-					break;
+			case 0: gonguList = gonguListService.getGonguList(); break;
 					
 			//판매자권한이라면 아이디와 일치하는 목록만 가져오기
-			case 1: gonguList = gonguListService.getGonguList(loginId);break;
+			case 1: gonguList = gonguListService.getGonguList(loginId); break;
 			
 			}
 			
-			if(gonguList.size()>0) {
+			if(gonguList.size()>=0) {
 				request.setAttribute("gonguList", gonguList);//넘어가는 정보2
 				//System.out.println(gonguList);
 				request.setAttribute("pagefile", "/admin/adminGonguConfig.jsp");
 				forward = new ActionForward("/admin/adminTemplate.jsp", false);// public ActionForward(String path, boolean redirect)
 				
-			}else {
-				
+			}else{
+				response.setContentType("text/html;charset=utf-8");
+				PrintWriter out = response.getWriter();
+				out.print("<script>");
+				out.print("alert('공구목록조회에 실패했습니다. 다시 시도해주세요');");
+				out.print("history.back();");
+				out.print("</script>");
 			}
 		
 		}
