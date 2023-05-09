@@ -135,6 +135,30 @@ public class MemberDAO {
 		return member;
 	}
 
+	public boolean dupIdCheck(String id) {
+		boolean flag= false;
+		PreparedStatement pstmt = null;
+		
+		String sql = "select member_id from member where member_id = ?";	
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			System.out.println("pstmt:"+pstmt);
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) {
+				flag = true;
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return flag;
+	}
+
+
 
 
     

@@ -17,7 +17,7 @@ public class DeliveryGetService {
 			con = getConnection();
 			DeliveryDAO deliveryDAO = DeliveryDAO.getInstance();
 			deliveryDAO.setConnection(con);
-//			delivery = deliveryDAO.returndelivery(id);
+			delivery = deliveryDAO.returndelivery(id,"1");
 			
 			
 		}catch(Exception e) {

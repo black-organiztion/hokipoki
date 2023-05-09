@@ -38,6 +38,7 @@ public class GonguPurchaseAction implements Action {
 		if(delivery != null) {
 			request.setAttribute("delivery", delivery);			
 		}
+		
 		forward = new ActionForward("/member/memberOrderForm.jsp", false);
 		
 		return forward;

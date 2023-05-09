@@ -23,19 +23,19 @@ function init(){
 }
 function ok(v){
 	opener.idcheck=v.trim();
-	opener.document.getElementById("id").value=v;
+	opener.document.getElementById("Rid").value=v;
 	opener.chkId=true;
 	window.close();
 }
 </script>
 </head>
 <body onload="init()">
-<form action="${pageContext.request.contextPath}/MemberIdCheckProcess.me" method="post" name=f>
+<form action="${pageContext.request.contextPath}/RecommendCheckProcess.me" method="post" name=f>
 <input type=text name=id id=id>
 <input type=submit value="중복확인">
 </form>
 <c:choose>
-<c:when test="${useable eq 'yes' }">
+<c:when test="${useable eq 'yes' && chkId ne null }">
 사용가능한 아이디입니다.
 <a href="#" onclick="ok('${chkId}')">${chkId }사용하기</a>
 </c:when>

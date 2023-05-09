@@ -27,6 +27,7 @@ public class MemberLoginAction implements Action {
 		MemberLoginService memberLoginService = new MemberLoginService();
 
 		boolean loginResult = memberLoginService.login(member);
+		System.out.println("loginResult:"+loginResult);
 		if (loginResult) {
 			forward = new ActionForward();
 			session.setAttribute("member_id", member.getMember_id());

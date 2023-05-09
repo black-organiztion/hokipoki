@@ -34,12 +34,21 @@
 	배송정보
 ${delivery.delivery_id }
 	<input type="hidden" name="delivery_id" value="${delivery.delivery_id }">
- 	<input type="text" name="delivery_name" id="delivery_name"value="${delivery.delivery_name }">
- 	<input type="text" name="zip_code" id="zip_code" value="${ delivery.zip_code}">
- 	<input type="text" name="delivery.addr1"id="delivery.addr1" value="${ delivery.addr1}">
- 	<input type="text" name="delivery.addr2" id="delivery.addr2" value="${ delivery.addr2 }">
+	<input type="hidden" name="isdefault" id="isdefault" value="${delivery.isdefault }">
+	
+ 	<input type="text" name="delivery_name" id="delivery_name" value="${delivery.delivery_name }" readonly>
+ 	<input type="text" name="zip_code" id="zip_code" value="${ delivery.zip_code}" readonly>
+ 	<input type="text" name="addr1"id="addr1" value="${ delivery.addr1}" readonly>
+ 	<input type="text" name="addr2" id="addr2" value="${ delivery.addr2 }" readonly>
+ 	
+ 	<input type="text" name="receiver_tel" id="receiver_tel" value="${ delivery.receiver_tel }" readonly>
+ 	<input type="text" name="receiver_tel2" id="receiver_tel2" value="${ delivery.receiver_tel2 }" readonly>
+ 	<input type="text" name="receiver_name" id="receiver_name" value="${ delivery.receiver_name }" readonly>
 
-	<input type="button" name="addDelivery" value="배송지추가" id="addDelivery"  onclick="window.open('member/addDeliveryForm.jsp?openInit=true','','width=400,height=200')">
+
+
+
+	<input type="button" name="addDelivery" value="배송지수정" id="addDelivery"  onclick="window.open('member/addDeliveryForm.jsp?openInit=true','','width=400,height=200')">
 	
 	
 	

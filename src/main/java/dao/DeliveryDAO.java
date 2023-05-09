@@ -28,11 +28,13 @@ public class DeliveryDAO {
 	public void setConnection(Connection con) {
 		this.con = con;
 	}
+	
+
+
 
 	
 
 	public int insertdelivery(Delivery delivery) {
-		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = "insert into delivery (member_id, isdefault, delivery_name, receiver_name, receiver_tel, receiver_tel2, zipcode, addr1,addr2)values (?,?,?,?,?,?,?,?,?)";
 		int insertCount = 0;
@@ -52,11 +54,32 @@ public class DeliveryDAO {
 			System.out.println("insertdelivery pstmt:" + pstmt);
 
 			insertCount = pstmt.executeUpdate();
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
 		}
+		
+		if(insertCount>0) {
+			PreparedStatement psmt = null;
+			String sql2 = "select max(delivery_id) from delivery ";			
+			try {
+				pstmt=con.prepareStatement(sql2);
+				ResultSet rs=pstmt.executeQuery();
+				if(rs.next()) {
+				insertCount = rs.getInt(1);}
+				System.out.println("insertCount:"+insertCount);				
+				
+			}catch(Exception e){
+				System.out.println("insertDeliveryDAO에서 오류");
+				e.printStackTrace();
+			}
+			
+		}
+		
+		
 		return insertCount;
 		
 		
@@ -104,6 +127,38 @@ public class DeliveryDAO {
 			close(pstmt);
 		}
 		return delivery;
+	}
+
+	public int updatedelivery(Delivery delivery) {
+		PreparedStatement pstmt = null;
+		String sql = "update delivery set delivery_name = ?, receiver_name= ?, receiver_tel = ?, receiver_tel2 = ? , zipcode = ? , addr1 = ?, addr2 =?"
+				+ "where delivery_id = ?";
+		int insertCount = 0;
+		try {
+			pstmt = con.prepareStatement(sql);
+		
+			pstmt.setString(1, delivery.getDelivery_name());
+			pstmt.setString(2, delivery.getReceiver_name());
+			pstmt.setString(3, delivery.getReceiver_tel());
+			pstmt.setString(4, delivery.getReceiver_tel2());
+			pstmt.setString(5, delivery.getZip_code());
+			pstmt.setString(6, delivery.getAddr1());
+			pstmt.setString(7, delivery.getAddr2());		
+			pstmt.setString(8, delivery.getDelivery_id());		
+			
+			
+			System.out.println("updatedelivery pstmt:" + pstmt);
+
+			
+			insertCount = pstmt.executeUpdate();
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return insertCount;
 	}
 	
 	
