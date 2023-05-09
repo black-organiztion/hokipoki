@@ -133,6 +133,15 @@ public class AdminFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
     	}
+    	else if(command.equals("/adminMemberListAction.ad")){
+    		action = new AdminMemberListAction();
+    		try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
     	
     	
     	

@@ -1,0 +1,56 @@
+@charset "UTF-8";
+
+/*utils*/
+.utils {display:flex; margin-bottom:12px;}
+.utils .right{margin-left:auto;}
+
+.utils .btn_filter{min-width:100px;}
+.utils .btn_filter:after{content:''; width:20px; height:20px; background-image:url(../img/admin/utils/btn_filter.svg); background-size:cover;}
+.utils .btn_filter.on {border-color:#457BE4;}
+
+.utils .utils_search{width:250px; padding:0 10px 0 0;}
+.utils .utils_search>input[type="text"]{flex:1 1 auto; height:100%; border:none; padding-left:10px; border-radius:5px;}
+.utils .utils_search>input[type="text"]:focus-visible{outline:3px solid rgba(69,123,228,0.3);}
+.utils .utils_search .btn_search{width:20px; height:20px; font-size:0; background-image:url(../img/admin/utils/btn_search.svg); background-size:cover;}
+
+.utils_filter {width:260px; padding:18px;}
+.utils_filter>fieldset{display:flex; flex-wrap:wrap;}
+.utils_filter legend{width:100%; margin-bottom:10px; font-size:15px; font-weight:500; color:#7B8083;}
+.utils_filter .frm_group{width:50%; margin-bottom:10px;}
+
+
+/*form*/
+/*form 공통*/
+.input_group .frm_control:not(:last-child){margin-right:4px;}
+.frm_control{display:inline-flex; justify-content:space-between; align-items:center; height:40px; border:1px solid #E9EAEC; border-radius:5px; padding-left:10px; padding-right:10px;}
+
+/*checkbox*/
+.frm_chk[type="checkbox"]{display:none;}
+.frm_chk[type="checkbox"] + label {display:flex; align-items:center; cursor:pointer;}
+.frm_chk[type="checkbox"] + label:before {content:''; width:18px; height:18px; margin-right:8px; border-radius:3px; background-color:#E9EAEC;}
+.frm_chk[type="checkbox"]:checked + label:before{background-image:url(../img/admin/utils/utils_checked.svg); background-size:cover;}
+
+/*select*/
+select{-webkit-appearance: none; -moz-appearance: none; -ms-appearance: none; appearance: none; background-image:url(../img/admin/utils/select_down.svg); background-repeat:no-repeat; background-position: right 7px center;}
+select[name="sch_options"] {min-width:100px;}
+
+/*list*/
+.list{padding:20px; border-radius:15px; background-color:#F4F4F4;}
+.list .list_header{display:flex; margin:5px 0 10px; padding:0 15px;}
+.list .list_header>span{display:inline-flex; align-items:center; flex:0 0 auto; color:#7B8083; font-weight:500;}
+.list .list_item{border:1px solid #E9EAEC; border-radius:12px; background-color:#fff; transition:0.1s;}
+.list .list_item:not(:last-child){margin-bottom:5px;}
+.list .list_item>a{display:flex; align-items:center; min-height:54px; padding:8px 15px; background-color:transparent; color:#000;}
+.list .list_item>a>span{flex:0 0 auto; height:100%;}
+.list .list_item:hover{border:1px solid #457BE4;}
+
+
+.help_icon{display:inline-block; width:18px; height:18px; margin-left:4px; border-radius:5px; font-size:0; cursor:pointer;}
+.list .list_header .help_icon{background-color:#fff; background-image:url(../img/admin/utils/help_icon_gy.svg); background-repeat:no-repeat; background-position:center;}
+
+
+/*layer*/
+.ly {position:absolute; display:none; border:1px solid #D9D9D9; border-radius:5px; background-color:#fff; box-shadow:0 6px 12px rgba(0,0,0,0.15);}
+
+/*기타*/
+.input_group{display:inline-flex;}

@@ -4,6 +4,10 @@
 
 <script>
 	$(function(){
+		//header 메뉴 active
+		$("#header .header_item").removeClass("active");
+		$("#header .gongu").addClass("active");
+		
 		$("#btn_edit").on('click', function(){
 			modeEdit();
 		});
@@ -12,18 +16,27 @@
 		});
 	});
 
-	function modeEdit(){
-		$("#formArea").find(".form-control").attr("disabled",false);
+	function modeEdit(){//수정모드로 만들기
+		$("#formArea").find(".form-control").attr("disabled",false); //.form-control(input)에 disabled 속성을 없애 수정 가능하게 함
+		/*
+		input중 공구상태와 등록일은 사용자가 직접입력하는 것이 아니므로 modeEdit/modeView와 상관없이 처음부터 readonly 속성을 줘서 읽을 수만 있게함
+		=>css로 .noEdit클래스를 사용해 사용자에게 readonly상태일 때와 disabled상태일 때가 똑같이 보이도록 함 
+		*/
+		
 		$("#btn_edit").hide();
 		$("#btn_save").show();
 		$("#btn_cancel").show();
 	}
 	
-	function modeView(){
-		$("#formArea").find(".form-control").attr("disabled",true);
-		$("#btn_edit").show();
-		$("#btn_save").hide();
-		$("#btn_cancel").hide();
+	function modeView(){//보기모드로 만들기
+		//입력 중간에 취소 버튼을 누를 경우 입력값을 초기화 시킨다.
+		$('#formArea').each(function() {
+			  this.reset();
+			});
+		$("#formArea").find(".form-control").attr("disabled",true);//.form-control(input)에 disabled 속성을 줘서 수정할 수 없게 함.
+		$("#btn_edit").show(); //수정버튼을 보임
+		$("#btn_save").hide(); //저장버튼을 숨김
+		$("#btn_cancel").hide(); //취소버튼을 숨김
 	}
 
 </script>
@@ -102,14 +115,14 @@
 	</div>
 	<div class="form_group">
 		<div class="img">
-			<img src="${pageContext.request.contextPath}/gongu/images/${gongu.thumbnail_img }"><br>
+			<img src="${pageContext.request.contextPath}/gongu/images/${gongu.detail_img }"><br>
 		</div>
 		<label>상세정보</label>
 		<input type="file" name="image" id="" class="form-control" disabled/> 
 	</div>
 	<div class="form_group">
 		<div class="img">
-			<img src="${pageContext.request.contextPath}/gongu/images/${gongu.detail_img }">
+			<img src="${pageContext.request.contextPath}/gongu/images/${gongu.thumbnail_img }">
 		</div>
 		<label>썸네일</label>
 		<input type="file" name="nailimage" id="" class="form-control" disabled/> 

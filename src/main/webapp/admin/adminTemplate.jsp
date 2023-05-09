@@ -11,7 +11,7 @@ pageTitle = "호키포키 관리자";
 <head>
 <meta charset="UTF-8">
 <title><%=pageTitle %></title>
-<jsp:include page="/common/common.jsp"></jsp:include>
+<jsp:include page="/common/common_admin.jsp"></jsp:include>
 </head>
 <body>
 <div id="wrap">

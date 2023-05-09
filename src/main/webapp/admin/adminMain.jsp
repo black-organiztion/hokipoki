@@ -1,6 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script>
+	$(document).ready(function(){
+		//header 메뉴 active
+		$("#header .header_item").removeClass("active");
+		$("#header .main").addClass("active");
+		
+	});
+</script>
+
 <div id="content">
 <c:choose>
 	<c:when test="${loginAuthor eq 0 }">

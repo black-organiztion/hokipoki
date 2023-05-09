@@ -14,6 +14,21 @@ public class Member {
 	private String recommend_id;
 	private Date member_date;
 	
+	public Member() {super();}
+	
+	public Member(String member_id, String membership_id, String member_pw, String member_name, String member_tel,
+			String member_email, String recommend_id, Date member_date) {
+		super();
+		this.member_id = member_id;
+		this.membership_id = membership_id;
+		this.member_pw = member_pw;
+		this.member_name = member_name;
+		this.member_tel = member_tel;
+		this.member_email = member_email;
+		this.recommend_id = recommend_id;
+		this.member_date = member_date;
+	}
+	
 	public String getMember_id() {
 		return member_id;
 	}

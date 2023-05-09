@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import static db.JdbcUtil.*;
 import vo.Seller;
+import vo.Member;
 
 public class AdminDAO {
 	private static AdminDAO adminDAO;
@@ -145,6 +146,43 @@ public class AdminDAO {
 		
 		
 		return result;
+	}
+
+	public ArrayList<Member> selectMemberList() {
+		ArrayList<Member> memberList = new ArrayList<>();
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM member";
+		
+		try {
+			psmt = con.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				do {
+					Member member = new Member(rs.getString("member_id"),
+												rs.getString("membership_id"),
+												rs.getString("member_pw"),
+												rs.getString("member_name"),
+												rs.getString("member_tel"),
+												rs.getString("member_email"),
+												rs.getString("recommend_id"),
+												rs.getDate("member_date")
+												);
+					memberList.add(member);
+					
+				}while(rs.next());
+			}
+			
+		}catch(Exception e) {
+			System.out.println("회원목록선택오류:"+e);
+			
+		}finally {
+			close(rs);
+			close(psmt);
+		}
+		
+		return memberList;
 	}
 
 	

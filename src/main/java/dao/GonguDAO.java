@@ -243,8 +243,8 @@ public class GonguDAO {
 		PreparedStatement psmt = null;
 		PreparedStatement psmt2 = null;
 		ResultSet rs = null;
-		String sql = "UPDATE gongu SET gongu_status = '4' WHERE gongu_status='2' && gongu_startdate = CURDATE()";
-		String sql2 = "SELECT gongu_id, gongu_name FROM gongu WHERE gongu_status = '4' && gongu_startdate = CURDATE()";
+		String sql = "UPDATE gongu SET gongu_status = '4', gongu_update = CURDATE() WHERE gongu_status='2'  && gongu_startdate <= CURDATE()";
+		String sql2 = "SELECT gongu_id, gongu_name FROM gongu WHERE gongu_status = '4' && gongu_update = CURDATE()";
 		
 		try {
 			psmt = con.prepareStatement(sql);

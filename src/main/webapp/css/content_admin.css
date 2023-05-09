@@ -1,0 +1,32 @@
+@charset "UTF-8";
+/*gongu*/
+.sec1 {margin-bottom:40px;}
+.gongu_btns>div:not(:last-child){margin-bottom:20px;}
+.gongu_btns>div>a{display:flex; flex-direction:column; padding:14px 10px 14px 16px; border-radius:15px; transition:0.1s;}
+.gongu_btns>div>a:hover{box-shadow:0 4px 15px rgba(0,0,0,0.1);}
+.gongu_btns>div span{margin-bottom:20px; color:rgba(0,0,0,0.5);font-size:12px;}
+.gongu_btns>div em{display:flex; align-items:center; justify-content:space-between; font-family:'yg-jalnan'; font-size:20px;}
+.gongu_btns>div em:after{content:''; width:22px; height:22px; background-image:url(../img/admin/content/chevron_right_b50.svg); background-size:cover;}
+.btn_start>a{background-color:#D9E3F9;}
+.btn_start em{color:#2064E8;}
+.btn_close>a{background-color:#E1F0D2;}
+.btn_close em{color:#4C9800;}
+
+.gongu_cnts {display:flex; flex-direction:column; border-radius:15px; padding:18px 20px 0 18px; background-color:#E9EAEC;}
+.gongu_cnts:not(:last-child){margin-bottom:20px;}
+.gongu_cnts>span{color:#7B8083; font-weight:500;}
+.gongu_cnts>em{color:#41474E; text-align:right; font-size:50px;}
+
+/*gongu_list*/
+.gongu_list>.list_header>span:nth-child(1),.gongu_list .list_item>a>span:nth-child(1){width:10%;}
+.gongu_list>.list_header>span:nth-child(2),.gongu_list .list_item>a>span:nth-child(2){flex:1 1 auto;}
+.gongu_list>.list_header>span:nth-child(3),.gongu_list .list_item>a>span:nth-child(3){width:24%;}
+.gongu_list>.list_header>span:nth-child(4),.gongu_list .list_item>a>span:nth-child(4){width:12%;}
+.gongu_list>.list_header>span:nth-child(5),.gongu_list .list_item>a>span:nth-child(5){width:12%;}
+
+
+/*gongu status*/
+.gongu_list .list_item.reject{background-color:#eee; color:#999;}
+.gongu_list .list_item .status {display:block; width:72px; border-radius:5px; background-color:#D9D9D9; color:#7B8083; text-align:center;}
+.gongu_list .list_item.on .status{background-color:#457BE4; color:#fff;}
+
