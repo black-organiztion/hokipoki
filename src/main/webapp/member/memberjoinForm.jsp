@@ -29,7 +29,6 @@ $(function(){
 	});
 });
 
-
 function sample4_execDaumPostcode() {
     new daum.Postcode({
         oncomplete: function(data) {
@@ -113,68 +112,214 @@ function chkForm(f){
    f.submit();
 } 
 
+
+
     
 </script>
+<style>
+	
+	*{
+		font-family: 'Noto Sans KR', sans-serif;
+	}
+
+	.joinform{
+	
+		width:322px;
+		margin:0 auto;
+		}
+	
+	.form_group {
+	  width:100%;
+	  height:62px; 
+	  border-bottom:2px solid #c9c9c9;
+	  
+	  }
+	 .form_group:not(:last-child){ margin-bottom:32px; }
+	.form_group > label{
+	  font-size: 18px;
+	  color:gray;  
+	 
+	}
+	.input_group{
+	  width:322px; 
+	  display:flex; 
+	
+	  }
+	.input_group> *{
+	  flex:0 0 auto;
+	  padding-bottom:0px;
+	  margin-top:3px;
+	  }
+	.input_group> input[type=button]{ 
+	  width:70px; 
+	  height:30px; 
+	  background-color:orange; 
+	  color:white; 
+	  border:none;
+	  border-radius:4px;
+	  font-size:14px;
+	  }
+	.input_group> .form_control{
+	  min-width:0;
+	  flex:1 1 auto;
+	  width:auto;
+	  outline:none;
+	  border:none;
+	  font-size:18px;
+	  }
+	  .submitbtn{
+	  	width:322px;
+	  	height:50px; 
+	  	background-color:orange; 
+	  	color:white; 
+	  	border:none;
+	  	border-radius:4px;
+	  	font-size:18px;
+	  	font-weight: 500;
+	  	margin-bottom: 18px;
+	  }
+	.container{
+		width:640px;
+		margin: 0 auto;
+		background-color: #fffff;
+		border:1px solid #c9c9c9;	
+		border-radius: 24px;	
+		
+	}
+	.logo {	
+		width:320px;
+		text-align: center;
+	}
+	.logo > .img{
+		margin-top: 30px;		
+		margin-bottom: 52px;
+	}
+	.inner{		
+		margin:0 auto;
+		width:322px;
+		background-color: white;
+	}
+	
+</style>
 <meta charset="UTF-8">
 <title>회원가입</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
 </head>
 <body>
-
-		<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
-
-<form action="${pageContext.request.contextPath}/memberJoinAction.me" method="post" name="joinform">
-	<label for="id"> 
-		아이디<input type="text" id="id" name="id" maxlength="30" >			
-	</label>
-		<input type="button" name="idCheck" value="아이디 중복확인" id="idCheck" onclick="window.open('${pageContext.request.contextPath}/member/memberIdcheckForm.jsp?openInit=true','','width=400,height=200')">
-
-<label for="pw">
-비밀번호<input type="password" class ="pw" id="pw" name="pw">
-</label>
-
-<label for="pw">
-비밀번호 확인<input type="password" class ="pw" id="chkpw" name="chkpw">
-<font id="checkPw" size="2"></font>
-</label>
-
-<label for="name">
-이름<input type="text" id="name" name="name">
-</label>
-
-<label for="tel">
-전화번호<input type="text" id="tel" name="tel">
-</label>
-
-<label for="email">
-이메일<input type="text" id="email" name="email">
-</label>
-
-<label for="recommend_id">
-추천인 아이디<input type="text" id="Rid" name="recommend_id">
-</label>
-<input type="button" name="idCheck" value="추천인 아이디확인" id="idCheck" onclick="window.open('${pageContext.request.contextPath}/member/recommendCheckForm.jsp?openInit=true','','width=400,height=200')">
-<input type="hidden" id="membership_id" name="membership_id" value="e">
-
-
-<input type="text" name="deliveryname" placeholder="배송지명">
-<input type="text" name="receivername" placeholder="수령자명">
-<input type="text" name="zipcode" id="sample4_postcode" placeholder="우편번호">
-전화번호1<input type="text" name = "tel1.1">
-<input type="text" name = "tel1.2">
-<input type="text" name = "tel1.3"><br>
-전화번호2<input type="text" name = "tel2.1">
-<input type="text" name = "tel2.2">
-<input type="text" name = "tel2.3">
-
-		<input type="text" id="sample4_roadAddress" placeholder="도로명주소" name="addr1">	
-		<span id="guide" style="color:#999;display:none"></span>
-		<input type="text" id="sample4_detailAddress" placeholder="상세주소" name="addr2">
+<div class="container">
+	<div class="inner">
+		<div class="logo"> 
+			<img src="${pageContext.request.contextPath}/img/logo_small.png" class="img" >
+		</div>
 		
 
-<input type="submit" value="가입" >
-<!-- <input type="button" value="가입" onClick="chkForm(this.form)"> -->
-<a href ="javascript:joinform.reset()">다시작성</a>
+<form action="${pageContext.request.contextPath}/memberJoinAction.me" method="post" name="joinform" class="joinform">
+		<div class="form_group">
+			<label>아이디</label>
+			<div class="input_group">
+				<input type="text"  class ="form_control" id="id" name="id" maxlength="30">			
+				<input type="button" name="idCheck" value="중복확인" id="idCheck" onclick="window.open('${pageContext.request.contextPath}/member/memberIdcheckForm.jsp?openInit=true','','width=400,height=200')">
+			 </div>
+		</div>
+	
+	<div class="form_group">
+		<label>비밀번호</label>
+			<div class="input_group">
+				<input type="password" class ="pw form_control" id="pw" name="pw">
+			</div>
+	</div>
+	<div class="form_group">
+		<label>비밀번호 확인</label>
+			<div class="input_group">
+				<input type="password" class ="pw form_control" id="chkpw" name="chkpw">
+				<font id="checkPw" size="2"></font>		
+			</div>
+	</div>		
+	<div class="form_group">
+		<label>성함</label>
+			<div class="input_group">
+				<input type="text" id="name" name="name" class="form_control">
+			</div>
+	</div>
+	<div class="form_group">
+		<label>휴대폰</label>	
+			<div class="input_group">
+				<input type="text" id="tel" name="tel" class="form_control">
+			</div>
+	</div>
+	<div class="form_group">
+		<label>이메일</label>	
+			<div class="input_group">
+				<input type="text" id="email" name="email" class="form_control">
+			</div>
+	</div>
+	<div class="form_group">
+		<label>추천인</label>
+			<div class="input_group">
+				<input type="text" id="Rid" name="recommend_id" class="form_control">
+				<input type="button" name="idCheck" value="검색" id="idCheck" onclick="window.open('${pageContext.request.contextPath}/member/recommendCheckForm.jsp?openInit=true','','width=400,height=200')">
+			</div>
+	</div>
+	<div class="form_group">
+		<label>배송지명</label>
+			<div class="input_group">
+				<input type="text" name="deliveryname" class="form_control">	
+			</div>
+	</div>
+	<div class="form_group">
+		<label>우편번호</label>
+			<div class="input_group">
+				<input type="text" name="zipcode" id="sample4_postcode" class="form_control">
+				<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호">	
+			</div>
+	</div>
+	<div class="form_group">
+			<label>수령인 성함</label>
+				<div class="input_group">
+					<input type="text" name="receivername"  class="form_control">
+				</div>
+	</div>
+	<div class="form_group">
+		<label>전화번호1</label>
+			<div class="input_group">
+					<input type="text" name = "tel1.1" class="form_control"  maxlength="3">
+					ㅡ
+					<input type="text" name = "tel1.2" class="form_control"  maxlength="4" >
+					ㅡ
+					<input type="text" name = "tel1.3" class="form_control"  maxlength="4">
+			</div>		
+	</div>
+	
+	<div class="form_group">
+		<label>전화번호2</label>
+			<div class="input_group">
+				<input type="text" name = "tel2.1" class="form_control"  maxlength="3">
+				<input type="text" name = "tel2.2" class="form_control"  maxlength="4" >
+				<input type="text" name = "tel2.3" class="form_control"  maxlength="4" >
+			</div>
+	</div>
+		<div class="form_group">
+			<label>도로명주소</label>
+				<div class="input_group">
+					<input type="text" id="sample4_roadAddress" readonly  name="addr1" class="form_control">	
+				</div>
+		</div>		
+	<div class="form_group">
+		<label>상세주소</label>
+			<div class="input_group">
+				<input type="text" id="sample4_detailAddress" readonly name="addr2" class="form_control">
+			</div>
+	</div>		
+		<span id="guide" style="color:#999;"></span>
+		
 
+<input type="submit" value="가입" class="submitbtn" >
+
+<input type="hidden" id="membership_id" name="membership_id" value="e">
 </form>
+</div>
+</div>
 </body>
 </html>
