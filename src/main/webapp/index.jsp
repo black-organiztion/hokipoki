@@ -17,7 +17,8 @@ pageTitle = "호키포키";
 <body>
 <div id="wrap">
 	<jsp:include page="/common/user/header.jsp"></jsp:include>
-<jsp:include page="${pagefile eq null ? 'main.jsp':pagefile }"></jsp:include>
+	<jsp:include page="${pageContext.request.contextPath}/gonguList.go"></jsp:include>
+<%-- <jsp:include page="${pagefile eq null ? pageContext.request.contextPath + 'gognuList.jsp' : pagefile}"></jsp:include> --%>
 	<jsp:include page="/common/user/footer.jsp"></jsp:include>
 </div>
 </body>

@@ -11,10 +11,12 @@
 		font-family: 'Noto Sans KR', sans-serif;
 	}
 
-	.loginform{
-	
+	.loginform{	
+		margin-top:10%;
 		width:322px;
-		margin:0 auto;
+		float:left;	
+		
+		
 		}
 	
 	.form_group {
@@ -73,8 +75,8 @@
 		width:640px;
 		margin: 0 auto;
 		background-color: #fffff;
-		border:1px solid #c9c9c9;	
-		border-radius: 24px;	
+
+			float:left;	
 		
 	}
 	.logo {	
@@ -89,12 +91,17 @@
 		margin:0 auto;
 		width:322px;
 		background-color: white;
-		border:3px solid red;
+		
 	}
 
 </style>
 </head>
 <body>
+<div class="sideimg">
+	<img src="${pageContext.request.contextPath}/img/bgimg.jpg" style="float:left; width:50%;  padding-right: 4%;">
+</div>
+
+
 	<form action="${pageContext.request.contextPath}/memberLoginAction.me" method="post" class="loginform">
 
 		
