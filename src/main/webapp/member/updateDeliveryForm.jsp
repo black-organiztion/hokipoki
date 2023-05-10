@@ -80,32 +80,160 @@ function selectAddr(f){
     }
 
 </script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
+
+<style>
+	
+	*{
+		font-family: 'Noto Sans KR', sans-serif;
+	}
+
+
+	.delform{	
+		width:322px;
+		border:3px solid red;
+		
+		}
+	
+	.form_group {
+	  width:100%;
+	  height:62px; 
+	  border-bottom:2px solid #c9c9c9;
+	  
+	  }
+	 .form_group:not(:last-child){ margin-bottom:32px; }
+	.form_group > label{
+	  font-size: 18px;
+	  color:gray;  
+	 
+	}
+	.input_group{
+	  width:322px; 
+	  display:flex; 
+	
+	  }
+	.input_group> *{
+	  flex:0 0 auto;
+	  padding-bottom:0px;
+	  margin-top:3px;
+	  }
+	.input_group> input[type=button]{ 
+	  width:70px; 
+	  height:30px; 
+	  background-color:orange; 
+	  color:white; 
+	  border:none;
+	  border-radius:4px;
+	  font-size:14px;
+	  }
+	.input_group> .form_control{
+	  min-width:0;
+	  flex:1 1 auto;
+	  width:auto;
+	  outline:none;
+	  border:none;
+	  font-size:18px;
+	  font-weight: 500;
+	  }
+	  .submitbtn{
+	  	width:322px;
+	  	height:50px; 
+	  	background-color:orange; 
+	  	color:white; 
+	  	border:none;
+	  	border-radius:4px;
+	  	font-size:18px;
+	  	font-weight: 500;
+	  	margin-top:32px;
+	  	margin-bottom: 18px;
+	  	font-weight: bold;
+	  }
+	.container{
+		width:322px;	
+		
+		background-color: #fffff;
+		border:3px solid blue;		
+	}
+	.tit{
+		width:322px;
+		height:50px;
+		font-size:24px;
+		font-weight: bold;
+		border:3px solid red;
+		text-align:center;
+		margin-bottom: 20px;
+	}
+	.all{
+		width:322px;
+		border:1.5px solid #c9c9c9;
+		margin:0 auto;
+		padding:50px;
+		border-radius: 12px;
+	
+	}
+
+</style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
 
-<form>
+<div class="container">
+	<form id="delform" name="delform">
+		<div class="form_group">
+		<label>우편번호</label>
+			<div class="input_group">
+		<input type="text" name="zipcode" id="sample4_postcode"  class="form_control">
+			<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호">
+		</div>
+		</div>
 
-<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
-
-<input type="text" name="deliveryname" id="deliveryname"placeholder="배송지명">
-<input type="text" name="receivername" id="receivername"placeholder="수령자명">
-<input type="text" name="zipcode" id="sample4_postcode" placeholder="우편번호">
- 전화번호1<input type="text" name = "tel11" id="tel11" maxlength="3">
-<input type="text" name = "tel12" id="tel12" maxlength="4">
-<input type="text" name = "tel13" id="tel13" maxlength="4"><br>
-전화번호2<input type="text" name = "tel21" id="tel21" maxlength="3">
-<input type="text" name = "tel22" id="tel22" maxlength="4">
-<input type="text" name = "tel23" id="tel23" maxlength="4">
-
-		<input type="text" id="sample4_roadAddress" placeholder="도로명주소" name="addr1">	
-		<span id="guide" style="color:#999;display:none"></span>
-		<input type="text" id="sample4_detailAddress" placeholder="상세주소" name="addr2">
-	<input type="button" value="저장" onclick="selectAddr(this.form)">
-	
-	
-	
+		<div class="form_group">
+			<label>배송지명</label>
+				<div class="input_group">
+			<input type="text" name="deliveryname" id="deliveryname" class="form_control">
+		</div>	
+		</div>
+		<div class="form_group">
+		<label>수령자명</label>
+			<div class="input_group">
+		<input type="text" name="receivername" id="receivername" class="form_control">
+		</div>
+		</div>
+		<div class="form_group">
+		<label>전화번호1</label>
+			<div class="input_group">
+		 <input type="text" name = "tel11" id="tel11" maxlength="3"  class="form_control">
+		<input type="text" name = "tel12" id="tel12" maxlength="4"  class="form_control">
+		<input type="text" name = "tel13" id="tel13" maxlength="4"  class="form_control">
+		</div>
+		</div>
+		<div class="form_group">
+		<label>전화번호2</label>
+			<div class="input_group">
+		<input type="text" name = "tel21" id="tel21" maxlength="3"  class="form_control">
+		<input type="text" name = "tel22" id="tel22" maxlength="4"  class="form_control">
+		<input type="text" name = "tel23" id="tel23" maxlength="4" class="form_control">
+		</div>
+		</div>
+		<div class="form_group">
+		<label>도로명주소</label>	
+			<div class="input_group">	
+				<input type="text" id="sample4_roadAddress" readonly name="addr1"  class="form_control">	
+				</div>
+				</div>
+				
+				<div class="form_group">
+				<label>상세주소</label>
+					<div class="input_group">
+				<input type="text" id="sample4_detailAddress" readonly  name="addr2" class="form_control">
+				</div>
+				</div>
+			
+			<input type="button" value="저장" onclick="selectAddr(this.form)" class="submitbtn">	
 	</form>
+</div>
 </body>
 </html>

@@ -69,9 +69,9 @@ public class GonguFrontController extends HttpServlet {
     		action = new GonguListAction();
 			try {
 				forward = action.execute(request, response);
-//				request.setAttribute("pagefile", "/gongu/gonguView.jsp");
-//				forward.setRedirect(false);
-//				forward.setPath("/index.jsp");
+				request.setAttribute("pagefile", "/gongu/gonguList.jsp");
+				forward.setRedirect(false);
+				forward.setPath("/index.jsp");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

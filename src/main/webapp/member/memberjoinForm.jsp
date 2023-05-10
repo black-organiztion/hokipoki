@@ -116,16 +116,27 @@ function chkForm(f){
 
     
 </script>
+
+<meta charset="UTF-8">
+<title>회원가입</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
+
 <style>
 	
 	*{
 		font-family: 'Noto Sans KR', sans-serif;
 	}
-
-	.joinform{
+	body{
+		overflow-y:hidden; 
 	
+	}
+
+	.joinform{	
 		width:322px;
-		margin:0 auto;
+		/* margin:0 auto; */
+		overflow: auto;
 		}
 	
 	.form_group {
@@ -176,14 +187,17 @@ function chkForm(f){
 	  	border-radius:4px;
 	  	font-size:18px;
 	  	font-weight: 500;
+	  	margin-top:32px;
 	  	margin-bottom: 18px;
+	  	font-weight: bold;
 	  }
 	.container{
-		width:640px;
-		margin: 0 auto;
+		width:40%;	
+		height:700px;	
 		background-color: #fffff;
-		border:1px solid #c9c9c9;	
-		border-radius: 24px;	
+		border:1px red;	
+		
+		float:left;	
 		
 	}
 	.logo {	
@@ -195,27 +209,64 @@ function chkForm(f){
 		margin-bottom: 52px;
 	}
 	.inner{		
-		margin:0 auto;
+		margin:0 auto; 
 		width:322px;
 		background-color: white;
 	}
-	
+
+	/* .test::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/ 
+.test::-webkit-scrollbar,.test::-webkit-scrollbar-thumb {
+  width: 26px;
+  border-radius: 13px;
+ background-clip: padding-box; 
+  border: 10px solid transparent;
+}
+
+.test::-webkit-scrollbar-thumb {        
+  box-shadow: inset 0 0 0 10px;
+}
+
+.test:hover {
+  color: rgba(0, 0, 0, 0.3);
+}
+
+.test{
+overflow:auto;
+height:500px;
+margin:0 auto;
+background: white;
+
+  width: 400px;
+  height: 500px;
+  margin: 0 auto;     
+ overflow: auto;
+  color: rgba(0, 0, 0, 0);
+/*   -webkit-text-fill-color: black; */
+ 
+  transition: color .3s ease;
+}
+
+
+
 </style>
-<meta charset="UTF-8">
-<title>회원가입</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
+
 </head>
 <body>
+<div class="page">
+<div class="sideimg">
+	<img src="${pageContext.request.contextPath}/img/bgimg.jpg" style="float:left; width:50%;  padding-right: 4%;">
+</div>
+
 <div class="container">
 	<div class="inner">
 		<div class="logo"> 
 			<img src="${pageContext.request.contextPath}/img/logo_small.png" class="img" >
 		</div>
 		
+		<div class="test">
 
-<form action="${pageContext.request.contextPath}/memberJoinAction.me" method="post" name="joinform" class="joinform">
+<form action="${pageContext.request.contextPath}/memberJoinAction.me" method="post" id="joinform" name="joinform" class="joinform">
 		<div class="form_group">
 			<label>아이디</label>
 			<div class="input_group">
@@ -296,7 +347,9 @@ function chkForm(f){
 		<label>전화번호2</label>
 			<div class="input_group">
 				<input type="text" name = "tel2.1" class="form_control"  maxlength="3">
+				ㅡ
 				<input type="text" name = "tel2.2" class="form_control"  maxlength="4" >
+				ㅡ
 				<input type="text" name = "tel2.3" class="form_control"  maxlength="4" >
 			</div>
 	</div>
@@ -309,16 +362,19 @@ function chkForm(f){
 	<div class="form_group">
 		<label>상세주소</label>
 			<div class="input_group">
-				<input type="text" id="sample4_detailAddress" readonly name="addr2" class="form_control">
+				<input type="text" id="sample4_detailAddress" name="addr2" class="form_control">
 			</div>
 	</div>		
 		<span id="guide" style="color:#999;"></span>
 		
 
-<input type="submit" value="가입" class="submitbtn" >
+
 
 <input type="hidden" id="membership_id" name="membership_id" value="e">
 </form>
+</div>
+<input type="button" value="회원가입" class="submitbtn" onclick="document.getElementById('joinform').submit();" >
+</div>
 </div>
 </div>
 </body>
