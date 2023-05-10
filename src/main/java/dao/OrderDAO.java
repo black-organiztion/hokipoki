@@ -44,7 +44,7 @@ public class OrderDAO {
 
 			switch (loginAuthor) {
 			case 1:
-				sql += "o.gongu_id = (SELECT gongu_id FROM gongu WHERE seller_id = '" + loginId + "')";
+				sql += "o.gongu_id IN (SELECT gongu_id FROM gongu WHERE seller_id = '" + loginId + "')";
 				break;
 			default:
 				sql += "o.member_id = '" + loginId + "'";
@@ -161,7 +161,7 @@ public class OrderDAO {
 		
 		int test = 0;
 		
-		String sql = "insert into orders (gongu_id, member_id, delivery_id, order_date, order_count, order_price, order_status) values(?,?,?,now(),default,?,'0')";
+		String sql = "insert into orders (gongu_id, member_id, delivery_id, order_date, order_count, order_price, order_status) values(?,?,?,now(),default,?,'1')";
 		try {
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, gongu_id);

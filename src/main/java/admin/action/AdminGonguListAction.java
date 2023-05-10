@@ -48,7 +48,34 @@ public class AdminGonguListAction implements Action {
 			
 			}
 			
+			int standByCnt = 0;
+			int ongoingCnt = 0;
+			int calcCnt = 0;
+			
+			
+			
 			if(gonguList.size()>=0) {
+				//횟수 count;
+				for(int i=0; i<gonguList.size(); i++) {
+					String status = gonguList.get(i).getGongu_status();
+					
+					switch(status) {
+					//승인대기
+					case "0" : standByCnt++; break;
+					
+					//진행중
+					case "4" : ongoingCnt++; break;
+					
+					//정산중 -> status 값 추가해야됨
+					
+					}
+					
+				}
+				
+				
+				request.setAttribute("standByCnt", standByCnt);
+				request.setAttribute("ongoingCnt", ongoingCnt);
+				request.setAttribute("calcCnt", calcCnt);
 				request.setAttribute("gonguList", gonguList);//넘어가는 정보2
 				//System.out.println(gonguList);
 				request.setAttribute("pagefile", "/admin/adminGonguConfig.jsp");

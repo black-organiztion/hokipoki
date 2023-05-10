@@ -9,7 +9,7 @@
 	
 	<nav>
 		<div class="header_item main">
-			<a href="${pageContext.request.contextPath}/adminTemplate.jsp">
+			<a href="adminMain.ad">
 				<span>메인</span>
 				<span class="line"></span>
 			</a>
@@ -32,23 +32,26 @@
 				<span class="line"></span>
 			</a>
 		</div>
-		<div class="header_item seller">
-			<a href="adminSellerListAction.ad">
-				<span>판매자관리</span>
-				<span class="line"></span>
-			</a>
-		</div>
-		<div class="header_item member">
-			<a href="adminMemberListAction.ad">
-				<span>회원관리</span>
-				<span class="line"></span>
-			</a>
-		</div>
+		<c:if test="${sessionScope.loginId eq 'system' || sessionScope.loginAuthor eq 0 }">
+			<div class="header_item seller">
+				<a href="adminSellerListAction.ad">
+					<span>판매자관리</span>
+					<span class="line"></span>
+				</a>
+			</div>
+			<div class="header_item member">
+				<a href="adminMemberListAction.ad">
+					<span>회원관리</span>
+					<span class="line"></span>
+				</a>
+			</div>
+		</c:if>
+		
 	</nav>
 	
 	<c:if test="${loginId ne null }">
 		<div class="login_nav btn-group">
-			<span class="btn"><span><i class="fa-solid fa-user"></i></span><span>${sessionScope.loginId }</span></span>
+			<span class="btn"><span class="icon"><i class="fa-solid fa-user"></i></span><span>${sessionScope.loginId }</span></span>
 			<a href="adminLogout.ad" class="btn">logout</a>
 		</div>
 	</c:if>

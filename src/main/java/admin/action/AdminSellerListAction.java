@@ -38,7 +38,20 @@ public class AdminSellerListAction implements Action {
 			
 			ArrayList<Seller> sellerList = adminSellerListService.getSellerList();
 			
+			int standByCnt = 0;
+			
+			//가입대기건수
+			for(int i=0; i<sellerList.size(); i++) {
+				int author = sellerList.get(i).getSeller_author();
+				
+				if(author == 99) {
+					standByCnt++;
+				}
+				
+			}
+			
 			if(sellerList.size() > 0) {
+				request.setAttribute("standByCnt", standByCnt);
 				request.setAttribute("sellerList", sellerList);
 				request.setAttribute("pagefile", "/admin/adminSellerConfig.jsp");
 				forward = new ActionForward("/admin/adminTemplate.jsp",false);

@@ -124,7 +124,13 @@ public class AdminFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
     	}
-    	else if(command.equals("/adminGonguStartAction.ad")){
+		/*
+		 * else if(command.equals("/adminGonguStartAction.ad")){ action = new
+		 * AdminGonguStartAction(); try { forward = action.execute(request, response); }
+		 * catch (Exception e) { // TODO Auto-generated catch block e.printStackTrace();
+		 * } }
+		 */
+    	else if(command.equals("/adminGonguCloseAction.ad")){
     		action = new AdminGonguStartAction();
     		try {
 				forward = action.execute(request, response);

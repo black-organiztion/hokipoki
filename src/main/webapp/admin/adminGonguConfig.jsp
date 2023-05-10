@@ -3,33 +3,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <script>
-	function lyOn(btn){
-		var btnId = btn.id; //클릭한 요소의 id
-		var lyId = "ly_"+(btnId.replace("btn_","")); //id값에서 필요한 문자열 추출 후 만든 문자열로 새로운 id값으로 사용
-		var lyTop = ($("#"+btnId).offset().top) + ($("#"+btnId).outerHeight()) + 4;
-		var lyLeft = $("#"+btnId).offset().left;
-
-		$("#"+btnId).addClass("on");
-		$('#'+lyId).css({
-			"top":lyTop,
-			"left":lyLeft
-			});
-		$('#'+lyId).show();
-		
-	}
 	$(document).ready(function(){
 		//header 메뉴 active
 		$("#header .header_item").removeClass("active");
 		$("#header .gongu").addClass("active");
-		
-		
-		
+	
 	});
 </script>
 
-<!-- <div class="card bg-secondary">
-
-</div> -->
 <div id="content" class="container">
 	<div class="row">
 		<div class="col-xl-2 col-12">
@@ -59,17 +40,17 @@
 			<div class="section">
 			<h5>숫자로 보는 공구</h5>
 			<div>
-				<div class="gongu_cnts">
+				<div class="gongu_cnts cnts">
 					<span>승인대기</span>
-					<em>99</em>
+					<em>${standByCnt }</em>
 				</div>
-				<div class="gongu_cnts">
+				<div class="gongu_cnts cnts">
 					<span>진행중</span>
-					<em>99</em>
+					<em>${ongoingCnt }</em>
 				</div>
-				<div class="gongu_cnts">
+				<div class="gongu_cnts cnts">
 					<span>정산중</span>
-					<em>99</em>
+					<em>${calcCnt }</em>
 				</div>
 			</div>
 			</div>
@@ -86,8 +67,8 @@
 						<fieldset>
 							<legend>공구상태표시</legend>
 							<div class="frm_group">
-								<input type="checkbox" id="gongu_9" name="gongu_status" value="9" class="frm_chk">
-								<label for="gongu_9">전체</label>
+								<input type="checkbox" id="gongu_all" name="gongu_status" value="all" class="frm_chk">
+								<label for="gongu_all">전체</label>
 							</div>
 							<div class="frm_group">
 								<input type="checkbox" id="gongu_3" name="gongu_status" value="3" class="frm_chk">
@@ -116,6 +97,18 @@
 							<div class="frm_group">
 								<input type="checkbox" id="gongu_7" name="gongu_status" value="7" class="frm_chk">
 								<label for="gongu_7">종료</label>
+							</div>
+							<div class="frm_group">
+								<input type="checkbox" id="gongu_8" name="gongu_status" value="8" class="frm_chk">
+								<label for="gongu_8">정산중</label>
+							</div>
+							<div class="frm_group">
+								<input type="checkbox" id="gongu_9" name="gongu_status" value="9" class="frm_chk">
+								<label for="gongu_9">정산완료</label>
+							</div>
+							<div class="bt_group">
+								<button id="" type="button" class="bt" onclick="lyOff(this)">취소</button>
+								<button id="" type="button" class="bt bt_primary">적용</button>
 							</div>
 						</fieldset>
 					</form>	
@@ -147,9 +140,11 @@
 								<li>승인 : 판매자가 작성한 공구글이 관리자의 승인을 받은 상태</li>
 								<li>반려 : 판매자가 작성한 공구글이 관리자의 승인 거절을 받은 상태</li>
 								<li>진행중 : 공구글이 게시되어 구매자를 모집하는 상태</li>
-								<li>비활성화 대기 : 관리자가 공구글을 비활성화 시키고 공구글이 비활성화 되기 전 상태, 찜하기와 참여하기가 불가능함, 공구글이 숨겨지기 전에 구매자들이 공구페이지에서 공구 중지에 대한 내용을 확인 할 수 있도록 하기 위함</li>
+								<li>비활성화 대기: 관리자가 공구글을 비활성화 시키고 공구글이 비활성화 되기 전 상태, 찜하기와 참여하기가 불가능함, 공구글이 숨겨지기 전에 구매자들이 공구페이지에서 공구 중지에 대한 내용을 확인 할 수 있도록 하기 위함</li>
 								<li>비활성화 : 공구글이 비활성화 되어 판매자&관리자만 확인할 수 있는 상태</li>
 								<li>종료 : 공구마감일이 되었거나 공구 목표 달성으로 인해 공구가 종료된 상태</li>
+								<li>정산중 : 목표달성한 공구가 정산중인 상태</li>
+								<li>정산완료 : 공구의 정산이 완료된 상태(최종 종료)</li>
 							</ul>
 						</div>
 					</span>
@@ -171,10 +166,11 @@
 											<c:when test="${gongu.gongu_status == '2' }">승인</c:when>
 											<c:when test="${gongu.gongu_status == '3' }">반려</c:when>
 											<c:when test="${gongu.gongu_status == '4' }">진행중</c:when>
-											<c:when test="${gongu.gongu_status == '5' }">비활성화 대기</c:when>
+											<c:when test="${gongu.gongu_status == '5' }">비활성화</c:when>
 											<c:when test="${gongu.gongu_status == '6' }">비활성화</c:when>
-											<c:when test="${gongu.gongu_status == '7' }">종료(공구성공)</c:when>
-											<c:when test="${gongu.gongu_status == '8' }">종료(공구실패)</c:when>
+											<c:when test="${gongu.gongu_status == '7' }">종료</c:when>
+											<c:when test="${gongu.gongu_status == '8' }">정산중</c:when>
+											<c:when test="${gongu.gongu_status == '9' }">정산완료</c:when>
 										</c:choose>
 									</span>
 								</span>
@@ -189,7 +185,7 @@
 					</c:forEach>
 				</c:when>
 				<c:otherwise>
-					<p>등록된 공구가 없습니다.</p>
+					<p class="noItem">등록된 공구가 없습니다.</p>
 				</c:otherwise>	
 			</c:choose>
 			</div>

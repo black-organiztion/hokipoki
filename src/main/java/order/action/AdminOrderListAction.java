@@ -40,17 +40,19 @@ public class AdminOrderListAction implements Action {
 			//ArrayList<MemberOrder> orderList =
 			List<Object> orderList = orderListService.getOrderList(loginId,loginAuthor);
 			
-			if(orderList.size()>0) {
+			if(orderList.size() >= 0) {
 				request.setAttribute("orderList", orderList);
 				request.setAttribute("pagefile", "/admin/orderConfig.jsp");
 				forward = new ActionForward("/admin/adminTemplate.jsp",false);
 				
+			}else {
+				response.setContentType("text/html;charset=utf-8");
+				PrintWriter out = response.getWriter();
+				out.print("<script>");
+				out.print("alert('주문목록조회 오류가 발생했습니다. 다시 시도해주세요');");
+				out.print("history.back();");
+				out.print("</script>");
 			}
-			/* 주문실패
-			 * else {
-			 * 
-			 * }
-			 */
 			
 		}
 		
