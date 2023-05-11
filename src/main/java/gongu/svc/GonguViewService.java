@@ -17,8 +17,12 @@ public class GonguViewService {
 			GonguDAO gonguDAO = GonguDAO.getInstance();
 			gonguDAO.setConnection(con);
 			viewcount = gonguDAO.updateReadCount(id);
+			if(viewcount>0) {
+				commit(con);
+				}			
+			System.out.println("뷰카운트:"+viewcount);
 			gongu=gonguDAO.selectgongu(id);
-		}catch(Exception e) {
+		}catch(Exception e) {			
 			e.printStackTrace();
 		}finally {
 			close(con);

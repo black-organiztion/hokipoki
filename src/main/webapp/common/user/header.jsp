@@ -155,7 +155,7 @@
 	        	</ul>
         	</div>
        	</li>
-        <li class="nav-item"><a href="#" class="nav-link link-dark px-2 active" aria-current="page">Home</a></li>
+        <li class="nav-item"><a href="${pageContext.request.contextPath}/gonguListHome.go" class="nav-link link-dark px-2 active" aria-current="page">홈</a></li>
         <li class="nav-item"><a href="#" class="nav-link link-dark px-2">인기</a></li>
         <li class="nav-item"><a href="#" class="nav-link link-dark px-2">신규</a></li>
         <li class="nav-item"><a href="#" class="nav-link link-dark px-2">마감임박</a></li>

@@ -32,7 +32,7 @@ public class MemberLoginAction implements Action {
 			forward = new ActionForward();
 			session.setAttribute("member_id", member.getMember_id());
 			forward.setRedirect(true);
-			forward.setPath("index.jsp");
+			forward.setPath("/gonguListHome.go");
 		} else {
 			response.setContentType("text/html;charset=utf-8");
 			PrintWriter out = response.getWriter();

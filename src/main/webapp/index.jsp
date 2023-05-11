@@ -19,7 +19,8 @@ pageTitle = "호키포키";
 	<jsp:include page="/common/user/header.jsp"></jsp:include>
 	<c:choose>
 		<c:when test="${pagefile eq null }">
-			<c:redirect url="gonguList.go"/>
+			 <c:redirect url="gonguListHome.go"/> 
+			<%-- <jsp:include page="/home.jsp"></jsp:include> --%>
 		</c:when>
 		<c:otherwise>
 			<jsp:include page="${pagefile }"></jsp:include>
