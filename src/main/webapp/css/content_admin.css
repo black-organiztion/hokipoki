@@ -37,7 +37,7 @@
 .gongu_form .frm_group .img>img{position:absolute; top:50%; left:50%; height:150px; transform:translate(-50%,-50%);}
 
 .gongu_info{position:relative}
-.gongu_info .bts_gongu_status{position:absolute; top:0; right:0;}
+.gongu_info .bts_gongu_status{position:absolute; top:0; right:0; z-index:99;}
 .gongu_info .tab_menu a{padding:20px 20px 0 20px;}
 
 

@@ -66,7 +66,8 @@ public class AdminGonguListAction implements Action {
 					//진행중
 					case "4" : ongoingCnt++; break;
 					
-					//정산중 -> status 값 추가해야됨
+					//정산중
+					case "8" : calcCnt++; break;
 					
 					}
 					

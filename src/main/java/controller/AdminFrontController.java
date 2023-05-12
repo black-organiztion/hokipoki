@@ -79,6 +79,14 @@ public class AdminFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
     	}
+    	else if(command.equals("/adminSellerIdCheck.ad")){
+    		String id = request.getParameter("seller_id");
+    		String result = new AdminSellerIdCheckAction().checkId(id);
+    		System.out.println("컨트롤러 result : "+ result);
+    		response.setContentType("text/plain;charset=UTF-8");
+            response.getWriter().write(result);
+    		
+    	}
     	else if(command.equals("/adminSellerListAction.ad")){
     		action = new AdminSellerListAction();
     		try {
@@ -88,6 +96,7 @@ public class AdminFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
     	}
+ 
     	else if(command.equals("/adminSellerJoinCheck.ad")){
     		action = new AdminSellerJoinCheckAction();
     		try {
@@ -124,14 +133,17 @@ public class AdminFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
     	}
-		/*
-		 * else if(command.equals("/adminGonguStartAction.ad")){ action = new
-		 * AdminGonguStartAction(); try { forward = action.execute(request, response); }
-		 * catch (Exception e) { // TODO Auto-generated catch block e.printStackTrace();
-		 * } }
-		 */
-    	else if(command.equals("/adminGonguCloseAction.ad")){
+    	else if(command.equals("/adminGonguStartAction.ad")){
     		action = new AdminGonguStartAction();
+    		try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
+    	else if(command.equals("/adminGonguCloseAction.ad")){
+    		action = new AdminGonguCloseAction();
     		try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
@@ -148,9 +160,15 @@ public class AdminFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
     	}
-    	
-    	
-    	
+    	else if(command.equals("/adminMemberDetailView.ad")){
+    		action = new AdminMemberDetailViewAction();
+    		try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
     	
     	
     	

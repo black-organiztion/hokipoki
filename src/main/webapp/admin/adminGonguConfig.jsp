@@ -157,7 +157,7 @@
 				<c:when test="${gonguList.size() > 0 }">
 					<c:forEach var="gongu" items="${gonguList}" varStatus="">
 							<div class="list_item ${gongu.gongu_status eq '3'? 'reject':'' } ${gongu.gongu_status eq '4'? 'on':'' }">	
-								<a href="adminGonguDetailViewAction.ad?gongu_id=${gongu.gongu_id}">
+								<a href="adminGonguDetailViewAction.ad?gongu_id=${gongu.gongu_id}&seller_id=${gongu.seller_id}">
 								<span>
 									<span class="status">
 										<c:choose>

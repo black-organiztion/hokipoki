@@ -76,4 +76,37 @@ public class AdminGonguSetStatusService {
 		return startList;
 	}
 
+	public ArrayList<String[]> closeGonguAll() {
+		ArrayList<String[]> closeList = null;
+		
+		Connection con = null;
+		
+		try {
+			con = getConnection();
+			//System.out.println(con);
+			GonguDAO gonguDAO = GonguDAO.getInstance();
+			gonguDAO.setConnection(con);
+			
+			closeList = gonguDAO.closeGongu();
+
+			if(closeList.size() > 0) {
+				commit(con);
+				
+			}else {
+				rollback(con);
+			}
+			
+			
+		}catch(Exception e) {
+			System.out.println("공구종료오류:"+e);
+			e.printStackTrace();
+			rollback(con);
+			
+		}finally {
+			close(con);
+		}
+		
+		return closeList;
+	}
+
 }

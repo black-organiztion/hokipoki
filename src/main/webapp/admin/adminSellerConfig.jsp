@@ -27,17 +27,19 @@
 		<div class="col-xl-10 col-12">
 			<div class="section">
 				<!-- conts2 : 판매자필터 + 리스트 -->
-				<h5>판매자검색</h5>
-				<div class="utils">
-					<div class="right">
-						<div class="input_group">
-							<select name="sch_options" class="frm_control">
-								<option>ID</option>
-								<option>회사명</option>
-							</select>
-							<div class="utils_search frm_control">
-								<input type="text" name="sch_keyword">
-								<button type="button" class="btn_search">검색</button>
+				<div class="sec_header">
+					<h5>판매자검색</h5>
+					<div class="utils">
+						<div class="right">
+							<div class="input_group">
+								<select name="sch_options" class="frm_control">
+									<option>ID</option>
+									<option>회사명</option>
+								</select>
+								<div class="utils_search frm_control">
+									<input type="text" name="sch_keyword">
+									<button type="button" class="btn_search">검색</button>
+								</div>
 							</div>
 						</div>
 					</div>

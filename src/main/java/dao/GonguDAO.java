@@ -273,6 +273,7 @@ public class GonguDAO {
 			System.out.println("공구시작오류:"+e);
 			
 		}finally {
+			close(rs);
 			close(psmt2);
 			close(psmt);
 		}
@@ -403,6 +404,52 @@ public class GonguDAO {
 		
 		return oldList;
 	}
+	
+	
+	public ArrayList<String[]> closeGongu() {
+		ArrayList<String[]> closeList = new ArrayList<>();
+		
+		PreparedStatement psmt = null;
+		PreparedStatement psmt2 = null;
+		ResultSet rs = null;
+		String sql = "UPDATE gongu SET gongu_status = IF(gongu_stock > 0, '7', '8') WHERE gongu_status = '4' && (gongu_findate <= CURDATE() || gongu_stock = 0)";
+		String sql2 = "SELECT gongu_id, gongu_name FROM gongu WHERE (gongu_status = '7' || gongu_status = '8') && gongu_update = CURDATE()";
+		
+		try {
+			psmt = con.prepareStatement(sql);
+			System.out.println(psmt);
+			int closeCount = psmt.executeUpdate();
+			if(closeCount > 0) {
+				psmt2 = con.prepareStatement(sql2);
+				rs = psmt2.executeQuery();
+				
+				if(rs.next()) {
+					do {
+						String[] temp = {"",""} ;
+						temp[0] = rs.getString("gongu_id");
+						temp[1] = rs.getString("gongu_name");
+						closeList.add(temp);
+						
+					}while(rs.next());
+					
+				}
+				
+			}else {
+				System.out.println("오늘 종료할 공구가 없습니다.");
+			}
+			
+		}catch(Exception e) {
+			System.out.println("공구종료오류:"+e);
+			
+		}finally {
+			close(rs);
+			close(psmt2);
+			close(psmt);
+		}
+		
+		return closeList;
+	}
+
 
 	
 	

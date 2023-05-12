@@ -185,5 +185,65 @@ public class AdminDAO {
 		return memberList;
 	}
 
+	public int checkDupl(String seller_id) {
+		int result = 0;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM seller WHERE seller_id = ?";
+		
+		try {
+			psmt = con.prepareStatement(sql);
+			psmt.setString(1, seller_id);
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				result = 1;
+				
+			}else {
+				result = 0;
+			}
+			
+		}catch(Exception e) {
+			System.out.println("판매자아이디중복조회오류:"+e);
+			
+		}finally {
+			close(rs);
+			close(psmt);
+		}
+		
+		return result;
+	}
+
+	public Seller selectSellerInfo(String seller_id) {
+		Seller seller = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM seller WHERE seller_id = ?";
+		
+		try {
+			psmt = con.prepareStatement(sql);
+			psmt.setString(1, seller_id);
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				seller = new Seller();
+				seller.setSeller_id(rs.getString("seller_id"));
+				seller.setSeller_pw(rs.getString("seller_pw"));
+				seller.setSeller_name(rs.getString("seller_name"));
+				seller.setSeller_number(rs.getString("seller_number"));
+			}
+			
+			
+		}catch(Exception e) {
+			System.out.println("판매자정보선택오류"+e);
+			
+		}finally{
+			close(rs);
+			close(psmt);
+		}
+		
+		return seller;
+	}
+
 	
 }
