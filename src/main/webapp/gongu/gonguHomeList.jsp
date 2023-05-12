@@ -1,121 +1,5 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
-  <!-- Link Swiper's CSS -->
-  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-  
-
-  <title>Home</title>
-
-  <!-- Demo styles -->
-  <style>
-    html,
-    body {
-      position: relative;
-      height: 100%;
-    }
-
-    body {
-
-      background: #eee;
-      font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-      font-size: 14px;
-      color: #000;
-      margin: 0;
-      padding: 0;
-    }
-
-    .swiper {
-      width: 100%;
-      height: 450px;
-    }
-
-    .swiper-slide {
-      text-align: center;
-      font-size: 18px;
-      background: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .swiper-slide img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    
-    .incontainer {
-    	width:1200px;
-    	margin:60px auto 0 auto;
-    	
-    }
-    
-    .banner{
-    	margin-bottom: 40px;
-    }
-
-	.gongu_group{
-		width:1200px;
-		display: flex;
-		flex-wrap: wrap;
-	}
-    
-    .gongu_group > label{
-    	font-size: 20px;
-    	
-    }
-    
-    .gongu_box{
-    	padding:20px;
-    }
-    
-    .info{
-    width:252px;
-    height:396px;
-    border:2px dashed blue;
-    }
-    
-  </style>
-    <!-- Swiper JS -->
-
-  <!-- Initialize Swiper -->
-</head>
-
-<body>
-<jsp:include page="/common/user/header.jsp"></jsp:include>
-<!-- main -->
-  <!-- Swiper -->
-  <div class="swiper mySwiper">
-    <div class="swiper-wrapper">
-      <div class="swiper-slide"><img src="${pageContext.request.contextPath}/img/banner/imvita.jpg"></div>
-      <div class="swiper-slide"><img src="${pageContext.request.contextPath}/img/banner/baby.jpg"></div>
-      <div class="swiper-slide"><img src="${pageContext.request.contextPath}/img/banner/laundry.jpg"></div>
-      <div class="swiper-slide"><img src="${pageContext.request.contextPath}/img/banner/skin.jpg"></div>
-    </div>
-    
-    <div class="swiper-pagination"></div>
-  </div>
- <!--// main --> 
- 
- <!-- banner  --> 
-  <div class="incontainer">
-  	<div class="banner">
-  		<img src="${pageContext.request.contextPath}/img/ad1.png">
-  	</div>
-  </div>
-<!-- // banner  -->
-<%-- <c:redirect url="gonguListHome.go"/> --%>
+    pageEncoding="UTF-8"%><%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 
 <style>
 
@@ -146,12 +30,10 @@
 	}
 	
 	.cate{
-		color:#686868;
 		font-size:12px;
 		margin-bottom:3.9px;
 	}
 	.tit{
-	 	color:#515151;
 		font-size:18px;
 		font-weight: bold;
 		height:50px;
@@ -163,7 +45,7 @@
 		height:33px;
 
 		margin-top: 14px;	
-		align-items: flex-end;
+		align-items: baseline;
 	}
 	
 	.count{
@@ -171,37 +53,18 @@
 		color:#c9c9c9;
 	}
 	.num{
-		padding-top: 10px;
-		height:30px;
 		display:flex;
-		align-items: center; 
-		
+		align-items: baseline;
 	}
-	
 	.per{
-		
-		width:60px;
-		height:24px; 
-		border-radius:12px;
-		background-color:orange;
-	
-		display:flex;
-		color:#ffff;		
-		font-size:13px;
+		font-size:22px;
 		font-weight: bold;
-		align-items: center;
-		justify-content: center;
-		
 	}
-
-	
-	.price{		
-		padding-bottom:3px;
+	.price{
 		margin-left:5px;
 		font-size:26px;
 		font-weight: bold;
-		 color:#515151;
-		 text-align: bottom;
+		color:orange;
 		
 	}
 	#gonguImage{
@@ -214,7 +77,6 @@
 		text-align: right;
 		color:#c9c9c9;
 		text-decoration: line-through; 
-		
 	}
 	.label{
 		font-size: 26px;
@@ -222,9 +84,7 @@
 	}
 	.gongucontainer{
 		width:1200px;
-		margin:0 auto;
-	
-		
+		margin:0 auto;	
 		margin-bottom: 70px;
 		
 	}
@@ -260,11 +120,10 @@
 					</div>
 					<div class="num">
 						<div class="per">
-							공구특가
-						<%-- <fmt:formatNumber value="${(gongu.gongu_discount_price/gongu.gongu_price)}" type="percent"/> --%>							
+							${(gongu.gongu_discount_price/gongu.gongu_price) * 100 }%
 						</div>
 						<div class="price">
-							<fmt:formatNumber value="${gongu.gongu_discount_price}" type="number"/>
+							${gongu.gongu_discount_price}
 						</div>
 					</div>
 				</div>
@@ -304,10 +163,10 @@
 					</div>
 					<div class="num">
 						<div class="per">
-							공구특가
+							${(gongu.gongu_discount_price/gongu.gongu_price) * 100 }%
 						</div>
 						<div class="price">
-							<fmt:formatNumber value="${gongu.gongu_discount_price}" type="number"/>
+							${gongu.gongu_discount_price}
 						</div>
 					</div>
 				</div>
@@ -348,10 +207,10 @@
 					</div>
 					<div class="num">
 						<div class="per">
-							공구특가
+							${(gongu.gongu_discount_price/gongu.gongu_price )* 100}%
 						</div>
 						<div class="price">
-							<fmt:formatNumber value="${gongu.gongu_discount_price}" type="number"/>
+							${gongu.gongu_discount_price}
 						</div>
 					</div>
 				</div>
@@ -362,29 +221,3 @@
 </div>
 
 </c:if>
-
-
-
-
-<script>
-    var swiper = new Swiper(".mySwiper", {
-      spaceBetween: 30,
-      centeredSlides: true,
-      autoplay: {
-        delay: 5000,
-        disableOnInteraction: false,
-      },
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-      },
-      navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-      },
-    });
-  </script>
-
-</body>
-
-</html>

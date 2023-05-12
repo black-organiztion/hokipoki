@@ -69,7 +69,7 @@ function getDate( element ) {
     try {
       date = $.datepicker.parseDate( dateFormat, element.value );
     } catch( error ) {
-      date = null;
+      date = null; 
     }
     return date;
  }
@@ -90,6 +90,18 @@ function getDate( element ) {
 						<option value="food">간편식</option>
 						<option value="kitchen">주방</option>
 						<option value="pet">반려견</option>
+						<option value="beauty">뷰티</option>
+						<option value="book">도서</option>
+						<option value="gugang">구강/면도</option>
+						<option value="elec">전자기기</option>
+						<option value="interior">홈인테리어</option>
+						<option value="design">디자인문구</option>
+						<option value="organize">수납/정리</option>
+						<option value="bath">욕실</option>
+						<option value="etc">잡화</option>
+						<option value="cloth">의류</option>
+						<option value="car">자동차용품</option>
+						<option value="hobby">취미</option>
 					</select>
 				</label>
 				
@@ -105,10 +117,10 @@ function getDate( element ) {
     </div>
     <div class="ui-grid-b">
         <div class="ui-block-a">
-            <input type="text" id="datepicker_start" readonly="readonly" name="gongustart">
+            <input type="text" id="datepicker_start" name="gongustart">
         </div>
         <div class="ui-block-b">
-            <input type="text" id="datepicker_end" readonly="readonly" name="gongufinish">
+            <input type="text" id="datepicker_end"  name="gongufinish">
         </div>        
     	</div>	
 				<label for="gonguname">상품명			

@@ -17,9 +17,6 @@ public class GonguListAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
 		// 목록을 다 가져오는 것이기때문에 파라미터 값이 필요없음
-
-	
-
 		GonguListService gonguListService = new GonguListService(); // 서비스
 
 		ArrayList<Gongu> gonguList = gonguListService.getGonguList();
