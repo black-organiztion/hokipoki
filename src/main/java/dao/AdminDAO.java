@@ -245,5 +245,36 @@ public class AdminDAO {
 		return seller;
 	}
 
+	public int checkIdentify(String seller_id, String seller_pw) {
+		int result = 0;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM seller WHERE seller_id = ? AND seller_pw = ?";
+		
+		try {
+			psmt = con.prepareStatement(sql);
+			psmt.setString(1, seller_id);
+			psmt.setString(2, seller_pw);
+			System.out.println(psmt);
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				result = 1;
+				
+			}else {
+				result = 0;
+			}
+			
+		}catch(Exception e) {
+			System.out.println("판매자비밀번호조회오류:"+e);
+			
+		}finally {
+			close(rs);
+			close(psmt);
+		}
+		
+		return result;
+	}
+
 	
 }

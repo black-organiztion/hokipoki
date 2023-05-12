@@ -169,6 +169,28 @@ public class AdminFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
     	}
+    	else if(command.equals("/adminMyPage.ad")){
+    		action = new AdminMyPageAction();
+    		try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
+    	else if(command.equals("/adminSellerIdentify.ad")){
+    		String id = request.getParameter("seller_id");
+    		String pw = request.getParameter("check_pw");
+    		String result = new AdminSellerIdCheckAction().checkPass(id,pw);
+    		System.out.println("컨트롤러 result : "+ result);
+    		response.setContentType("text/plain;charset=UTF-8");
+            response.getWriter().write(result);
+    		
+    	}
+    	
+    	
+    	
+    	
     	
     	
     	

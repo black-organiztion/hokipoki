@@ -51,7 +51,7 @@
 	
 	<c:if test="${loginId ne null }">
 		<div class="login_nav btn-group">
-			<span class="btn"><span class="icon"><i class="fa-solid fa-user"></i></span><span>${sessionScope.loginId }</span></span>
+			<a href="adminMyPage.ad" class="btn"><span class="icon"><i class="fa-solid fa-user"></i></span><span>${sessionScope.loginId }</span></a>
 			<a href="adminLogout.ad" class="btn">logout</a>
 		</div>
 	</c:if>

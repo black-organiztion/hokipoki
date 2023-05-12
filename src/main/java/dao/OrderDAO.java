@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import vo.MemberOrder;
+
 public class OrderDAO {
 	private static OrderDAO orderDAO;
 	Connection con;
@@ -180,6 +182,47 @@ public class OrderDAO {
 			close(pstmt);
 		}
 		return flag;
+	}
+
+	public ArrayList<MemberOrder> selectMemberOrderList(String member_id) {
+		ArrayList<MemberOrder> memberOrderList = new ArrayList<>();
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM orders WHERE member_id = ?";
+		
+		try {
+			psmt = con.prepareStatement(sql);
+			psmt.setString(1, member_id);
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				do {
+					MemberOrder order = new MemberOrder();
+					order.setOrder_id(rs.getInt("order_id"));
+					order.setGongu_id(rs.getInt("gongu_id"));
+					order.setMember_id(rs.getString("member_id"));
+					order.setDelivery_id(rs.getInt("delivery_id"));
+					order.setOrder_date(rs.getString("order_date"));
+					order.setOrder_count(rs.getInt("order_count"));
+					order.setOrder_end_date(rs.getString("order_end_date"));
+					order.setOrder_price(rs.getInt("order_price"));
+					order.setOrder_status(rs.getString("order_status"));
+					
+					memberOrderList.add(order);
+					
+				}while(rs.next());
+			}
+			
+		}catch(Exception e) {
+			System.out.println("회원주문목록선택오류:"+e);
+			
+		}finally {
+			close(rs);
+			close(psmt);
+		}
+
+		
+		return memberOrderList;
 	}	
 	
 

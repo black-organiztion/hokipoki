@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 import vo.Delivery;
 
@@ -159,6 +160,48 @@ public class DeliveryDAO {
 			close(pstmt);
 		}
 		return insertCount;
+	}
+
+	public ArrayList<Delivery> selectDeliveryList(String member_id) {
+		ArrayList<Delivery> deliveryList = new ArrayList<>();
+		
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM delivery WHERE member_id = ? && (isDefault IN(0,1))"; //
+		
+		try {
+			psmt = con.prepareStatement(sql);
+			psmt.setString(1,member_id);
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				do {
+					Delivery delivery = new Delivery();
+					delivery.setDelivery_id(rs.getString("delivery_id"));
+					delivery.setMember_id(rs.getString("member_id"));
+					delivery.setIsdefault(rs.getString("isdefault"));
+					delivery.setDelivery_name(rs.getString("delivery_name"));
+					delivery.setReceiver_name(rs.getString("receiver_name"));
+					delivery.setReceiver_tel(rs.getString("receiver_tel"));
+					delivery.setReceiver_tel2(rs.getString("receiver_tel2"));
+					delivery.setZip_code(rs.getString("zip_code"));
+					delivery.setAddr1(rs.getString("addr1"));
+					delivery.setAddr2(rs.getString("addr2"));
+					
+					deliveryList.add(delivery);
+					
+				}while(rs.next());
+			}
+			
+		}catch(Exception e) {
+			System.out.println("회원배송지목록선택오류:"+e);
+			
+		}finally {
+			close(rs);
+			close(psmt);
+		}
+				
+		return deliveryList;
 	}
 	
 	

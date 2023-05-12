@@ -27,16 +27,19 @@
 
 					<h5>멤버십</h5>
 					등급 : ${member.membership_id }
+					적립금 내역 : 준비중
 					<hr>
 					<h5>구매내역</h5>
-					총 구매금액 : <br>
+					총 구매금액 : ${totalBuyPrice } 원<br>
 					참여공구목록 : <br>
 					<div>
 						<c:choose>
 							<c:when test="${buyList.size() > 0 }">
-								<div class="border">
-									${buyList.order_id }
-								</div>
+								<c:forEach var="order" items="${buyList }">
+									<div class="border">
+										${order.order_id }
+									</div>
+								</c:forEach>
 							</c:when>
 							<c:otherwise>
 								<p>구매내역이 없습니다.</p>
@@ -45,17 +48,19 @@
 					</div>
 					
 					<hr>
-					<h5>주소록</h5>
+					<h5>최근 주소록</h5>
 					주소록 목록 : <br>
 					<div>
 						<c:choose>
 							<c:when test="${deliveryList.size() > 0 }">
-								<div class="border">
-									${deliveryList.order_id }
-								</div>
+								<c:forEach var="delivery" items="${deliveryList }">
+									<div class="border">
+										${delivery.order_id }
+									</div>
+								</c:forEach>
 							</c:when>
 							<c:otherwise>
-								<p>등록된 배송지가 없습니다.</p>
+								<p>최근 사용한 배송지가 없습니다.</p>
 							</c:otherwise>
 						</c:choose>
 					</div>
