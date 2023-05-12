@@ -31,8 +31,8 @@ public class MemberLoginAction implements Action {
 		if (loginResult) {
 			forward = new ActionForward();
 			session.setAttribute("member_id", member.getMember_id());
+			forward.setPath("./index.jsp");
 			forward.setRedirect(true);
-			forward.setPath("/gonguListHome.go");
 		} else {
 			response.setContentType("text/html;charset=utf-8");
 			PrintWriter out = response.getWriter();

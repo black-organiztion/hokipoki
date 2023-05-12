@@ -13,6 +13,10 @@
   <!-- Link Swiper's CSS -->
   <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
   
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
+  
 
   <title>Home</title>
 
@@ -114,8 +118,7 @@
   		<img src="${pageContext.request.contextPath}/img/ad1.png">
   	</div>
   </div>
-<!-- // banner  -->
-<%-- <c:redirect url="gonguListHome.go"/> --%>
+
 
 <style>
 
@@ -146,6 +149,7 @@
 	}
 	
 	.cate{
+		
 		color:#686868;
 		font-size:12px;
 		margin-bottom:3.9px;
@@ -153,7 +157,7 @@
 	.tit{
 	 	color:#515151;
 		font-size:18px;
-		font-weight: bold;
+		font-weight:500;
 		height:50px;
 		margin-bottom: 11px;
 	}
@@ -191,6 +195,7 @@
 		font-weight: bold;
 		align-items: center;
 		justify-content: center;
+		font-weight: 500;
 		
 	}
 
@@ -199,9 +204,10 @@
 		padding-bottom:3px;
 		margin-left:5px;
 		font-size:26px;
-		font-weight: bold;
+		
 		 color:#515151;
 		 text-align: bottom;
+		 font-weight: 500;
 		
 	}
 	#gonguImage{
@@ -219,13 +225,14 @@
 	.label{
 		font-size: 26px;
 		margin-bottom:24px;
+		
 	}
 	.gongucontainer{
 		width:1200px;
 		margin:0 auto;
 	
 		
-		margin-bottom: 70px;
+		margin-bottom: 100px;
 		
 	}
 	
@@ -260,8 +267,7 @@
 					</div>
 					<div class="num">
 						<div class="per">
-							공구특가
-						<%-- <fmt:formatNumber value="${(gongu.gongu_discount_price/gongu.gongu_price)}" type="percent"/> --%>							
+							공구특가						
 						</div>
 						<div class="price">
 							<fmt:formatNumber value="${gongu.gongu_discount_price}" type="number"/>
