@@ -92,7 +92,7 @@ function getDate( element ) {
 						<option value="pet">반려견</option>
 						<option value="beauty">뷰티</option>
 						<option value="book">도서</option>
-						<option value="gugang">구강/면도</option>
+						<option value="mouth">구강/면도</option>
 						<option value="elec">전자기기</option>
 						<option value="interior">홈인테리어</option>
 						<option value="design">디자인문구</option>

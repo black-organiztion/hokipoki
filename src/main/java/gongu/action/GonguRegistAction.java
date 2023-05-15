@@ -57,7 +57,7 @@ public class GonguRegistAction implements Action {
 		GonguRegistService GonguRegistService = new GonguRegistService();
 		boolean isRegistSuccess = GonguRegistService.isRegistSuccess(gongu);
 		if(isRegistSuccess) {
-			forward = new ActionForward("gonguList.go",true);
+			forward = new ActionForward("./index.jsp",true);
 			}else {
 			response.setContentType("text/html;charset=utf-8");
 			PrintWriter out = response.getWriter();

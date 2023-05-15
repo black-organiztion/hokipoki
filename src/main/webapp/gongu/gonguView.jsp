@@ -103,6 +103,7 @@
       width:50px;
       height:50px;
       border:1px solid #c9c9c9;
+      border-radius: 6px;
    }
    .sub_button{
       background-color: orange;
@@ -129,6 +130,18 @@
    #mya {
      text-decoration: none !important;
      color:white;
+   }
+   .icon{
+   
+   	width:48px;
+   	height:30px;
+   	display:flex;
+   	align-items: center;
+   	justify-content: center;
+   }
+   .tit{
+   	font-size: 12px;
+   	text-align: center;
    }
 
 </style>
@@ -200,7 +213,7 @@
                <div class="subwrap">
                   <div class="sub2">         
                      <div class="sub_info_title">
-                        목표수량 &nbsp;
+                        목표수량 &nbsp;&nbsp;&nbsp;&nbsp;
                      </div>
                      <div class="sub_info_content">
                         ${gongu.gongu_min }
@@ -208,7 +221,7 @@
                   </div>
                   <div class="sub2">   
                      <div class="sub_info_title">
-                        공구기간 &nbsp;
+                        공구기간 &nbsp;&nbsp;&nbsp;&nbsp;
                      </div>
                      <div class="sub_info_content">
                         ${gongu.gongu_startdate } ~  ${gongu.gongu_findate }
@@ -227,12 +240,18 @@
                   <div class="submit_container">
                      <div class="boxcontainer">
                         <div class="box">
-                           <div class="icon"></div>
-                           <div class="tit"></div>
+                           <div class="icon">
+                           		<img src="${pageContext.request.contextPath}/img/icon/heart.svg" width="24">
+                           </div>
+                           <div class="tit"> 찜하기</div>
                         </div>   
                         <div class="box">
-                           <div class="icon"></div>
-                           <div class="tit"></div>
+                           <div class="icon">
+                           	<img src="${pageContext.request.contextPath}/img/icon/share.svg" height="24">
+                           </div>
+                           <div class="tit">
+                            공유
+                           </div>
                         </div>      
                      </div>
                   <div class="get_gongu">

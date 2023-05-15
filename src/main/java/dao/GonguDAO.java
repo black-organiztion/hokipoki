@@ -450,6 +450,64 @@ public class GonguDAO {
 		return closeList;
 	}
 
+	public ArrayList<Gongu> getCategoryList(String category) {
+		ArrayList<Gongu> categoryList = new ArrayList<Gongu>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = con.prepareStatement("select * from gongu where gongu_status = '4' and category_name = '"+category+"'");
+			System.out.println("카테고리리스트:"+pstmt);			
+			rs = pstmt.executeQuery();	
+			
+			if (rs.next()) {
+				do {
+					categoryList.add(new Gongu(Integer.parseInt(rs.getString("gongu_id")),rs.getString("category_name"),rs.getString("seller_id"),rs.getString("gongu_name"),
+							rs.getString("gongu_price"),rs.getString("gongu_discount_price"),rs.getString("gongu_status"),rs.getString("gongu_startdate"),
+							rs.getString("gongu_findate"),rs.getString("gongu_reserve"),rs.getString("gongu_min"),rs.getString("thumbnail_img")));
+				} while (rs.next());
+			}	
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		
+		
+		return categoryList;
+	}
+
+	public ArrayList<Gongu> getMenuList(String menu) {
+		ArrayList<Gongu> menuList = new ArrayList<Gongu>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = con.prepareStatement("select * from gongu where gongu_status = '4' order by "+menu+" desc");
+			System.out.println("메뉴리스트:"+pstmt);			
+			rs = pstmt.executeQuery();	
+			
+			if (rs.next()) {
+				do {
+					menuList.add(new Gongu(Integer.parseInt(rs.getString("gongu_id")),rs.getString("category_name"),rs.getString("seller_id"),rs.getString("gongu_name"),
+							rs.getString("gongu_price"),rs.getString("gongu_discount_price"),rs.getString("gongu_status"),rs.getString("gongu_startdate"),
+							rs.getString("gongu_findate"),rs.getString("gongu_reserve"),rs.getString("gongu_min"),rs.getString("thumbnail_img")));
+				} while (rs.next());
+			}	
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		
+		
+		return menuList;
+	}
+
 
 	
 	

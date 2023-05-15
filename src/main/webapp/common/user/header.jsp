@@ -8,8 +8,17 @@
 <title>hokipoki</title>
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet"> 
 
     <style>
+    
+    	*{
+    	 font-family: 'Noto Sans KR', sans-serif;
+    	
+    	} 
+    
       .bd-placeholder-img {
         font-size: 1.125rem;
         text-anchor: middle;
@@ -90,10 +99,13 @@
 	}
 	
 	#menu .depth2 {
+		 text-decoration:none;  
 		display:none;
 		position: absolute;
 		font-size:14px;
-		background: skyblue;
+		background: white;
+		border-bottom: 1px solid #c9c9c9;
+	
 	}
 	#menu .depth2>ul{
 		display:flex;
@@ -109,6 +121,7 @@
 		
 	 #menu .depth1:hover > .depth2 {
 		display:block;
+		
 	}
 	
 
@@ -132,32 +145,33 @@
     <div class="container d-flex flex-wrap" id="nav">
       <ul id="menu" class="nav me-auto">
         <li class="nav-item depth1">
-        <a href="#" class="nav-link link-dark px-2">카테고리</a>
-        	<div class="depth2">
-        		<ul>
-	        		<li><a href="#">도서</a></li>
-	        		<li><a href="#">생필품</a></li>
-	        		<li><a href="#">디자인문구</a></li>   	
-	        		<li><a href="#">주방용품</a></li>
-	        		<li><a href="#">향수</a></li>
-	        		<li><a href="#">뷰티</a></li> 
-	        		<li><a href="#">홈인테리어</a></li>
-	        		<li><a href="#">수납/정리</a></li>
-	        		<li><a href="#">잡화</a></li> 
-	        		<li><a href="#">자돋차용품</a></li>
-	        		<li><a href="#">구강/면도</a></li>
-	        		<li><a href="#">전자기기</a></li> 
-	        		<li><a href="#">욕실용품</a></li>
-	        		<li><a href="#">의류</a></li>
-	        		<li><a href="#">취미</a></li>  
-	        		<li><a href="#">푸드</a></li>
-	        		<li><a href="#">반려동물 용품</a></li>  		
-	        	</ul>
+        <a href="#" class="nav-link link-dark px-2" >카테고리</a>
+        	<div class="depth2">        		
+	        		<ul>
+		        		<li><a href="${pageContext.request.contextPath}/categoryList.go?category=book">도서</a></li>
+		        		<li><a href="${pageContext.request.contextPath}/categoryList.go?category=life">생필품</a></li>
+		        		<li><a href="${pageContext.request.contextPath}/categoryList.go?category=design">디자인문구</a></li>   	
+		        		<li><a href="${pageContext.request.contextPath}/categoryList.go?category=kitchen">주방용품</a></li>
+		        		<li><a href="${pageContext.request.contextPath}/categoryList.go?category=perfume">향수</a></li>
+		        		<li><a href="${pageContext.request.contextPath}/categoryList.go?category=beauty">뷰티</a></li> 
+		        		<li><a href="${pageContext.request.contextPath}/categoryList.go?category=interior">홈인테리어</a></li>
+		        		<li><a href="${pageContext.request.contextPath}/categoryList.go?category=organize">수납/정리</a></li>
+		        		<li><a href="${pageContext.request.contextPath}/categoryList.go?category=etc">잡화</a></li> 
+		        		<li><a href="${pageContext.request.contextPath}/categoryList.go?category=car">자돋차용품</a></li>
+		        		<li><a href="${pageContext.request.contextPath}/categoryList.go?category=mouth">구강/면도</a></li>
+		        		<li><a href="${pageContext.request.contextPath}/categoryList.go?category=elec">전자기기</a></li> 
+		        		<li><a href="${pageContext.request.contextPath}/categoryList.go?category=bath">욕실용품</a></li>
+		        		<li><a href="${pageContext.request.contextPath}/categoryList.go?category=cloth">의류</a></li>
+		        		<li><a href="${pageContext.request.contextPath}/categoryList.go?category=hobby">취미</a></li>  
+		        		<li><a href="${pageContext.request.contextPath}/categoryList.go?category=food">푸드</a></li>
+		        		<li><a href="${pageContext.request.contextPath}/categoryList.go?category=pet">반려동물 용품</a></li>  		
+		        	</ul>
+	        
         	</div>
        	</li>
         <li class="nav-item"><a href="${pageContext.request.contextPath}/gonguListHome.go" class="nav-link link-dark px-2 active" aria-current="page">홈</a></li>
-        <li class="nav-item"><a href="#" class="nav-link link-dark px-2">인기</a></li>
-        <li class="nav-item"><a href="#" class="nav-link link-dark px-2">신규</a></li>
+        <li class="nav-item"><a href="${pageContext.request.contextPath}/menuList.go?menu=popular" class="nav-link link-dark px-2">인기</a></li>
+        <li class="nav-item"><a href="${pageContext.request.contextPath}/menuList.go?menu=new" class="nav-link link-dark px-2">신규</a></li>
         <li class="nav-item"><a href="#" class="nav-link link-dark px-2">마감임박</a></li>
         <li class="nav-item"><a href="#" class="nav-link link-dark px-2">문의게시판</a></li>
       </ul>

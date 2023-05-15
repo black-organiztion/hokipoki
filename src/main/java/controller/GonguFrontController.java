@@ -13,9 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 import action.Action;
 import gongu.action.GonguListAction;
 import gongu.action.GonguModifyAction;
+import gongu.action.GonguCategoryAction;
 import gongu.action.GonguHomeListAction;
 import gongu.action.GonguRegistAction;
 import gongu.action.GonguViewAction;
+import gongu.action.MenuListAction;
 import vo.ActionForward;
 
 /**
@@ -66,7 +68,17 @@ public class GonguFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 			
-    	}else if(command.equals("/gonguList.go")) {    		
+    	}else if(command.equals("/categoryList.go")) {
+    		action=new GonguCategoryAction();
+    		try {
+    			forward=action.execute(request, response);    			
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    		
+    	}
+    	
+    	else if(command.equals("/gonguList.go")) {    		
     		action = new GonguListAction();
 			try {
 				forward = action.execute(request, response);
@@ -76,6 +88,14 @@ public class GonguFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+    	}
+    	else if(command.equals("/menuList.go")) {
+    		action = new MenuListAction();    		
+    		try {
+    			forward=action.execute(request, response);
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
     	}else if(command.equals("/gonguListHome.go")) {    		
     		action = new GonguHomeListAction();
 			try {

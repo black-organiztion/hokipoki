@@ -370,7 +370,7 @@
 </c:if>
 
 
-
+<jsp:include page="/common/user/footer.jsp"></jsp:include>
 
 <script>
     var swiper = new Swiper(".mySwiper", {
