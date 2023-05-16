@@ -10,6 +10,51 @@
 <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
 <!--카카오 주소 -->
 <script>
+var chkId=false;
+var idCheck;
+function chkForm(f){
+   if(!chkId || idcheck!=f.id.value.trim()){
+      alert("아이디 중복을 확인하세요");
+      return false;
+   }
+   
+   if(f.pw.value.trim()==""){
+      alert('비밀번호를 입력하세요');
+      f.pw.focus();
+      
+      return false;
+      
+   }
+   f.submit();
+}
+
+function chkPW(){
+
+	var pw = $("#pw").val();
+	var id = $("#id").val();
+		
+	var reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+	var hangulcheck = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+	 
+	if(false === reg.test(pw)) {
+	alert('비밀번호는 8자 이상이어야 하며, 숫자/대문자/소문자/특수문자를 모두 포함해야 합니다.');
+	}else if(/(\w)\1\1\1/.test(pw)){
+	 alert('같은 문자를 4번 이상 사용하실 수 없습니다.');
+	 return false;
+	 }else if(pw.search(id) > -1){
+	 alert("비밀번호에 아이디가 포함되었습니다.");
+	  return false;
+	 }else if(pw.search(/\s/) != -1){
+	 alert("비밀번호는 공백 없이 입력해주세요.");
+	 return false;
+	 }else if(hangulcheck.test(pw)){
+	 alert("비밀번호에 한글을 사용 할 수 없습니다."); 
+	 }else {
+	 console.log("통과");
+	 }
+
+}
+
 $(function(){
 	$('.pw').keyup(function(){
 		let pass1=$("#pw").val();
@@ -278,7 +323,7 @@ background: white;
 	<div class="form_group">
 		<label>비밀번호</label>
 			<div class="input_group">
-				<input type="password" class ="pw form_control" id="pw" name="pw">
+				<input type="password" class ="pw form_control" id="pw" name="pw" pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()_-+=[]{}~?:;`|/]).{8,20}$">
 			</div>
 	</div>
 	<div class="form_group">
@@ -289,7 +334,7 @@ background: white;
 			</div>
 	</div>		
 	<div class="form_group">
-		<label>성함</label>
+		<label>이름</label>
 			<div class="input_group">
 				<input type="text" id="name" name="name" class="form_control">
 			</div>
@@ -373,7 +418,7 @@ background: white;
 <input type="hidden" id="membership_id" name="membership_id" value="e">
 </form>
 </div>
-<input type="button" value="회원가입" class="submitbtn" onclick="document.getElementById('joinform').submit();" >
+<input type="button" value="회원가입" class="submitbtn" onclick="chkForm(this.form) chkPW()" >
 </div>
 </div>
 </div>
