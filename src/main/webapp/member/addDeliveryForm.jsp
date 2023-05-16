@@ -8,7 +8,7 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <!--카카오 주소 -->
 <script>
-
+ 
 function selectAddr(f){
 	
 	opener.document.getElementById("delivery_name").value=f.deliveryname.value;
@@ -18,8 +18,14 @@ function selectAddr(f){
  	 opener.document.getElementById("receiver_tel").value=f.tel11.value+f.tel12.value+f.tel13.value ;
 	opener.document.getElementById("receiver_tel2").value=f.tel21.value+f.tel22.value+f.tel23.value ; 
 	opener.document.getElementById("receiver_name").value=f.receivername.value;
-	
 	opener.document.getElementById("isdefault").value=0;//배송지 추가하면 isdefault는 0으로 설정
+	opener.document.getElementById("zip").innerHTML  = "["+f.sample4_postcode.value+"]";
+	opener.document.getElementById("juso1").innerHTML  = f.addr1.value;
+	opener.document.getElementById("juso2").innerHTML  = f.addr2.value;
+	opener.document.getElementById("r_tel").innerHTML  = f.tel11.value+f.tel12.value+f.tel13.value;
+	opener.document.getElementById("r_tel2").innerHTML  = f.tel21.value+f.tel22.value+f.tel23.value; 
+	opener.document.getElementById("dname").innerHTML  = f.deliveryname.value;
+	opener.document.getElementById("def").innerHTML  = "신규";
 	window.close(); 
 }
 
@@ -102,7 +108,7 @@ function selectAddr(f){
 		<input type="text" id="sample4_roadAddress" placeholder="도로명주소" name="addr1">	
 		<span id="guide" style="color:#999;display:none"></span>
 		<input type="text" id="sample4_detailAddress" placeholder="상세주소" name="addr2">
-	<input type="button" value="선택" onclick="selectAddr(this.form)">
+	<input type="button" value="저장" onclick="selectAddr(this.form)">
 	
 	
 	

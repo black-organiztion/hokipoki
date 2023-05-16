@@ -13,13 +13,13 @@ function selectAddr(f){
 	
 	opener.document.getElementById("delivery_name").value=f.deliveryname.value;
 	opener.document.getElementById("zip_code").value=f.sample4_postcode.value;
-	opener.document.getElementById("addr1").value=f.addr1.value;
+	opener.document.getElementById("addr1").value=f.addr1.value;alert();
 	opener.document.getElementById("addr2").value=f.addr2.value;
- 	 opener.document.getElementById("receiver_tel").value=f.tel11.value+f.tel12.value+f.tel13.value ;
+ 	opener.document.getElementById("receiver_tel").value=f.tel11.value+f.tel12.value+f.tel13.value ;
 	opener.document.getElementById("receiver_tel2").value=f.tel21.value+f.tel22.value+f.tel23.value ; 
-	opener.document.getElementById("receiver_name").value=f.receivername.value;
-	
+	opener.document.getElementById("receiver_name").value=f.receivername.value;	
 	opener.document.getElementById("isdefault").value=0;//배송지 추가하면 isdefault는 0으로 설정
+	
 	window.close(); 
 }
 
