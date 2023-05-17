@@ -2,14 +2,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>   
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+  <link href="https://webfontworld.github.io/gmarket/GmarketSans.css" rel="stylesheet">
   <!-- Link Swiper's CSS -->
   <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
   
@@ -100,16 +103,19 @@
 <jsp:include page="/common/user/header.jsp"></jsp:include>
 <!-- main -->
   <!-- Swiper -->
+  
   <div class="swiper mySwiper">
     <div class="swiper-wrapper">
-      <div class="swiper-slide"><img src="${pageContext.request.contextPath}/img/banner/imvita.jpg"></div>
+      <div class="swiper-slide">
+		<img src="${pageContext.request.contextPath}/img/banner/imvita.jpg">
+      </div>
       <div class="swiper-slide"><img src="${pageContext.request.contextPath}/img/banner/baby.jpg"></div>
       <div class="swiper-slide"><img src="${pageContext.request.contextPath}/img/banner/laundry.jpg"></div>
       <div class="swiper-slide"><img src="${pageContext.request.contextPath}/img/banner/skin.jpg"></div>
     </div>
     
     <div class="swiper-pagination"></div>
-  </div>
+  </div> 
  <!--// main --> 
  
  <!-- banner  --> 

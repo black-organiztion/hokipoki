@@ -10,6 +10,92 @@
 <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
 <!--카카오 주소 -->
 <script>
+var chkId=false;
+var idCheck;
+
+function chkForm(f){
+   if(!chkId || idcheck!=f.id.value.trim()){
+      alert("아이디 중복을 확인하세요");
+      return false;
+   }   
+   
+   if(f.pw.value.trim()==""){
+      alert('비밀번호를 입력하세요');
+      f.pw.focus();      
+      return false;      
+   }
+   
+   if(pwflag == false){
+	   alert('비밀번호가 일치하지 않습니다.');
+	   return false;
+   }
+   
+
+   
+   if(f.receivername.value.trim()==""){
+	      alert('수령인을 입력하세요');
+	      f.receivername.focus();      
+	      return false;      
+	   }
+   
+   if(f.d_name.value.trim()==""){
+	      alert('배송지명을 입력하세요');
+	      f.d_name.focus();      
+	      return false;      
+	   }
+   
+   if(f.name.value.trim()==""){
+	      alert('이름을 입력하세요');
+	      f.name.focus();      
+	      return false;      
+	   }
+   if(f.email.value.trim()==""){
+	      alert('이메일을 입력하세요');
+	      f.email.focus();      
+	      return false;      
+	   }
+   
+   var regExp = /^[a-z]+[a-z0-9]{5,10}$/g;
+   
+	var pw = $("#pw").val();
+	
+	var id = $("#id").val();
+		
+	var reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+	var hangulcheck = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+	
+	if(false === hangulcheck.test(f.name.value.trim())){
+		alert('이름은 한글만 가능합니다.');
+		return false;
+	}
+	
+	if(false === regExp.test(id)){
+		alert('아이디는 5자에서 10자의 영문만 가능합니다. ');
+		return false;
+	}
+	if(false === reg.test(pw)) {
+	alert('비밀번호는 8자 이상이어야 하며, 숫자/대문자/소문자/특수문자를 모두 포함해야 합니다.');
+	return false;
+	}else if(/(\w)\1\1\1/.test(pw)){
+	 alert('같은 문자를 4번 이상 사용하실 수 없습니다.');
+	 return false;
+	 }else if(pw.search(id) > -1){
+	 alert("비밀번호에 아이디가 포함되었습니다.");
+	  return false;
+	 }else if(pw.search(/\s/) != -1){
+	 alert("비밀번호는 공백 없이 입력해주세요.");
+	 return false;
+	 }else if(hangulcheck.test(pw)){
+	 alert("비밀번호에 한글을 사용 할 수 없습니다."); 
+	 }else {
+	 console.log("통과");
+	 }
+   
+   f.submit();
+}
+
+var pwflag = false;
+
 $(function(){
 	$('.pw').keyup(function(){
 		let pass1=$("#pw").val();
@@ -19,9 +105,11 @@ $(function(){
 			if(pass1 == pass2){
 				$("#checkPw").html('일치');
 				$("#checkPw").attr('color','green');
+				pwflag=true;
 			}else{
 				$("#checkPw").html('불일치');
 				$("#checkPw").attr('color','red');
+				
 			}
 			
 		}
@@ -86,31 +174,6 @@ function sample4_execDaumPostcode() {
     
 }
 
-var chkId=false;
-var idCheck;
-function chkForm(f){
-   if(!chkId || idcheck!=f.id.value.trim()){
-      alert("아이디 중복을 확인하세요.");
-      return false;
-   }
-   
-   if(f.pw.value.trim()==""){
-      alert('비밀번호를 입력하세요.');
-      f.pw.focus();
-      
-      return false;
-      
-   }
-   if(f.pw.value.trim()!=f.pw.value.trim()){
-      alert('비밀번호가 일치하지 않습니다.');
-      f.pw.value="";
-      f.passChk.value="";
-      f.pw.focus();
-      return false;
-   }
-
-   f.submit();
-} 
 
 
 
@@ -289,7 +352,7 @@ background: white;
 			</div>
 	</div>		
 	<div class="form_group">
-		<label>성함</label>
+		<label>이름</label>
 			<div class="input_group">
 				<input type="text" id="name" name="name" class="form_control">
 			</div>
@@ -316,7 +379,7 @@ background: white;
 	<div class="form_group">
 		<label>배송지명</label>
 			<div class="input_group">
-				<input type="text" name="deliveryname" class="form_control">	
+				<input type="text" name="deliveryname" id="d_name" class="form_control">	
 			</div>
 	</div>
 	<div class="form_group">
@@ -373,7 +436,7 @@ background: white;
 <input type="hidden" id="membership_id" name="membership_id" value="e">
 </form>
 </div>
-<input type="button" value="회원가입" class="submitbtn" onclick="document.getElementById('joinform').submit();" >
+<input type="button" value="회원가입" class="submitbtn" onclick="chkForm(joinform)" >
 </div>
 </div>
 </div>

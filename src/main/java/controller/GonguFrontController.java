@@ -18,6 +18,7 @@ import gongu.action.GonguHomeListAction;
 import gongu.action.GonguRegistAction;
 import gongu.action.GonguViewAction;
 import gongu.action.MenuListAction;
+import gongu.action.SearchGonguAction;
 import vo.ActionForward;
 
 /**
@@ -67,8 +68,19 @@ public class GonguFrontController extends HttpServlet {
          } catch (Exception e) {
             e.printStackTrace();
          }
-         
-       }else if(command.equals("/categoryList.go")) {
+           
+       }else if(command.equals("/searchGongu.go")) {
+    	   action = new SearchGonguAction();
+    	   try {
+    		   forward=action.execute(request, response);
+    	   }catch(Exception e) {
+    		   e.printStackTrace();
+    	   }
+    	   
+    	   
+       }
+       
+       else if(command.equals("/categoryList.go")) {
           action=new GonguCategoryAction();
           try {
              forward=action.execute(request, response);             

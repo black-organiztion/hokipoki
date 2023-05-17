@@ -28,11 +28,25 @@ function ok(v){
 	window.close();
 }
 </script>
+<style>
+	.submitbtn{
+		width:50px;
+	  	height:24px; 
+	  	background-color:orange; 
+	  	color:white; 
+	  	border:none;
+	  	border-radius:4px;
+	  	font-size:12px;	  	
+	  	margin-top:32px;
+	  	margin-bottom: 18px;
+	  	font-weight: bold;
+	}
+</style>
 </head>
 <body onload="init()">
 <form action="${pageContext.request.contextPath}/MemberIdCheckProcess.me" method="post" name=f>
 <input type=text name=id id=id>
-<input type=submit value="중복확인">
+<input type=submit class="submitbtn" value="확인">
 </form>
 <c:choose>
 <c:when test="${useable eq 'yes' }">
