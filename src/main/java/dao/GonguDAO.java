@@ -508,6 +508,32 @@ public class GonguDAO {
 		return menuList;
 	}
 
+	public ArrayList<Gongu> getSearchList(String search) {
+		ArrayList<Gongu> searchList = new ArrayList<Gongu>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			pstmt=con.prepareStatement("select * from gongu where gongu_name like '%"+search+"%'");
+			System.out.println(pstmt);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				do {
+					searchList.add(new Gongu(Integer.parseInt(rs.getString("gongu_id")),rs.getString("category_name"),rs.getString("seller_id"),rs.getString("gongu_name"),
+							rs.getString("gongu_price"),rs.getString("gongu_discount_price"),rs.getString("gongu_status"),rs.getString("gongu_startdate"),
+							rs.getString("gongu_findate"),rs.getString("gongu_reserve"),rs.getString("gongu_min"),rs.getString("thumbnail_img")));
+				} while (rs.next());
+			}
+		}catch(Exception e) {
+			
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+	
+		return searchList;
+	}
+
 
 	
 	
