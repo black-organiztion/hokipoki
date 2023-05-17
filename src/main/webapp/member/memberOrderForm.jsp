@@ -10,7 +10,7 @@
 <meta charset="UTF-8">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500display=swap" rel="stylesheet">  
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500display=swap" rel="stylesheet">  
 <title>Insert title here</title>
 <style>
 	.outer{
@@ -189,10 +189,7 @@
 
 .sanse_title{
 	width:100px;
-}
-
-
-	
+}	
 </style>
 
 </head>
@@ -318,8 +315,8 @@
 				해당 공구에 대한 진행권한은 판매당사자에 있습니다.
 			</div>
 			
-				<input type="checkbox">&nbsp; 개인정보 제3자 제공동의 <br>
-				<input type="checkbox">&nbsp; 공구 유의사항 확인
+				<input type="checkbox" id="cb"/>&nbsp;개인정보 제3자 제공동의 <br>
+				<input type="checkbox" id="cb"/>&nbsp; 공구 유의사항 확인
 	<div class="pinfo">
 					<c:set var="deliveryfee" value="0"/>
 					<div class="delivery_fee">

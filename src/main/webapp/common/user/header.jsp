@@ -16,8 +16,10 @@
     
     	*{
     	 font-family: 'Noto Sans KR', sans-serif;
-    	
+    	 text-decoration: none !important;    	
     	} 
+    	
+
     
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -105,7 +107,8 @@
 		font-size:14px;
 		background: white;
 		border-bottom: 1px solid #c9c9c9;
-	
+		z-index: 9999;
+		box-shadow: 0px 3px 10px gray;
 	}
 	#menu .depth2>ul{
 		display:flex;
@@ -123,29 +126,151 @@
 		display:block;
 		
 	}
+	.header_outer{
+		width:1200px;
+		height:120px;
+		margin: 0px auto;
+		
+	}
 	
 
+	.logo{
+		width:160px;
+		height:54px;
+	}
+	 
+	    	.member_interaction_outer{
+        	  		display: flex;
+        	}
+        
+        	.member_interaction{
+        		display:flex;
+        		/* border:1px dashed black; */
+        		height:30px;
+        		align-items: center;
+        		margin-left: 30px;
+        		     
+        	}
+
+        	
+        	#member_icon{
+        		widht:20px;
+        		height:20px;
+        		margin-right: 10px;
+        		margin-bottom: 2px;
+        	}
+        	#tt{
+        		/* border:1px solid red;         */		
+        		font-size: 14px;
+        	} 
+        	
+        	.search_area{
+			
+			height:24px;
+			display: flex;
+		}
+	
+		.navi_scope{
+			display: flex;
+			justify-content: center;
+			margin-right: 26px;
+		}
+		.navi_scope > img{
+			margin-right: 10px;
+		}
+		.navi{
+			display:flex;
+			}
+		#cate{
+			font-size: 16px;
+		}	
+		.header_top{
+			margin-top:14px;		
+			display:flex; 
+			justify-content:space-between;
+			align-items: center;
+		}
+
+		ul li{
+			list-style:none;
+		}
+		
+		.header_bottom{
+    		margin-top:16px;
+    		display:flex;
+    		justify-content: space-between;    	
+    	
+    		align-items: center;     		
+    	}
+    	
+    	
+    	#menu{
+    		
+    		
+    		width:600px;
+    		align-items: center ;  
+    		display: flex;
+    		padding:0;
+    		margin: 0;    		
+    	}
+    	
 	  
     </style>
 </head>
 <body>
 
-  <header class=" headertop border-bottom" >  
-    <div class="container d-flex flex-wrap justify-content-center" id="ad">
-      <a href="/" class="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto  text-dark text-decoration-none">
-       
-        <span class="fs-4" id="logo">호키포키</span>
-      </a> 
-      <form class="col-12 col-lg-auto mb-3 mb-lg-0" role="search">
-        <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
-      </form>
-    </div>
-  </header>
-  <nav class="py-2 bg-light border-bottom">
-    <div class="container d-flex flex-wrap" id="nav">
-      <ul id="menu" class="nav me-auto">
-        <li class="nav-item depth1">
-        <a href="#" class="nav-link link-dark px-2" >카테고리</a>
+  <header class="header_outer" >  
+    <div class="header_top" id="ad" >
+		        <div class="logo" id="logo">
+		        	<a href="${pageContext.request.contextPath}/gonguListHome.go" >
+		        		<img src="${pageContext.request.contextPath}/img/logo_small.png">
+		        	</a>	
+		        </div>
+    	<c:choose>
+    		<c:when test="${member_id eq null}">
+		        <div class="member_interaction_outer" >
+		        	<div class="member_interaction">
+		        		<a href="${pageContext.request.contextPath}/memberLogin.me">
+		        		<img src="${pageContext.request.contextPath}/img/icon/login.svg" id="member_icon">
+		        			<span id="tt">로그인 / 회원가입</span>
+		        		</a>
+		        	</div>
+		        </div>    		
+    		</c:when>
+    		<c:otherwise>
+	    		<div class="member_interaction_outer" >
+			        	<div class="member_interaction">
+			        		<a href="#">
+			        		<img src="${pageContext.request.contextPath}/img/icon/heart.svg" id="member_icon">
+			        			<span id="tt">찜 목록</span>
+			        		</a>
+			        	</div>
+			        	<div class="member_interaction">
+			        		<a href="${pageContext.request.contextPath}/myInfo.me">
+			        		<img src="${pageContext.request.contextPath}/img/icon/person.svg" id="member_icon" >
+			        			<span id="tt">마이페이지</span>
+			        		</a>
+			        	</div>
+			        	<div class="member_interaction">
+			        		<a href="${pageContext.request.contextPath}/memberLogout.me">
+			        		<img src="${pageContext.request.contextPath}/img/icon/logout.svg" id="member_icon">
+			        			<span id="tt">로그아웃</span>
+			        		</a>
+			        	</div>
+			        </div>  
+    		</c:otherwise>
+    	</c:choose>      
+        
+    </div><!--헤더 탑-->
+
+
+	<div class="header_bottom">
+		 <div  id="nav">
+      <ul id="menu" >
+        <li class="depth1">       
+        <a href="#" style="margin-right: 8px;" >
+         <img src="${pageContext.request.contextPath}/img/icon/category.svg" style="padding-bottom: 4px;">
+        	카테고리</a>
         	<div class="depth2">        		
 	        		<ul>
 		        		<li><a href="${pageContext.request.contextPath}/categoryList.go?category=book">도서</a></li>
@@ -157,7 +282,7 @@
 		        		<li><a href="${pageContext.request.contextPath}/categoryList.go?category=interior">홈인테리어</a></li>
 		        		<li><a href="${pageContext.request.contextPath}/categoryList.go?category=organize">수납/정리</a></li>
 		        		<li><a href="${pageContext.request.contextPath}/categoryList.go?category=etc">잡화</a></li> 
-		        		<li><a href="${pageContext.request.contextPath}/categoryList.go?category=car">자돋차용품</a></li>
+		        		<li><a href="${pageContext.request.contextPath}/categoryList.go?category=car">자동차 용품</a></li>
 		        		<li><a href="${pageContext.request.contextPath}/categoryList.go?category=mouth">구강/면도</a></li>
 		        		<li><a href="${pageContext.request.contextPath}/categoryList.go?category=elec">전자기기</a></li> 
 		        		<li><a href="${pageContext.request.contextPath}/categoryList.go?category=bath">욕실용품</a></li>
@@ -175,20 +300,23 @@
         <li class="nav-item"><a href="#" class="nav-link link-dark px-2">마감임박</a></li>
         <li class="nav-item"><a href="#" class="nav-link link-dark px-2">문의게시판</a></li>
       </ul>
-      <ul class="nav">
-      
-      	<c:if test="${member_id ne null}">
-        <li class="nav-item"><a href="#" class="nav-link link-dark px-2">찜 목록</a></li>
-        <li class="nav-item"><a href="${pageContext.request.contextPath}/myInfo.me" class="nav-link link-dark px-2">마이페이지</a></li>
-        <li class="nav-item"><a href="${pageContext.request.contextPath}/memberLogout.me" class="nav-link link-dark px-2">로그아웃</a></li>
-        </c:if>
-        <c:if test="${member_id eq null }">
-        <li class="nav-item"><a href="${pageContext.request.contextPath}/memberLogin.me" class="nav-link link-dark px-2">로그인</a></li>
-        <li class="nav-item"><a href="${pageContext.request.contextPath}/memberJoin.me" class="nav-link link-dark px-2">회원가입</a></li>
-        </c:if>
-      </ul>
+
     </div>
-  </nav>
+	
+		<div class="search_area">
+		<form action="${pageContext.request.contextPath}/searchGongu.go" method="post">
+			<input type="text" name="search" placeholder="    search" style="border:1px solid #c9c9c9; border-radius: 15px;">
+		</form>
+		<img src="${pageContext.request.contextPath}/img/icon/search.svg" style="margin-left: 12px;">
+		</div><!-- search_area -->		
+	</div><!-- header_bottom -->
+	
+	
+     
+  </header>
+  
+   
+  
 
 
 </body>
