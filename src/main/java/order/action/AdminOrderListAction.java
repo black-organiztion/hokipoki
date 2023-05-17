@@ -21,6 +21,22 @@ public class AdminOrderListAction implements Action {
 		HttpSession session = request.getSession();
 		String loginId = (String)session.getAttribute("loginId");
 		int loginAuthor = (int)session.getAttribute("loginAuthor");
+		String[] filterArr = request.getParameterValues("order_status");
+		System.out.println(filterArr);
+		
+		ArrayList<String> filterList = new ArrayList<>();
+		
+		//필터링체크
+		if(filterArr != null) {//최초 페이지 로딩시 null값 넘어옴
+			for(String filter:filterArr) {
+				filterList.add(filter);
+				if(filter.equals("all")) {
+					break;
+				}
+			}
+		}else {
+			filterList.add("all");
+		}
 		
 		if(loginId == null || loginId.equals("") || (loginAuthor!=0 && loginAuthor!=1) ) {//접근권한이 없음(관리자거나 판매자가 아니면 권한없음)
 			//로그인 이동
@@ -38,9 +54,10 @@ public class AdminOrderListAction implements Action {
 			
 			//주문리스트 가져오기			
 			//ArrayList<MemberOrder> orderList =
-			List<Object> orderList = orderListService.getOrderList(loginId,loginAuthor);
+			List<Object> orderList = orderListService.getOrderList(loginId,loginAuthor,filterList);
 			
 			if(orderList.size() >= 0) {
+				request.setAttribute("filterList", filterList);
 				request.setAttribute("orderList", orderList);
 				request.setAttribute("pagefile", "/admin/orderConfig.jsp");
 				forward = new ActionForward("/admin/adminTemplate.jsp",false);

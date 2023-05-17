@@ -187,6 +187,16 @@ public class AdminFrontController extends HttpServlet {
             response.getWriter().write(result);
     		
     	}
+    	else if(command.equals("/adminSellerUpdate.ad")){
+    		action = new AdminSellerUpdateAction();
+    		try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    		
+    	}
     	
     	
     	

@@ -276,5 +276,25 @@ public class AdminDAO {
 		return result;
 	}
 
+	public int updateSeller(Seller seller) {
+		int result = 0;
+		PreparedStatement psmt = null;
+		String sql = "UPDATE seller SET seller_pw = ? WHERE seller_id='"+seller.getSeller_id()+"'"; //지금은 판매자가 수정가능한 정보가 비밀번호뿐
+		
+		try {
+			psmt = con.prepareStatement(sql);
+			psmt.setString(1, seller.getSeller_pw());
+			result = psmt.executeUpdate();
+			
+		}catch(Exception e) {
+			System.out.println("판매자정보업데이트오류:"+e);
+			
+		}finally {
+			close(psmt);
+		}
+		
+		return result;
+	}
+
 	
 }

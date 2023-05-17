@@ -534,6 +534,217 @@ public class GonguDAO {
 		return searchList;
 	}
 
+	public int selectListCount(String loginId, int loginAuthor, String sOption, String sKeyword, ArrayList<String>filterList) {
+		int listCount = 0;
+		PreparedStatement psmt =  null;
+		ResultSet rs = null;
+		String sql = "SELECT count(*) FROM gongu"; //시스템 - 검색조건 없음
+
+		//조건1. 필터(필수로 들어감)
+		if(filterList.size() >= 1 && !(filterList.get(0).equals("all"))) {//선택된 공구조건이 1개 이상이고 그 하나가 all(전체)이 아닐때만 실행  
+			sql += " WHERE gongu_status IN(";
+			for(int i=0; i<filterList.size(); i++) {
+				sql += "'"+filterList.get(i)+"'";
+				if(i<filterList.size()-1) {
+					sql += ",";
+				}
+			}
+			sql += ")";
+			
+		}else {//공구조건이 all일때만 실행 -> all이면 조건 안붙여도 되는데 하는 이유 : 조건절 시작을 위해 WHERE 붙여야되서
+			sql += " WHERE gongu_status >= 0"; 
+		}
+		
+		//조건2. 판매자 or 관리자 (판매자면 seller_id = loginId 조건)
+		if(loginAuthor > 0) {
+			sql += " AND seller_id='"+loginId+"'";
+		}
+		//조건3. 검색조건 유무
+		if(sOption != null && sKeyword != null) {
+			sql += " AND "+ sOption + " LIKE '%"+sKeyword+"%'";
+					
+		}
+
+		try {
+			psmt = con.prepareStatement(sql);
+			System.out.println("공구개수선택쿼리"+psmt);
+			rs = psmt.executeQuery();
+			if(rs.next()) {
+				listCount = rs.getInt(1); //첫번째 컬럼값(count 함수 결과) 가져오기
+			}
+			
+		}catch(Exception e) {
+			System.out.println("공구갯수선택오류:"+e);
+			
+		}finally {
+			close(rs);
+			close(psmt);
+		}
+		
+		
+		return listCount;
+	}
+
+	public int selectStandByCnt(String loginId, int loginAuthor) {
+		int count = 0;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT count(*) FROM gongu WHERE gongu_status = 0";
+		
+		//조건:판매자 권한이면 seller_id 조건 추가
+		if(loginAuthor>0) {
+			sql += " AND seller_id LIKE '%"+loginId+"%'";
+		}
+		
+		try {
+			psmt = con.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+			
+		}catch(Exception e) {
+			System.out.println("승인대기공구선택오류:"+e);
+			
+		}finally {
+			close(rs);
+			close(psmt);
+		}
+		
+		return count;
+	}
+
+	public int selectOnGoingCount(String loginId, int loginAuthor) {
+		int count = 0;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT count(*) FROM gongu WHERE gongu_status = 4";
+		
+		//조건:판매자 권한이면 seller_id 조건 추가
+		if(loginAuthor>0) {
+			sql += " AND seller_id LIKE '%"+loginId+"%'";
+		}
+		
+		try {
+			psmt = con.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+			
+		}catch(Exception e) {
+			System.out.println("진행중공구선택오류:"+e);
+			
+		}finally {
+			close(rs);
+			close(psmt);
+		}
+		
+		return count;
+	}
+
+	public int selectCalcCount(String loginId, int loginAuthor) {
+		int count = 0;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT count(*) FROM gongu WHERE gongu_status = 8";
+		
+		//조건:판매자 권한이면 seller_id 조건 추가
+		if(loginAuthor>0) {
+			sql += " AND seller_id LIKE '%"+loginId+"%'";
+		}
+		
+		try {
+			psmt = con.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+			
+		}catch(Exception e) {
+			System.out.println("정산중공구선택오류:"+e);
+			
+		}finally {
+			close(rs);
+			close(psmt);
+		}
+		
+		return count;
+	}
+
+	public ArrayList<Gongu> selectGonguList(int page, int limit, String loginId, int loginAuthor, String sOption,
+			String sKeyword, ArrayList<String> filterList) {
+		
+		ArrayList<Gongu> gonguList = new ArrayList<>();
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM gongu";
+		
+		int startRow = (page-1)*limit; //시작행
+		
+		//조건1. 필터(필수로 들어감)
+		if(filterList.size() >= 1 && !(filterList.get(0).equals("all"))) {//선택된 공구조건이 1개 이상이고 그 하나가 all(전체)이 아닐때만 실행  
+			sql += " WHERE gongu_status IN(";
+			for(int i=0; i<filterList.size(); i++) {
+				sql += "'"+filterList.get(i)+"'";
+				if(i<filterList.size()-1) {
+					sql += ",";
+				}
+			}
+			sql += ")";
+			
+		}else {//공구조건이 all일때만 실행 -> all이면 조건 안붙여도 되는데 하는 이유 : 조건절 시작을 위해 WHERE 붙여야되서
+			sql += " WHERE gongu_status >= 0"; 
+		}
+		
+		//조건2. 판매자 or 관리자 (판매자면 seller_id = loginId 조건)
+		if(loginAuthor > 0) {
+			sql += " AND seller_id='"+loginId+"'";
+		}
+		//조건3. 검색조건 유무
+		if(sOption != null && sKeyword != null) {
+			sql += " AND "+ sOption + " LIKE '%"+sKeyword+"%'";
+					
+		}
+		
+		sql+=" ORDER BY FIELD(gongu_status, 0) DESC, gongu_date DESC limit ?, ?"; //승인대기중인 공구만 항상 상단에 위치, 그 외에는 등록일 기준 내림차순
+
+		try {
+			psmt = con.prepareStatement(sql);
+			psmt.setInt(1, startRow);
+			psmt.setInt(2, limit);
+			System.out.println("공구목록선택쿼리:"+psmt);
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				do {
+					Gongu gongu = new Gongu();
+					gongu.setGongu_id(rs.getInt("gongu_id")); //공구id
+					gongu.setGongu_status(rs.getString("gongu_status")); //공구상태
+					gongu.setGongu_name(rs.getString("gongu_name")); //공구명
+					gongu.setGongu_startdate(rs.getString("gongu_startdate"));//공구시작일
+					gongu.setGongu_findate(rs.getString("gongu_findate"));//공구마감일
+					gongu.setSeller_id(rs.getString("seller_id"));//판매자
+					gongu.setGongu_date(rs.getString("gongu_date"));//등록일
+					
+					gonguList.add(gongu);
+					
+				}while(rs.next());
+			}
+			
+		}catch(Exception e) {
+			System.out.println("공구목록선택오류:"+e);
+			
+		}finally {
+			close(rs);
+			close(psmt);
+		}
+
+		return gonguList;
+	}
 
 	
 	

@@ -1,19 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<script>
-	$(document).ready(function(){
-		//header 메뉴 active
-		$("#header .header_item").removeClass("active");
-		$("#header .gongu").addClass("active");
-	
-	});
-</script>
 
-<div id="content" class="container">
+<div id="content" class="container gongu">
 	<div class="row">
-		<div class="col-xl-2 col-12">
+		<div class="col-xl-2 col-12 side">
 			<!-- conts1 : 공구 처리 버튼 -->
 			<c:if test="${sessionScope.loginId eq 'system' || sessionScope.loginAuthor eq 0 }">
 			<div class="section sec1">
@@ -37,97 +30,107 @@
 			<!-- //conts1 : 공구 처리 버튼 -->
 			
 			<!-- conts2 : 상태별 공구 건수 -->
-			<div class="section">
-			<h5>숫자로 보는 공구</h5>
-			<div>
-				<div class="gongu_cnts cnts">
-					<span>승인대기</span>
-					<em>${standByCnt }</em>
+			<div class="section sec2">
+				<h5>숫자로 보는 공구</h5>
+				<div>
+					<div class="gongu_cnts cnts">
+						<span>승인대기</span>
+						<em>${standByCnt }</em>
+					</div>
+					<div class="gongu_cnts cnts">
+						<span>진행중</span>
+						<em>${ongoingCnt }</em>
+					</div>
+					<div class="gongu_cnts cnts">
+						<span>정산중</span>
+						<em>${calcCnt }</em>
+					</div>
 				</div>
-				<div class="gongu_cnts cnts">
-					<span>진행중</span>
-					<em>${ongoingCnt }</em>
-				</div>
-				<div class="gongu_cnts cnts">
-					<span>정산중</span>
-					<em>${calcCnt }</em>
-				</div>
-			</div>
 			</div>
 			<!-- //conts2 : 상태별 공구 건수 -->
+			
+			<!-- conts4 : 공구등록버튼 -->
+			<c:if test="${sessionScope.loginAuthor eq 1 }">
+			<div class="section">
+				<a href="gonguRegistForm.go" class="bt bt_primary bt_lg"><span class="bt_ic plus"></span>공구등록</a>
+			</div>
+			</c:if>
+			<!-- //conts4 : 공구등록버튼 -->
 		</div>
-		<div class="col-xl-10 col-12">
+		<div class="col-xl-10 col-12 main">
 			<!-- conts3 : 공구필터 + 리스트 -->
 			<div class="section">
+			<form id=""></form>
 			<h5>공구검색</h5>
 			<div class="utils">
-				<button type="button" id="btn_filter" class="btn_filter frm_control" onclick="lyOn(this)">필터</button>
-				<div id="ly_filter" class="ly_filter ly">
-					<form class="utils_filter">
-						<fieldset>
-							<legend>공구상태표시</legend>
-							<div class="frm_group">
-								<input type="checkbox" id="gongu_all" name="gongu_status" value="all" class="frm_chk">
-								<label for="gongu_all">전체</label>
+				<form id="filterForm" method="post" action="adminGonguListAction.ad">
+					<input type="hidden" name="page" value="${pageInfo.page }">
+					<button type="button" id="btn_filter" class="btn_filter frm_control" onclick="lyOn(this)">필터</button>
+					<div id="ly_filter" class="ly_filter ly">
+						<div class="utils_filter">
+							<fieldset>
+								<legend>공구상태표시</legend>
+								<div class="frm_group">
+									<input type="checkbox" id="gongu_all" name="gongu_status" value="all" class="frm_chk" ${fn:contains(filterList,'all')? "checked":""}>
+									
+									<label for="gongu_all">전체</label>
+								</div>
+								<div class="frm_group">
+									<input type="checkbox" id="gongu_3" name="gongu_status" value="3" class="frm_chk" ${fn:contains(filterList,'all')||fn:contains(filterList,'3')? "checked":""}>
+									<label for="gongu_3">반려</label>
+								</div>
+								<div class="frm_group">
+									<input type="checkbox" id="gongu_0" name="gongu_status" value="0" class="frm_chk" ${fn:contains(filterList,'all')||fn:contains(filterList,'0')? "checked":""}>
+									<label for="gongu_0">승인대기</label>
+								</div>
+								<div class="frm_group">
+									<input type="checkbox" id="gongu_4" name="gongu_status" value="4" class="frm_chk" ${fn:contains(filterList,'all')||fn:contains(filterList,'4')? "checked":""}>
+									<label for="gongu_4">진행중</label>
+								</div>
+								<div class="frm_group">
+									<input type="checkbox" id="gongu_1" name="gongu_status" value="1" class="frm_chk" ${fn:contains(filterList,'all')||fn:contains(filterList,'1')? "checked":""}>
+									<label for="gongu_1">심사중</label>
+								</div>
+								<div class="frm_group">
+									<input type="checkbox" id="gongu_5" name="gongu_status" value="5" class="frm_chk" ${fn:contains(filterList,'all')||fn:contains(filterList,'5')? "checked":""}>
+									<label for="gongu_5">비활성화</label>
+								</div>
+								<div class="frm_group">
+									<input type="checkbox" id="gongu_2" name="gongu_status" value="2" class="frm_chk" ${fn:contains(filterList,'all')||fn:contains(filterList,'2')? "checked":""}>
+									<label for="gongu_2">승인</label>
+								</div>
+								<div class="frm_group">
+									<input type="checkbox" id="gongu_7" name="gongu_status" value="7" class="frm_chk" ${fn:contains(filterList,'all')||fn:contains(filterList,'7')? "checked":""}>
+									<label for="gongu_7">종료</label>
+								</div>
+								<div class="frm_group">
+									<input type="checkbox" id="gongu_8" name="gongu_status" value="8" class="frm_chk" ${fn:contains(filterList,'all')||fn:contains(filterList,'8')? "checked":""}>
+									<label for="gongu_8">정산중</label>
+								</div>
+								<div class="frm_group">
+									<input type="checkbox" id="gongu_9" name="gongu_status" value="9" class="frm_chk" ${fn:contains(filterList,'all')||fn:contains(filterList,'9')? "checked":""}>
+									<label for="gongu_9">정산완료</label>
+								</div>
+								<div class="bt_group">
+									<button id="" type="button" class="bt" onclick="lyOff(this)">취소</button>
+									<button id="btn_apply" type="button" class="bt bt_primary">적용</button>
+								</div>
+							</fieldset>
+						</div>	
+					</div>
+					<div class="right">
+						<div class="input_group">
+							<select name="search_option" class="frm_control">
+								<option value="gongu_name" ${sOption eq 'gongu_name'? 'selected':''}>공구명</option>
+								<option value="seller_name" ${sOption eq 'seller_name'? 'selected':''}>판매자</option>
+							</select>
+							<div class="utils_search frm_control">
+								<input type="text" name="search_keyword" value="${sKeyword }">
+								<button id="btn_search" type="button" class="btn_search">검색</button>
 							</div>
-							<div class="frm_group">
-								<input type="checkbox" id="gongu_3" name="gongu_status" value="3" class="frm_chk">
-								<label for="gongu_3">반려</label>
-							</div>
-							<div class="frm_group">
-								<input type="checkbox" id="gongu_0" name="gongu_status" value="0" class="frm_chk">
-								<label for="gongu_0">승인대기</label>
-							</div>
-							<div class="frm_group">
-								<input type="checkbox" id="gongu_4" name="gongu_status" value="4" class="frm_chk">
-								<label for="gongu_4">진행중</label>
-							</div>
-							<div class="frm_group">
-								<input type="checkbox" id="gongu_1" name="gongu_status" value="1" class="frm_chk">
-								<label for="gongu_1">심사중</label>
-							</div>
-							<div class="frm_group">
-								<input type="checkbox" id="gongu_5" name="gongu_status" value="5" class="frm_chk">
-								<label for="gongu_5">비활성화</label>
-							</div>
-							<div class="frm_group">
-								<input type="checkbox" id="gongu_2" name="gongu_status" value="2" class="frm_chk">
-								<label for="gongu_2">승인</label>
-							</div>
-							<div class="frm_group">
-								<input type="checkbox" id="gongu_7" name="gongu_status" value="7" class="frm_chk">
-								<label for="gongu_7">종료</label>
-							</div>
-							<div class="frm_group">
-								<input type="checkbox" id="gongu_8" name="gongu_status" value="8" class="frm_chk">
-								<label for="gongu_8">정산중</label>
-							</div>
-							<div class="frm_group">
-								<input type="checkbox" id="gongu_9" name="gongu_status" value="9" class="frm_chk">
-								<label for="gongu_9">정산완료</label>
-							</div>
-							<div class="bt_group">
-								<button id="" type="button" class="bt" onclick="lyOff(this)">취소</button>
-								<button id="" type="button" class="bt bt_primary">적용</button>
-							</div>
-						</fieldset>
-					</form>	
-				</div>
-				<div class="right">
-					<div class="input_group">
-						<select name="sch_options" class="frm_control">
-							<option>공구명</option>
-							<option>판매자</option>
-						</select>
-						<div class="utils_search frm_control">
-							<input type="text" name="sch_keyword">
-							<button type="button" class="btn_search">검색</button>
 						</div>
 					</div>
-					<c:if test="${sessionScope.loginAuthor eq 1 }">
-						<a href="gonguRegistForm.go" class="btn btn-primary">공구등록</a>
-					</c:if>
-				</div>
+				</form>
 			</div>
 			<div class="list gongu_list">
 				<div class="list_header">
@@ -153,41 +156,79 @@
 					<span>판매자</span>
 					<span>등록일</span>
 				</div>
-			<c:choose>
-				<c:when test="${gonguList.size() > 0 }">
-					<c:forEach var="gongu" items="${gonguList}" varStatus="">
-							<div class="list_item ${gongu.gongu_status eq '3'? 'reject':'' } ${gongu.gongu_status eq '4'? 'on':'' }">	
-								<a href="adminGonguDetailViewAction.ad?gongu_id=${gongu.gongu_id}&seller_id=${gongu.seller_id}">
-								<span>
-									<span class="status">
-										<c:choose>
-											<c:when test="${gongu.gongu_status == '0' }">승인대기</c:when>
-											<c:when test="${gongu.gongu_status == '1' }">심사중</c:when>
-											<c:when test="${gongu.gongu_status == '2' }">승인</c:when>
-											<c:when test="${gongu.gongu_status == '3' }">반려</c:when>
-											<c:when test="${gongu.gongu_status == '4' }">진행중</c:when>
-											<c:when test="${gongu.gongu_status == '5' }">비활성화</c:when>
-											<c:when test="${gongu.gongu_status == '6' }">비활성화</c:when>
-											<c:when test="${gongu.gongu_status == '7' }">종료</c:when>
-											<c:when test="${gongu.gongu_status == '8' }">정산중</c:when>
-											<c:when test="${gongu.gongu_status == '9' }">정산완료</c:when>
-										</c:choose>
-									</span>
-								</span>
-								<span>${gongu.gongu_name }</span>
-								<span>${gongu.gongu_startdate }~${gongu.gongu_findate }</span>
-								<span>${gongu.seller_id }</span>
-								<span>${gongu.gongu_date }</span>
+				<div class="list_body">
+					<c:choose>
+						<c:when test="${gonguList.size() > 0 }">
+							<c:forEach var="gongu" items="${gonguList}" varStatus="">
+									<div class="list_item ${gongu.gongu_status eq '3'? 'reject':'' } ${gongu.gongu_status eq '4'? 'on':'' }">	
+										<a href="adminGonguDetailViewAction.ad?gongu_id=${gongu.gongu_id}&seller_id=${gongu.seller_id}">
+										<span>
+											<span class="status">
+												<c:choose>
+													<c:when test="${gongu.gongu_status == '0' }">승인대기</c:when>
+													<c:when test="${gongu.gongu_status == '1' }">심사중</c:when>
+													<c:when test="${gongu.gongu_status == '2' }">승인</c:when>
+													<c:when test="${gongu.gongu_status == '3' }">반려</c:when>
+													<c:when test="${gongu.gongu_status == '4' }">진행중</c:when>
+													<c:when test="${gongu.gongu_status == '5' }">비활성화</c:when>
+													<c:when test="${gongu.gongu_status == '6' }">비활성화</c:when>
+													<c:when test="${gongu.gongu_status == '7' }">종료</c:when>
+													<c:when test="${gongu.gongu_status == '8' }">정산중</c:when>
+													<c:when test="${gongu.gongu_status == '9' }">정산완료</c:when>
+												</c:choose>
+											</span>
+										</span>
+										<span>${gongu.gongu_name }</span>
+										<span>${gongu.gongu_startdate }~${gongu.gongu_findate }</span>
+										<span>${gongu.seller_id }</span>
+										<span>${gongu.gongu_date }</span>
+										
+										</a>
+									</div>
 								
-								</a>
-							</div>
-						
-					</c:forEach>
-				</c:when>
-				<c:otherwise>
-					<p class="noItem">등록된 공구가 없습니다.</p>
-				</c:otherwise>	
-			</c:choose>
+							</c:forEach>
+						</c:when>
+						<c:otherwise>
+							<p class="noItem">등록된 공구가 없습니다.</p>
+						</c:otherwise>	
+					</c:choose>
+				</div>
+				<div class="list_footer">
+					<ul class="pagination">
+						<li class="page-item">
+							<c:choose>
+								<c:when test="${pageInfo.page <= 1 }">
+									<a class="page-link disabled">이전</a>
+								</c:when>
+								<c:otherwise>
+									<a class="page-link prev" onclick="pageAction('prev')">이전</a>
+								</c:otherwise>
+							</c:choose>
+							
+							<c:forEach var="paging" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
+								<li class="page-item">
+									<c:choose>
+										<c:when test="${paging == pageInfo.page }">
+											<a type="button" class="page-link active" onClick="pageAction(${paging})">${paging }</a>
+										</c:when>
+										<c:otherwise>
+											<a type="button" class="page-link" onClick="pageAction(${paging})">${paging }</a>
+										</c:otherwise>
+									</c:choose>
+								</li>
+							</c:forEach>
+							
+							<c:choose>
+								<c:when test="${pageInfo.page >= pageInfo.maxPage }">
+									<a class="page-link disabled">다음</a>
+								</c:when>
+								<c:otherwise>
+									<a class="page-link next" onclick="pageAction('next')">다음</a>
+								</c:otherwise>
+							</c:choose>
+						</li>
+					</ul>
+				</div>
 			</div>
 			</div>
 			<!-- //conts3 : 공구필터 + 리스트 -->
@@ -196,5 +237,94 @@
 </div>
 
 
+<script>
+	$(document).ready(function(){
+		//header 메뉴 active
+		$("#header .header_item").removeClass("active");
+		$("#header .gongu").addClass("active");
+		
+		//최초로딩시 전체 선택
+		//$("input[name=gongu_status]").prop("checked",true);
+		
+		/*
+		var param = '${filterList}';
 
+		if(param != null){
+			param = param.slice(1,-1); //맨앞, 맨뒤 대괄호 자르기
+			console.log(param);
+			
+			var filterArr = param.split(", ");
+			
+			console.log(filterArr);
+
+			for(var i=0; i<filterArr.length; i++){
+				$("#gongu_"+filterArr[i]).prop("check",true);
+				//console.log();
+				
+			}
+			
+		}
+			*/
+		
+		//필터 체크박스 전체선택, 해제
+		var checkAll = $("#gongu_all");
+		checkAll.on('click',function(){
+			if(checkAll.is(":checked") == true){
+				$("input[name=gongu_status]").prop("checked", true);
+			}else{
+				$("input[name=gongu_status]").prop("checked", false);
+			}
+		});
+		
+		$("input[name=gongu_status]").not(checkAll).on('click', function(){
+			var totalL = $("input[name=gongu_status]").not(checkAll).length;
+			var checkedL = $("input[name=gongu_status]:checked").not(checkAll).length;
+			console.log(totalL,checkedL);
+			if(totalL <= checkedL){
+				checkAll.prop("checked", true);
+			}else{
+				checkAll.prop("checked", false);
+			}
+		});
+		
+		//필터적용
+		$("#btn_apply").on('click', function(){
+			pageAction(1);
+			$("#filterForm").submit();
+			//비동기할때 주석풀기
+			//filterList();
+		});
+		
+		//검색
+		$("#btn_search").on('click', function(){
+			pageAction(1);
+			$("#filterForm").submit();
+		});
+	});
+	
+	//console.log("로딩후:"+document.querySelector('input[name="page"]').value);
+	
+	function pageAction(count){
+		var pageInput = document.querySelector('input[name="page"]');
+		var nowPage = pageInput.value;
+		console.log(nowPage);
+		var goPage;
+		
+		if(count == null){
+			count = 0;
+		}else if(count == 'prev'){
+			goPage = Number(nowPage)-1;
+		}else if(count == 'next'){
+			goPage = Number(nowPage)+1;
+		}else{
+			goPage = Number(count);
+		}
+		pageInput.value = goPage;
+		
+		//console.log("변경후:"+document.querySelector('input[name="page"]').value);
+		$("#filterForm").submit();
+		
+	}
+
+</script>
 

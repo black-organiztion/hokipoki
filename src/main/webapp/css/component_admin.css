@@ -1,7 +1,8 @@
 @charset "UTF-8";
 
 /*utils*/
-.utils {display:flex; margin-bottom:12px;}
+.utils {margin-bottom:12px;}
+.utils>form{display:flex;} 
 .utils .right{display:inline-flex; align-items:center; margin-left:auto;}
 .utils .right > *:not(:last-child){margin-right:4px;}
 
@@ -73,7 +74,7 @@
 
 /*select*/
 select{-webkit-appearance: none; -moz-appearance: none; -ms-appearance: none; appearance: none; background-image:url(../img/admin/utils/select_down.svg); background-repeat:no-repeat; background-position: right 7px center;}
-select[name="sch_options"] {min-width:100px;}
+select[name="search_option"] {min-width:100px;}
 select:disabled {background-image:none;}
 
 
@@ -99,12 +100,17 @@ select:disabled {background-image:none;}
 .list{flex:1 1 auto; padding:20px; border-radius:15px; background-color:#F4F4F4;}
 .list .list_header{display:flex; margin:5px 0 10px; padding:0 15px;}
 .list .list_header>span{display:inline-flex; align-items:center; flex:0 0 auto; color:#7B8083; font-weight:500;}
+.list .list_body{height:calc(100% - 100px); overflow-y:scroll;}
 .list .list_item{border:1px solid #E9EAEC; border-radius:12px; background-color:#fff; transition:0.1s;}
 .list .list_item:not(:last-child){margin-bottom:5px;}
 .list .list_item>a,.list .list_item>.inr{display:flex; align-items:center; min-height:54px; padding:8px 15px; background-color:transparent; color:#000;}
 .list .list_item>a>span,.list .list_item>.inr>span{flex:0 0 auto; height:100%;}
 .list .list_item:hover{border:1px solid #457BE4;}
 .list .noItem {display:flex; align-items:center; justify-content:center; height:150px;}
+
+
+/*pagination*/
+.pagination{justify-content:center;}
 
 /* help_icon */
 .help_icon{display:inline-block; width:18px; height:18px; margin-left:4px; border-radius:5px; font-size:0; cursor:pointer;}

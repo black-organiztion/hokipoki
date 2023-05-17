@@ -20,7 +20,7 @@ body{font-family: 'Roboto','Noto Sans KR', sans-serif;}
 #header .header_item {height:100%; padding-left:50px; padding-right:50px;}
 #header .header_item a {position:relative; display:flex; align-items:center; height:100%; opacity:0.6; font-weight:500; text-align:center;}
 #header .header_item a .line{position:absolute; bottom:0; width:100%; height:4px;}
-#header .header_item a:hover{opacity:1;}
+#header .header_item a:hover {opacity:1; color:#fff;}
 #header .header_item.active a{opacity:1; font-weight:700;}
 #header .header_item.active a .line{background-color:#457BE4;}
 #header .login_nav .btn{display:inline-flex; align-items:center; border:1px solid #5E5E68; color:rgba(255,255,255,0.8); transition:0.1s;}
@@ -29,10 +29,20 @@ body{font-family: 'Roboto','Noto Sans KR', sans-serif;}
 
 /*content*/
 #content{height:calc(100% - 85px); padding-top:50px; padding-bottom:50px;}
+#content>.row{height:100%;}
+#content>.row>div[class^="col-"]{height:100%;}
 #content.bg{height:auto; min-height:calc(100% - 85px); background-color:#F5F5F5;}
 
 /**/
+.section {display:flex; flex-direction:column; height:100%;}
 .section h5 {margin-bottom:20px; font-family: 'yg-jalnan'; font-size:20px; color:#221A3F;}
+
+/*content>side*/
+#content>.row>.side{display:flex; flex-direction:column;}
+#content>.row>.side .section{height:auto;}
+
+/*content>main*/
+#content>.row>.main{}
 
 @media all and (max-width:1400px){
 	#header .header_item {padding-left:30px; padding-right:30px;}

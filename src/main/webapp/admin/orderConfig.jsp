@@ -1,15 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-<script>
-	$(document).ready(function(){
-		//header 메뉴 active
-		$("#header .header_item").removeClass("active");
-		$("#header .order").addClass("active");
-	
-	});
-</script>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <div id="content" class="container">
 	<div class="row">
@@ -20,44 +12,44 @@
 				<div class="utils">
 					<button type="button" id="btn_filter" class="btn_filter frm_control" onclick="lyOn(this)">필터</button>
 					<div id="ly_filter" class="ly_filter ly">
-						<form class="utils_filter">
+						<form id="filterForm" class="utils_filter" action="adminOrderListAction.or" method="post">
 							<fieldset>
 								<legend>주문상태표시</legend>
 								<div class="frm_group">
-									<input type="checkbox" id="order_all" name="gongu_status" value="all" class="frm_chk">
+									<input type="checkbox" id="order_all" name="order_status" value="all" class="frm_chk" ${fn:contains(filterList,'all')? "checked":""}>
 									<label for="order_all">전체</label>
 								</div>
 								<div class="frm_group">
-									<input type="checkbox" id="order_3" name="gongu_status" value="3" class="frm_chk">
+									<input type="checkbox" id="order_3" name="order_status" value="3" class="frm_chk" ${fn:contains(filterList,'all')||fn:contains(filterList,'3')? "checked":""}>
 									<label for="order_3">배송중</label>
 								</div>
 								<div class="frm_group">
-									<input type="checkbox" id="order_0" name="gongu_status" value="0" class="frm_chk">
+									<input type="checkbox" id="order_0" name="order_status" value="0" class="frm_chk" ${fn:contains(filterList,'all')||fn:contains(filterList,'0')? "checked":""}>
 									<label for="order_0">주문취소</label>
 								</div>
 								<div class="frm_group">
-									<input type="checkbox" id="order_4" name="gongu_status" value="4" class="frm_chk">
+									<input type="checkbox" id="order_4" name="order_status" value="4" class="frm_chk" ${fn:contains(filterList,'all')||fn:contains(filterList,'4')? "checked":""}>
 									<label for="order_4">배송완료</label>
 								</div>
 								<div class="frm_group">
-									<input type="checkbox" id="order_1" name="gongu_status" value="1" class="frm_chk">
+									<input type="checkbox" id="order_1" name="order_status" value="1" class="frm_chk" ${fn:contains(filterList,'all')||fn:contains(filterList,'1')? "checked":""}>
 									<label for="order_1">주문완료</label>
 								</div>
 								<div class="frm_group">
-									<input type="checkbox" id="order_5" name="gongu_status" value="5" class="frm_chk">
-									<label for="gongu_5">구매확정</label>
+									<input type="checkbox" id="order_5" name="order_status" value="5" class="frm_chk" ${fn:contains(filterList,'all')||fn:contains(filterList,'5')? "checked":""}>
+									<label for="order_5">구매확정</label>
 								</div>
 								<div class="frm_group">
-									<input type="checkbox" id="order_2" name="gongu_status" value="2" class="frm_chk">
+									<input type="checkbox" id="order_2" name="order_status" value="2" class="frm_chk" ${fn:contains(filterList,'all')||fn:contains(filterList,'2')? "checked":""}>
 									<label for="order_2">결제완료</label>
 								</div>
 								<div class="frm_group">
-									<input type="checkbox" id="order_9" name="gongu_status" value="9" class="frm_chk">
+									<input type="checkbox" id="order_9" name="order_status" value="9" class="frm_chk" ${fn:contains(filterList,'all')||fn:contains(filterList,'9')? "checked":""}>
 									<label for="order_9">주문실패</label>
 								</div>
 								<div class="bt_group">
 									<button id="" type="button" class="bt" onclick="lyOff(this)">취소</button>
-									<button id="" type="button" class="bt bt_primary">적용</button>
+									<button id="btn_apply" type="button" class="bt bt_primary">적용</button>
 								</div>
 							</fieldset>
 						</form>	
@@ -122,3 +114,38 @@
 
 </div>
 
+<script>
+	$(document).ready(function(){
+		//header 메뉴 active
+		$("#header .header_item").removeClass("active");
+		$("#header .order").addClass("active");
+		
+		//필터 체크박스 전체선택, 해제
+		var checkAll = $("#order_all");
+		checkAll.on('click',function(){
+			if(checkAll.is(":checked") == true){
+				$("input[name=order_status]").prop("checked", true);
+			}else{
+				$("input[name=order_status]").prop("checked", false);
+			}
+		});
+		
+		$("input[name=order_status]").not(checkAll).on('click', function(){
+			var totalL = $("input[name=order_status]").not(checkAll).length;
+			var checkedL = $("input[name=order_status]:checked").not(checkAll).length;
+			console.log(totalL,checkedL);
+			if(totalL <= checkedL){
+				checkAll.prop("checked", true);
+			}else{
+				checkAll.prop("checked", false);
+			}
+		});
+		
+		//필터적용
+		$("#btn_apply").on('click', function(){
+			$("#filterForm").submit();
+			//비동기할때 주석풀기
+			//filterList();
+		});
+	});
+</script>
