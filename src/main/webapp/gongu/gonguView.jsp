@@ -186,9 +186,29 @@
                      
                      <div class="containernum">
                         <div class="num">
-                            ${gongu.gongu_reserve }                         
+                            <script>
+                            	var today = new Date();                           	
+                            	
+                            	var year = today.getFullYear(); 
+                            	var month = today.getMonth() + 1;  
+                            	var date = today.getDate();
+                            	
+                            	var curDate = year+month+date;                            
+                            	var strDate2 = ${gongu.gongu_findate};
+                            	console.log("데이트:"+strDate2);
+                            	console.log(${gongu.gongu_findate})
+                            	console.log("현재날짜:"+curDate);
+                            	 var arr2 = strDate2.split('-'); 
+                            	
+                            	var dat2 = new Date(arr2[0],arr2[1],arr2[2]);
+                            	var diff= curDate-dat2;
+                            	var currDay = 24*60*60*1000;
+                            	document.write("parseInt(diff/currDay)");
+                            	console.log(paseInt(diff/currDay));
+                            </script>                         
                         </div>
                         <div style="margin-right: 7px;">
+                        	${gongu.gongu_findate }
                            일
                         </div>
                      </div>   
