@@ -71,6 +71,28 @@
 	  	margin-top:24px;
 	  	margin-bottom: 18px;
 	  }
+	  
+	  .joinbtn{
+	  	width:322px;
+	  	height:50px; 
+	  	background-color:orange; 
+	  	color:white; 
+	  	border:none;
+	  	border-radius:4px;
+	  	font-size:18px;
+	  	font-weight: 500;
+		text-align:center;	
+	  	margin-bottom: 10px;
+	  }
+	  .joinbtn>a{
+	  	display:block;
+	  	width:100%;
+	  	height:100%;
+	  	line-height:50px;	  	
+	  	
+	  	text-decoration: none;
+	  	color: white;
+	  }
 	.container{
 		width:640px;
 		margin: 0 auto;
@@ -124,6 +146,9 @@
 			</div>
 		</div>
 	<input type="submit" value="로그인" class="submitbtn" >			
+	<div class="joinbtn" >
+		<a href="${pageContext.request.contextPath}/memberJoin.me">회원가입</a>		
+	</div>
 	</div>
 </div>
 

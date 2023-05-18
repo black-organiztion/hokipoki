@@ -26,70 +26,70 @@ function chkForm(f){
    }
    
    if(pwflag == false){
-	   alert('비밀번호가 일치하지 않습니다.');
-	   return false;
+      alert('비밀번호가 일치하지 않습니다.');
+      return false;
    }
    
 
    
    if(f.receivername.value.trim()==""){
-	      alert('수령인을 입력하세요');
-	      f.receivername.focus();      
-	      return false;      
-	   }
+         alert('수령인을 입력하세요');
+         f.receivername.focus();      
+         return false;      
+      }
    
    if(f.d_name.value.trim()==""){
-	      alert('배송지명을 입력하세요');
-	      f.d_name.focus();      
-	      return false;      
-	   }
+         alert('배송지명을 입력하세요');
+         f.d_name.focus();      
+         return false;      
+      }
    
    if(f.name.value.trim()==""){
-	      alert('이름을 입력하세요');
-	      f.name.focus();      
-	      return false;      
-	   }
+         alert('이름을 입력하세요');
+         f.name.focus();      
+         return false;      
+      }
    if(f.email.value.trim()==""){
-	      alert('이메일을 입력하세요');
-	      f.email.focus();      
-	      return false;      
-	   }
+         alert('이메일을 입력하세요');
+         f.email.focus();      
+         return false;      
+      }
    
    var regExp = /^[a-z]+[a-z0-9]{5,10}$/g;
    
-	var pw = $("#pw").val();
-	
-	var id = $("#id").val();
-		
-	var reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
-	var hangulcheck = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
-	
-	if(false === hangulcheck.test(f.name.value.trim())){
-		alert('이름은 한글만 가능합니다.');
-		return false;
-	}
-	
-	if(false === regExp.test(id)){
-		alert('아이디는 5자에서 10자의 영문만 가능합니다. ');
-		return false;
-	}
-	if(false === reg.test(pw)) {
-	alert('비밀번호는 8자 이상이어야 하며, 숫자/대문자/소문자/특수문자를 모두 포함해야 합니다.');
-	return false;
-	}else if(/(\w)\1\1\1/.test(pw)){
-	 alert('같은 문자를 4번 이상 사용하실 수 없습니다.');
-	 return false;
-	 }else if(pw.search(id) > -1){
-	 alert("비밀번호에 아이디가 포함되었습니다.");
-	  return false;
-	 }else if(pw.search(/\s/) != -1){
-	 alert("비밀번호는 공백 없이 입력해주세요.");
-	 return false;
-	 }else if(hangulcheck.test(pw)){
-	 alert("비밀번호에 한글을 사용 할 수 없습니다."); 
-	 }else {
-	 console.log("통과");
-	 }
+   var pw = $("#pw").val();
+   
+   var id = $("#id").val();
+      
+   var reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+   var hangulcheck = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+   
+   if(false === hangulcheck.test(f.name.value.trim())){
+      alert('이름은 한글만 가능합니다.');
+      return false;
+   }
+   
+   if(false === regExp.test(id)){
+      alert('아이디는 5자에서 10자의 영문만 가능합니다. ');
+      return false;
+   }
+   if(false === reg.test(pw)) {
+   alert('비밀번호는 8자 이상이어야 하며, 숫자/대문자/소문자/특수문자를 모두 포함해야 합니다.');
+   return false;
+   }else if(/(\w)\1\1\1/.test(pw)){
+    alert('같은 문자를 4번 이상 사용하실 수 없습니다.');
+    return false;
+    }else if(pw.search(id) > -1){
+    alert("비밀번호에 아이디가 포함되었습니다.");
+     return false;
+    }else if(pw.search(/\s/) != -1){
+    alert("비밀번호는 공백 없이 입력해주세요.");
+    return false;
+    }else if(hangulcheck.test(pw)){
+    alert("비밀번호에 한글을 사용 할 수 없습니다."); 
+    }else {
+    console.log("통과");
+    }
    
    f.submit();
 }
@@ -97,24 +97,24 @@ function chkForm(f){
 var pwflag = false;
 
 $(function(){
-	$('.pw').keyup(function(){
-		let pass1=$("#pw").val();
-		let pass2=$("#chkpw").val();
-		
-		if(pass1 != "" || pass2 != ""){
-			if(pass1 == pass2){
-				$("#checkPw").html('일치');
-				$("#checkPw").attr('color','green');
-				pwflag=true;
-			}else{
-				$("#checkPw").html('불일치');
-				$("#checkPw").attr('color','red');
-				
-			}
-			
-		}
-		
-	});
+   $('.pw').keyup(function(){
+      let pass1=$("#pw").val();
+      let pass2=$("#chkpw").val();
+      
+      if(pass1 != "" || pass2 != ""){
+         if(pass1 == pass2){
+            $("#checkPw").html('일치');
+            $("#checkPw").attr('color','green');
+            pwflag=true;
+         }else{
+            $("#checkPw").html('불일치');
+            $("#checkPw").attr('color','red');
+            
+         }
+         
+      }
+      
+   });
 });
 
 function sample4_execDaumPostcode() {
@@ -187,97 +187,97 @@ function sample4_execDaumPostcode() {
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
 
 <style>
-	
-	*{
-		font-family: 'Noto Sans KR', sans-serif;
-	}
-	body{
-		overflow-y:hidden; 
-	
-	}
+   
+   *{
+      font-family: 'Noto Sans KR', sans-serif;
+   }
+   body{
+      overflow-y:hidden; 
+   
+   }
 
-	.joinform{	
-		width:322px;
-		/* margin:0 auto; */
-		overflow: auto;
-		}
-	
-	.form_group {
-	  width:100%;
-	  height:62px; 
-	  border-bottom:2px solid #c9c9c9;
-	  
-	  }
-	 .form_group:not(:last-child){ margin-bottom:32px; }
-	.form_group > label{
-	  font-size: 18px;
-	  color:gray;  
-	 
-	}
-	.input_group{
-	  width:322px; 
-	  display:flex; 
-	
-	  }
-	.input_group> *{
-	  flex:0 0 auto;
-	  padding-bottom:0px;
-	  margin-top:3px;
-	  }
-	.input_group> input[type=button]{ 
-	  width:70px; 
-	  height:30px; 
-	  background-color:orange; 
-	  color:white; 
-	  border:none;
-	  border-radius:4px;
-	  font-size:14px;
-	  }
-	.input_group> .form_control{
-	  min-width:0;
-	  flex:1 1 auto;
-	  width:auto;
-	  outline:none;
-	  border:none;
-	  font-size:18px;
-	  }
-	  .submitbtn{
-	  	width:322px;
-	  	height:50px; 
-	  	background-color:orange; 
-	  	color:white; 
-	  	border:none;
-	  	border-radius:4px;
-	  	font-size:18px;
-	  	font-weight: 500;
-	  	margin-top:32px;
-	  	margin-bottom: 18px;
-	  	font-weight: bold;
-	  }
-	.container{
-		width:40%;	
-		height:700px;	
-		background-color: #fffff;
-		border:1px red;	
-		
-		float:left;	
-		
-	}
-	.logo {	
-		width:320px;
-		text-align: center;
-	}
-	.logo > .img{
-		margin-top: 30px;		
-		margin-bottom: 52px;
-	}
-	.inner{		
-		margin:0 auto; 
-		width:322px;
-		background-color: white;
-	}
+   .joinform{   
+      width:322px;
+      /* margin:0 auto; */
+      overflow: auto;
+      }
+   
+   .form_group {
+     width:100%;
+     height:62px; 
+     border-bottom:2px solid #c9c9c9;
+     
+     }
+    .form_group:not(:last-child){ margin-bottom:32px; }
+   .form_group > label{
+     font-size: 18px;
+     color:gray;  
+    
+   }
+   .input_group{
+     width:322px; 
+     display:flex; 
+   
+     }
+   .input_group> *{
+     flex:0 0 auto;
+     padding-bottom:0px;
+     margin-top:3px;
+     }
+   .input_group> input[type=button]{ 
+     width:70px; 
+     height:30px; 
+     background-color:orange; 
+     color:white; 
+     border:none;
+     border-radius:4px;
+     font-size:14px;
+     }
+   .input_group> .form_control{
+     min-width:0;
+     flex:1 1 auto;
+     width:auto;
+     outline:none;
+     border:none;
+     font-size:18px;
+     }
+     .submitbtn{
+        width:322px;
+        height:50px; 
+        background-color:orange; 
+        color:white; 
+        border:none;
+        border-radius:4px;
+        font-size:18px;
+        font-weight: 500;
+        margin-top:32px;
+        margin-bottom: 18px;
+        font-weight: bold;
+     }
+   .container{
+      width:40%;   
+      height:700px;   
+      background-color: #fffff;
+      border:1px red;   
+      
+      float:left;   
+      
+   }
+   .logo {   
+      width:320px;
+      text-align: center;
+   }
+   .logo > .img{
+      margin-top: 30px;      
+      margin-bottom: 52px;
+   }
+   .inner{      
+      margin:0 auto; 
+      width:322px;
+      background-color: white;
+   }
 
-	/* .test::-webkit-scrollbar {
+   /* .test::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera*/ 
 .test::-webkit-scrollbar,.test::-webkit-scrollbar-thumb {
   width: 26px;
@@ -318,118 +318,118 @@ background: white;
 <body>
 <div class="page">
 <div class="sideimg">
-	<img src="${pageContext.request.contextPath}/img/bgimg.jpg" style="float:left; width:50%;  padding-right: 4%;">
+   <img src="${pageContext.request.contextPath}/img/bgimg.jpg" style="float:left; width:50%;  padding-right: 4%;">
 </div>
 
 <div class="container">
-	<div class="inner">
-		<div class="logo"> 
-			<img src="${pageContext.request.contextPath}/img/logo_small.png" class="img" >
-		</div>
-		
-		<div class="test">
+   <div class="inner">
+      <div class="logo"> 
+         <img src="${pageContext.request.contextPath}/img/logo_small.png" class="img" >
+      </div>
+      
+      <div class="test">
 
 <form action="${pageContext.request.contextPath}/memberJoinAction.me" method="post" id="joinform" name="joinform" class="joinform">
-		<div class="form_group">
-			<label>아이디</label>
-			<div class="input_group">
-				<input type="text"  class ="form_control" id="id" name="id" maxlength="30">			
-				<input type="button" name="idCheck" value="중복확인" id="idCheck" onclick="window.open('${pageContext.request.contextPath}/member/memberIdcheckForm.jsp?openInit=true','','width=400,height=200')">
-			 </div>
-		</div>
-	
-	<div class="form_group">
-		<label>비밀번호</label>
-			<div class="input_group">
-				<input type="password" class ="pw form_control" id="pw" name="pw">
-			</div>
-	</div>
-	<div class="form_group">
-		<label>비밀번호 확인</label>
-			<div class="input_group">
-				<input type="password" class ="pw form_control" id="chkpw" name="chkpw">
-				<font id="checkPw" size="2"></font>		
-			</div>
-	</div>		
-	<div class="form_group">
-		<label>이름</label>
-			<div class="input_group">
-				<input type="text" id="name" name="name" class="form_control">
-			</div>
-	</div>
-	<div class="form_group">
-		<label>휴대폰</label>	
-			<div class="input_group">
-				<input type="text" id="tel" name="tel" class="form_control">
-			</div>
-	</div>
-	<div class="form_group">
-		<label>이메일</label>	
-			<div class="input_group">
-				<input type="text" id="email" name="email" class="form_control">
-			</div>
-	</div>
-	<div class="form_group">
-		<label>추천인</label>
-			<div class="input_group">
-				<input type="text" id="Rid" name="recommend_id" class="form_control">
-				<input type="button" name="idCheck" value="검색" id="idCheck" onclick="window.open('${pageContext.request.contextPath}/member/recommendCheckForm.jsp?openInit=true','','width=400,height=200')">
-			</div>
-	</div>
-	<div class="form_group">
-		<label>배송지명</label>
-			<div class="input_group">
-				<input type="text" name="deliveryname" id="d_name" class="form_control">	
-			</div>
-	</div>
-	<div class="form_group">
-		<label>우편번호</label>
-			<div class="input_group">
-				<input type="text" name="zipcode" id="sample4_postcode" class="form_control">
-				<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호">	
-			</div>
-	</div>
-	<div class="form_group">
-			<label>수령인 성함</label>
-				<div class="input_group">
-					<input type="text" name="receivername"  class="form_control">
-				</div>
-	</div>
-	<div class="form_group">
-		<label>전화번호1</label>
-			<div class="input_group">
-					<input type="text" name = "tel1.1" class="form_control"  maxlength="3">
-					ㅡ
-					<input type="text" name = "tel1.2" class="form_control"  maxlength="4" >
-					ㅡ
-					<input type="text" name = "tel1.3" class="form_control"  maxlength="4">
-			</div>		
-	</div>
-	
-	<div class="form_group">
-		<label>전화번호2</label>
-			<div class="input_group">
-				<input type="text" name = "tel2.1" class="form_control"  maxlength="3">
-				ㅡ
-				<input type="text" name = "tel2.2" class="form_control"  maxlength="4" >
-				ㅡ
-				<input type="text" name = "tel2.3" class="form_control"  maxlength="4" >
-			</div>
-	</div>
-		<div class="form_group">
-			<label>도로명주소</label>
-				<div class="input_group">
-					<input type="text" id="sample4_roadAddress" readonly  name="addr1" class="form_control">	
-				</div>
-		</div>		
-	<div class="form_group">
-		<label>상세주소</label>
-			<div class="input_group">
-				<input type="text" id="sample4_detailAddress" name="addr2" class="form_control">
-			</div>
-	</div>		
-		<span id="guide" style="color:#999;"></span>
-		
+      <div class="form_group">
+         <label>아이디</label>
+         <div class="input_group">
+            <input type="text"  class ="form_control" id="id" name="id" maxlength="30" readonly>         
+            <input type="button" name="idCheck" value="중복확인" id="idCheck" onclick="window.open('${pageContext.request.contextPath}/member/memberIdcheckForm.jsp?openInit=true','','width=400,height=200')">
+          </div>
+      </div>
+   
+   <div class="form_group">
+      <label>비밀번호</label>
+         <div class="input_group">
+            <input type="password" class ="pw form_control" id="pw" name="pw">
+         </div>
+   </div>
+   <div class="form_group">
+      <label>비밀번호 확인</label>
+         <div class="input_group">
+            <input type="password" class ="pw form_control" id="chkpw" name="chkpw">
+            <font id="checkPw" size="2"></font>      
+         </div>
+   </div>      
+   <div class="form_group">
+      <label>이름</label>
+         <div class="input_group">
+            <input type="text" id="name" name="name" class="form_control">
+         </div>
+   </div>
+   <div class="form_group">
+      <label>휴대폰</label>   
+         <div class="input_group">
+            <input type="text" id="tel" name="tel" class="form_control">
+         </div>
+   </div>
+   <div class="form_group">
+      <label>이메일</label>   
+         <div class="input_group">
+            <input type="text" id="email" name="email" class="form_control">
+         </div>
+   </div>
+   <div class="form_group">
+      <label>추천인</label>
+         <div class="input_group">
+            <input type="text" id="Rid" name="recommend_id" class="form_control">
+            <input type="button" name="idCheck" value="검색" id="idCheck" onclick="window.open('${pageContext.request.contextPath}/member/recommendCheckForm.jsp?openInit=true','','width=400,height=200')">
+         </div>
+   </div>
+   <div class="form_group">
+      <label>배송지명</label>
+         <div class="input_group">
+            <input type="text" name="deliveryname" id="d_name" class="form_control">   
+         </div>
+   </div>
+   <div class="form_group">
+      <label>우편번호</label>
+         <div class="input_group">
+            <input type="text" name="zipcode" id="sample4_postcode" class="form_control">
+            <input type="button" onclick="sample4_execDaumPostcode()" value="우편번호">   
+         </div>
+   </div>
+   <div class="form_group">
+         <label>수령인 성함</label>
+            <div class="input_group">
+               <input type="text" name="receivername"  class="form_control">
+            </div>
+   </div>
+   <div class="form_group">
+      <label>전화번호1</label>
+         <div class="input_group">
+               <input type="text" name = "tel1.1" class="form_control"  maxlength="3">
+               ㅡ
+               <input type="text" name = "tel1.2" class="form_control"  maxlength="4" >
+               ㅡ
+               <input type="text" name = "tel1.3" class="form_control"  maxlength="4">
+         </div>      
+   </div>
+   
+   <div class="form_group">
+      <label>전화번호2</label>
+         <div class="input_group">
+            <input type="text" name = "tel2.1" class="form_control"  maxlength="3">
+            ㅡ
+            <input type="text" name = "tel2.2" class="form_control"  maxlength="4" >
+            ㅡ
+            <input type="text" name = "tel2.3" class="form_control"  maxlength="4" >
+         </div>
+   </div>
+      <div class="form_group">
+         <label>도로명주소</label>
+            <div class="input_group">
+               <input type="text" id="sample4_roadAddress" readonly  name="addr1" class="form_control">   
+            </div>
+      </div>      
+   <div class="form_group">
+      <label>상세주소</label>
+         <div class="input_group">
+            <input type="text" id="sample4_detailAddress" name="addr2" class="form_control">
+         </div>
+   </div>      
+      <span id="guide" style="color:#999;"></span>
+      
 
 
 
@@ -441,4 +441,3 @@ background: white;
 </div>
 </div>
 </body>
-</html>

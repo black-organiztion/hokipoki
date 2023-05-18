@@ -93,7 +93,7 @@ function selectAddr(f){
 
 	.delform{	
 		width:322px;
-		border:3px solid red;
+		
 		
 		}
 	
@@ -154,14 +154,14 @@ function selectAddr(f){
 		width:322px;	
 		
 		background-color: #fffff;
-		border:3px solid blue;		
+		
 	}
 	.tit{
 		width:322px;
 		height:50px;
 		font-size:24px;
 		font-weight: bold;
-		border:3px solid red;
+		
 		text-align:center;
 		margin-bottom: 20px;
 	}

@@ -48,15 +48,15 @@ function ok(v){
 <input type=text name=id id=id>
 <input type=submit class="submitbtn" value="확인">
 </form>
-<c:choose>
-<c:when test="${useable eq 'yes' }">
+
+<c:if test="${useable eq 'yes'}">
 사용가능한 아이디입니다.
 <a href="#" onclick="ok('${chkId}')">${chkId }사용하기</a>
-</c:when>
-<c:otherwise>
-사용불가능한 아이디입니다.
-</c:otherwise>
-</c:choose>
+</c:if>
+<c:if test="${useable eq 'no'}">
+사용 불가능한 아이디입니다.
+</c:if>
+
 
 
 

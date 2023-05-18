@@ -25,7 +25,7 @@ public class MemberPaymentAction implements Action {
 		int delivery_id = 0;
 		String gongu_id = request.getParameter("gongu_id");
 		String member_id = (String) session.getAttribute("member_id");
-		System.out.println("member_id:"+member_id);
+	
 		
 		
 		String isdefault = request.getParameter("isdefault");
@@ -60,16 +60,21 @@ public class MemberPaymentAction implements Action {
 		paymentflag = memberPaymentService.paymentProcess(gongu_id, member_id, delivery_id);
 
 		if (reserveflag && paymentflag) {
-			return forward;
+			response.setContentType("text/html;charset=utf-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("alert('결제 완료')");
+			out.println("location.href='./gonguListHome.go'");
+			out.println("</script>");		
+			
 		} else {
 			PrintWriter out = response.getWriter();
-
 			out.println("<script>");
 			out.println("alert('결제 실패')");
 			out.println("history.back()");
 			out.println("</script>");
 		}
-
+		
 		return forward;
 	}
 

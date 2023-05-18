@@ -36,7 +36,9 @@ public class MyInfoAction implements Action {
 			request.setAttribute("delivery", delivery);
 		}
 		
-		forward = new ActionForward("/member/myInfo.jsp", false);
+		request.setAttribute("pagefile", "/member/myInfo.jsp");
+		forward = new ActionForward("./index.jsp", false);
+		
 		
 	}catch(Exception e) {
 		System.out.println("myInfoAction에서 오류");

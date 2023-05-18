@@ -107,11 +107,11 @@
   <div class="swiper mySwiper">
     <div class="swiper-wrapper">
       <div class="swiper-slide">
-		<img src="${pageContext.request.contextPath}/img/banner/imvita.jpg">
+		<img src="${pageContext.request.contextPath}/img/banner/imvita.png">
       </div>
-      <div class="swiper-slide"><img src="${pageContext.request.contextPath}/img/banner/baby.jpg"></div>
-      <div class="swiper-slide"><img src="${pageContext.request.contextPath}/img/banner/laundry.jpg"></div>
-      <div class="swiper-slide"><img src="${pageContext.request.contextPath}/img/banner/skin.jpg"></div>
+      <div class="swiper-slide"><img src="${pageContext.request.contextPath}/img/banner/baby.png"></div>
+      <div class="swiper-slide"><img src="${pageContext.request.contextPath}/img/banner/laundry.png"></div>
+      <div class="swiper-slide"><img src="${pageContext.request.contextPath}/img/banner/skin.png"></div>
     </div>
     
     <div class="swiper-pagination"></div>
@@ -121,7 +121,7 @@
  <!-- banner  --> 
   <div class="incontainer">
   	<div class="banner">
-  		<img src="${pageContext.request.contextPath}/img/ad1.png">
+  		<img src="${pageContext.request.contextPath}/img/ad1.jpg">
   	</div>
   </div>
 

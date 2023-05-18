@@ -18,9 +18,7 @@
 
 
 	.memberform{	
-		width:322px;
-		border:3px solid red;
-		
+		width:322px;	
 		}
 	
 	.form_group {
@@ -57,7 +55,7 @@
 	.input_group> .form_control{
 	  min-width:0;
 	  flex:1 1 auto;
-	  width:auto;
+	  width:200px;
 	  outline:none;
 	  border:none;
 	  font-size:18px;
@@ -80,19 +78,20 @@
 		width:322px;	
 		
 		background-color: #fffff;
-		border:3px solid blue;		
+			
 	}
 	.tit{
 		width:322px;
 		height:50px;
 		font-size:24px;
 		font-weight: bold;
-		border:3px solid red;
+		
 		text-align:center;
+		margin:0 auto;
 		margin-bottom: 20px;
 	}
 	.all{
-		width:322px;
+		width:500px;
 		border:1.5px solid #c9c9c9;
 		margin:0 auto;
 		padding:50px;
