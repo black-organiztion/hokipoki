@@ -54,6 +54,9 @@
 .order_list>.list_header>span:nth-child(6),.order_list .list_item>a>span:nth-child(6){width:12%;}
 
 /*seller*/
+#content.seller .sec1{flex:1 1 auto;}
+#content.seller .sec1>div{flex:1 1 auto; display:flex; flex-direction:column;}
+
 .seller_list .list_item:hover{border:1px solid #E9EAEC;}
 .seller_list>.list_header>span:nth-child(1),.seller_list .list_item>.inr>span:nth-child(1){width:12%;}
 .seller_list>.list_header>span:nth-child(2),.seller_list .list_item>.inr>span:nth-child(2){width:20%;}

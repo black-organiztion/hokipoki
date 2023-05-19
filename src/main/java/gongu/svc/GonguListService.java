@@ -94,6 +94,7 @@ public class GonguListService {
 			standByCount = gonguDAO.selectStandByCnt(loginId, loginAuthor);
 			
 		}catch(Exception e) {
+			System.out.println("공구승인대기건수조회오류:"+e);
 			
 		}finally {
 			close(con);
@@ -116,7 +117,7 @@ public class GonguListService {
 			onGoingCount = gonguDAO.selectOnGoingCount(loginId, loginAuthor);
 			
 		}catch(Exception e) {
-			
+			System.out.println("공구진행중건수조회오류:"+e);
 		}finally {
 			close(con);
 		}
@@ -138,6 +139,7 @@ public class GonguListService {
 			calcCount = gonguDAO.selectCalcCount(loginId, loginAuthor);
 			
 		}catch(Exception e) {
+			System.out.println("공구정산중건수조회오류:"+e);
 			
 		}finally {
 			close(con);

@@ -89,41 +89,6 @@ public class AdminDAO {
 		return seller;
 	}
 
-	public ArrayList<Seller> selectSellerList() {
-		ArrayList<Seller> sellerList = new ArrayList<Seller>();
-		
-		PreparedStatement psmt = null;
-		ResultSet rs = null;
-		String sql = "SELECT * FROM seller WHERE seller_author !=0 ORDER BY seller_author DESC";
-		
-		try {
-			psmt = con.prepareStatement(sql);
-			rs = psmt.executeQuery();
-			
-			if(rs.next()) {
-				do {
-					Seller seller = new Seller(rs.getString("seller_id"),
-												rs.getString("seller_pw"),
-												rs.getString("seller_name"),
-												rs.getString("seller_number"),
-												rs.getInt("seller_author"));
-					sellerList.add(seller);
-					
-				}while(rs.next());
-			}
-			
-		}catch(Exception e) {
-			System.out.println("판매자리스트조회 오류:"+e);
-			
-		}finally {
-			close(rs);
-			close(psmt);
-		}
-		
-		
-		return sellerList;
-	}
-
 	public int setSellerAuthor(String seller_id) {
 		int result = 0;
 		PreparedStatement psmt = null;
@@ -148,42 +113,7 @@ public class AdminDAO {
 		return result;
 	}
 
-	public ArrayList<Member> selectMemberList() {
-		ArrayList<Member> memberList = new ArrayList<>();
-		PreparedStatement psmt = null;
-		ResultSet rs = null;
-		String sql = "SELECT * FROM member";
-		
-		try {
-			psmt = con.prepareStatement(sql);
-			rs = psmt.executeQuery();
-			
-			if(rs.next()) {
-				do {
-					Member member = new Member(rs.getString("member_id"),
-												rs.getString("membership_id"),
-												rs.getString("member_pw"),
-												rs.getString("member_name"),
-												rs.getString("member_tel"),
-												rs.getString("member_email"),
-												rs.getString("recommend_id"),
-												rs.getDate("member_date")
-												);
-					memberList.add(member);
-					
-				}while(rs.next());
-			}
-			
-		}catch(Exception e) {
-			System.out.println("회원목록선택오류:"+e);
-			
-		}finally {
-			close(rs);
-			close(psmt);
-		}
-		
-		return memberList;
-	}
+	
 
 	public int checkDupl(String seller_id) {
 		int result = 0;
@@ -296,5 +226,191 @@ public class AdminDAO {
 		return result;
 	}
 
+	public int selectMemberListCount(String loginId, int loginAuthor, String sOption, String sKeyword) {
+		int listCount = 0;
+		PreparedStatement psmt =  null;
+		ResultSet rs = null;
+		String sql = "SELECT count(*) FROM member";
+		
+		if(sOption != null && sKeyword != null) {
+			sql += " WHERE "+ sOption + " LIKE '%"+sKeyword+"%'";
+					
+		}
+		
+		try {
+			psmt = con.prepareStatement(sql);
+			System.out.println("회원개수선택쿼리"+psmt);
+			rs = psmt.executeQuery();
+			if(rs.next()) {
+				listCount = rs.getInt(1); //첫번째 컬럼값(count 함수 결과) 가져오기
+			}
+			
+		}catch(Exception e) {
+			System.out.println("회원개수선택오류:"+e);
+			
+		}finally {
+			close(rs);
+			close(psmt);
+		}
+		
+		return listCount;
+	}
+
+	public ArrayList<Member> selectMemberList(int page, int limit, String loginId, int loginAuthor, String sOption,
+			String sKeyword) {
+
+		ArrayList<Member> memberList = new ArrayList<>();
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM member";
+		int startRow = (page-1)*limit; //시작행
+		
+		//조건. 검색조건 유무
+		if(sOption != null && sKeyword != null) {
+			sql += " WHERE "+ sOption + " LIKE '%"+sKeyword+"%'";
+					
+		}
+		
+		sql+=" ORDER BY member_date DESC limit ?, ?";
+		
+		try {
+			psmt = con.prepareStatement(sql);
+			psmt.setInt(1, startRow);
+			psmt.setInt(2, limit);
+			System.out.println(psmt);
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				do {
+					Member member = new Member(rs.getString("member_id"),
+												rs.getString("membership_id"),
+												rs.getString("member_pw"),
+												rs.getString("member_name"),
+												rs.getString("member_tel"),
+												rs.getString("member_email"),
+												rs.getString("recommend_id"),
+												rs.getDate("member_date")
+												);
+					memberList.add(member);
+					
+				}while(rs.next());
+			}
+			
+		}catch(Exception e) {
+			System.out.println("회원목록선택오류:"+e);
+			
+		}finally {
+			close(rs);
+			close(psmt);
+		}
+		
+		return memberList;
+	}
+
+	public int selectSellerListCount(String loginId, int loginAuthor, String sOption, String sKeyword) {
+		int listCount = 0;
+		PreparedStatement psmt =  null;
+		ResultSet rs = null;
+		String sql = "SELECT count(*) FROM seller";
+		
+		if(sOption != null && sKeyword != null) {
+			sql += " WHERE "+ sOption + " LIKE '%"+sKeyword+"%'";
+					
+		}
+		
+		try {
+			psmt = con.prepareStatement(sql);
+			System.out.println("판매자개수선택쿼리"+psmt);
+			rs = psmt.executeQuery();
+			if(rs.next()) {
+				listCount = rs.getInt(1); //첫번째 컬럼값(count 함수 결과) 가져오기
+			}
+			
+		}catch(Exception e) {
+			System.out.println("판매자개수선택오류:"+e);
+			
+		}finally {
+			close(rs);
+			close(psmt);
+		}
+		
+		return listCount;
+	}
+
+	public ArrayList<Seller> selectSellerList(int page, int limit, String loginId, int loginAuthor, String sOption,
+			String sKeyword) {
+
+		ArrayList<Seller> sellerList = new ArrayList<Seller>();
+		
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM seller WHERE seller_author !=0 ";
+		
+		int startRow = (page-1)*limit; //시작행
+		
+		//조건. 검색조건 유무
+		if(sOption != null && sKeyword != null) {
+			sql += " AND "+ sOption + " LIKE '%"+sKeyword+"%'";
+					
+		}
+		
+		sql+=" ORDER BY seller_author DESC limit ?, ?";
+		
+		try {
+			psmt = con.prepareStatement(sql);
+			psmt.setInt(1, startRow);
+			psmt.setInt(2, limit);
+			System.out.println(psmt);
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				do {
+					Seller seller = new Seller(rs.getString("seller_id"),
+												rs.getString("seller_pw"),
+												rs.getString("seller_name"),
+												rs.getString("seller_number"),
+												rs.getInt("seller_author"));
+					sellerList.add(seller);
+					
+				}while(rs.next());
+			}
+			
+		}catch(Exception e) {
+			System.out.println("판매자목록선택오류:"+e);
+			
+		}finally {
+			close(rs);
+			close(psmt);
+		}
+		
+		
+		return sellerList;
+	}
+
+	public int selectStandByCnt(String loginId, int loginAuthor) {
+		int count = 0;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT count(*) FROM seller WHERE seller_author NOT IN (0,1)";
+		
+		try {
+			psmt = con.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+			
+		}catch(Exception e) {
+			System.out.println("승인대기공구선택오류:"+e);
+			
+		}finally {
+			close(rs);
+			close(psmt);
+		}
+		
+		return count;
+	}
 	
+
 }

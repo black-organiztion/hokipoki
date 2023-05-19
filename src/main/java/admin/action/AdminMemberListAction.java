@@ -11,6 +11,7 @@ import action.Action;
 import admin.svc.AdminMemberListService;
 import vo.ActionForward;
 import vo.Member;
+import vo.PageInfo;
 
 public class AdminMemberListAction implements Action {
 
@@ -22,6 +23,8 @@ public class AdminMemberListAction implements Action {
 		HttpSession session = request.getSession();
 		String loginId = (String)session.getAttribute("loginId");
 		int loginAuthor = (int)session.getAttribute("loginAuthor");
+		String sOption = request.getParameter("search_option");
+		String sKeyword = request.getParameter("search_keyword");
 		
 		//세션 로그인&권한체크
 		if(loginId == null || loginId.equals("") || loginAuthor != 0) {
@@ -34,16 +37,55 @@ public class AdminMemberListAction implements Action {
 			out.print("</script>");
 			
 		}else {
-			//모든회원이므로 파라미터 X
 			//서비스 생성
 			AdminMemberListService adminMemberListService = new AdminMemberListService();
 			
-			ArrayList<Member> memberList = adminMemberListService.getMemberList();
+			//멤버리스트
+			ArrayList<Member> memberList = null;
 			
-			if(memberList.size() > 0) {
+			//1.페이지계산
+			//페이징
+			int page = 1;
+			int limit = 10;
+			int limitPage = 10;
+			int listCount = 0;
+			
+			//페이지체크:요청페이지 없으면 page는 1
+			if(request.getParameter("page") != null) {
+				page = Integer.parseInt(request.getParameter("page"));
+			}
+			
+			//검색체크 및 검색값 없음 -> 파라미터 null 
+			if((sOption==null || sOption.equals("")) && (sKeyword == null || sKeyword.equals(""))) {
+				sOption = null;
+				sKeyword = null;
+			}
+			
+			listCount = adminMemberListService.getListCount(loginId,loginAuthor,sOption,sKeyword);
+			
+			
+			//페이지 계산
+			int maxPage = (int)((double)listCount/limit+0.95);
+			int startPage = ((int)((double)page/limitPage+0.9)-1) * limitPage + 1;
+			int endPage = startPage + limitPage -1;
+			if(endPage>maxPage) endPage = maxPage;
+			
+			PageInfo pageInfo = new PageInfo();
+			pageInfo.setEndPage(endPage);
+			pageInfo.setListCount(listCount);
+			pageInfo.setMaxPage(maxPage);
+			pageInfo.setPage(page);
+			pageInfo.setStartPage(startPage);
+			
+			if(listCount >= 0) {
+				//멤버목록
+				memberList = adminMemberListService.getMemberList(page,limit,loginId,loginAuthor,sOption,sKeyword);
+				
+				request.setAttribute("pageInfo", pageInfo);
 				request.setAttribute("memberList", memberList);
 				request.setAttribute("pagefile", "/admin/adminMemberConfig.jsp");
 				forward = new ActionForward("/admin/adminTemplate.jsp",false);
+				
 				
 			}else {
 				//로그인 이동

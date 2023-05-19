@@ -110,7 +110,20 @@ select:disabled {background-image:none;}
 
 
 /*pagination*/
-.pagination{justify-content:center;}
+.pagination{justify-content:center; margin-top:20px;}
+.page-item{margin:0 2px;}
+.page-link{display:flex; align-items:center; justify-content:center; width:35px; height:35px; padding:0; border:none; border-radius:5px; background-color:transparent; color:#949494; cursor:pointer;}
+.page-link:hover{background-color:#fff; color:#494949;}
+.page-link.active{background-color:#fff; color:#494949; font-weight:500; cursor:default;}
+
+.page-link.first,.page-link.prev,.page-link.next,.page-link.last{background-color:#E9EAEC;}
+.page-link.disabled{opacity:0.5;}
+
+.page-link>span{width:18px; height:18px; font-size:0; background-image:url(../img/admin/utils/utils_page_chevron.svg); background-size:18px auto; background-repeat:no-repeat;}
+.page-link.first>span{background-position:0 0;}
+.page-link.prev>span{background-position:0 -36px;}
+.page-link.next>span{background-position:bottom center;}
+.page-link.last>span{background-position:0 -18px;}
 
 /* help_icon */
 .help_icon{display:inline-block; width:18px; height:18px; margin-left:4px; border-radius:5px; font-size:0; cursor:pointer;}

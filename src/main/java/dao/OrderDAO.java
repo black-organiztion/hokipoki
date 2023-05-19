@@ -33,147 +33,6 @@ public class OrderDAO {
 		this.con = con;
 	}
 	
-	
-	public List<Object> selectOrderList(String loginId, int loginAuthor) {
-		List<Object> orderList = new ArrayList<>();
-
-		PreparedStatement psmt = null;
-		ResultSet rs = null;
-
-		String sql = "SELECT * FROM orders o JOIN gongu g ON o.gongu_id = g.gongu_id JOIN member m ON o.member_id = m.member_id";
-
-		if (loginAuthor != 0) {
-			sql += " WHERE ";
-
-			switch (loginAuthor) {
-			case 1:
-				sql += "o.gongu_id IN (SELECT gongu_id FROM gongu WHERE seller_id = '" + loginId + "')";
-				break;
-			default:
-				sql += "o.member_id = '" + loginId + "'";
-				break;
-			}
-		}
-
-		try {
-			System.out.println(sql);
-			System.out.println(loginAuthor);
-
-			psmt = con.prepareStatement(sql);
-			rs = psmt.executeQuery();
-
-			if (rs.next()) {
-				do {
-					Map<String, Object> order = new HashMap<>();
-					order.put("order_id", rs.getInt("order_id")); // 주문번호
-					order.put("order_status", rs.getString("order_status")); // 주문상태
-					order.put("member_id", rs.getString("member_id")); // 주문자id
-					order.put("member_name", rs.getString("member_name"));// 주문자이름
-					order.put("member_tel", rs.getString("member_tel"));// 주문자연락처
-					order.put("gongu_id", rs.getString("gongu_id")); // 공구id
-					order.put("gongu_name", rs.getString("gongu_name")); // 공구이름
-					order.put("order_count", rs.getInt("order_count")); // 주문수량
-					order.put("order_price", rs.getInt("order_price")); // 구매금액
-					order.put("order_date", rs.getString("order_date")); // 주문일시
-					order.put("order_end_date", rs.getString("order_end_date")); // 구매확정일자
-					// 결제일시
-					// 결제방법
-					// 받는사람
-					// 받는사람연락처
-					// 주소
-
-					orderList.add(order);
-
-				} while (rs.next());
-			}
-
-		} catch (Exception e) {
-			System.out.println("주문목록선택오류:" + e);
-
-		} finally {
-			close(rs);
-			close(psmt);
-		}
-
-		return orderList;
-	}
-
-	public List<Object> selectOrderList(String loginId, int loginAuthor, ArrayList<String> filterList) {
-		List<Object> orderList = new ArrayList<>();
-
-		PreparedStatement psmt = null;
-		ResultSet rs = null;
-
-		String sql = "SELECT * FROM orders o JOIN gongu g ON o.gongu_id = g.gongu_id JOIN member m ON o.member_id = m.member_id";
-
-		if (loginAuthor != 0) {
-			sql += " WHERE ";
-
-			switch (loginAuthor) {
-			case 1:
-				sql += "o.gongu_id IN (SELECT gongu_id FROM gongu WHERE seller_id = '" + loginId + "')";
-				break;
-			default:
-				sql += "o.member_id = '" + loginId + "'";
-				break;
-			}
-		}
-		
-		if(filterList.size() >= 1 && !(filterList.get(0).equals("all"))) {
-			sql += " AND o.order_status IN(";
-			for(int i=0; i<filterList.size(); i++) {
-				sql += "'"+filterList.get(i)+"'";
-				if(i<filterList.size()-1) {
-					sql += ",";
-				}
-			}
-			sql += ")";
-		}
-		
-
-		try {
-			System.out.println(sql);
-			System.out.println(loginAuthor);
-
-			psmt = con.prepareStatement(sql);
-			rs = psmt.executeQuery();
-
-			if (rs.next()) {
-				do {
-					Map<String, Object> order = new HashMap<>();
-					order.put("order_id", rs.getInt("order_id")); // 주문번호
-					order.put("order_status", rs.getString("order_status")); // 주문상태
-					order.put("member_id", rs.getString("member_id")); // 주문자id
-					order.put("member_name", rs.getString("member_name"));// 주문자이름
-					order.put("member_tel", rs.getString("member_tel"));// 주문자연락처
-					order.put("gongu_id", rs.getString("gongu_id")); // 공구id
-					order.put("gongu_name", rs.getString("gongu_name")); // 공구이름
-					order.put("order_count", rs.getInt("order_count")); // 주문수량
-					order.put("order_price", rs.getInt("order_price")); // 구매금액
-					order.put("order_date", rs.getString("order_date")); // 주문일시
-					order.put("order_end_date", rs.getString("order_end_date")); // 구매확정일자
-					// 결제일시
-					// 결제방법
-					// 받는사람
-					// 받는사람연락처
-					// 주소
-
-					orderList.add(order);
-
-				} while (rs.next());
-			}
-
-		} catch (Exception e) {
-			System.out.println("주문목록선택오류:" + e);
-
-		} finally {
-			close(rs);
-			close(psmt);
-		}
-
-		return orderList;
-	}
-
 	public Map<String, Object> selectOrder(String loginId, int loginAuthor, int order_id) {
 		Map<String, Object> order = new HashMap<>();
 
@@ -300,8 +159,279 @@ public class OrderDAO {
 
 		
 		return memberOrderList;
+	}
+
+	public int selectListCount(String loginId, int loginAuthor, String sOption, String sKeyword,
+			ArrayList<String> filterList) {
+		
+		int listCount = 0;
+		PreparedStatement psmt =  null;
+		ResultSet rs = null;
+		String sql = "SELECT count(*) FROM orders o JOIN gongu g ON o.gongu_id = g.gongu_id JOIN member m ON o.member_id = m.member_id"; //시스템 - 검색조건 없음
+		
+		//조건1. 필터(필수로 들어감)
+		if(filterList.size() >= 1 && !(filterList.get(0).equals("all"))) {//선택된 공구조건이 1개 이상이고 그 하나가 all(전체)이 아닐때만 실행  
+			sql += " WHERE order_status IN(";
+			for(int i=0; i<filterList.size(); i++) {
+				sql += "'"+filterList.get(i)+"'";
+				if(i<filterList.size()-1) {
+					sql += ",";
+				}
+			}
+			sql += ")";
+			
+		}else {//공구조건이 all일때만 실행 -> all이면 조건 안붙여도 되는데 하는 이유 : 조건절 시작을 위해 WHERE 붙여야되서
+			sql += " WHERE order_status >= 0"; 
+		}
+		
+		//조건2. 판매자 or 관리자 (판매자면 seller_id = loginId 조건)
+		if(loginAuthor > 0) {
+			sql += " AND g.seller_id='"+loginId+"'";
+		}
+		//조건3. 검색조건 유무
+		if(sOption != null && sKeyword != null) {
+			sql += " AND "+ sOption + " LIKE '%"+sKeyword+"%'";
+					
+		}
+		
+		try {
+			psmt = con.prepareStatement(sql);
+			System.out.println("주문개수선택쿼리"+psmt);
+			rs = psmt.executeQuery();
+			if(rs.next()) {
+				listCount = rs.getInt(1); //첫번째 컬럼값(count 함수 결과) 가져오기
+			}
+			
+		}catch(Exception e) {
+			System.out.println("주문개수선택오류:"+e);
+			
+		}finally {
+			close(rs);
+			close(psmt);
+		}
+		
+		
+		return listCount;
+	}
+
+	public List<Object> selectOrderList(int page, int limit, String loginId, int loginAuthor, String sOption,
+			String sKeyword, ArrayList<String> filterList) {
+		
+		List<Object> orderList = new ArrayList<>();
+
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM orders o JOIN gongu g ON o.gongu_id = g.gongu_id JOIN member m ON o.member_id = m.member_id";
+		int startRow = (page-1)*limit; //시작행
+		
+		//조건1. 필터(필수로 들어감)
+		if(filterList.size() >= 1 && !(filterList.get(0).equals("all"))) {//선택된 공구조건이 1개 이상이고 그 하나가 all(전체)이 아닐때만 실행  
+			sql += " WHERE order_status IN(";
+			for(int i=0; i<filterList.size(); i++) {
+				sql += "'"+filterList.get(i)+"'";
+				if(i<filterList.size()-1) {
+					sql += ",";
+				}
+			}
+			sql += ")";
+			
+		}else {//공구조건이 all일때만 실행 -> all이면 조건 안붙여도 되는데 하는 이유 : 조건절 시작을 위해 WHERE 붙여야되서
+			sql += " WHERE order_status >= 0"; 
+		}
+		
+		//조건2. 판매자 or 관리자 (판매자면 seller_id = loginId 조건)
+		if(loginAuthor > 0) {
+			sql += " AND g.seller_id='"+loginId+"'";
+		}
+		//조건3. 검색조건 유무
+		if(sOption != null && sKeyword != null) {
+			sql += " AND "+ sOption + " LIKE '%"+sKeyword+"%'";
+					
+		}
+		
+		sql+=" ORDER BY order_date DESC limit ?, ?";
+		
+		try {
+			psmt = con.prepareStatement(sql);
+			psmt.setInt(1, startRow);
+			psmt.setInt(2, limit);
+			System.out.println(psmt);
+			rs = psmt.executeQuery();
+
+			if (rs.next()) {
+				do {
+					Map<String, Object> order = new HashMap<>();
+					order.put("order_id", rs.getInt("order_id")); // 주문번호
+					order.put("order_status", rs.getString("order_status")); // 주문상태
+					order.put("member_id", rs.getString("member_id")); // 주문자id
+					order.put("member_name", rs.getString("member_name"));// 주문자이름
+					order.put("member_tel", rs.getString("member_tel"));// 주문자연락처
+					order.put("gongu_id", rs.getString("gongu_id")); // 공구id
+					order.put("gongu_name", rs.getString("gongu_name")); // 공구이름
+					order.put("order_count", rs.getInt("order_count")); // 주문수량
+					order.put("order_price", rs.getInt("order_price")); // 구매금액
+					order.put("order_date", rs.getString("order_date")); // 주문일시
+					order.put("order_end_date", rs.getString("order_end_date")); // 구매확정일자
+					// 결제일시
+					// 결제방법
+					// 받는사람
+					// 받는사람연락처
+					// 주소
+
+					orderList.add(order);
+
+				} while (rs.next());
+			}
+
+		} catch (Exception e) {
+			System.out.println("주문목록선택오류:" + e);
+
+		} finally {
+			close(rs);
+			close(psmt);
+		}
+
+		return orderList;
 	}	
 	
+
+	
+	public List<Object> selectOrderList(String loginId, int loginAuthor) {
+		List<Object> orderList = new ArrayList<>();
+
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+
+		String sql = "SELECT * FROM orders o JOIN gongu g ON o.gongu_id = g.gongu_id JOIN member m ON o.member_id = m.member_id";
+
+		if (loginAuthor != 0) {
+			sql += " WHERE ";
+
+			switch (loginAuthor) {
+			case 1:
+				sql += "o.gongu_id IN (SELECT gongu_id FROM gongu WHERE seller_id = '" + loginId + "')";
+				break;
+			default:
+				sql += "o.member_id = '" + loginId + "'";
+				break;
+			}
+		}
+
+		try {
+			psmt = con.prepareStatement(sql);
+			rs = psmt.executeQuery();
+
+			if (rs.next()) {
+				do {
+					Map<String, Object> order = new HashMap<>();
+					order.put("order_id", rs.getInt("order_id")); // 주문번호
+					order.put("order_status", rs.getString("order_status")); // 주문상태
+					order.put("member_id", rs.getString("member_id")); // 주문자id
+					order.put("member_name", rs.getString("member_name"));// 주문자이름
+					order.put("member_tel", rs.getString("member_tel"));// 주문자연락처
+					order.put("gongu_id", rs.getString("gongu_id")); // 공구id
+					order.put("gongu_name", rs.getString("gongu_name")); // 공구이름
+					order.put("order_count", rs.getInt("order_count")); // 주문수량
+					order.put("order_price", rs.getInt("order_price")); // 구매금액
+					order.put("order_date", rs.getString("order_date")); // 주문일시
+					order.put("order_end_date", rs.getString("order_end_date")); // 구매확정일자
+					// 결제일시
+					// 결제방법
+					// 받는사람
+					// 받는사람연락처
+					// 주소
+
+					orderList.add(order);
+
+				} while (rs.next());
+			}
+
+		} catch (Exception e) {
+			System.out.println("주문목록선택오류:" + e);
+
+		} finally {
+			close(rs);
+			close(psmt);
+		}
+
+		return orderList;
+	}
+
+	public List<Object> selectOrderList(String loginId, int loginAuthor, ArrayList<String> filterList) {
+		List<Object> orderList = new ArrayList<>();
+
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+
+		String sql = "SELECT * FROM orders o JOIN gongu g ON o.gongu_id = g.gongu_id JOIN member m ON o.member_id = m.member_id";
+
+		if (loginAuthor != 0) {
+			sql += " WHERE ";
+
+			switch (loginAuthor) {
+			case 1:
+				sql += "o.gongu_id IN (SELECT gongu_id FROM gongu WHERE seller_id = '" + loginId + "')";
+				break;
+			default:
+				sql += "o.member_id = '" + loginId + "'";
+				break;
+			}
+		}
+		
+		if(filterList.size() >= 1 && !(filterList.get(0).equals("all"))) {
+			sql += " AND o.order_status IN(";
+			for(int i=0; i<filterList.size(); i++) {
+				sql += "'"+filterList.get(i)+"'";
+				if(i<filterList.size()-1) {
+					sql += ",";
+				}
+			}
+			sql += ")";
+		}
+		
+
+		try {
+			System.out.println(sql);
+			System.out.println(loginAuthor);
+
+			psmt = con.prepareStatement(sql);
+			rs = psmt.executeQuery();
+
+			if (rs.next()) {
+				do {
+					Map<String, Object> order = new HashMap<>();
+					order.put("order_id", rs.getInt("order_id")); // 주문번호
+					order.put("order_status", rs.getString("order_status")); // 주문상태
+					order.put("member_id", rs.getString("member_id")); // 주문자id
+					order.put("member_name", rs.getString("member_name"));// 주문자이름
+					order.put("member_tel", rs.getString("member_tel"));// 주문자연락처
+					order.put("gongu_id", rs.getString("gongu_id")); // 공구id
+					order.put("gongu_name", rs.getString("gongu_name")); // 공구이름
+					order.put("order_count", rs.getInt("order_count")); // 주문수량
+					order.put("order_price", rs.getInt("order_price")); // 구매금액
+					order.put("order_date", rs.getString("order_date")); // 주문일시
+					order.put("order_end_date", rs.getString("order_end_date")); // 구매확정일자
+					// 결제일시
+					// 결제방법
+					// 받는사람
+					// 받는사람연락처
+					// 주소
+
+					orderList.add(order);
+
+				} while (rs.next());
+			}
+
+		} catch (Exception e) {
+			System.out.println("주문목록선택오류:" + e);
+
+		} finally {
+			close(rs);
+			close(psmt);
+		}
+
+		return orderList;
+	}
 
 
 }
