@@ -237,8 +237,8 @@ public class GonguDAO {
 		return updateCount;
 	}
 
-	public ArrayList<String[]> startGongu() {
-		ArrayList<String[]> startList = new ArrayList<>();
+	public ArrayList<Gongu> startGongu() {
+		ArrayList<Gongu> startList = new ArrayList<>();
 		
 		PreparedStatement psmt = null;
 		PreparedStatement psmt2 = null;
@@ -250,31 +250,37 @@ public class GonguDAO {
 			psmt = con.prepareStatement(sql);
 			System.out.println(con);
 			int startCount = psmt.executeUpdate();
+			
 			if(startCount>0) {
-				psmt2 = con.prepareStatement(sql2);
-				rs = psmt2.executeQuery();
-				
-				if(rs.next()) {
-					do {
-						String[] temp = {"",""} ;
-						temp[0] = rs.getString("gongu_id");
-						temp[1] = rs.getString("gongu_name");
-						startList.add(temp);
-						
-					}while(rs.next());
+				try {
+					psmt2 = con.prepareStatement(sql2);
+					rs = psmt2.executeQuery();
 					
+					if(rs.next()) {
+						do {
+							Gongu gongu = new Gongu();
+							gongu.setGongu_id(rs.getInt("gongu_id"));
+							gongu.setGongu_name(rs.getString("gongu_name"));
+							
+							startList.add(gongu);
+							
+						}while(rs.next());
+						
+					}
+					
+				}catch(Exception e) {
+					System.out.println("시작공구선택오류:"+e);
+					
+				}finally{
+					close(rs);
+					close(psmt2);
 				}
-				
-			}else {
-				System.out.println("오늘 게시할 공구가 없습니다.");
 			}
 			
 		}catch(Exception e) {
 			System.out.println("공구시작오류:"+e);
 			
 		}finally {
-			close(rs);
-			close(psmt2);
 			close(psmt);
 		}
 		
@@ -406,49 +412,61 @@ public class GonguDAO {
 	}
 	
 	
-	public ArrayList<String[]> closeGongu() {
-		ArrayList<String[]> closeList = new ArrayList<>();
+	public ArrayList<Gongu> closeGongu() {
+		ArrayList<Gongu> closeList = new ArrayList<>();
 		
 		PreparedStatement psmt = null;
 		PreparedStatement psmt2 = null;
 		ResultSet rs = null;
-		String sql = "UPDATE gongu SET gongu_status = IF(gongu_stock > 0, '7', '8') WHERE gongu_status = '4' && (gongu_findate <= CURDATE() || gongu_stock = 0)";
+		String sql = "UPDATE gongu SET gongu_status = IF(gongu_stock > 0, '7', '8'), gongu_update=CURDATE() WHERE gongu_status = '4' && (gongu_findate <= CURDATE() || gongu_stock = 0)";
 		String sql2 = "SELECT gongu_id, gongu_name FROM gongu WHERE (gongu_status = '7' || gongu_status = '8') && gongu_update = CURDATE()";
 		
 		try {
 			psmt = con.prepareStatement(sql);
 			System.out.println(psmt);
 			int closeCount = psmt.executeUpdate();
+			
+			//System.out.println("closeCount:"+closeCount);
+			
 			if(closeCount > 0) {
-				psmt2 = con.prepareStatement(sql2);
-				rs = psmt2.executeQuery();
-				
-				if(rs.next()) {
-					do {
-						String[] temp = {"",""} ;
-						temp[0] = rs.getString("gongu_id");
-						temp[1] = rs.getString("gongu_name");
-						closeList.add(temp);
-						
-					}while(rs.next());
+				try {
+					psmt2 = con.prepareStatement(sql2);
+					System.out.println(psmt2);
+					rs = psmt2.executeQuery();
 					
+					if(rs.next()) {
+						do {
+							Gongu gongu = new Gongu();
+							gongu.setGongu_id(rs.getInt("gongu_id"));
+							gongu.setGongu_name(rs.getString("gongu_name"));
+							
+							closeList.add(gongu);
+							
+						}while(rs.next());
+					}
+					
+					//System.out.println("종료된공구:"+closeList.size());
+					
+				}catch(Exception e){
+					System.out.println("종료된공구선택오류:"+e);
+					
+				}finally {
+					close(rs);
+					close(psmt2);
 				}
 				
-			}else {
-				System.out.println("오늘 종료할 공구가 없습니다.");
 			}
-			
+				
 		}catch(Exception e) {
 			System.out.println("공구종료오류:"+e);
 			
 		}finally {
-			close(rs);
-			close(psmt2);
 			close(psmt);
 		}
 		
 		return closeList;
 	}
+
 
 	public ArrayList<Gongu> getCategoryList(String category) {
 		ArrayList<Gongu> categoryList = new ArrayList<Gongu>();
