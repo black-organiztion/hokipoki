@@ -40,6 +40,7 @@
 		font-weight: bold;
 		height:50px;
 		margin-bottom: 11px;
+		
 	}
 	.sub{
 		display:flex;

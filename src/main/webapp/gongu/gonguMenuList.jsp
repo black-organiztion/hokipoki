@@ -22,16 +22,22 @@
 		margin:0 auto;
 		width:1200px;
 		display:flex;
-		flex-wrap:wrap;
-		justify-content: space-between;		
+		flex-wrap:wrap;	
 	}
 
+	.allgongu > div:nth-child(4n){
+		margin-right:0;
+	}
+	
 	.gongubox{
 		width:254px;
 		height:396px;
 		margin-bottom: 120px;
-	
+		margin-right: calc((100% - 254px * 4) / 3);
+		flex: 0 0 auto;
+		
 	}
+	
 
 	.thimg{
 		width:252px;
@@ -54,6 +60,9 @@
 		font-weight:500;
 		height:50px;
 		margin-bottom: 11px;
+	 	white-space: nowrap;
+		overflow:hidden;
+		text-overflow: ellipsis; 
 	}
 	.sub{
 		display:flex;

@@ -8,27 +8,29 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <!--카카오 주소 -->
 <script>
- 
+
 function selectAddr(f){
 	
-	opener.document.getElementById("delivery_name").value=f.deliveryname.value;
-	opener.document.getElementById("zip_code").value=f.sample4_postcode.value;
-	opener.document.getElementById("addr1").value=f.addr1.value;
-	opener.document.getElementById("addr2").value=f.addr2.value;
- 	 opener.document.getElementById("receiver_tel").value=f.tel11.value+f.tel12.value+f.tel13.value ;
-	opener.document.getElementById("receiver_tel2").value=f.tel21.value+f.tel22.value+f.tel23.value ; 
-	opener.document.getElementById("receiver_name").value=f.receivername.value;
-	opener.document.getElementById("isdefault").value=0;//배송지 추가하면 isdefault는 0으로 설정
-	opener.document.getElementById("zip").innerHTML  = "["+f.sample4_postcode.value+"]";
-	opener.document.getElementById("juso1").innerHTML  = f.addr1.value;
-	opener.document.getElementById("juso2").innerHTML  = f.addr2.value;
-	opener.document.getElementById("r_tel").innerHTML  = f.tel11.value+f.tel12.value+f.tel13.value;
-	opener.document.getElementById("r_tel2").innerHTML  = f.tel21.value+f.tel22.value+f.tel23.value; 
-	opener.document.getElementById("dname").innerHTML  = f.deliveryname.value;
-	opener.document.getElementById("def").innerHTML  = "신규";
-	window.close(); 
-}
+	 opener.document.getElementById("delivery_name").value=f.deliveryname.value;
+	   opener.document.getElementById("zip_code").value=f.sample4_postcode.value;
+	   opener.document.getElementById("addr1").value=f.addr1.value;
+	   opener.document.getElementById("addr2").value=f.addr2.value;
+	     opener.document.getElementById("receiver_tel").value=f.tel11.value+f.tel12.value+f.tel13.value ;
+	   opener.document.getElementById("receiver_tel2").value=f.tel21.value+f.tel22.value+f.tel23.value ; 
+	   opener.document.getElementById("receiver_name").value=f.receivername.value;
+	   opener.document.getElementById("isdefault").value=0;//배송지 추가하면 isdefault는 0으로 설정
+	   opener.document.getElementById("zip").innerHTML  = "["+f.sample4_postcode.value+"]";
+	   opener.document.getElementById("juso1").innerHTML  = f.addr1.value;
+	   opener.document.getElementById("juso2").innerHTML  = f.addr2.value;
+	   opener.document.getElementById("r_tel").innerHTML  = f.tel11.value+f.tel12.value+f.tel13.value;
+	   opener.document.getElementById("r_tel2").innerHTML  = f.tel21.value+f.tel22.value+f.tel23.value; 
+	   opener.document.getElementById("dname").innerHTML  = f.deliveryname.value;
+	   opener.document.getElementById("def").innerHTML  = "신규";
+	   window.close(); 
 
+}
+</script>
+<script>
     //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
     function sample4_execDaumPostcode() {
         new daum.Postcode({
@@ -86,32 +88,161 @@ function selectAddr(f){
     }
 
 </script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
+
+<style>
+	
+	*{
+		font-family: 'Noto Sans KR', sans-serif;
+	}
+
+
+	.delform{	
+		width:322px;
+		
+		
+		}
+	
+	.form_group {
+	  width:100%;
+	  height:62px; 
+	  border-bottom:2px solid #c9c9c9;
+	  
+	  }
+	 .form_group:not(:last-child){ margin-bottom:32px; }
+	.form_group > label{
+	  font-size: 18px;
+	  color:gray;  
+	 
+	}
+	.input_group{
+	  width:322px; 
+	  display:flex; 
+	
+	  }
+	.input_group> *{
+	  flex:0 0 auto;
+	  padding-bottom:0px;
+	  margin-top:3px;
+	  }
+	.input_group> input[type=button]{ 
+	  width:70px; 
+	  height:30px; 
+	  background-color:orange; 
+	  color:white; 
+	  border:none;
+	  border-radius:4px;
+	  font-size:14px;
+	  }
+	.input_group> .form_control{
+	  min-width:0;
+	  flex:1 1 auto;
+	  width:auto;
+	  outline:none;
+	  border:none;
+	  font-size:18px;
+	  font-weight: 500;
+	  }
+	  .submitbtn{
+	  	width:322px;
+	  	height:50px; 
+	  	background-color:orange; 
+	  	color:white; 
+	  	border:none;
+	  	border-radius:4px;
+	  	font-size:18px;
+	  	font-weight: 500;
+	  	margin-top:32px;
+	  	margin-bottom: 18px;
+	  	font-weight: bold;
+	  }
+	.container{
+		width:322px;	
+		
+		background-color: #fffff;
+		
+	}
+	.tit{
+		width:322px;
+		height:50px;
+		font-size:24px;
+		font-weight: bold;
+		
+		text-align:center;
+		margin-bottom: 20px;
+	}
+	.all{
+		width:322px;
+		border:1.5px solid #c9c9c9;
+		margin:0 auto;
+		padding:50px;
+		border-radius: 12px;
+	
+	}
+
+</style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
+<div class="container">
+	<form id="delform" name="delform">
+		<div class="form_group">
+		<label>우편번호</label>
+			<div class="input_group">
+		<input type="text" name="zipcode" id="sample4_postcode"  class="form_control">
+			<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호">
+				<input type="hidden" id="sample4_jibunAddress" placeholder="지번주소">
+				<input type="hidden" id="sample4_extraAddress" placeholder="참고항목">
+		</div>
+		</div>
 
-<form>
-
-<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
-
-<input type="text" name="deliveryname" id="deliveryname"placeholder="배송지명">
-<input type="text" name="receivername" id="receivername"placeholder="수령자명">
-<input type="text" name="zipcode" id="sample4_postcode" placeholder="우편번호">
- 전화번호1<input type="text" name = "tel11" id="tel11" maxlength="3">
-<input type="text" name = "tel12" id="tel12" maxlength="4">
-<input type="text" name = "tel13" id="tel13" maxlength="4"><br>
-전화번호2<input type="text" name = "tel21" id="tel21" maxlength="3">
-<input type="text" name = "tel22" id="tel22" maxlength="4">
-<input type="text" name = "tel23" id="tel23" maxlength="4">
-
-		<input type="text" id="sample4_roadAddress" placeholder="도로명주소" name="addr1">	
-		<span id="guide" style="color:#999;display:none"></span>
-		<input type="text" id="sample4_detailAddress" placeholder="상세주소" name="addr2">
-	<input type="button" value="저장" onclick="selectAddr(this.form)">
-	
-	
-	
+		<div class="form_group">
+			<label>배송지명</label>
+				<div class="input_group">
+			<input type="text" name="deliveryname" id="deliveryname" class="form_control">
+		</div>	
+		</div>
+		<div class="form_group">
+		<label>수령자명</label>
+			<div class="input_group">
+		<input type="text" name="receivername" id="receivername" class="form_control">
+		</div>
+		</div>
+		<div class="form_group">
+		<label>전화번호1</label>
+			<div class="input_group">
+		 <input type="text" name = "tel11" id="tel11" maxlength="3"  class="form_control">
+		<input type="text" name = "tel12" id="tel12" maxlength="4"  class="form_control">
+		<input type="text" name = "tel13" id="tel13" maxlength="4"  class="form_control">
+		</div>
+		</div>
+		<div class="form_group">
+		<label>전화번호2</label>
+			<div class="input_group">
+		<input type="text" name = "tel21" id="tel21" maxlength="3"  class="form_control">
+		<input type="text" name = "tel22" id="tel22" maxlength="4"  class="form_control">
+		<input type="text" name = "tel23" id="tel23" maxlength="4" class="form_control">
+		</div>
+		</div>
+		<div class="form_group">
+		<label>도로명주소</label>	
+			<div class="input_group">	
+				<input type="text" id="sample4_roadAddress" readonly name="addr1"  class="form_control">	
+				</div>
+				</div>
+				
+				<div class="form_group">
+				<label>상세주소</label>
+					<div class="input_group">
+				<input type="text" id="sample4_detailAddress" name="addr2" class="form_control">
+				</div>
+				</div>
+			
+			<input type="button" value="저장" onclick="selectAddr(this.form)" class="submitbtn">	
 	</form>
+</div>
 </body>
 </html>

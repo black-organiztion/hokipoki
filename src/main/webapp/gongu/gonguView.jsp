@@ -158,8 +158,8 @@
          </div>   
       </div>
       <div class="content_container" >
-         <div class="th_img">
-            <img src="${pageContext.request.contextPath}/gongu/images/${gongu.thumbnail_img }">
+         <div class="th_img" >
+            <img src="${pageContext.request.contextPath}/gongu/images/${gongu.thumbnail_img }" style="width:550px; height:550px;">
          </div>
          <div class="gongu_container" >
             <div class="gongu_main_info"  >
