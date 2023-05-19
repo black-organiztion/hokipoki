@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import dao.GonguDAO;
+import vo.Gongu;
 
 import static db.JdbcUtil.*;
 
@@ -43,8 +44,8 @@ public class AdminGonguSetStatusService {
 		return nextResult;
 	}
 
-	public ArrayList<String[]> startGonguAll() {
-		ArrayList<String[]> startList = null;
+	public ArrayList<Gongu> startGonguAll() {
+		ArrayList<Gongu> startList = null;
 		
 		Connection con = null;
 		
@@ -76,8 +77,8 @@ public class AdminGonguSetStatusService {
 		return startList;
 	}
 
-	public ArrayList<String[]> closeGonguAll() {
-		ArrayList<String[]> closeList = null;
+	public ArrayList<Gongu> closeGonguAll() {
+		ArrayList<Gongu> closeList = null;
 		
 		Connection con = null;
 		

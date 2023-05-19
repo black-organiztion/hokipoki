@@ -193,42 +193,64 @@
 						</c:otherwise>	
 					</c:choose>
 				</div>
-				<div class="list_footer">
-					<ul class="pagination">
-						<li class="page-item">
-							<c:choose>
-								<c:when test="${pageInfo.page <= 1 }">
-									<a class="page-link disabled">이전</a>
-								</c:when>
-								<c:otherwise>
-									<a class="page-link prev" onclick="pageAction('prev')">이전</a>
-								</c:otherwise>
-							</c:choose>
-							
+				<c:if test="${pageInfo.page > 0 }">
+					<div class="list_footer">
+						<ul class="pagination">
+							<li class="page-item">
+								<c:choose>
+									<c:when test="${pageInfo.page <= 1 }">
+										<a class="page-link first disabled"><span>처음으로</span></a>
+									</c:when>
+									<c:otherwise>
+										<a class="page-link first" onclick="pageAction('${pageInfo.startPage}')"><span>처음으로</span></a>
+									</c:otherwise>
+								</c:choose>
+							</li>
+							<li class="page-item">
+								<c:choose>
+									<c:when test="${pageInfo.page <= 1 }">
+										<a class="page-link prev disabled"><span>이전</span></a>
+									</c:when>
+									<c:otherwise>
+										<a class="page-link prev" onclick="pageAction('prev')"><span>이전</span></a>
+									</c:otherwise>
+								</c:choose>
+							</li>
 							<c:forEach var="paging" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
 								<li class="page-item">
 									<c:choose>
 										<c:when test="${paging == pageInfo.page }">
-											<a type="button" class="page-link active" onClick="pageAction(${paging})">${paging }</a>
+											<a class="page-link active" onClick="pageAction(${paging})">${paging }</a>
 										</c:when>
 										<c:otherwise>
-											<a type="button" class="page-link" onClick="pageAction(${paging})">${paging }</a>
+											<a class="page-link" onClick="pageAction(${paging})">${paging }</a>
 										</c:otherwise>
 									</c:choose>
 								</li>
 							</c:forEach>
-							
-							<c:choose>
-								<c:when test="${pageInfo.page >= pageInfo.maxPage }">
-									<a class="page-link disabled">다음</a>
-								</c:when>
-								<c:otherwise>
-									<a class="page-link next" onclick="pageAction('next')">다음</a>
-								</c:otherwise>
-							</c:choose>
-						</li>
-					</ul>
-				</div>
+							<li class="page-item">
+								<c:choose>
+									<c:when test="${pageInfo.page >= pageInfo.maxPage }">
+										<a class="page-link disabled next"><span>다음</span></a>
+									</c:when>
+									<c:otherwise>
+										<a class="page-link next" onclick="pageAction('next')"><span>다음</span></a>
+									</c:otherwise>
+								</c:choose>
+							</li>
+							<li class="page-item">
+								<c:choose>
+									<c:when test="${pageInfo.page >= pageInfo.maxPage }">
+										<a class="page-link disabled last"><span>마지막으로</span></a>
+									</c:when>
+									<c:otherwise>
+										<a class="page-link last" onclick="pageAction(${pageInfo.maxPage})"><span>마지막으로</span></a>
+									</c:otherwise>
+								</c:choose>
+							</li>
+						</ul>
+					</div>
+				</c:if>
 			</div>
 			</div>
 			<!-- //conts3 : 공구필터 + 리스트 -->
@@ -314,8 +336,10 @@
 			count = 0;
 		}else if(count == 'prev'){
 			goPage = Number(nowPage)-1;
+			
 		}else if(count == 'next'){
 			goPage = Number(nowPage)+1;
+			
 		}else{
 			goPage = Number(count);
 		}

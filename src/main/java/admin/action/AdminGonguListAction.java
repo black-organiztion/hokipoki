@@ -71,10 +71,8 @@ public class AdminGonguListAction implements Action {
 			//페이지체크:요청페이지 없으면 page는 1
 			if(request.getParameter("page") != null) {
 				page = Integer.parseInt(request.getParameter("page"));
-				System.out.println("파라미터체크2"+page);
 			}
-			System.out.println("파라미터체크"+page);
-			
+
 			
 					
 			//검색체크 및 검색값 없음 -> 파라미터 null 
@@ -83,24 +81,6 @@ public class AdminGonguListAction implements Action {
 				sKeyword = null;
 			}
 			
-
-			//2.글목록 가져오기
-			/*
-			switch(loginAuthor) {
-			//관리자 권한이라면 모두 가져오기
-			case 0: 
-				listCount = gonguListService.getListCount(sOption,sKeyword,filterList);
-				gonguList = gonguListService.getGonguList(sOption,sKeyword,filterList); 
-				break;
-					
-			//판매자권한이라면 아이디와 일치하는 목록만 가져오기
-			case 1:
-				listCount = gonguListService.getListCount(loginId,sOption,sKeyword,filterList);
-				gonguList = gonguListService.getGonguList(loginId,sOption,sKeyword,filterList); 
-				break;
-			
-			}
-			*/
 			listCount = gonguListService.getListCount(loginId,loginAuthor,sOption,sKeyword,filterList);
 			
 			
@@ -118,15 +98,14 @@ public class AdminGonguListAction implements Action {
 			pageInfo.setPage(page);
 			pageInfo.setStartPage(startPage);
 			
+			//순서로보는공구(필터에 영향X)
+			int standByCnt = gonguListService.gonguStandByCnt(loginId,loginAuthor);
+			int ongoingCnt = gonguListService.gonguOngoindCnt(loginId,loginAuthor);
+			int calcCnt = gonguListService.gonguCalcCnt(loginId,loginAuthor);
+			
 			if(listCount>=0) {
 				//공구목록
 				gonguList = gonguListService.getGonguList(page,limit,loginId,loginAuthor,sOption,sKeyword,filterList);
-
-				//순서로보는공구
-				int standByCnt = gonguListService.gonguStandByCnt(loginId,loginAuthor);
-				int ongoingCnt = gonguListService.gonguOngoindCnt(loginId,loginAuthor);
-				int calcCnt = gonguListService.gonguCalcCnt(loginId,loginAuthor);
-			
 
 				request.setAttribute("pageInfo", pageInfo);
 				request.setAttribute("sOption", sOption);

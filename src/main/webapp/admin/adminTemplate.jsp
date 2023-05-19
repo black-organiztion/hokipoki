@@ -14,6 +14,15 @@ pageTitle = "호키포키 관리자";
 <jsp:include page="/common/common_admin.jsp"></jsp:include>
 </head>
 <body>
+<%
+if(session.getAttribute("loginId") == null){
+%>
+<script>
+	alert("로그인이 필요합니다.");
+	location.href="adminLogin.ad";
+</script>
+<%
+}%>
 <div id="wrap">
 	<jsp:include page="/common/admin/header.jsp"></jsp:include>
 	<jsp:include page="${pagefile eq null ? 'main.jsp':pagefile }"></jsp:include>

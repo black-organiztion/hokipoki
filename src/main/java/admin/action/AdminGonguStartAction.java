@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import action.Action;
 import admin.svc.AdminGonguSetStatusService;
 import vo.ActionForward;
+import vo.Gongu;
 
 public class AdminGonguStartAction implements Action {
 
@@ -34,7 +35,7 @@ public class AdminGonguStartAction implements Action {
 		}else {//권한이 있다면
 			AdminGonguSetStatusService adminGonguSetStatusService = new AdminGonguSetStatusService();
 			
-			ArrayList<String[]> startGonguList = adminGonguSetStatusService.startGonguAll();
+			ArrayList<Gongu> startGonguList = adminGonguSetStatusService.startGonguAll();
 			
 			if(startGonguList.size() > 0) {
 				
