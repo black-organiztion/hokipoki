@@ -14,6 +14,10 @@
 		font-family: 'Noto Sans KR', sans-serif;
 	}
 	
+	.label{
+		margin-top:30px;
+	}
+	
 	.allgongu{
 		margin:0 auto;
 		width:1200px;
@@ -140,6 +144,9 @@
 </c:if>
 <c:if test="${param.menu eq 'new'}">
 <c:set var="subject" value="신상품"/>
+</c:if>
+<c:if test="${param.menu eq 'end'}">
+<c:set var="subject" value="마감임박"/>
 </c:if>
 <p class="label">${subject}</p>
 <div class="allgongu" >

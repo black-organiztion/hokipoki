@@ -18,7 +18,7 @@ public class MenuListService {
 		try {
 			con = getConnection();
 			gonguDAO.setConnection(con);
-			menuList = gonguDAO.getMenuList(menu);			
+			menuList = gonguDAO.getMenuList(menu);		
 			
 		}catch(Exception e) {
 			e.printStackTrace();

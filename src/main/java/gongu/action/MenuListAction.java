@@ -19,9 +19,11 @@ public class MenuListAction implements Action {
 		MenuListService menuListService = new MenuListService();
 		String menu = request.getParameter("menu");
 		if(menu.equals("popular")) {
-			menu="gongu_view_count";
+			menu="gongu_reserve";
 		}else if(menu.equals("new")) {
 			menu="gongu_startdate";
+		}else if(menu.equals("end")) {
+			menu="gongu_findate";			
 		}
 		ArrayList <Gongu> menuList = new ArrayList<Gongu>();
 		menuList = menuListService.getMenuList(menu);		

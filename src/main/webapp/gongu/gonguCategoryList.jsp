@@ -130,45 +130,44 @@
 
 </head>
 <body>
-
 <c:if test="${categoryList!=null }">
 <div class="gongucontainer">
 <p class="label">${categoryList.get(0).getCategory()}</p>
 <div class="allgongu">
 <c:forEach var = "gongu" items="${categoryList }" varStatus="status">
-		<div class="gongubox">
-			<div class="thimg">			
-				<a href="${pageContext.request.contextPath}/gonguView.go?id=${gongu.gongu_id}">
-				<img src="${pageContext.request.contextPath}/gongu/images/${gongu.thumbnail_img }" id="gonguImage">
-				</a>	
-			</div>
-			<div class="gonguinfo">
-				<div class="cate">
-					${gongu.category}
-				</div>
-				<div class="tit">
-					${gongu.gongu_name}
-				</div>
-				<div class="origin">
-					정상가 ${gongu.gongu_price}
-				</div>
-				<div class="sub">
-					<div class="count">
-					${gongu.gongu_reserve}/${gongu.gongu_min }
-					</div>
-					<div class="num">
-						<div class="per">
-							공구특가						
-						</div>
-						<div class="price">
-							<fmt:formatNumber value="${gongu.gongu_discount_price}" type="number"/>
-						</div>
-					</div>
-				</div>
-			</div>	
-		</div>
+      <div class="gongubox">
+         <div class="thimg">         
+            <a href="${pageContext.request.contextPath}/gonguView.go?id=${gongu.gongu_id}">
+            <img src="${pageContext.request.contextPath}/gongu/images/${gongu.thumbnail_img }" id="gonguImage">
+            </a>   
+         </div>
+         <div class="gonguinfo">
+            <div class="cate">
+               ${gongu.category}
+            </div>
+            <div class="tit">
+               ${gongu.gongu_name}
+            </div>
+            <div class="origin">
+               정상가 ${gongu.gongu_price}
+            </div>
+            <div class="sub">
+               <div class="count">
+               ${gongu.gongu_reserve}/${gongu.gongu_min }
+               </div>
+               <div class="num">
+                  <div class="per">
+                     공구특가                  
+                  </div>
+                  <div class="price">
+                     <fmt:formatNumber value="${gongu.gongu_discount_price}" type="number"/>
+                  </div>
+               </div>
+            </div>
+         </div>   
+      </div>
 </c:forEach>
-	</div>
+   </div>
 </div>
 
 </c:if> 

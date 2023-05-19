@@ -18,7 +18,7 @@ public class GonguCategoryAction implements Action {
 		
 		String category = request.getParameter("category");
 		System.out.println("카테고리:"+category);
-		ArrayList<Gongu> categoryList = new ArrayList<>();
+		ArrayList<Gongu> categoryList = null;
 		CategoryListService categoryListService = new CategoryListService();
 		categoryList = categoryListService.categoryList(category);
 		

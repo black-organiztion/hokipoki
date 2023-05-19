@@ -190,6 +190,15 @@
 .sanse_title{
 	width:100px;
 }	
+
+.gongusanse_outer{
+	border:1px solid #c9c9c9; 
+	padding-left:16px;
+	padding-top:10px;
+	padding-bottom:20px;
+	border-radius: 6px; 
+	margin-bottom: 24px;
+}
 </style>
 
 </head>
@@ -225,7 +234,7 @@
 	<div class="bottom">
 		<div class="left_side">
 			<label>공구 정보</label>
-			<div class="gongusanse_outer" style="border:1px solid #c9c9c9; padding:5px; border-radius: 6px; margin-bottom: 24px;">
+			<div class="gongusanse_outer" >
 				<div class="gongusanse" >
 					<div class="sanse_title">
 						공구명
@@ -252,7 +261,7 @@
 				</div>
 			</div>
 				<label>구매자 정보</label>		
-					<div class="gongusanse_outer" style="border:1px solid #c9c9c9; padding:5px; border-radius: 6px; margin-bottom: 24px;">
+					<div class="gongusanse_outer" >
 						<div class="gongusanse">
 							<div class="sanse_title">
 								연락처 1
@@ -280,7 +289,7 @@
 						
 					</div>
 						<label>배송지 정보</label>
-						<div class="delivery_info" >
+						<div class="gongusanse_outer" >
 							<div class="dinfo_con">
 								<div class="top">
 									<div class="dname" id="dname">
