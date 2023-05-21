@@ -158,6 +158,34 @@ public class MemberDAO {
 		return flag;
 	}
 
+	public int checkDupl(String userId) {
+		int result = 0;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM member WHERE member_id = ?";
+		
+		try {
+			psmt = con.prepareStatement(sql);
+			psmt.setString(1, userId);
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				result = 1;
+				
+			}else {
+				result = 0;
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();			
+		}finally {
+			close(rs);
+			close(psmt);
+		}
+		
+		return result;
+	}
+
 
 
 

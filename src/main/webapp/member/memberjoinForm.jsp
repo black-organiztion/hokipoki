@@ -5,6 +5,7 @@
 <html>
 <head>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
 
 <!--카카오 주소 -->
 <script>
@@ -126,7 +127,7 @@ function chkForm(f){
    }
    
    if(false === regExp.test(id)){
-      alert('아이디는 5자에서 10자의 영문만 가능합니다. ');
+      alert('아이디는 5자에서 10자의 영문만 가능합니다.');
       return false;
    }
    if(false === reg.test(pw)) {
@@ -172,6 +173,8 @@ $(function(){
       
    });
 });
+
+
 
 </script>
 
@@ -324,20 +327,56 @@ background: white;
       
       <div class="test">
 
+
 <form action="${pageContext.request.contextPath}/memberJoinAction.me" method="post" id="joinform" name="joinform" class="joinform">
-      <div class="form_group">
+      <div class="form_group" >
          <label>아이디</label>
          <div class="input_group">
-            <input type="text"  class ="form_control" id="id" name="id" maxlength="30" readonly>         
-            <input type="button" name="idCheck" value="중복확인" id="idCheck" onclick="window.open('${pageContext.request.contextPath}/member/memberIdcheckForm.jsp?openInit=true','','width=400,height=200')">
+            <input type="text"  class ="form_control" id="mid" name="id" maxlength="20">         
+         	<font id="checkId" size="2"></font>
           </div>
+      <div class="etc" style="padding-top:8px; font-size:14px; " >
+      아이디는 5자에서 10자의 영문만 가능합니다.
       </div>
+      </div>
+      
+      <script>
+$("#mid").keyup(function(){
+		var userId = $("#mid").val();
+		
+		$.ajax({
+			type:'POST',
+			url:"MemberIdChk.me",
+			dataType:'text',
+			data:{"userId":userId},
+			success : function(result){
+				if(result === 'Avaliable'){
+					$("#checkId").html('사용가능한 아이디입니다.');
+					$("#checkId").attr('color','green');				
+				}else{//중복 안됨
+					$("#checkId").html('사용 불가한 아이디입니다.');
+					$("#checkId").attr('color','red');				
+				}
+			},
+			error:function(){
+				alert("서버요청 실패");
+			}			
+		});
+	
+	});
+
+
+</script>
+      
    
    <div class="form_group">
       <label>비밀번호</label>
          <div class="input_group">
             <input type="password" class ="pw form_control" id="pw" name="pw">
          </div>
+          <div class="etc" style="padding-top:8px; font-size:14px;" >
+     		 비밀번호는 8자 이상, 숫자/영어를 포함해야 합니다.
+     	 </div>
    </div>
    <div class="form_group">
       <label>비밀번호 확인</label>
