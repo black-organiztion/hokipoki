@@ -232,6 +232,25 @@ public class OrderDAO {
 		
 		return memberOrderList;
 	}
+	public int selectListCount(String id) {
+		int listCount=0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt=con.prepareStatement("select count(*) from orders where member_id = "+id);
+			rs = pstmt.executeQuery();
+			if(rs.next()) listCount=rs.getInt(1);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return listCount;
+	}
+	
+	
+	
 
 	public int selectListCount(String loginId, int loginAuthor, String sOption, String sKeyword,
 			ArrayList<String> filterList) {

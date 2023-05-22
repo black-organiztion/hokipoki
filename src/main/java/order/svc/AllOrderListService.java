@@ -28,5 +28,21 @@ public class AllOrderListService {
 		
 		return allOrderList;
 	}
+	public int getListCount(String id) {
+		int listCount=0;
+		Connection con = null;
+		try {
+			con=getConnection();
+			OrderDAO orderDAO = OrderDAO.getInstance();
+			orderDAO.setConnection(con);
+			listCount = orderDAO.selectListCount(id);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(con);
+		}
+		return listCount;
+	}
 	
 }
