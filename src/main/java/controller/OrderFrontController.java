@@ -14,6 +14,7 @@ import action.Action;
 import admin.action.AdminSellerJoinCheckAction;
 import order.action.AdminOrderDetailViewAction;
 import order.action.AdminOrderListAction;
+import order.action.AllOrderListAction;
 import order.action.MemberOrderListAction;
 import order.action.MemberPaymentAction;
 import vo.ActionForward;
@@ -90,7 +91,15 @@ public class OrderFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
     	}*/
-    	
+    	else if(command.equals("/allorderlist.or")) {
+    		action = new AllOrderListAction();
+    		try {
+    			forward = action.execute(request, response);
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    		
+    	}
     	//포워딩
     	if(forward != null) {
     		if(forward.isRedirect()) {

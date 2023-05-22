@@ -219,8 +219,8 @@
 				</div>
 			</div>
 		</div>
-	<div class="ordercontent">	
-		<div class="table_ti">
+	<div class="ordercontent">
+	<div class="table_ti">
 			<span style="font-size: 24px; font-weight: 500;">최근 주문내역</span>
 			<div class="more_icon"><a href="${pageContext.request.contextPath}/allorderlist.or"><img src="${pageContext.request.contextPath}/img/icon/more.svg"></a></div>
 		</div>
@@ -235,13 +235,14 @@
 			<tr style="border-bottom : 1px solid black; text-align: center; height:55px;">
 				<td>${orderlist.order_date }</td>
 				<td class="imgtd"><div class="tb_img"><img src="${pageContext.request.contextPath}/gongu/images/${orderlist.gongu_thimg }" style="width:52px; height:52px;"></div><span style="margin-left: 8px;">${orderlist.gongu_name }</span></td>
-				<td>ORDERNUM-00${orderlist.order_id }</td>
+				<td>ORDERNUM-${orderlist.order_id }</td>
 				<td>${orderlist.order_price }</td>
 			</tr>
 			</c:forEach>
 		</table>
 		</div>
 		</div>
-</div>
+		</div>
+
 </body>
-</html>	
+</html>

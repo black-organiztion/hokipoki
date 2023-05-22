@@ -1,6 +1,6 @@
 package dao;
 
-import static db.JdbcUtil.*;
+import static db.JdbcUtil.close;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import vo.MemberOrder;
+import vo.MemberOrderGongu;
 
 public class OrderDAO {
 	private static OrderDAO orderDAO;
@@ -31,6 +32,76 @@ public class OrderDAO {
 
 	public void setConnection(Connection con) {
 		this.con = con;
+	}
+	
+	public ArrayList<MemberOrderGongu> allMemberOrderList(String id) {
+		ArrayList<MemberOrderGongu> allMemberOrderList = null;
+		String sql ="select g.gongu_name, g.thumbnail_img, o.order_id, o.order_price, o.order_status, o.order_date from gongu  g join orders  o on o.gongu_id = g.gongu_id  where o.member_id =? order by order_date desc";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try{
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				allMemberOrderList = new ArrayList<MemberOrderGongu>();
+				do{
+					
+					allMemberOrderList.add(new MemberOrderGongu(rs.getString("g.gongu_name"),rs.getString("g.thumbnail_img"),rs.getString("o.order_id"),rs.getString("o.order_price"),rs.getString("o.order_status"),rs.getString("o.order_date")));
+					
+				}while(rs.next());
+			
+			
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+
+			
+		
+		return allMemberOrderList;
+			
+	}
+	
+	
+	
+	public ArrayList<MemberOrderGongu> recentMemberOrderList(String id) {
+		ArrayList<MemberOrderGongu> recentMemberOrderList = null;
+		String sql ="select g.gongu_name, g.thumbnail_img, o.order_id, o.order_price, o.order_status, o.order_date from gongu  g join orders  o on o.gongu_id = g.gongu_id  where o.member_id =? order by order_date desc limit 3";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try{
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				recentMemberOrderList = new ArrayList<MemberOrderGongu>();
+				do{
+					
+					recentMemberOrderList.add(new MemberOrderGongu(rs.getString("g.gongu_name"),rs.getString("g.thumbnail_img"),rs.getString("o.order_id"),rs.getString("o.order_price"),rs.getString("o.order_status"),rs.getString("o.order_date")));
+					
+				}while(rs.next());
+			
+			
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+
+			
+		
+		return recentMemberOrderList;
+			
 	}
 	
 	public Map<String, Object> selectOrder(String loginId, int loginAuthor, int order_id) {
@@ -79,6 +150,8 @@ public class OrderDAO {
 		return order;
 	}
 
+	
+
 	public boolean insertToOrder(String gongu_id, String member_id, int delivery_id) {
 		boolean flag = false;
 		ResultSet rs = null;
@@ -125,7 +198,6 @@ public class OrderDAO {
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
 		String sql = "SELECT * FROM orders WHERE member_id = ?";
-		
 		try {
 			psmt = con.prepareStatement(sql);
 			psmt.setString(1, member_id);
@@ -432,5 +504,7 @@ public class OrderDAO {
 
 		return orderList;
 	}
+
+	
 
 }
