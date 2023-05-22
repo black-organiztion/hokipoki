@@ -115,7 +115,7 @@ public class GonguDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			pstmt = con.prepareStatement("select * from gongu");
+			pstmt = con.prepareStatement("select * from gongu where gongu_status='4'");
 			rs = pstmt.executeQuery();	
 			
 			if (rs.next()) {
@@ -334,7 +334,7 @@ public class GonguDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			pstmt = con.prepareStatement("select * from gongu order by gongu_view_count desc limit 4");
+			pstmt = con.prepareStatement("select * from gongu where gongu_status = '4' order by gongu_reserve desc limit 4");
 			System.out.println(pstmt);
 			rs = pstmt.executeQuery();	
 			
@@ -356,13 +356,13 @@ public class GonguDAO {
 		return popularList;
 	}
 
+	
 	public ArrayList<Gongu> getNewList() {
 		ArrayList<Gongu> newList = new ArrayList<Gongu>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			pstmt = con.prepareStatement("select * from gongu where gongu_startdate < date_format(date_add(now(), interval 7 day),"
-					+ "'%y-%m-%d') and gongu_startdate>date_format(date_sub(now(),interval 7 day),'%y-%m-%d') order by gongu_startdate asc limit 4;");
+			pstmt = con.prepareStatement("select * from gongu where gongu_status = '4' order by gongu_startdate desc limit 4");
 			
 			rs = pstmt.executeQuery();	
 			
