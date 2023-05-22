@@ -88,6 +88,7 @@ public class GonguDAO {
 				gongu.setGongu_name(rs.getString("gongu_name"));
 				gongu.setCategory(rs.getString("category_name"));
 				gongu.setGongu_discount_price(rs.getString("gongu_discount_price"));
+				gongu.setGongu_date(rs.getString("gongu_date"));
 				gongu.setGongu_startdate(rs.getString("gongu_startdate"));
 				gongu.setGongu_findate(rs.getString("gongu_findate"));
 				gongu.setGongu_caldate(rs.getString("gongu_caldate"));
@@ -418,7 +419,7 @@ public class GonguDAO {
 		PreparedStatement psmt = null;
 		PreparedStatement psmt2 = null;
 		ResultSet rs = null;
-		String sql = "UPDATE gongu SET gongu_status = IF(gongu_stock > 0, '7', '8'), gongu_update=CURDATE() WHERE gongu_status = '4' && (gongu_findate <= CURDATE() || gongu_stock = 0)";
+		String sql = "UPDATE gongu SET gongu_status = IF(gongu_reserve < gongu_min, '7', '8'), gongu_update=CURDATE() WHERE gongu_status = '4' && (gongu_findate <= CURDATE() || gongu_reserve = gongu_stock)";
 		String sql2 = "SELECT gongu_id, gongu_name FROM gongu WHERE (gongu_status = '7' || gongu_status = '8') && gongu_update = CURDATE()";
 		
 		try {
@@ -768,7 +769,40 @@ public class GonguDAO {
 	}
 
 	
-	
+	public ArrayList<Gongu> seletClosingGonguList() {
+		ArrayList<Gongu> gonguList = new ArrayList<>();
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM gongu WHERE gongu_findate BETWEEN CURDATE() AND (SELECT DATE_ADD(CURDATE(), INTERVAL 3 DAY)) ORDER BY gongu_findate";
+		
+		try {
+			psmt = con.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			System.out.println(psmt);
+			
+			if(rs.next()) {
+				do {
+					Gongu gongu = new Gongu();
+					gongu.setGongu_name(rs.getString("gongu_name"));//공구명
+					gongu.setGongu_findate(rs.getString("gongu_findate"));//판매마감일
+					
+					gonguList.add(gongu);
+				
+				}while(rs.next());
+			}
+			
+		}catch(Exception e) {
+			System.out.println("마감임박공구선택오류:"+e);
+			
+		}finally {
+			close(rs);
+			close(psmt);
+		}
+		
+		return gonguList;
+	}
+
+
 	
 	
 

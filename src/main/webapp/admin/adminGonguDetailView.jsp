@@ -2,14 +2,397 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+
+
+<div id="content" class="bg gongu_detail">
+	<div class="container">
+		<div class="row">
+			<!-- conts1:판매자정보 -->
+			<div class="col-12">
+				<div class="cont_header">
+					<a id="btn_list" href="adminGonguListAction.ad">목록</a>
+					<h2>공구상세조회</h2>
+					<div class="right">
+						<c:if test="${sessionScope.loginId eq 'system' || sessionScope.loginAuthor eq 0 }">
+						<div class="bts_gongu_status">
+							<!-- 공구컨트롤버튼 : 종료아닐때만 표시 -->
+							<c:if test="${gongu.gongu_status ne '7' || gongu.gongu_status ne '8'}">
+								<c:if test="${gongu.gongu_status eq '0' }"><!-- 심사 : 승인대기일때만 표시 -->
+									<a href="adminGonguSetStatus.ad?gongu_id=${gongu.gongu_id}&gongu_status=${gongu.gongu_status}&setStatus=1&seller_id=${seller.seller_id}" class="bt bt_primary">심사시작</a>
+								</c:if>
+								<c:if test="${gongu.gongu_status eq '1' }"><!-- 승인/승인거절 : 심사일때만 표시 -->
+									<a href="adminGonguSetStatus.ad?gongu_id=${gongu.gongu_id}&gongu_status=${gongu.gongu_status}&setStatus=2&seller_id=${seller.seller_id}" class="bt bt_primary">승인</a>
+									<a href="adminGonguSetStatus.ad?gongu_id=${gongu.gongu_id}&gongu_status=${gongu.gongu_status}&setStatus=3&seller_id=${seller.seller_id}" class="bt bt_primary">반려</a>
+								</c:if>
+								<!-- 진행중(4)은 공구글이 게시된 시점부터. -->
+								<c:if test="${gongu.gongu_status eq '4' }"><!-- 비활성화 : 진행중일때만 표시 =>지만 사실 비활성화 대기로 바꾸는거고 일정 기간 이후에 자동 비활성화 -->
+									<a href="adminGonguSetStatus.ad?gongu_id=${gongu.gongu_id}&gongu_status=${gongu.gongu_status}&setStatus=5&seller_id=${seller.seller_id}" class="bt bt_primary">비활성화</a>
+								</c:if>
+								
+								<%-- <c:if test="${gongu.gongu_status eq '0' }"><!-- 심사 : 승인대기일때만 표시 -->
+									<a href="adminGonguCheckAction.ad?gongu_id=${gongu.gongu_id}&gongu_status=${gongu.gongu_status}" class="btn btn-secondary">심사시작</a>
+								</c:if>
+								<c:if test="${gongu.gongu_status eq '1' }"><!-- 승인/승인거절 : 심사일때만 표시 -->
+									<a href="adminGonguOkAction.ad?gonngu_id=${gongu.gongu_id}&gongu_status=${gongu.gongu_status}" class="btn btn-primary">승인</a>
+									<a href="adminGonguRejectAction.ad?gongu_id=${gongu.gongu_id}&gongu_status=${gongu.gongu_status}" class="btn btn-secondary">반려</a>
+								</c:if>
+								<c:if test="${gongu.gongu_status eq '4' }"><!-- 비활성화 : 진행중일때만 표시 -->
+									<a href="adminGonguDisableAction.ad?gongu_id=${gongu.gongu_id}" class="btn btn-secondary">비활성화</a>
+								</c:if>
+								<c:if test="${gongu.gongu_status ne '0' }"><!-- 수정:심사중 이후에만 표시 -->
+									<a href="adminGonguModifyAction.ad?gongu_id=${gongu.gongu_id}" class="btn btn-secondary">수정</a>
+								</c:if> --%>
+								
+							</c:if>
+						</div>
+					</c:if>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-8 col-12 section gongu_info">
+				<div class="card">
+				<h5>공구정보</h5>
+				<ul class="card_list">
+					<li>
+						<em>공구상태</em>
+						<span>
+							<c:choose>
+								<c:when test="${gongu.gongu_status eq '0'}">
+									<c:set var="status" value="승인대기"/>
+								</c:when>
+								<c:when test="${gongu.gongu_status eq '1'}">
+									<c:set var="status" value="심사중"/>
+								</c:when>
+								<c:when test="${gongu.gongu_status eq '2'}">
+									<c:set var="status" value="승인"/>
+								</c:when>
+								<c:when test="${gongu.gongu_status eq '3'}">
+									<c:set var="status" value="반려"/>
+								</c:when>
+								<c:when test="${gongu.gongu_status eq '4'}">
+									<c:set var="status" value="진행중"/>
+								</c:when>
+								<c:when test="${gongu.gongu_status eq '5'}">
+									<c:set var="status" value="비활성화대기"/>
+								</c:when>
+								<c:when test="${gongu.gongu_status eq '6'}">
+									<c:set var="status" value="비활성화"/>
+								</c:when>
+								<c:when test="${gongu.gongu_status eq '7'}">
+									<c:set var="status" value="종료"/>
+								</c:when>
+								<c:when test="${gongu.gongu_status eq '8'}">
+									<c:set var="status" value="정산"/>
+								</c:when>
+								<c:when test="${gongu.gongu_status eq '9'}">
+									<c:set var="status" value="정산완료"/>
+								</c:when>
+							</c:choose>
+						<!-- 실제화면에 표시되는 input -->
+							${status}
+						</span>
+					</li>
+					<li>
+						<em>카테고리</em>
+						<c:choose>
+							<c:when test="${gongu.category eq 'life'}">
+								<c:set var="category" value="생필품"/>
+							</c:when>
+							<c:when test="${gongu.category eq 'food'}">
+								<c:set var="category" value="간편식"/>
+							</c:when>
+							<c:when test="${gongu.category eq 'kitchen'}">
+								<c:set var="category" value="주방"/>
+							</c:when>
+							<c:when test="${gongu.category eq 'pet'}">
+								<c:set var="category" value="반려견"/>
+							</c:when>
+							<c:when test="${gongu.category eq 'beauty'}">
+								<c:set var="category" value="뷰티"/>
+							</c:when>
+							<c:when test="${gongu.category eq 'book'}">
+								<c:set var="category" value="도서"/>
+							</c:when>
+							<c:when test="${gongu.category eq 'gugang'}">
+								<c:set var="category" value="구강/면도"/>
+							</c:when>
+							<c:when test="${gongu.category eq 'elec'}">
+								<c:set var="category" value="전자기기"/>
+							</c:when>
+							<c:when test="${gongu.category eq 'interior'}">
+								<c:set var="category" value="홈인테리어"/>
+							</c:when>
+							<c:when test="${gongu.category eq 'design'}">
+								<c:set var="category" value="디자인문구"/>
+							</c:when>
+							<c:when test="${gongu.category eq 'organize'}">
+								<c:set var="category" value="수납/정리"/>
+							</c:when>
+							<c:when test="${gongu.category eq 'bath'}">
+								<c:set var="category" value="욕실"/>
+							</c:when>
+							<c:when test="${gongu.category eq 'etc'}">
+								<c:set var="category" value="잡화"/>
+							</c:when>
+							<c:when test="${gongu.category eq 'cloth'}">
+								<c:set var="category" value="의류"/>
+							</c:when>
+							<c:when test="${gongu.category eq 'car'}">
+								<c:set var="category" value="자동차용품"/>
+							</c:when>
+							<c:when test="${gongu.category eq 'hobby'}">
+								<c:set var="category" value="취미"/>
+							</c:when>
+						</c:choose>
+						<span>${category}</span>
+					</li>
+					<li>
+						<em>공구명</em>
+						<span>${gongu.gongu_name }</span>
+					</li>
+					<li>
+						<em>정가</em>
+						<span>${gongu.gongu_price }</span>
+					</li>
+					<li>
+						<em>공구가</em>
+						<span>${gongu.gongu_discount_price }</span>
+					</li>
+					<li>
+						<em>등록일시</em>
+						<span>${gongu.gongu_date }</span>
+					</li>
+					<li>
+						<em>공구기간</em>
+						<span>${gongu.gongu_startdate } ~ ${gongu.gongu_findate }</span>
+					</li>
+					<li>
+						<em>결제마감일</em>
+						<span>${gongu.gongu_caldate }</span>
+					</li>
+					<li>
+						<em>최대 판매가능 수량</em>
+						<span>${gongu.gongu_stock }</span>
+					</li>
+					<li>
+						<em>최소목표수량</em>
+						<span>${gongu.gongu_min }</span>
+					</li>
+					<li>
+						<em>대표이미지</em>
+						<div>
+							<p>${gongu.thumbnail_img }</p>
+							<div class="img">
+								<img src="${pageContext.request.contextPath}/gongu/images/${gongu.thumbnail_img }">
+							</div>
+						</div>
+						
+					</li>
+					<li>
+						<em>상세이미지</em>
+						<div>
+							<p>${gongu.detail_img }</p>
+							<div class="img">
+								<img src="${pageContext.request.contextPath}/gongu/images/${gongu.detail_img }"><br>
+							</div>
+						</div>
+					</li>
+				</ul>
+				<c:if test="${gongu.gongu_status eq '0'}">
+					<div class="bt_group">
+						<button id="btn_edit" class="bt" data-bs-toggle="modal" data-bs-target="#modalForm">수정</button>
+						<!-- <input type="submit" value="저장" id="btn_save" class="bt">
+						<button id="btn_cancel" class="bt" type="button">취소</button> -->
+					</div>
+				</c:if>
+				</div>
+			</div>
+			<div class="col-lg-4 col-12">
+				<div class="row">
+					<c:if test="${sessionScope.loginId eq 'system' || sessionScope.loginAuthor eq 0 }">
+						<!-- conts1:판매자정보 -->
+						<div class="section col-12 seller_info">
+							<div class="card">
+								<h5>판매자정보</h5>
+								<ul class="card_list">
+									<li>
+										<em>회사명</em><span>${seller.seller_name }</span>
+									</li>
+									<li>
+										<em>사업자등록번호</em><span>${seller.seller_number }</span>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<!-- //conts1:판매자정보 -->
+					</c:if>
+					<c:if test="${gongu.gongu_status ne '0' && gongu.gongu_status ne '1' && gongu.gongu_status ne '2' && gongu.gongu_status ne '3'}">
+					<!-- conts3:공구현황 -->
+					<div class="col-12 section gongu_current">
+						<div class="card">
+							<h5>공구현황</h5>
+							<ul class="card_list">
+								<li>
+									<em>조회수</em><span>${gongu.gongu_view_count }</span>
+								</li>
+								<li>
+									<em>공구 달성률</em><span>${(gongu.gongu_reserve/gongu.gongu_min)*100}</span>
+								</li>
+								<li>
+									<em>구매자 수</em><span>${gongu.gongu_reserve }</span>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<!-- //conts3:공구현황 -->
+					</c:if>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+</div>
+
+<!-- modal -->
+<div id="modalForm" class="modal fade" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+    <div class="modal-content section">
+      <div class="modal-header">
+        <h5 class="modal-title">공구수정</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="formArea" action="gonguModify.go" method="post" class="gongu_form input_form container" enctype="multipart/form-data">
+        	<input type="hidden" name="seller_id" value="${seller.seller_id }" />								
+			<input type="hidden" name="gongu_id" value="${gongu.gongu_id }"/> 
+			<input type="hidden" name="gongu_status" value="${gongu.gongu_status}"/>
+			<fieldset class="row">
+				<legend><span>공구기본 정보를 입력해주세요.</span></legend>
+				<div class="frm_group col-lg-3 col-12">
+					<label>카테고리</label>
+					<div class="input_group">
+						<select name="category" id="category" class="frm_control">						
+								<option value="life" ${gongu.category eq 'life'? "selected":"" }>생필품</option>
+								<option value="food" ${gongu.category eq 'food'? "selected":"" }>간편식</option>
+								<option value="kitchen" ${gongu.category eq 'kitchen'? "selected":"" }>주방</option>
+								<option value="pet" ${gongu.category eq 'pet'? "selected":"" }>반려견</option>
+								<option value="beauty" ${gongu.category eq 'beauty'? "selected":"" }>뷰티</option>
+								<option value="book" ${gongu.category eq 'book'? "selected":"" }>도서</option>
+								<option value="gugang" ${gongu.category eq 'gugang'? "selected":"" }>구강/면도</option>
+								<option value="elec" ${gongu.category eq 'elec'? "selected":"" }>전자기기</option>
+								<option value="interior" ${gongu.category eq 'interior'? "selected":"" }>홈인테리어</option>
+								<option value="design" ${gongu.category eq 'design'? "selected":"" }>디자인문구</option>
+								<option value="organize" ${gongu.category eq 'organize'? "selected":"" }>수납/정리</option>
+								<option value="bath" ${gongu.category eq 'bath'? "selected":"" }>욕실</option>
+								<option value="etc" ${gongu.category eq 'etc'? "selected":"" }>잡화</option>
+								<option value="cloth" ${gongu.category eq 'cloth'? "selected":"" }>의류</option>
+								<option value="car" ${gongu.category eq 'car'? "selected":"" }>자동차용품</option>
+								<option value="hobby" ${gongu.category eq 'hobby'? "selected":"" }>취미</option>
+						</select> 
+					</div>
+				</div>
+				<div class="frm_group col-lg-9 col-12">
+					<label>공구명</label>
+					<div class="input_group">
+						<input type="text" name="gonguname" value="${gongu.gongu_name }" id="gonguname" class="frm_control"/>
+					</div>
+				</div>
+			</fieldset>
+			<fieldset class="row">
+				<legend><span>공구일정을 입력해주세요.</span></legend>
+				<div class="frm_group col-lg-4 col-6">
+					<label>판매시작일</label>
+					<div class="input_group">
+						<input type="text" name="gongustart" value="${gongu.gongu_startdate }" id="datepicker_start" class="frm_control frm_date"/>
+					</div>
+				</div>
+				<div class="frm_group col-lg-4 col-6">
+					<label>판매종료일</label>
+					<div class="input_group">
+						<input type="text" name="gongufinish" value="${gongu.gongu_findate }" id="datepicker_end" class="frm_control frm_date"/>
+					</div>
+				</div>
+				<div class="w-100"></div>
+				<div class="frm_group col-lg-4 col-6">
+					<label>결제마감일</label>
+					<div class="input_group">
+						<input type="text" name="caldate" value="${gongu.gongu_caldate }" id="datepicker_calc" class="frm_control"/>
+					</div>
+				</div>
+				<div class="frm_group col-lg-4 col-6">
+				<label>정산일</label>
+				</div>
+			</fieldset>
+			<fieldset class="row">
+				<legend><span>공구가격 정보를 입력해주세요.</span></legend>
+				<div class="frm_group col-lg-4 col-6">
+					<label>정가</label>
+					<div class="input_group">
+						<input type="text" name="originprice" value="${gongu.gongu_price }" id="originprice" class="frm_control"/>
+					</div>
+				</div>
+				<div class="frm_group col-lg-4 col-6">
+					<label>공구가</label>
+					<div class="input_group">
+						<input type="text" name="gonguprice" value="${gongu.gongu_discount_price }" id="gonguprice" class="frm_control"/>
+					</div>
+				</div>
+			</fieldset>
+			<fieldset class="row">
+				<legend><span>공구판매 정보를 입력해주세요.</span></legend>
+				<div class="frm_group col-lg-4 col-6">
+					<label>최대 판매가능 수량</label>
+					<div class="input_group">
+						<input type="text" name="gongustock"  value="${gongu.gongu_stock }" id="gongustock" class="frm_control"/>
+					</div>
+				</div>
+				<div class="frm_group col-lg-4 col-6">
+					<label>최소 목표 수량</label>
+					<div class="input_group">
+						<input type="text" name="minGongu"  value="${gongu.gongu_min }" id="minGongu" class="frm_control"/>
+					</div>
+				</div>
+			</fieldset>
+			
+			<fieldset class="row">
+				<legend><span>공구 이미지를 설정해주세요.</span></legend>
+				<div class="frm_group col-lg-6 col-12">
+					<label>공구 대표이미지</label>
+					<div class="input_group frm_file">
+						<input type="text" class="frm_control" value="${gongu.thumbnail_img }"/>
+						<input type="file" name="nailimage" id="nailimage" class="frm_control"/>
+						<label for="nailimage" class="bt">파일선택</label>
+					</div>
+				</div>
+				
+				<div class="frm_group col-lg-6 col-12">
+					<label>공구 상세이미지</label>
+					<div class="input_group frm_file">
+						<input type="text" class="frm_control" value="${gongu.detail_img }"/>
+						<input type="file" name="image" id="image" class="frm_control" disabled/>
+						<label for="image" class="bt">파일선택</label>
+					</div>
+				</div>
+			</fieldset>
+			
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button id="btn_reset" type="button" class="bt">취소</button>
+        <button id="btn_submit" type="button" class="bt bt_primary">저장</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 	$(function(){
 		//header 메뉴 active
-		$("#header .header_item").removeClass("active");
-		$("#header .gongu").addClass("active");
+		$(".header_item").removeClass("active");
+		$(".header_item.gongu").addClass("active");
 		
 		//버튼클릭이벤트
-		$("#btn_edit").on('click', function(){
+		/* $("#btn_edit").on('click', function(){
 			var formId = $(this).closest("form").attr("id")
 			//console.log(formId);
 			modeEdit(formId);
@@ -19,203 +402,21 @@
 			console.log(formId);
 			modeView(formId);
 		});
+		 */
+		//파일인풋
+		$("input[type=file]").on('change', function(){
+			var fileName = $(this).val();
+			$(this).prev("input[type=text]").val(fileName);
+		});
+		
+		$("#btn_reset").on('click', function(){
+			formReset('modalForm');
+			$('#modalForm').modal('hide');
+		});
+		
+		$("#btn_submit").on('click', function(){
+			$("#formArea").submit();
+		});
+		
 	});
 </script>
-
-<div id="content" class="bg">
-	<div class="container">
-		<div class="row">
-			<!-- conts1:판매자정보 -->
-			<div class="section col-xl-4 col-12">
-				<div class="card">
-					<h5>판매자정보</h5>
-					<form class="row input_form modeView">
-						<div class="frm_group col-12">
-							<label>회사명</label>
-							<div class="input_group">
-								<input type="text" value="${seller.seller_name }" class="noEdit frm_control" readonly>
-							</div>
-							
-						</div>
-						<div class="frm_group col-12">
-							<label>사업자등록번호</label>
-							<div class="input_group">
-								<input type="text" value="${seller.seller_number }" class="noEdit frm_control" readonly>
-							</div>
-							
-						</div>
-					</form>
-				</div>
-			</div>
-			<!-- //conts1:판매자정보 -->
-			
-			<div class="col-xl-8 col-12 section gongu_info">
-				<c:if test="${sessionScope.loginId eq 'system' || sessionScope.loginAuthor eq 0 }">
-					<div class="bts_gongu_status">
-						<!-- 공구컨트롤버튼 : 종료아닐때만 표시 -->
-						<c:if test="${gongu.gongu_status ne '7' || gongu.gongu_status ne '8'}">
-							<c:if test="${gongu.gongu_status eq '0' }"><!-- 심사 : 승인대기일때만 표시 -->
-								<a href="adminGonguSetStatus.ad?gongu_id=${gongu.gongu_id}&gongu_status=${gongu.gongu_status}&setStatus=1" class="btn btn-secondary">심사시작</a>
-							</c:if>
-							<c:if test="${gongu.gongu_status eq '1' }"><!-- 승인/승인거절 : 심사일때만 표시 -->
-								<a href="adminGonguSetStatus.ad?gongu_id=${gongu.gongu_id}&gongu_status=${gongu.gongu_status}&setStatus=2" class="btn btn-primary">승인</a>
-								<a href="adminGonguSetStatus.ad?gongu_id=${gongu.gongu_id}&gongu_status=${gongu.gongu_status}&setStatus=3" class="btn btn-secondary">반려</a>
-							</c:if>
-							<!-- 진행중(4)은 공구글이 게시된 시점부터. -->
-							<c:if test="${gongu.gongu_status eq '4' }"><!-- 비활성화 : 진행중일때만 표시 =>지만 사실 비활성화 대기로 바꾸는거고 일정 기간 이후에 자동 비활성화 -->
-								<a href="adminGonguSetStatus.ad?gongu_id=${gongu.gongu_id}&gongu_status=${gongu.gongu_status}&setStatus=5" class="btn btn-secondary">비활성화</a>
-							</c:if>
-							
-							<%-- <c:if test="${gongu.gongu_status eq '0' }"><!-- 심사 : 승인대기일때만 표시 -->
-								<a href="adminGonguCheckAction.ad?gongu_id=${gongu.gongu_id}&gongu_status=${gongu.gongu_status}" class="btn btn-secondary">심사시작</a>
-							</c:if>
-							<c:if test="${gongu.gongu_status eq '1' }"><!-- 승인/승인거절 : 심사일때만 표시 -->
-								<a href="adminGonguOkAction.ad?gonngu_id=${gongu.gongu_id}&gongu_status=${gongu.gongu_status}" class="btn btn-primary">승인</a>
-								<a href="adminGonguRejectAction.ad?gongu_id=${gongu.gongu_id}&gongu_status=${gongu.gongu_status}" class="btn btn-secondary">반려</a>
-							</c:if>
-							<c:if test="${gongu.gongu_status eq '4' }"><!-- 비활성화 : 진행중일때만 표시 -->
-								<a href="adminGonguDisableAction.ad?gongu_id=${gongu.gongu_id}" class="btn btn-secondary">비활성화</a>
-							</c:if>
-							<c:if test="${gongu.gongu_status ne '0' }"><!-- 수정:심사중 이후에만 표시 -->
-								<a href="adminGonguModifyAction.ad?gongu_id=${gongu.gongu_id}" class="btn btn-secondary">수정</a>
-							</c:if> --%>
-							
-						</c:if>
-					</div>
-				</c:if>
-				<div class="tab gongu_tab">
-					<ul class="tab_menu">
-						<li><a href="#tab1"><h5>공구정보</h5></a></li>
-						<c:if test="${gongu.gongu_status ne '0' && gongu.gongu_status ne '1' && gongu.gongu_status ne '2' && gongu.gongu_status ne '3'}">
-							<li><a href="#tab2"><h5>공구현황</h5></a></li>
-						</c:if>
-					</ul>
-					<div class="tab_conts">
-						<!-- conts2:공구정보 -->
-						<div id="tab1">
-							<div class="card">
-								<form id="formArea" action="gonguModify.go" method="post" class="modeView row gongu_form input_form" enctype="multipart/form-data">
-									<input type="hidden" name="gongu_id" value="${gongu.gongu_id }" id="" class="frm-control noEdit" readonly/> 
-									<div class="frm_group col-12 col-lg-6">
-										<label>공구상태</label>
-										<div class="input_group">
-											<input type="text" name="gongu_status"  value="${gongu.gongu_status}" id="" class="frm_control noEdit" readonly/>
-										</div>
-									</div>
-									<div class="frm_group col-12 col-lg-6">
-										<label>카테고리</label>
-										<div class="input_group">
-											<select name="category" id="category" class="frm_control" disabled>						
-												<option value="life" ${gongu.category eq 'life'? "selected":"" } >생필품</option>
-												<option value="food" ${gongu.category eq 'food'? "selected":"" } >간편식</option>
-												<option value="kitchen" ${gongu.category eq 'kitchen'? "selected":"" } >주방</option>
-												<option value="pet" ${gongu.category eq 'pet'? "selected":"" } >반려견</option>
-											</select> 
-										</div>
-									</div>
-									<div class="frm_group col-12">
-										<label>공구명</label>
-										<div class="input_group">
-											<input type="text" name="gonguname"  value="${gongu.gongu_name }" id="" class="frm_control" disabled/>
-										</div>
-									</div>
-									<div class="frm_group col-12 col-xxl-6">
-										<label>정가</label>
-										<div class="input_group">
-											<input type="text" name="originprice"  value="${gongu.gongu_price }" id="" class="frm_control" disabled/>
-										</div>
-									</div>
-									<div class="frm_group col-12 col-xxl-6">
-										<label>공구가격</label>
-										<div class="input_group">
-											<input type="text" name="gonguprice"  value="${gongu.gongu_discount_price }" id="" class="frm_control" disabled/>
-										</div>
-									</div>
-									<div class="frm_group col-12 col-xxl-6">
-										<label>등록일시</label>
-										<div class="input_group">
-											<input type="text" name="gongudate"  value="${gongu.gongu_date }" id="" class="frm_control noEdit" readonly/>
-										</div>
-									</div>
-									<div class="frm_group col-12 col-xxl-6">
-										<label>판매시작일</label>
-										<div class="input_group">
-											<input type="text" name="gongustart"  value="${gongu.gongu_startdate }" id="" class="frm_control" disabled/>
-										</div>
-										<p class="frm_txt">판매시작일의 경우 심사기간 및 여부에 따라 입력한 날짜와 상이할 수 있습니다.</p>
-									</div>
-									<div class="frm_group col-12 col-xxl-6">
-										<label>판매종료일</label>
-										<div class="input_group">
-											<input type="text" name="gongufinish"  value="${gongu.gongu_findate }" id="" class="frm_control" disabled/>
-										</div>
-									</div>
-									<div class="frm_group col-12 col-xxl-6">
-										<label>결제마감일</label>
-										<div class="input_group">
-											<input type="text" name="caldate"  value="${gongu.gongu_caldate }" id="" class="frm_control" disabled/>
-										</div>
-									</div>
-									<div class="frm_group col-12 col-xxl-6">
-										<label>재고수</label>
-										<div class="input_group">
-											<input type="text" name="gongustock"  value="${gongu.gongu_stock }" id="" class="frm_control" disabled/>
-										</div>
-									</div>
-									<div class="frm_group col-12 col-xxl-6">
-										<label>최소목표수</label>
-										<div class="input_group">
-											<input type="text" name="minGongu"  value="${gongu.gongu_min }" id="" class="frm_control" disabled/>
-										</div>
-									</div>
-									<div class="frm_group col-12 col-xxl-6">
-										<label>공구 대표이미지</label>
-										<div class="input_group">
-										<input type="file" name="nailimage" id="" class="frm_control" disabled/>
-										</div>
-										<div class="img">
-											<img src="${pageContext.request.contextPath}/gongu/images/${gongu.thumbnail_img }">
-										</div>
-									</div>
-									<div class="frm_group col-12 col-xxl-6">
-										<label>공구 상세이미지</label>
-										<div class="input_group">
-											<input type="file" name="image" id="" class="frm_control" disabled/>
-										</div>
-										<div class="img">
-											<img src="${pageContext.request.contextPath}/gongu/images/${gongu.detail_img }"><br>
-										</div>
-									</div>
-									
-									<c:if test="${gongu.gongu_status eq '0'}">
-										<div class="bt_group">
-											<button id="btn_edit" class="bt" type="button">수정</button>
-											<input type="submit" value="저장" id="btn_save" class="bt">
-											<button id="btn_cancel" class="bt" type="button">취소</button>
-										</div>
-									</c:if>
-								</form>
-							</div>
-						</div>
-						<!-- //conts2:공구정보 -->
-						
-						<!-- conts3:공구현황 -->
-						<c:if test="${gongu.gongu_status ne '0' && gongu.gongu_status ne '1' && gongu.gongu_status ne '2' && gongu.gongu_status ne '3'}">
-							<div id="tab2">
-								<div class="card">		
-										현재 공구탑승한 인원 ${gongu.gongu_reserve }<br>
-										공구 달성률 ${(gongu.gongu_reserve/gongu.gongu_min)*100}<br>
-										조회수 : ${gongu.gongu_view_count }<br>
-								</div>
-							</div>
-						</c:if>
-						<!-- //conts3:공구현황 -->
-					</div>
-				</div>
-
-			</div>
-		</div>
-	</div>
-</div>
-
-

@@ -8,7 +8,13 @@
 <div id="content" class="bg">
 	<div class="container">
 		<div class="row">
-			<div class="section col-12">
+			<div class="col-12">
+				<div class="cont_header">
+					<a id="btn_list" href="#" onclick="javascript:history.back();">뒤로가기</a>
+					<h2>마이페이지</h2>
+				</div>
+			</div>
+			<div class="section col-xl-6 col-12">
 				<div class="card">
 					<h5>회원정보</h5>
 					<form id="formArea" action="adminSellerUpdate.ad" method="post" class="modeView myinfo_form input_form">
@@ -26,15 +32,16 @@
 							<input type="password" name="seller_pw_ck" id="seller_pw_ck" class="frm_control" disabled/>
 							<p class="frm_vld_txt"></p>
 						</div>
-						<div class="frm_group">
-							<label>회사명</label>
-							<input type="text" name="seller_name" value="${seller.seller_name }" id="seller_name" class="frm_control noEdit" readonly/>
-						</div>
-						<div class="frm_group">
-							<label>사업자번호</label>
-							<input type="text" name="seller_number" value="${seller.seller_number }" id="seller_number" class="frm_control noEdit" readonly/>
-						</div>
-						
+						<c:if test="${loginAuthor eq 1 }">
+							<div class="frm_group">
+								<label>회사명</label>
+								<input type="text" name="seller_name" value="${seller.seller_name }" id="seller_name" class="frm_control noEdit" readonly/>
+							</div>
+							<div class="frm_group">
+								<label>사업자번호</label>
+								<input type="text" name="seller_number" value="${seller.seller_number }" id="seller_number" class="frm_control noEdit" readonly/>
+							</div>
+						</c:if>
 						<div class="bt_group">
 							<button id="btn_edit" class="bt" type="button" data-bs-toggle="modal" data-bs-target="#modalForm">수정</button>
 							<input type="submit" value="저장" id="btn_save" class="bt">
@@ -50,20 +57,20 @@
 <!-- modal -->
 <div id="modalForm" class="modal fade" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
+    <div class="modal-content section">
       <div class="modal-header">
-        <h5 class="modal-title">Modal title</h5>
+        <h5 class="modal-title">비밀번호 확인</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body text-center">
         <form>
-        	<p>수정하시려면 비밀번호를 입력하세요</p>
-        	<input id="passChk" type="password" name="pass_chk" class="frm_control" />
+        	<p class="mb-4">회원님의 정보를 안전하게 보호하기 위해 비밀번호를 확인합니다.</p>
+        	<input id="passChk" type="password" name="pass_chk" class="frm_control" style="min-width:250px"/>
         </form>
       </div>
-      <div class="modal-footer">
-        <button id="btn_reset" type="button" class="bt" data-bs-dismiss="modal">취소</button>
-        <button id="btn_identify" type="button" class="bt">확인</button>
+      <div class="modal-footer justify-content-center">
+        <button id="btn_reset" type="button" class="bt">취소</button>
+        <button id="btn_identify" type="button" class="bt bt_primary">확인</button>
       </div>
     </div>
   </div>
@@ -138,7 +145,8 @@
 		});
 		
 		$("#btn_reset").on('click', function(){
-			formReset("modalForm");
+			formReset('modalForm');
+			$('#modalForm').modal('hide');
 		});
 		
 		//비밀번호 유효성 검사 및 비밀번호 확인 일치 체크

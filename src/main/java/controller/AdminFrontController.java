@@ -55,8 +55,14 @@ public class AdminFrontController extends HttpServlet {
     		forward = new ActionForward("/adminLogin.ad", false);
     	}
     	else if(command.equals("/adminMain.ad")){
-    		request.setAttribute("pagefile", "/admin/adminMain.jsp");
-    		forward = new ActionForward("/admin/adminTemplate.jsp", false);
+    		action = new AdminMainAction();
+    		try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    		
     	}
     	else if(command.equals("/adminStandby.ad")){
     		forward = new ActionForward("./admin/adminStandby.jsp", false);
@@ -198,12 +204,7 @@ public class AdminFrontController extends HttpServlet {
     		
     	}
     	
-    	
-    	
-    	
-    	
-    	
-    	
+
     	//포워딩
     	if(forward != null) {
     		if(forward.isRedirect()) {

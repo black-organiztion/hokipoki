@@ -25,6 +25,7 @@ public class GonguModifyAction implements Action {
 		String loginId = (String)session.getAttribute("loginId");
 		int loginAuthor = (int)session.getAttribute("loginAuthor");
 		
+		
 		//세션 로그인&권한체크
 		if(loginId == null || loginId.equals("") || loginAuthor>1) {
 			//로그인 이동
@@ -43,6 +44,8 @@ public class GonguModifyAction implements Action {
 			String realFolder = request.getServletContext().getRealPath(saveFolder);
 			
 			MultipartRequest multi = new MultipartRequest(request,realFolder,maxSize,encoding,new DefaultFileRenamePolicy());			
+			
+			String seller_id = multi.getParameter("seller_id");
 			
 			Gongu gongu = new Gongu();	
 			
@@ -70,7 +73,7 @@ public class GonguModifyAction implements Action {
 			
 			
 			if(isModifySuccess) {//수정성공
-				forward = new ActionForward("/adminGonguDetailViewAction.ad?gongu_id="+gongu.getGongu_id(), false);
+				forward = new ActionForward("/adminGonguDetailViewAction.ad?gongu_id="+gongu.getGongu_id()+"&seller_id="+seller_id, false);
 				
 			}else {//수정실패
 				response.setContentType("text/html;charset=utf-8");

@@ -96,5 +96,14 @@ function modeView(formId){//보기모드로 만들기
 	$("#btn_cancel").hide(); //취소버튼을 숨김
 }
 
+function formReset(formId){
+	var targetForm = $("#"+formId).find("form");
+	
+	//console.log(targetForm);
 
+	//form 안의 input을 초기화
+	targetForm.each(function() {
+		  this.reset();
+	});
+}
 	

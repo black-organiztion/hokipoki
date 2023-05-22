@@ -311,7 +311,7 @@
         <li class="nav-item"><a href="${pageContext.request.contextPath}/menuList.go?menu=popular" class="nav-link link-dark px-2">인기</a></li>
         <li class="nav-item"><a href="${pageContext.request.contextPath}/menuList.go?menu=new" class="nav-link link-dark px-2">신규</a></li>
         <li class="nav-item"><a href="${pageContext.request.contextPath}/menuList.go?menu=end" class="nav-link link-dark px-2">마감임박</a></li>
-        <li class="nav-item"><a href="#" class="nav-link link-dark px-2">문의게시판</a></li>
+        <li class="nav-item"><a href="${pageContext.request.contextPath}/qnaListAction.qu" class="nav-link link-dark px-2">문의게시판</a></li>
       </ul>
 
     </div>

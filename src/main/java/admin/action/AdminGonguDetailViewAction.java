@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import admin.svc.AdminGonguDetailViewService;
 import admin.svc.AdminSellerViewSevice;
 import gongu.svc.GonguViewService;
 import vo.ActionForward;
@@ -23,7 +24,11 @@ public class AdminGonguDetailViewAction implements Action {
 		
 		//기능1. 공구정보 불러오기
 		//서비스 생성
-		Gongu gongu = GonguViewService.getGonguView(gongu_id);
+		//Gongu gongu = GonguViewService.getGonguView(gongu_id);
+		
+		AdminGonguDetailViewService adminGonguDetailViewService = new AdminGonguDetailViewService();
+		
+		Gongu gongu = adminGonguDetailViewService.getGongu(gongu_id);
 		
 		
 		//기능2. 판매자정보 불러오기

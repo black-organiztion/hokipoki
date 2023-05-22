@@ -101,7 +101,7 @@ public class AdminGonguSetStatusAction implements Action {
 			
 
 			if(isNextSuccess) {	
-				forward = new ActionForward("adminGonguListAction.ad", true);
+				forward = new ActionForward("adminGonguDetailViewAction.ad?gongu_id"+gongu_id, false);
 				System.out.println("공구상태변경("+nextStatus+")");
 				
 			}else {
