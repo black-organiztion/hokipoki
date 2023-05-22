@@ -23,14 +23,13 @@ public class GonguHomeListAction implements Action {
 			popularList = popularListService.getPopularList();
 			
 			ArrayList <Gongu> newList = new ArrayList<Gongu>();
-			newList = popularListService.getNewList();
+			newList = popularListService.getNewList();		
 			
-			System.out.println("new"+newList);
 			
 			
 			ArrayList <Gongu> oldList = new ArrayList<Gongu>();
 			oldList = popularListService.getOldList();
-			System.out.println("old"+oldList);
+			
 			
 			request.setAttribute("popularList", popularList);
 			request.setAttribute("newList", newList);

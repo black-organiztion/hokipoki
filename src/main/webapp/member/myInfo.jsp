@@ -92,7 +92,7 @@
 	}
 	.all{
 		width:500px;
-		border:1.5px solid #c9c9c9;
+	
 		margin:0 auto;
 		padding:50px;
 		border-radius: 12px;
@@ -109,11 +109,14 @@
 <body>
 
 
+
 <div class="all">
 <div class="tit">
-마이페이지
+회원정보 수정
 </div>
+
 <div class="container">
+
 <form action="${pageContext.request.contextPath}/MemberUpdate.me" method="post" id="memberform" name="memberform">
 	<div class="form_group">
 		<label>이름</label>

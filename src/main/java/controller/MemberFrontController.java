@@ -10,9 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import admin.action.AdminSellerIdCheckAction;
 import delivery.action.AddDeliveryAction;
 import member.action.GonguPurchaseAction;
 import member.action.MemberIdCheckAction;
+import member.action.MemberIdChkAction;
 import member.action.MemberJoinAction;
 import member.action.MemberLoginAction;
 import member.action.MemberLogoutAction;
@@ -152,6 +154,11 @@ public class MemberFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		}else if(command.equals("/MemberIdChk.me")) {
+			String id = request.getParameter("userId");
+    		String result = new MemberIdChkAction().checkId(id);
+    		response.setContentType("text/plain;charset=UTF-8");
+            response.getWriter().write(result);
 		}
 
 		if (forward != null) {

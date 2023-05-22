@@ -1,5 +1,7 @@
 package member.action;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -7,9 +9,11 @@ import javax.servlet.http.HttpSession;
 import action.Action;
 import delivery.svc.DeliveryGetService;
 import member.svc.MyInfoService;
+import order.svc.RecentOrderListService;
 import vo.ActionForward;
 import vo.Delivery;
 import vo.Member;
+import vo.MemberOrder;
 
 public class MyInfoAction implements Action {
 
@@ -18,6 +22,7 @@ public class MyInfoAction implements Action {
 	ActionForward forward=  null;
 	Member member = null;
 	Delivery delivery = null;
+	ArrayList<MemberOrder> recentOrderList = null;
 	try {
 		HttpSession session = request.getSession();
 		
@@ -27,7 +32,11 @@ public class MyInfoAction implements Action {
 		member  = myInfoService.showMyInfo(id);	
 		DeliveryGetService deliveryGetService = new DeliveryGetService();
 		delivery = deliveryGetService.getDelivery(id);
-		
+		RecentOrderListService recentOrderListService = new RecentOrderListService();
+		recentOrderList = recentOrderListService.getRecentOrderList(id);
+		if(recentOrderList != null) {
+			request.setAttribute("orderList", recentOrderList);
+		}
 		
 		if(member!=null) {
 			request.setAttribute("member", member);			
@@ -36,7 +45,7 @@ public class MyInfoAction implements Action {
 			request.setAttribute("delivery", delivery);
 		}
 		
-		request.setAttribute("pagefile", "/member/myInfo.jsp");
+		request.setAttribute("pagefile", "/member/memberOrderCheckForm.jsp");
 		forward = new ActionForward("./index.jsp", false);
 		
 		

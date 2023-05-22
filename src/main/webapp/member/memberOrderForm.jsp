@@ -16,7 +16,8 @@
 	.outer{
 		margin:0 auto;
 		padding-top:40px;
-		width:1200px;		
+		width:1200px;	
+		
 	}
 	.gongu{
 		display:flex;	
@@ -77,8 +78,9 @@
 		border-radius: 8px;
 		color:white;
 		font-size: 18px;
-		height:42px;
-		border:0px solid black;
+		margin-top:15px;
+		height:54px;
+		border:0px ;
 	}
 	.etc{
 		font-size:12px;
@@ -289,7 +291,7 @@
 						
 					</div>
 						<label>배송지 정보</label>
-						<div class="gongusanse_outer" >
+						<div class="gongusanse_outer"  >
 							<div class="dinfo_con">
 								<div class="top">
 									<div class="dname" id="dname">
@@ -311,20 +313,20 @@
 										<div class="juso2" id="juso2">
 											${ delivery.addr2}
 										</div>
-									<input type="button" name="addDelivery" value="변경" id="modbtn"  onclick="window.open('member/addDeliveryForm.jsp?openInit=true','','width=400,height=200')">	
+									<input type="button" name="addDelivery" value="변경" id="modbtn"  onclick="window.open('member/addDeliveryForm.jsp?openInit=true','','width=400,height=600')">	
 								</div>			
 							
 							</div>
 						</div>				
 				</div>
 				
-		<div class="right_side">
+		<div class="right_side" style="padding-top: 35px;">
 			<div class="etc">
 				공구 성공시, 결제는 ${gongu.gongu_caldate }에 진행됩니다.<br> 공구가 무산되거나 중단된 경우, 예약된 결제는 자동으로 취소되며
 				해당 공구에 대한 진행권한은 판매당사자에 있습니다.
 			</div>
 			
-				<input type="checkbox" id="cb"/>&nbsp;개인정보 제3자 제공동의 <br>
+				<input type="checkbox" id="cb"/>&nbsp; 개인정보 제3자 제공동의 <br>
 				<input type="checkbox" id="cb"/>&nbsp; 공구 유의사항 확인
 	<div class="pinfo">
 					<c:set var="deliveryfee" value="0"/>
@@ -356,7 +358,8 @@
 
 
 	
-
+<input type="hidden" id="sample4_jibunAddress" placeholder="지번주소">
+<input type="hidden" id="sample4_extraAddress" placeholder="참고항목">
 
 	 <form method="post" id="hidden_form">
 						<input type="hidden" name="delivery_id"  value="${delivery.delivery_id }">

@@ -21,7 +21,7 @@ public class GonguListAction implements Action {
 
 		ArrayList<Gongu> gonguList = gonguListService.getGonguList();
 		request.setAttribute("gonguList", gonguList);//넘어가는 정보2
-		System.out.println(gonguList);
+		
 
 		forward = new ActionForward("/gongu/gonguList.jsp", false);// public ActionForward(String path, boolean redirect)
 

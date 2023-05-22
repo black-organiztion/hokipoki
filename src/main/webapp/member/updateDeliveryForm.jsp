@@ -228,10 +228,13 @@ function selectAddr(f){
 				<div class="form_group">
 				<label>상세주소</label>
 					<div class="input_group">
-				<input type="text" id="sample4_detailAddress" readonly  name="addr2" class="form_control">
+				<input type="text" id="sample4_detailAddress"  name="addr2" class="form_control">
 				</div>
 				</div>
 			
+	
+<input type="hidden" id="sample4_jibunAddress" placeholder="지번주소">
+<input type="hidden" id="sample4_extraAddress" placeholder="참고항목">
 			<input type="button" value="저장" onclick="selectAddr(this.form)" class="submitbtn">	
 	</form>
 </div>
