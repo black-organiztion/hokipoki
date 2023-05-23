@@ -6,7 +6,9 @@ String pageTitle = (String)request.getParameter("PAGETITLE");
 String contentPage = request.getParameter("CONTENTPAGE");
 pageTitle = "호키포키";
 %>
-
+<c:if test="${pagefile eq null }">
+	 <c:redirect url="gonguListHome.go"/> 
+</c:if>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,15 +19,7 @@ pageTitle = "호키포키";
 <body>
 <div id="wrap">
 	<jsp:include page="/common/user/header.jsp"></jsp:include>
-	<c:choose>
-		<c:when test="${pagefile eq null }">
-			 <c:redirect url="gonguListHome.go"/> 
-			<%-- <jsp:include page="/home.jsp"></jsp:include> --%>
-		</c:when>
-		<c:otherwise>
-			<jsp:include page="${pagefile }"></jsp:include>
-		</c:otherwise>
-	</c:choose>
+	<jsp:include page="${pagefile }"></jsp:include>
 	<jsp:include page="/common/user/footer.jsp"></jsp:include>
 </div>
 </body>
