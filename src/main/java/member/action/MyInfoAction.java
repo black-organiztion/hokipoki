@@ -44,7 +44,8 @@ public class MyInfoAction implements Action {
 			request.setAttribute("delivery", delivery);
 		}
 		
-		request.setAttribute("pagefile", "/member/memberOrderCheckForm.jsp");
+		request.setAttribute("infofile", "/member/myInfo.jsp");
+		request.setAttribute("pagefile", "/member/memberRecentOrder.jsp");
 		forward = new ActionForward("./index.jsp", false);
 		
 		

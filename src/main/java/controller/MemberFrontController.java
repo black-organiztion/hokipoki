@@ -172,6 +172,13 @@ public class MemberFrontController extends HttpServlet {
     		String result = new MemberIdChkAction().checkId(id);
     		response.setContentType("text/plain;charset=UTF-8");
             response.getWriter().write(result);
+		}else if(command.equals("/memberInfo.me")) {
+			action = new MyInfoAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 
 		if (forward != null) {

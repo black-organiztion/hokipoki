@@ -65,104 +65,7 @@
         }).open();
     }
 </script>
-<script>
 
-var chkId=false;
-var idCheck;
-
-function chkForm(f){
-	
-   if(f.pw.value.trim()==""){
-      alert('비밀번호를 입력하세요');
-      f.pw.focus();      
-      return false;      
-   }
-   
-   if(pwflag == false){
-      alert('비밀번호가 일치하지 않습니다.');
-      return false;
-   }
-   
-   if(f.receivername.value.trim()==""){
-         alert('수령인을 입력하세요');
-         f.receivername.focus();      
-         return false;      
-      }
-   
-   if(f.d_name.value.trim()==""){
-         alert('배송지명을 입력하세요');
-         f.d_name.focus();      
-         return false;      
-      }
-   
-   if(f.name.value.trim()==""){
-         alert('이름을 입력하세요');
-         f.name.focus();      
-         return false;      
-      }
-   if(f.email.value.trim()==""){
-         alert('이메일을 입력하세요');
-         f.email.focus();      
-         return false;      
-      }
-   
-   var regExp = "/^[a-z]+[a-z0-9]{5,10}$/g";
-   
-   var pw = $("#pw").val();
-   
-   var id = $("#id").val();
-      
-   var reg = "^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,8}$/";
-   var hangulcheck = "/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/";
-   
-/*    if(false === hangulcheck.test(f.name.value.trim())){
-      alert('이름은 한글만 가능합니다.');
-      return false;
-   }
-    */
-   if(false === regExp.test(id)){
-      alert('아이디는 5자에서 10자의 영문만 가능합니다.');
-      return false;
-   }
-   if(false === reg.test(pw)) {
-   alert('비밀번호는 8자 이상이어야 하며, 숫자/영어를 포함해야 합니다.');
-   return false;
-   }else if(hangulcheck.test(pw)){
-    alert("비밀번호에 한글을 사용 할 수 없습니다."); 
-    return false;
-    }else {
-    console.log("통과");
-    }
-   
-   f.submit();
-}
-
-var pwflag = false;
-
-$(function(){
-   $('.pw').keyup(function(){
-      let pass1=$("#pw").val();
-      let pass2=$("#chkpw").val();
-      
-      if(pass1 != "" || pass2 != ""){
-         if(pass1 == pass2){
-            $("#checkPw").html('일치');
-            $("#checkPw").attr('color','green');
-            pwflag=true;
-         }else{
-            $("#checkPw").html('불일치');
-            $("#checkPw").attr('color','red');
-            
-         }
-         
-      }
-      
-   });
-});
-
-
-
-</script>
 
 <meta charset="UTF-8">
 <title>회원가입</title>
@@ -336,7 +239,7 @@ background: white;
 						dataType:'text',
 						data:{"userId":userId},
 						success : function(result){
-							if(result === 'Avaliable'){
+							if(result === 'Avaliable' || getIdCheck.test(userId)){
 								$("#checkId").html('사용가능한 아이디입니다.');
 								$("#checkId").attr('color','green');				
 							}else{//중복 안됨
@@ -378,7 +281,7 @@ background: white;
    <div class="form_group">
       <label>휴대폰</label>   
          <div class="input_group">
-            <input type="text" id="tel" name="tel" class="form_control" maxlength="11">
+            <input type="number" id="tel" name="tel" class="form_control" maxlength="11">
          </div>
    </div>
    <div class="form_group">
@@ -402,35 +305,35 @@ background: white;
    <div class="form_group">
       <label>우편번호</label>
          <div class="input_group">
-            <input type="text" name="zipcode" id="sample4_postcode" class="form_control">
+            <input type="number" name="zipcode" id="sample4_postcode" class="form_control">
             <input type="button" onclick="sample4_execDaumPostcode()" value="우편번호">   
          </div>
    </div>
    <div class="form_group">
          <label>수령인 성함</label>
             <div class="input_group">
-               <input type="text" name="receivername"  class="form_control">
+               <input type="text" name="receivername" id="rname" class="form_control">
             </div>
    </div>
    <div class="form_group">
       <label>전화번호1</label>
          <div class="input_group">
-               <input type="text" name = "tel1.1" class="form_control"  maxlength="3">
+               <input type="number" name = "tel1.1" id="tel1.1" class="form_control"  maxlength="3">
                ㅡ
-               <input type="text" name = "tel1.2" class="form_control"  maxlength="4" >
+               <input type="number" name = "tel1.2" id="tel1.2" class="form_control"  maxlength="4" >
                ㅡ
-               <input type="text" name = "tel1.3" class="form_control"  maxlength="4">
+               <input type="number" name = "tel1.3" id="tel1.3" class="form_control"  maxlength="4">
          </div>      
    </div>
    
    <div class="form_group">
       <label>전화번호2</label>
          <div class="input_group">
-            <input type="text" name = "tel2.1" class="form_control"  maxlength="3">
+            <input type="number" name = "tel2.1" id="tel2.1" class="form_control"  maxlength="3">
             ㅡ
-            <input type="text" name = "tel2.2" class="form_control"  maxlength="4" >
+            <input type="number" name = "tel2.2" id="tel2.2" class="form_control"  maxlength="4" >
             ㅡ
-            <input type="text" name = "tel2.3" class="form_control"  maxlength="4" >
+            <input type="number" name = "tel2.3" id="tel2.3" class="form_control"  maxlength="4" >
          </div>
    </div>
       <div class="form_group">
@@ -459,4 +362,112 @@ background: white;
 </div>
 </div>
 </div>
+<script>
+
+var chkId=false;
+var idCheck;
+
+var pw = document.getElementById("pw");
+var id = document.getElementById("mid");
+var name = document.getElementById("name");
+var email = document.getElementById("email");
+var tel = document.getElementById("tel");
+var d_name = document.getElementById("d_name");
+var rname = document.getElementById("rname");
+var postcode = document.getElementById("sample4_postcode");
+var road = document.getElementById("sample4_roadAddress");
+var detail = document.getElementById("sample4_detailAddress");
+
+const getIdCheck = RegExp(/^[a-zA-Z0-9]{4,14}$/); 
+const getPwCheck = RegExp(/([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~])|([!,@,#,$,%,^,&,*,?,_,~].*[a-zA-Z0-9])/);
+
+
+var flag = true;
+
+function chkForm(f){
+	if(id===''){
+		flag=false;
+		alert('아이디를 입력하세요.');
+	}
+	else if(email === ''){
+		flag=false;
+		alert('이메일을 입력하세요.');
+	}
+	
+	else if(tel===''){
+		flag = false;
+		alert('전화번호를 입력하세요.');
+	}
+	
+	else if(d_name===''){
+		flag = false;
+		alert('배송지명을 입력하세요.');
+	}
+	else if(rname===''){
+		flag=false;
+		alert('수령자명을 입력하세요.');
+	}
+	
+	else if(postcode===''){
+		flag=false;	
+		alert('우편번호를 입력하세요.');
+	}
+	else if(road===''){
+		flag=false;
+		alert('주소를 입력하세요.');
+	}
+	else if(detail===''){
+		flag=false;
+		alert('상세주소를 입력하세요.');
+	}else if(name === ''){		
+		flag=false;
+		alert('이름을 입력하세요');
+	}
+	
+	if(flag){
+		$(f).submit();
+	
+	}	
+	
+}
+
+$(function(){
+   $('#pw').keyup(function(){
+
+   
+      let pass1=$("#pw").val();
+      let pass2=$("#chkpw").val();
+      
+      if(pass1 === '' || pass2 ===''){
+    	 pwflag=false;
+      }else if(!getPwCheck.test(pass1)){
+    	  pwflag=false;
+      }else{
+    	  pwflag=true;
+      }
+      
+      if(pass1 != "" || pass2 != ""){
+         if(pass1 == pass2){
+            $("#checkPw").html('일치');
+            $("#checkPw").attr('color','green');
+            pw_ckflag=true;
+         }else{
+            $("#checkPw").html('불일치');
+            $("#checkPw").attr('color','red');
+            pw_ckflag=false;
+         }
+         
+      }
+      
+   });
+
+   
+   
+});
+
+
+
+</script>
+
+
 </body>

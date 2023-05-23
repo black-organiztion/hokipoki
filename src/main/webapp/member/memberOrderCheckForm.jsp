@@ -86,6 +86,7 @@
 			width:220px;
 		}
 		ul{
+			
 			list-style-type:none;
 			padding-left: 0 !important;		
 		}
@@ -179,23 +180,23 @@
 			</div>
 		</div>
 		
-		<ul>
+		<ul style="padding-top: 12px;">
 			<li>나의 쇼핑정보</li>
-			<li><a href="${pageContext.request.contextPath}/allorderlist.or">주문배송조회</a></li>
-			<li>증빙서류 발급</li>
+			<li><a href="${pageContext.request.contextPath}/allorderlist.or">주문조회</a></li>
+			<li onclick="alert('고객센터에 문의바랍니다.');" style="cursor: pointer;">증빙서류 발급</li>
 		</ul>
-		<ul>
+		<ul style="padding-top: 12px; ">
 			<li>나의 계정설정</li>
 			<li>회원정보수정</li>
-			<li>회원등급</li>
-			<li>쿠폰</li>
-			<li>포인트</li>
+			<li onclick="alert('준비중인 서비스 입니다.');" style="cursor: pointer;">회원등급</li>
+			<li onclick="alert('준비중인 서비스 입니다.');" style="cursor: pointer;">쿠폰</li>
+			<li onclick="alert('준비중인 서비스 입니다.');" style="cursor: pointer;">포인트</li>
 		</ul>
-		<ul>
-			<li>고객센터</li>
-			<li>1:1문의내역</li>
-			<li>공지사항</li>
-			<li>고객의 소리</li>
+		<ul style="padding-top: 12px;">
+			<li onclick="alert('준비중인 서비스 입니다.');" style="cursor: pointer;">고객센터</li>
+			<li onclick="alert('준비중인 서비스 입니다.');" style="cursor: pointer;">1:1문의내역</li>
+			<li onclick="alert('준비중인 서비스 입니다.');" style="cursor: pointer;">공지사항</li>
+			<li onclick="alert('준비중인 서비스 입니다.');" style="cursor: pointer;">고객의 소리</li>
 		</ul>
 	</div>
 

@@ -86,6 +86,7 @@
 			width:220px;
 		}
 		ul{
+			
 			list-style-type:none;
 			padding-left: 0 !important;		
 		}
@@ -170,7 +171,7 @@
 		</ul>
 		<ul>
 			<li>나의 계정설정</li>
-			<li>회원정보수정</li>
+			<li><a href="${pageContext.request.contextPath}/memberInfo.me">회원정보수정</a></li>
 			<li>회원등급</li>
 			<li>쿠폰</li>
 			<li>포인트</li>
@@ -220,6 +221,11 @@
 			</div>
 		</div>
 	<div class="ordercontent">
+	<c:choose>
+		<c:when test="${ infofile ne null}">
+			<jsp:include page="/member/myInfo.jsp"></jsp:include>
+		</c:when>
+		<c:otherwise>
 	<div class="table_ti">
 			<span style="font-size: 24px; font-weight: 500;">최근 주문내역</span>
 			<div class="more_icon"><a href="${pageContext.request.contextPath}/allorderlist.or"><img src="${pageContext.request.contextPath}/img/icon/more.svg"></a></div>
@@ -231,6 +237,7 @@
 				<td>주문번호</td>
 				<td>결제금액</td>
 			</tr>
+		
 		<c:forEach var="orderlist" items="${orderList }">
 			<tr style="border-bottom : 1px solid black; text-align: center; height:55px;">
 				<td>${orderlist.order_date }</td>
@@ -240,6 +247,9 @@
 			</tr>
 			</c:forEach>
 		</table>
+		</c:otherwise>
+	</c:choose>
+		
 		</div>
 		</div>
 		</div>
