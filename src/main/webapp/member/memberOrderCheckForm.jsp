@@ -20,7 +20,6 @@
 	}
 	.left{
 		width:200px;
-		padding:10px;		
 	}
 	.right{
 		width:1000px;
@@ -31,6 +30,7 @@
 	.names{
 		display:flex;
 		align-items:  baseline;
+		margin-bottom: 10px;
 	}
 	.name{
 		font-size: 32px;
@@ -147,11 +147,27 @@
 				display:flex;
 				align-items: center;
 				justify-content: center;
-			}		
+			}
+
+			a{
+				text-decoration: none !important;
+				color:#494949 !important;
+			}	
+			ul>li:nth-child(1) {
+				font-size: 20px; 
+				font-weight: 500;
+				}
+			li{
+				margin-bottom: 3px;
+			}	
 </style>
 </head>
 <body>
 <c:if test="${member.membership_id eq 'e' }"><c:set var="membership">BRONZE</c:set></c:if>
+<c:if test="${member.membership_id eq 'd' }"><c:set var="membership">SILVER</c:set></c:if>
+<c:if test="${member.membership_id eq 'c' }"><c:set var="membership">GOLD</c:set></c:if>
+<c:if test="${member.membership_id eq 'b' }"><c:set var="membership">PLATINUM</c:set></c:if>
+<c:if test="${member.membership_id eq 'a' }"><c:set var="membership">VIP</c:set></c:if>
 <div class="outer">
 	<div class="left">
 		<div class="profile">
@@ -162,10 +178,10 @@
 				님
 			</div>
 		</div>
+		
 		<ul>
 			<li>나의 쇼핑정보</li>
-			<li>주문배송조회</li>
-			<li>취소/교환/반품 내역</li>
+			<li><a href="${pageContext.request.contextPath}/allorderlist.or">주문배송조회</a></li>
 			<li>증빙서류 발급</li>
 		</ul>
 		<ul>

@@ -143,6 +143,32 @@
    	font-size: 12px;
    	text-align: center;
    }
+   
+   .th_img.transparent {
+      opacity: 0.5;
+   }
+   .blocking{
+         		width:550px;
+         		height:550px;
+         		background-color: rgba(0,0,0,0.5);
+         		text-align: center;
+    }
+    
+    .th_img.close{position:relative;}
+    .th_img.close:before{
+	    content:"구매할 수 없는 상품입니다.";
+	    padding-top:265px; 
+		text-align:center;		
+	    color:white;
+	    font-size:24px;
+	    position:absolute; 
+	    top:0; 
+	    left:0; 
+	    width:100%; 
+	    height:100%; 
+	    background:rgba(0,0,0,0.4);
+	    
+    }
 
 </style>
 
@@ -273,7 +299,17 @@
 
    </div>
 
-
+	<script>
+	$(function(){
+		var fin_date = '${subday }';
+		console.log(fin_date);
+		console.log(typeof(fin_date));
+		if(fin_date<0){
+			$(".th_img").addClass('close');
+		}
+		
+	});		
+	</script>
 
 </body>
 </html>

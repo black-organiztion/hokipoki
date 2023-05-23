@@ -163,7 +163,7 @@
 			</div>
 		</div>
 		<ul>
-			<li>나의 쇼핑정보</li>
+			<li><a href="${pageContext.request.contextPath}/allorderlist.or">나의 쇼핑정보</a></li>
 			<li>주문배송조회</li>
 			<li>취소/교환/반품 내역</li>
 			<li>증빙서류 발급</li>
