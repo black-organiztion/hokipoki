@@ -70,6 +70,7 @@ public class GonguDAO {
 
 	}
 
+
 	public Gongu selectgongu(int id) {
 		Gongu gongu = null;
 		PreparedStatement pstmt = null;
