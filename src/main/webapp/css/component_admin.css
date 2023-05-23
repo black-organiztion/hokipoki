@@ -133,6 +133,8 @@ select:disabled {background-image:none;}
 .card_list>li .img>img{position:absolute; top:50%; left:50%; height:150px; transform:translate(-50%,-50%);}
 
 .card_list ul{background-color:#F4F4F4;}
+.card_list_header{display:flex;}
+.card_list_header>span{font-weight:500; color:#7B8083;}
 
 /*pagination*/
 .pagination{justify-content:center; margin-top:20px;}

@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import vo.Gongu;
 import vo.MemberOrder;
 import vo.MemberOrderGongu;
 
@@ -197,7 +198,7 @@ public class OrderDAO {
 		ArrayList<MemberOrder> memberOrderList = new ArrayList<>();
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT * FROM orders WHERE member_id = ?";
+		String sql = "SELECT * FROM orders WHERE member_id = ? AND order_status='5'";
 		try {
 			psmt = con.prepareStatement(sql);
 			psmt.setString(1, member_id);
@@ -523,6 +524,48 @@ public class OrderDAO {
 
 		return orderList;
 	}
+	
+	
+	public int updateOrder(ArrayList<Gongu> closeList) {
+		int result = 0;
+		int totalCnt = 0;
+		PreparedStatement psmt = null;
+		try {
+
+			for (int i = 0; i < closeList.size(); i++) {
+
+				String sql = "";
+
+				if (closeList.get(i).getGongu_status().equals("8")) {
+					sql = "UPDATE orders SET order_status = '2' WHERE gongu_id = '" + closeList.get(i).getGongu_id()
+							+ "'";
+				} else {
+					sql = "UPDATE orders SET order_status = '0' WHERE gongu_id = '" + closeList.get(i).getGongu_id()
+							+ "'";
+				}
+
+				psmt = con.prepareStatement(sql);
+				System.out.println(psmt);
+				result = psmt.executeUpdate();
+
+				if (result > 0) {
+					totalCnt += result;
+				}
+				System.out.println("쿼리별order update건수" + totalCnt);
+
+			}
+		} catch (Exception e) {
+			System.out.println("주문업데이트오류:" + e);
+
+		} finally {
+			close(psmt);
+		}
+
+		return result;
+	}
+
+
+
 
 	
 

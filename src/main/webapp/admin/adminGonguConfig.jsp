@@ -52,7 +52,7 @@
 				
 				<!-- conts4 : 공구등록버튼 -->
 				<c:if test="${sessionScope.loginAuthor eq 1 }">
-				<div class="section w_bt">
+				<div class="section w_bt sec3">
 					<a href="gonguRegistForm.go" class="bt bt_primary bt_lg"><span class="bt_ic plus"></span>공구등록</a>
 				</div>
 				</c:if>

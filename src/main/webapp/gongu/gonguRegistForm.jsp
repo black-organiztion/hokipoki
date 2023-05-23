@@ -13,7 +13,7 @@
 			<!-- content header -->
 			<div class="col-12">
 				<div class="cont_header">
-					<a href="adminGonguListAction.ad" class="bt">목록</a>
+					<a id="btn_list" href="adminGonguListAction.ad">목록</a>
 					<h2>공구등록</h2>
 				</div>
 			</div>

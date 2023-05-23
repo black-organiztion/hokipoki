@@ -62,7 +62,7 @@
 												<span>${seller.seller_number }</span>
 												<span>
 													<c:if test="${seller.seller_author == 99 }">
-														<a href="adminSellerJoinCheck.ad?seller_id=${seller.seller_id}" class="bt">승인</a>
+														<a href="adminSellerJoinCheck.ad?seller_id=${seller.seller_id}" class="bt bt_primary">승인</a>
 													</c:if>
 												</span>
 											</div>

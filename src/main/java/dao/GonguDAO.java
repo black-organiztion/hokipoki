@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import vo.Gongu;
 
@@ -420,54 +421,47 @@ public class GonguDAO {
 		PreparedStatement psmt = null;
 		PreparedStatement psmt2 = null;
 		ResultSet rs = null;
-		String sql = "UPDATE gongu SET gongu_status = IF(gongu_reserve < gongu_min, '7', '8'), gongu_update=CURDATE() WHERE gongu_status = '4' && (gongu_findate <= CURDATE() || gongu_reserve = gongu_stock)";
-		String sql2 = "SELECT gongu_id, gongu_name FROM gongu WHERE (gongu_status = '7' || gongu_status = '8') && gongu_update = CURDATE()";
+		String sql = "UPDATE gongu SET gongu_status = IF(gongu_reserve < gongu_min, '7', '8'), gongu_update=CURDATE() WHERE gongu_status = '4' && (gongu_findate <= CURDATE() || gongu_reserve >= gongu_stock)";
+		String sql2 = "SELECT gongu_id, gongu_name, gongu_status FROM gongu WHERE (gongu_status = '7' || gongu_status = '8') && gongu_update = CURDATE()";
 		
 		try {
 			psmt = con.prepareStatement(sql);
 			System.out.println(psmt);
 			int closeCount = psmt.executeUpdate();
 			
-			//System.out.println("closeCount:"+closeCount);
+			System.out.println("closeCount:"+closeCount);
 			
 			if(closeCount > 0) {
-				try {
-					psmt2 = con.prepareStatement(sql2);
-					System.out.println(psmt2);
-					rs = psmt2.executeQuery();
-					
-					if(rs.next()) {
-						do {
-							Gongu gongu = new Gongu();
-							gongu.setGongu_id(rs.getInt("gongu_id"));
-							gongu.setGongu_name(rs.getString("gongu_name"));
-							
-							closeList.add(gongu);
-							
-						}while(rs.next());
-					}
-					
-					//System.out.println("종료된공구:"+closeList.size());
-					
-				}catch(Exception e){
-					System.out.println("종료된공구선택오류:"+e);
-					
-				}finally {
-					close(rs);
-					close(psmt2);
+				psmt2 = con.prepareStatement(sql2);
+				System.out.println(psmt2);
+				rs = psmt2.executeQuery();
+				
+				if(rs.next()) {
+					do {
+						Gongu gongu = new Gongu();
+						gongu.setGongu_id(rs.getInt("gongu_id"));
+						gongu.setGongu_name(rs.getString("gongu_name"));
+						gongu.setGongu_status(rs.getString("gongu_status"));
+						
+						closeList.add(gongu);
+						
+					}while(rs.next());
 				}
-				
-			}
-				
+					
+			}	//System.out.println("종료된공구:"+closeList.size());
+					
 		}catch(Exception e) {
 			System.out.println("공구종료오류:"+e);
 			
 		}finally {
+			close(rs);
+			close(psmt2);
 			close(psmt);
 		}
 		
 		return closeList;
 	}
+
 
 
 	public ArrayList<Gongu> getCategoryList(String category) {
@@ -616,7 +610,7 @@ public class GonguDAO {
 		
 		//조건:판매자 권한이면 seller_id 조건 추가
 		if(loginAuthor>0) {
-			sql += " AND seller_id LIKE '%"+loginId+"%'";
+			sql += " AND seller_id = '"+loginId+"'";
 		}
 		
 		try {
@@ -646,7 +640,7 @@ public class GonguDAO {
 		
 		//조건:판매자 권한이면 seller_id 조건 추가
 		if(loginAuthor>0) {
-			sql += " AND seller_id LIKE '%"+loginId+"%'";
+			sql += " AND seller_id LIKE '"+loginId+"'";
 		}
 		
 		try {
@@ -770,38 +764,130 @@ public class GonguDAO {
 	}
 
 	
-	public ArrayList<Gongu> seletClosingGonguList() {
-		ArrayList<Gongu> gonguList = new ArrayList<>();
-		PreparedStatement psmt = null;
-		ResultSet rs = null;
-		String sql = "SELECT * FROM gongu WHERE gongu_findate BETWEEN CURDATE() AND (SELECT DATE_ADD(CURDATE(), INTERVAL 3 DAY)) ORDER BY gongu_findate";
-		
-		try {
-			psmt = con.prepareStatement(sql);
-			rs = psmt.executeQuery();
-			System.out.println(psmt);
+	//메인 마감임박공구
+		public ArrayList<Gongu> seletClosingGonguList() {
+			ArrayList<Gongu> gonguList = new ArrayList<>();
+			PreparedStatement psmt = null;
+			ResultSet rs = null;
+			String sql = "SELECT * FROM gongu WHERE gongu_findate BETWEEN CURDATE() AND (SELECT DATE_ADD(CURDATE(), INTERVAL 3 DAY)) ORDER BY gongu_findate limit 10";
 			
-			if(rs.next()) {
-				do {
-					Gongu gongu = new Gongu();
-					gongu.setGongu_name(rs.getString("gongu_name"));//공구명
-					gongu.setGongu_findate(rs.getString("gongu_findate"));//판매마감일
-					
-					gonguList.add(gongu);
+			try {
+				psmt = con.prepareStatement(sql);
+				rs = psmt.executeQuery();
+				System.out.println(psmt);
 				
-				}while(rs.next());
+				if(rs.next()) {
+					do {
+						Gongu gongu = new Gongu();
+						gongu.setGongu_name(rs.getString("gongu_name"));//공구명
+						gongu.setGongu_findate(rs.getString("gongu_findate"));//판매마감일
+						
+						gonguList.add(gongu);
+					
+					}while(rs.next());
+				}
+				
+			}catch(Exception e) {
+				System.out.println("마감임박공구선택오류:"+e);
+				
+			}finally {
+				close(rs);
+				close(psmt);
 			}
 			
-		}catch(Exception e) {
-			System.out.println("마감임박공구선택오류:"+e);
-			
-		}finally {
-			close(rs);
-			close(psmt);
+			return gonguList;
 		}
 		
-		return gonguList;
-	}
+		//메인 판매자 진행중 공구
+		public ArrayList<Gongu> selectOnGoingList(String loginId) {
+			ArrayList<Gongu> gonguList = new ArrayList<>();
+			PreparedStatement psmt = null;
+			ResultSet rs = null;
+			String sql = "SELECT * FROM gongu WHERE seller_id = ? AND gongu_status = '4' ORDER BY gongu_date DESC limit 10";
+			
+			try {
+				psmt = con.prepareStatement(sql);
+				psmt.setString(1,loginId);
+				rs = psmt.executeQuery();
+				
+				if(rs.next()) {
+					do {
+						Gongu gongu = new Gongu();
+						gongu.setGongu_name(rs.getString("gongu_name"));//공구명
+						gongu.setGongu_startdate(rs.getString("gongu_startdate"));//공구시작일
+						gongu.setGongu_findate(rs.getString("gongu_findate"));//공구종료일
+						gongu.setGongu_reserve(rs.getString("gongu_reserve"));//공구구매수
+						
+						gonguList.add(gongu);
+						
+					}while(rs.next());
+				}
+				
+			}catch(Exception e) {
+				System.out.println("판매자진행중공구목록선택오류:"+e);
+				
+			}finally {
+				close(rs);
+				close(psmt);
+			}
+			
+			return gonguList;
+		}
+		
+		//판매자가 승인대기일때 공구 삭제
+		public int deleteGongu(String gongu_id) {
+			int result = 0;
+			PreparedStatement psmt = null;
+			String sql = "DELETE FROM gongu WHERE gongu_id = ? AND gongu_status = '0'";
+			
+			try {
+				psmt = con.prepareStatement(sql);
+				psmt.setString(1, gongu_id);
+				System.out.println(psmt);
+				result = psmt.executeUpdate();
+				
+			}catch(Exception e) {
+				System.out.println("판매자공구삭제실패:"+e);
+				
+			}finally {
+				close(psmt);
+			}
+			
+			return result;
+		}
+
+		public HashMap<Integer, String> selectMemberGongu(String member_id) {
+			HashMap<Integer, String> gonguList = new HashMap<Integer, String>();
+			PreparedStatement psmt = null;
+			ResultSet rs = null;
+			String sql = "SELECT DISTINCT(g.gongu_id), g.gongu_name "
+					+ "FROM orders o JOIN member m ON o.member_id = m.member_id "
+					+ "JOIN gongu g ON o.gongu_id = g.gongu_id WHERE o.member_id = ?";
+			
+			try {
+				psmt = con.prepareStatement(sql);
+				psmt.setString(1, member_id);
+				System.out.println(psmt);
+				rs = psmt.executeQuery();
+				
+				if(rs.next()) {
+					do {
+						gonguList.put(rs.getInt(1), rs.getString(2));
+						
+					}while(rs.next());
+				}
+				
+			}catch(Exception e) {
+				
+			}finally {
+				close(rs);
+				close(psmt);
+			}
+			
+			return gonguList;
+		}
+
+
 
 
 	

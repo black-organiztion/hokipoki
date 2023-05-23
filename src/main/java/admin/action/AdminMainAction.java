@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import action.Action;
 import admin.svc.AdminClosingGonguListService;
+import admin.svc.AdminOngoingGonguListService;
 import admin.svc.AdminSellerListService;
 import gongu.svc.GonguListService;
 import vo.ActionForward;
@@ -51,11 +52,14 @@ public class AdminMainAction implements Action {
 			//4. 공통)미응답문의건수
 			
 			//5. 판매자)진행중인공구목록
+			AdminOngoingGonguListService adminOngoingGonguListService = new AdminOngoingGonguListService(); 
+			ArrayList<Gongu> onGoingList = adminOngoingGonguListService.getOngoingList(loginId,loginAuthor);
 			
 			
 			request.setAttribute("standByCnt", standByCnt);
 			request.setAttribute("sellerStandByCnt", sellerStandByCnt);
 			request.setAttribute("closingList",closingList);
+			request.setAttribute("onGoingList", onGoingList);
 			request.setAttribute("pagefile", "/admin/adminMain.jsp");
     		forward = new ActionForward("/admin/adminTemplate.jsp", false);
 		}

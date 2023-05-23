@@ -3,11 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<div id="content" class="">
+<div id="content" class="order_config">
 	<div class="container">
 		<div class="row">
 			<div class="col-12">
-				<div class="section">
+				<div class="section sec1">
 					<!-- conts1 : 주문필터 + 리스트 -->
 					<h5>주문검색</h5>
 					<div class="utils">

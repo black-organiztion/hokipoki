@@ -73,30 +73,48 @@
 		height:75px;
 		margin-bottom: 0px;			
 	  }
-
-		
-	 	
+	footer .inr{display:flex; max-width:1200px; width:100%; margin:0 auto; padding:20px 0;}	
+	 .ft_logo{font-size:0;}	
+	 .ft_logo>img{width:180px;}	
+	 footer ul{padding:0}
+	 footer ul>li{font-size:14px; display:flex;}
+	 footer ul>li>em{color:#999; font-style:normal; padding-right:10px;}
+	 footer .inr>div:nth-child(1){flex:0 0 auto; padding-right:50px;}
+	 footer .inr>div:nth-child(2){flex:1 1 auto; padding-right:50px;}
+	 footer .inr>div:nth-child(3){flex:0 0 auto; width:25%;}
 	  
     </style>
 </head>
-
-
   <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-    <p class="col-md-4 mb-0 text-muted"> <a href="adminLogin.ad" class="btn btn-primary">호키포키 biz</a></p>
-
-    <a href="/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-      <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
-    </a>
-
-    <ul class="nav col-md-4 justify-content-end">
-      <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
-      <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Features</a></li>
-      <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Pricing</a></li>
-      <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
-      <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
-    </ul>
+  	<div class="inr">
+  		<div>
+  			<a class="ft_logo" href="gonguListHome.go">
+  				<img src="./img/ft_logo.svg"/>
+  				호키포키
+  			</a>
+  		</div>
+  		<div>
+  			<ul>
+	  			<li>대구시 달서구</li>
+	  			<li>사업자등록번호 : 000-11-22222</li>
+	  			<li>전화번호 : 1234-5678 | E-mail:customer@hokipoki.com</li>
+	  		</ul>
+	  		<ul>
+	  			<li>호스팅서비스 : (주)호키포키</li>
+	  			<li>사이트 내 판매 상품은 (주)호키포키에 입점한 개별판매자가 판매하는 상품입니다. (주)호키포키는 통신판매중개자로서 판매 당사자가 아니며, 상품정보 및 거래 등에 대한 책임을 지지 않습니다.</li>
+	  			<li>COPYRIGHT © HOKIPOKI ALL RIGHTS RESERVED.</li>
+	  		</ul>
+  		</div>
+  		<div>
+  			<ul>
+  				<li>고객센터</li>
+  				<li><em>운영시간</em><span>오전 10시 ~ 오후 5시(주말, 공휴일 휴무)</span></li>
+  				<li><em>점심시간</em><span>오후 12시 30분 ~ 오후 1시 30분</span></li>
+  			</ul>
+  		</div>
+  	</div>
+    
   </footer>
-</div>
 
 </body>
 </html>

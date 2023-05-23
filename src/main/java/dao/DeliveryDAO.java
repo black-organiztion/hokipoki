@@ -167,7 +167,7 @@ public class DeliveryDAO {
 		
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT * FROM delivery WHERE member_id = ? && (isDefault IN(0,1))"; //
+		String sql = "SELECT * FROM delivery WHERE member_id = ? && (isDefault IN(0,1)) limit 10"; //
 		
 		try {
 			psmt = con.prepareStatement(sql);
@@ -184,7 +184,7 @@ public class DeliveryDAO {
 					delivery.setReceiver_name(rs.getString("receiver_name"));
 					delivery.setReceiver_tel(rs.getString("receiver_tel"));
 					delivery.setReceiver_tel2(rs.getString("receiver_tel2"));
-					delivery.setZip_code(rs.getString("zip_code"));
+					delivery.setZip_code(rs.getString("zipcode"));
 					delivery.setAddr1(rs.getString("addr1"));
 					delivery.setAddr2(rs.getString("addr2"));
 					
@@ -195,6 +195,7 @@ public class DeliveryDAO {
 			
 		}catch(Exception e) {
 			System.out.println("회원배송지목록선택오류:"+e);
+			e.printStackTrace();
 			
 		}finally {
 			close(rs);

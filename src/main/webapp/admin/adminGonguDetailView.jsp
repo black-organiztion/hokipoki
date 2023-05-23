@@ -14,38 +14,27 @@
 					<h2>공구상세조회</h2>
 					<div class="right">
 						<c:if test="${sessionScope.loginId eq 'system' || sessionScope.loginAuthor eq 0 }">
-						<div class="bts_gongu_status">
-							<!-- 공구컨트롤버튼 : 종료아닐때만 표시 -->
-							<c:if test="${gongu.gongu_status ne '7' || gongu.gongu_status ne '8'}">
-								<c:if test="${gongu.gongu_status eq '0' }"><!-- 심사 : 승인대기일때만 표시 -->
-									<a href="adminGonguSetStatus.ad?gongu_id=${gongu.gongu_id}&gongu_status=${gongu.gongu_status}&setStatus=1&seller_id=${seller.seller_id}" class="bt bt_primary">심사시작</a>
+							<div class="bts_gongu_status">
+								<!-- 공구컨트롤버튼 : 종료아닐때만 표시 -->
+								<c:if test="${gongu.gongu_status ne '7' || gongu.gongu_status ne '8'}">
+									<c:if test="${gongu.gongu_status eq '0' }"><!-- 심사 : 승인대기일때만 표시 -->
+										<a href="adminGonguSetStatus.ad?gongu_id=${gongu.gongu_id}&gongu_status=${gongu.gongu_status}&setStatus=1&seller_id=${seller.seller_id}" class="bt bt_primary">심사시작</a>
+									</c:if>
+									<c:if test="${gongu.gongu_status eq '1' }"><!-- 승인/승인거절 : 심사일때만 표시 -->
+										<a href="adminGonguSetStatus.ad?gongu_id=${gongu.gongu_id}&gongu_status=${gongu.gongu_status}&setStatus=2&seller_id=${seller.seller_id}" class="bt bt_primary">승인</a>
+										<a href="adminGonguSetStatus.ad?gongu_id=${gongu.gongu_id}&gongu_status=${gongu.gongu_status}&setStatus=3&seller_id=${seller.seller_id}" class="bt bt_primary">반려</a>
+									</c:if>
+									<!-- 진행중(4)은 공구글이 게시된 시점부터. -->
+									<c:if test="${gongu.gongu_status eq '4' }"><!-- 비활성화 : 진행중일때만 표시 =>지만 사실 비활성화 대기로 바꾸는거고 일정 기간 이후에 자동 비활성화 -->
+										<a href="adminGonguSetStatus.ad?gongu_id=${gongu.gongu_id}&gongu_status=${gongu.gongu_status}&setStatus=5&seller_id=${seller.seller_id}" class="bt bt_primary">비활성화</a>
+									</c:if>
+									
 								</c:if>
-								<c:if test="${gongu.gongu_status eq '1' }"><!-- 승인/승인거절 : 심사일때만 표시 -->
-									<a href="adminGonguSetStatus.ad?gongu_id=${gongu.gongu_id}&gongu_status=${gongu.gongu_status}&setStatus=2&seller_id=${seller.seller_id}" class="bt bt_primary">승인</a>
-									<a href="adminGonguSetStatus.ad?gongu_id=${gongu.gongu_id}&gongu_status=${gongu.gongu_status}&setStatus=3&seller_id=${seller.seller_id}" class="bt bt_primary">반려</a>
-								</c:if>
-								<!-- 진행중(4)은 공구글이 게시된 시점부터. -->
-								<c:if test="${gongu.gongu_status eq '4' }"><!-- 비활성화 : 진행중일때만 표시 =>지만 사실 비활성화 대기로 바꾸는거고 일정 기간 이후에 자동 비활성화 -->
-									<a href="adminGonguSetStatus.ad?gongu_id=${gongu.gongu_id}&gongu_status=${gongu.gongu_status}&setStatus=5&seller_id=${seller.seller_id}" class="bt bt_primary">비활성화</a>
-								</c:if>
-								
-								<%-- <c:if test="${gongu.gongu_status eq '0' }"><!-- 심사 : 승인대기일때만 표시 -->
-									<a href="adminGonguCheckAction.ad?gongu_id=${gongu.gongu_id}&gongu_status=${gongu.gongu_status}" class="btn btn-secondary">심사시작</a>
-								</c:if>
-								<c:if test="${gongu.gongu_status eq '1' }"><!-- 승인/승인거절 : 심사일때만 표시 -->
-									<a href="adminGonguOkAction.ad?gonngu_id=${gongu.gongu_id}&gongu_status=${gongu.gongu_status}" class="btn btn-primary">승인</a>
-									<a href="adminGonguRejectAction.ad?gongu_id=${gongu.gongu_id}&gongu_status=${gongu.gongu_status}" class="btn btn-secondary">반려</a>
-								</c:if>
-								<c:if test="${gongu.gongu_status eq '4' }"><!-- 비활성화 : 진행중일때만 표시 -->
-									<a href="adminGonguDisableAction.ad?gongu_id=${gongu.gongu_id}" class="btn btn-secondary">비활성화</a>
-								</c:if>
-								<c:if test="${gongu.gongu_status ne '0' }"><!-- 수정:심사중 이후에만 표시 -->
-									<a href="adminGonguModifyAction.ad?gongu_id=${gongu.gongu_id}" class="btn btn-secondary">수정</a>
-								</c:if> --%>
-								
-							</c:if>
-						</div>
-					</c:if>
+							</div>
+						</c:if>
+						<c:if test="${(gongu.gongu_status eq '0' && sessionScope.loginAuthor eq 1) || (gongu.gongu_status eq '6' && sessionScope.loginAuthor eq 0 ) }">
+							<button id="btn_delete" class="bt bt_primary">삭제</button>
+						</c:if>
 					</div>
 				</div>
 			</div>
@@ -385,6 +374,24 @@
   </div>
 </div>
 
+<div id="confirmBox" class="modal fade delete" tabindex="-1">
+  <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content section">
+      <div class="modal-header">
+        <h5 class="modal-title">공구삭제</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>삭제하시겠습니까?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="bt" data-bs-dismiss="modal">취소</button>
+        <a href="adminGonguDeleteAction.ad?gongu_id=${gongu.gongu_id }" class="bt bt_primary">확인</a>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 	$(function(){
 		//header 메뉴 active
@@ -416,6 +423,10 @@
 		
 		$("#btn_submit").on('click', function(){
 			$("#formArea").submit();
+		});
+		
+		$("#btn_delete").on('click', function(){
+			$("#confirmBox.delete").modal('show');
 		});
 		
 	});

@@ -17,6 +17,7 @@ import gongu.action.GonguCategoryAction;
 import gongu.action.GonguHomeListAction;
 import gongu.action.GonguRegistAction;
 import gongu.action.GonguViewAction;
+import gongu.action.MemberGonguListAction;
 import gongu.action.MenuListAction;
 import gongu.action.SearchGonguAction;
 import vo.ActionForward;
@@ -125,6 +126,13 @@ public class GonguFrontController extends HttpServlet {
             e.printStackTrace();
          }
        }
+       else if(command.equals("/memberGonguListAction.go")) {
+    	  String member_id = request.getParameter("member_id");
+    	  String result = new MemberGonguListAction().getGonguList(member_id);
+    	  response.setContentType("application/json");
+    	  response.setCharacterEncoding("UTF-8");
+    	  response.getWriter().write(result);
+        }
        
        
        if (forward != null) {

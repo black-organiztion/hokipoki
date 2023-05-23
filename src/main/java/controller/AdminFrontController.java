@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
 import admin.action.*;
+import gongu.action.AdminGonguDeleteAction;
 /*import admin.action.adminLoginAction;
 import admin.action.adminSellerListAction;*/
 import vo.ActionForward;
@@ -195,6 +196,16 @@ public class AdminFrontController extends HttpServlet {
     	}
     	else if(command.equals("/adminSellerUpdate.ad")){
     		action = new AdminSellerUpdateAction();
+    		try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    		
+    	}
+    	else if(command.equals("/adminGonguDeleteAction.ad")){
+    		action = new AdminGonguDeleteAction();
     		try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {

@@ -228,11 +228,19 @@
     		margin: 0;    		
     	}
     	
-	  
+	  .biz{width:100%; background-color:#f5f6f7;}
+	  .biz>.inr{display:flex; max-width:1200px; width:100%; height:50px; margin:0 auto;}
+	  .biz a{display:inline-flex; align-items:center; font-size:14px; color:#666;}
+	  .biz img{width:80px; margin-left:10px;}
+	  .biz a:after{content:''; width:12px; height:12px; margin-left:5px; background-image:url(./img/admin/utils/utils_page_chevron.svg); background-size:12px auto; background-position:bottom center;}
     </style>
 </head>
 <body>
-
+	<div class="biz">
+		<div class="inr">
+			<a href="adminLogin.ad">호키포키의 새로운 판매자가 되어보세요!<img src="./img/admin/logo_banner.png"></a>
+		</div>
+	</div>
   <header class="header_outer" >  
     <div class="header_top" id="ad" >
 		        <div class="logo" id="logo">
