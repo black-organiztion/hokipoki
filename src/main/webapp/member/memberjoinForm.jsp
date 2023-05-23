@@ -71,11 +71,7 @@ var chkId=false;
 var idCheck;
 
 function chkForm(f){
-   if(!chkId || idcheck!=f.id.value.trim()){
-      alert("아이디 중복을 확인하세요");
-      return false;
-   }   
-   
+	
    if(f.pw.value.trim()==""){
       alert('비밀번호를 입력하세요');
       f.pw.focus();      
@@ -86,8 +82,6 @@ function chkForm(f){
       alert('비밀번호가 일치하지 않습니다.');
       return false;
    }
-   
-
    
    if(f.receivername.value.trim()==""){
          alert('수령인을 입력하세요');
@@ -112,38 +106,30 @@ function chkForm(f){
          return false;      
       }
    
-   var regExp = /^[a-z]+[a-z0-9]{5,10}$/g;
+   var regExp = "/^[a-z]+[a-z0-9]{5,10}$/g";
    
    var pw = $("#pw").val();
    
    var id = $("#id").val();
       
-   var reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
-   var hangulcheck = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+   var reg = "^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,8}$/";
+   var hangulcheck = "/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/";
    
-   if(false === hangulcheck.test(f.name.value.trim())){
+/*    if(false === hangulcheck.test(f.name.value.trim())){
       alert('이름은 한글만 가능합니다.');
       return false;
    }
-   
+    */
    if(false === regExp.test(id)){
       alert('아이디는 5자에서 10자의 영문만 가능합니다.');
       return false;
    }
    if(false === reg.test(pw)) {
-   alert('비밀번호는 8자 이상이어야 하며, 숫자/대문자/소문자/특수문자를 모두 포함해야 합니다.');
+   alert('비밀번호는 8자 이상이어야 하며, 숫자/영어를 포함해야 합니다.');
    return false;
-   }else if(/(\w)\1\1\1/.test(pw)){
-    alert('같은 문자를 4번 이상 사용하실 수 없습니다.');
-    return false;
-    }else if(pw.search(id) > -1){
-    alert("비밀번호에 아이디가 포함되었습니다.");
-     return false;
-    }else if(pw.search(/\s/) != -1){
-    alert("비밀번호는 공백 없이 입력해주세요.");
-    return false;
-    }else if(hangulcheck.test(pw)){
+   }else if(hangulcheck.test(pw)){
     alert("비밀번호에 한글을 사용 할 수 없습니다."); 
+    return false;
     }else {
     console.log("통과");
     }
@@ -341,38 +327,36 @@ background: white;
       </div>
       
       <script>
-$("#mid").keyup(function(){
-		var userId = $("#mid").val();
-		
-		$.ajax({
-			type:'POST',
-			url:"MemberIdChk.me",
-			dataType:'text',
-			data:{"userId":userId},
-			success : function(result){
-				if(result === 'Avaliable'){
-					$("#checkId").html('사용가능한 아이디입니다.');
-					$("#checkId").attr('color','green');				
-				}else{//중복 안됨
-					$("#checkId").html('사용 불가한 아이디입니다.');
-					$("#checkId").attr('color','red');				
-				}
-			},
-			error:function(){
-				alert("서버요청 실패");
-			}			
-		});
-	
-	});
-
-
-</script>
+			$("#mid").keyup(function(){
+					var userId = $("#mid").val();
+					
+					$.ajax({
+						type:'POST',
+						url:"MemberIdChk.me",
+						dataType:'text',
+						data:{"userId":userId},
+						success : function(result){
+							if(result === 'Avaliable'){
+								$("#checkId").html('사용가능한 아이디입니다.');
+								$("#checkId").attr('color','green');				
+							}else{//중복 안됨
+								$("#checkId").html('사용 불가한 아이디입니다.');
+								$("#checkId").attr('color','red');				
+							}
+						},
+						error:function(){
+							alert("서버요청 실패");
+						}			
+					});
+				
+				});
+		</script>
       
    
    <div class="form_group">
       <label>비밀번호</label>
          <div class="input_group">
-            <input type="password" class ="pw form_control" id="pw" name="pw">
+            <input type="password" class ="pw form_control" id="pw" name="pw" >
          </div>
           <div class="etc" style="padding-top:8px; font-size:14px;" >
      		 비밀번호는 8자 이상, 숫자/영어를 포함해야 합니다.
@@ -394,7 +378,7 @@ $("#mid").keyup(function(){
    <div class="form_group">
       <label>휴대폰</label>   
          <div class="input_group">
-            <input type="text" id="tel" name="tel" class="form_control">
+            <input type="text" id="tel" name="tel" class="form_control" maxlength="11">
          </div>
    </div>
    <div class="form_group">
@@ -407,7 +391,6 @@ $("#mid").keyup(function(){
       <label>추천인</label>
          <div class="input_group">
             <input type="text" id="Rid" name="recommend_id" class="form_control">
-            <input type="button" name="idCheck" value="검색" id="idCheck" onclick="window.open('${pageContext.request.contextPath}/member/recommendCheckForm.jsp?openInit=true','','width=400,height=200')">
          </div>
    </div>
    <div class="form_group">
@@ -456,7 +439,7 @@ $("#mid").keyup(function(){
                <input type="text" id="sample4_roadAddress" readonly  name="addr1" class="form_control">   
             </div>
       </div>      
-      <span id="guide" style="color:#999;"></span>
+      <span id="guide" style="color:#ffff;"></span>
    <div class="form_group">
       <label>상세주소</label>
          <div class="input_group">
@@ -468,8 +451,8 @@ $("#mid").keyup(function(){
 
 <input type="hidden" id="sample4_jibunAddress" placeholder="지번주소">
 <input type="hidden" id="sample4_extraAddress" placeholder="참고항목">
-
 <input type="hidden" id="membership_id" name="membership_id" value="e">
+
 </form>
 </div>
 <input type="button" value="회원가입" class="submitbtn" onclick="chkForm(joinform)" >

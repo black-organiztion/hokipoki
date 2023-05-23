@@ -134,7 +134,6 @@
 
 </head>
 <body>
-
 <c:if test="${categoryList eq null || categoryList eq '[]' }">
 	<div class="none">
 	<img src="${pageContext.request.contextPath}/img/icon/folder.svg" style="height:150px;">
