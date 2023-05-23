@@ -107,9 +107,6 @@
 
 </head>
 <body>
-
-
-
 <div class="all">
 <div class="tit">
 회원정보 수정

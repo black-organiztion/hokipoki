@@ -13,7 +13,7 @@ import order.svc.RecentOrderListService;
 import vo.ActionForward;
 import vo.Delivery;
 import vo.Member;
-import vo.MemberOrder;
+import vo.MemberOrderGongu;
 
 public class MyInfoAction implements Action {
 
@@ -22,22 +22,21 @@ public class MyInfoAction implements Action {
 	ActionForward forward=  null;
 	Member member = null;
 	Delivery delivery = null;
-	ArrayList<MemberOrder> recentOrderList = null;
+	ArrayList<MemberOrderGongu> recentOrderList = null;
 	try {
 		HttpSession session = request.getSession();
 		
 		String id = (String)session.getAttribute("member_id");
-		System.out.println("MyInfoAction에 들어온 session id:"+id);
 		MyInfoService myInfoService = new MyInfoService();
 		member  = myInfoService.showMyInfo(id);	
 		DeliveryGetService deliveryGetService = new DeliveryGetService();
 		delivery = deliveryGetService.getDelivery(id);
 		RecentOrderListService recentOrderListService = new RecentOrderListService();
 		recentOrderList = recentOrderListService.getRecentOrderList(id);
-		if(recentOrderList != null) {
+		
+		if(recentOrderList  != null) {
 			request.setAttribute("orderList", recentOrderList);
 		}
-		
 		if(member!=null) {
 			request.setAttribute("member", member);			
 		}

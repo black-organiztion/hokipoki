@@ -14,7 +14,6 @@
 <img src="images/${gongu.imgfile }">
 상품원가:${gongu.price }
 공구가격:${gongu.gongu_discount_price }
-
 </div>
 </body>
 </html>

@@ -20,6 +20,7 @@
 	}
 	.left{
 		width:200px;
+		padding:10px;		
 	}
 	.right{
 		width:1000px;
@@ -30,7 +31,6 @@
 	.names{
 		display:flex;
 		align-items:  baseline;
-		margin-bottom: 10px;
 	}
 	.name{
 		font-size: 32px;
@@ -147,27 +147,17 @@
 				display:flex;
 				align-items: center;
 				justify-content: center;
-			}
-
-			a{
-				text-decoration: none !important;
-				color:#494949 !important;
-			}	
-			ul>li:nth-child(1) {
-				font-size: 20px; 
-				font-weight: 500;
-				}
-			li{
-				margin-bottom: 3px;
-			}	
+			}		
 </style>
 </head>
 <body>
+<c:set var="listCount" value="${pageInfo.listCount }"/>
+<c:set var="nowPage" value="${pageInfo.page }"/>
+<c:set var="maxPage" value="${pageInfo.maxPage }"/>
+<c:set var="startPage" value="${pageInfo.startPage }"/>
+<c:set var="endPage" value="${pageInfo.endPage }"/>
+
 <c:if test="${member.membership_id eq 'e' }"><c:set var="membership">BRONZE</c:set></c:if>
-<c:if test="${member.membership_id eq 'd' }"><c:set var="membership">SILVER</c:set></c:if>
-<c:if test="${member.membership_id eq 'c' }"><c:set var="membership">GOLD</c:set></c:if>
-<c:if test="${member.membership_id eq 'b' }"><c:set var="membership">PLATINUM</c:set></c:if>
-<c:if test="${member.membership_id eq 'a' }"><c:set var="membership">VIP</c:set></c:if>
 <div class="outer">
 	<div class="left">
 		<div class="profile">
@@ -178,10 +168,10 @@
 				님
 			</div>
 		</div>
-		
 		<ul>
 			<li>나의 쇼핑정보</li>
-			<li><a href="${pageContext.request.contextPath}/allorderlist.or">주문배송조회</a></li>
+			<li>주문배송조회</li>
+			<li>취소/교환/반품 내역</li>
 			<li>증빙서류 발급</li>
 		</ul>
 		<ul>
@@ -235,29 +225,32 @@
 				</div>
 			</div>
 		</div>
-	<div class="ordercontent">	
+
+	<div class="ordercontent">
 		<div class="table_ti">
-			<span style="font-size: 24px; font-weight: 500;">최근 주문내역</span>
-			<div class="more_icon"><a href="${pageContext.request.contextPath}/allorderlist.or"><img src="${pageContext.request.contextPath}/img/icon/more.svg"></a></div>
+			<span style="font-size: 24px; font-weight: 500;">주문내역</span>
+			
 		</div>
 		<table>
 			<tr style="text-align: center; height:30px; border-bottom: 1px solid black; ">
-				<td>주문일</td>
-				<td >주문내역</td>
-				<td>주문번호</td>
-				<td>결제금액</td>
+				<th>주문일</th>
+				<th colspan ='2'>주문내역</th>
+				<th>주문번호</th>
+				<th>결제금액</th>
 			</tr>
-		<c:forEach var="orderlist" items="${orderList }">
+		<c:forEach var="orderlist" items="${allList }">
 			<tr style="border-bottom : 1px solid black; text-align: center; height:55px;">
 				<td>${orderlist.order_date }</td>
-				<td class="imgtd"><div class="tb_img"><img src="${pageContext.request.contextPath}/gongu/images/${orderlist.gongu_thimg }" style="width:52px; height:52px;"></div><span style="margin-left: 8px;">${orderlist.gongu_name }</span></td>
-				<td>ORDERNUM-00${orderlist.order_id }</td>
+				<td class="imgtd"><div class="tb_img" style="margin-left: 30px;"><img src="${pageContext.request.contextPath}/gongu/images/${orderlist.gongu_thimg }" style="width:52px; height:52px;"></div></td>
+				<td style="text-align:left;">${orderlist.gongu_name }</td>
+				<td>ORDERNUM-${orderlist.order_id }</td>
 				<td>${orderlist.order_price }</td>
 			</tr>
 			</c:forEach>
 		</table>
 		</div>
 		</div>
-</div>
+		</div>
+
 </body>
-</html>	
+</html>

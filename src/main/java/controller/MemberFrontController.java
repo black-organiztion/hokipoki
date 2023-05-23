@@ -154,7 +154,20 @@ public class MemberFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else if(command.equals("/MemberIdChk.me")) {
+		}else if (command.equals("/MemberUpdate.me")) {
+			action = new MemberUpdateAction();
+			try {
+				forward = action.execute(request, response);
+				forward.setRedirect(false);
+				forward.setPath("");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/recentOrderList.me")) {
+			forward = new ActionForward("/member/memberRecentOrder.jsp",false);
+		}
+		
+		else if(command.equals("/MemberIdChk.me")) {
 			String id = request.getParameter("userId");
     		String result = new MemberIdChkAction().checkId(id);
     		response.setContentType("text/plain;charset=UTF-8");

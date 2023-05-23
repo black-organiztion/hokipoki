@@ -124,12 +124,23 @@
 		
 	}
 	
-	
+	.none{
+		margin:0 auto;
+		width:1200px;
+		text-align: center;
+	}
 	
 </style>
 
 </head>
 <body>
+
+<c:if test="${categoryList eq null || categoryList eq '[]' }">
+	<div class="none">
+	<img src="${pageContext.request.contextPath}/img/icon/folder.svg" style="height:150px;">
+	<div>준비된 공구가 없습니다.</div> 
+	</div>
+</c:if>
 <c:if test="${categoryList!=null }">
 <div class="gongucontainer">
 <p class="label">${categoryList.get(0).getCategory()}</p>
