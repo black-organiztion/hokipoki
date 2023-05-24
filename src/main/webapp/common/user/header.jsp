@@ -5,13 +5,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>hokipoki</title>
+<title></title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet"> 
 
     <style>
+    	input{
+    		outline: none;
+    	}
     
     	*{
     	 font-family: 'Noto Sans KR', sans-serif;  	
@@ -268,7 +271,7 @@
 			        		</a>
 			        	</div>
 			        	<div class="member_interaction">
-			        		<a href="${pageContext.request.contextPath}/myInfo.me">
+			        		<a href="${pageContext.request.contextPath}/infoPwChkForm.me">
 			        		<img src="${pageContext.request.contextPath}/img/icon/person.svg" id="member_icon" >
 			        			<span id="tt">마이페이지</span>
 			        		</a>
@@ -324,6 +327,7 @@
 
     </div>
     
+    
 
 	
 <div class="search_area" style="display: flex;  width: 250px;">
@@ -335,6 +339,7 @@
 			<img src="${pageContext.request.contextPath}/img/icon/search.svg">
 		</button>
 	</form>
+	</div>
 </div><!-- search_area -->
 	
 	

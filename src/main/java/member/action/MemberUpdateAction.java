@@ -44,8 +44,16 @@ public class MemberUpdateAction implements Action {
 			response.setContentType("text/html;charset=utf-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script>");			
-			out.println("history.back()");
+			out.println("alert('수정 완료');");
+			out.println("history.back();");
 			out.println("</script>");			
+		}else {
+			response.setContentType("text/html;charset=utf-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");			
+			out.println("alert('수정실패');");
+			out.println("history.back();");
+			out.println("</script>");
 		}
 		
 		
