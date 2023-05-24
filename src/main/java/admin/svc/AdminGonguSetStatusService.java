@@ -89,7 +89,6 @@ public class AdminGonguSetStatusService {
 
 			if (closeList.size() > 0) {
 				// 주문상태도 변경
-				con = getConnection();
 				OrderDAO orderDAO = OrderDAO.getInstance();
 				orderDAO.setConnection(con);
 

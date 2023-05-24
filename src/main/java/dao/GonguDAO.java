@@ -251,32 +251,24 @@ public class GonguDAO {
 		
 		try {
 			psmt = con.prepareStatement(sql);
-			System.out.println(con);
+			System.out.println(psmt);
 			int startCount = psmt.executeUpdate();
 			
 			if(startCount>0) {
-				try {
-					psmt2 = con.prepareStatement(sql2);
-					rs = psmt2.executeQuery();
-					
-					if(rs.next()) {
-						do {
-							Gongu gongu = new Gongu();
-							gongu.setGongu_id(rs.getInt("gongu_id"));
-							gongu.setGongu_name(rs.getString("gongu_name"));
-							
-							startList.add(gongu);
-							
-						}while(rs.next());
+				psmt2 = con.prepareStatement(sql2);
+				System.out.println(psmt2);
+				rs = psmt2.executeQuery();
+				
+				if(rs.next()) {
+					do {
+						Gongu gongu = new Gongu();
+						gongu.setGongu_id(rs.getInt("gongu_id"));
+						gongu.setGongu_name(rs.getString("gongu_name"));
 						
-					}
+						startList.add(gongu);
+						
+					}while(rs.next());
 					
-				}catch(Exception e) {
-					System.out.println("시작공구선택오류:"+e);
-					
-				}finally{
-					close(rs);
-					close(psmt2);
 				}
 			}
 			
@@ -284,6 +276,8 @@ public class GonguDAO {
 			System.out.println("공구시작오류:"+e);
 			
 		}finally {
+			close(rs);
+			close(psmt2);
 			close(psmt);
 		}
 		
@@ -615,6 +609,7 @@ public class GonguDAO {
 		
 		try {
 			psmt = con.prepareStatement(sql);
+			System.out.println(psmt);
 			rs = psmt.executeQuery();
 			
 			if(rs.next()) {
@@ -640,7 +635,7 @@ public class GonguDAO {
 		
 		//조건:판매자 권한이면 seller_id 조건 추가
 		if(loginAuthor>0) {
-			sql += " AND seller_id LIKE '"+loginId+"'";
+			sql += " AND seller_id = '"+loginId+"'";
 		}
 		
 		try {
@@ -670,7 +665,7 @@ public class GonguDAO {
 		
 		//조건:판매자 권한이면 seller_id 조건 추가
 		if(loginAuthor>0) {
-			sql += " AND seller_id LIKE '%"+loginId+"%'";
+			sql += " AND seller_id = '"+loginId+"'";
 		}
 		
 		try {
@@ -808,6 +803,7 @@ public class GonguDAO {
 			try {
 				psmt = con.prepareStatement(sql);
 				psmt.setString(1,loginId);
+				System.out.println(psmt);
 				rs = psmt.executeQuery();
 				
 				if(rs.next()) {

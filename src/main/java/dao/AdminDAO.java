@@ -93,8 +93,7 @@ public class AdminDAO {
 		int result = 0;
 		PreparedStatement psmt = null;
 		String sql = "UPDATE seller SET seller_author = 1 WHERE seller_id = ?";
-		
-		System.out.println(sql);
+		System.out.println(psmt);
 		
 		try {
 			psmt = con.prepareStatement(sql);
@@ -395,6 +394,7 @@ public class AdminDAO {
 		
 		try {
 			psmt = con.prepareStatement(sql);
+			System.out.println(psmt);
 			rs = psmt.executeQuery();
 			
 			if(rs.next()) {

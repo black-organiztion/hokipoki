@@ -3,6 +3,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
+<%
+String alert = request.getParameter("alert");
+String startMsg = request.getParameter("startMsg");
+
+if(alert != null && alert.equals("exist")){
+	
+%>
+<script>
+	alert('공구가 시작되었습니다.\n'+`${startMsg}`);
+</script>
+
+<%} %>
 
 <div id="content" class="gongu">
 	<div class="container divide">

@@ -19,11 +19,10 @@ public class AdminGonguStartAction implements Action {
 		ActionForward forward = null;
 		
 		HttpSession session = request.getSession();
-		String loginId = (String)session.getAttribute("loginId");
-		int loginAuthor = (int)session.getAttribute("loginAuthor");
 		
-		//세션 로그인&권한체크
-		if(loginId == null || loginId.equals("") || loginAuthor!=0) {
+		
+		if(session.getAttribute("loginId")==null || session.getAttribute("loginId").equals("") || 
+				session.getAttribute("loginAuthor") == null || (int)session.getAttribute("loginAuthor") > 1) {
 			//로그인 이동
 			response.setContentType("text/html;charset=utf-8");
 			PrintWriter out = response.getWriter();
@@ -31,16 +30,24 @@ public class AdminGonguStartAction implements Action {
 			out.print("alert('권한이 없습니다. 다시 로그인해주세요');");
 			out.print("location.href='adminLogin.ad';");
 			out.print("</script>");
-			
-		}else {//권한이 있다면
+
+		}else{//권한이 있다면
+		
 			AdminGonguSetStatusService adminGonguSetStatusService = new AdminGonguSetStatusService();
 			
 			ArrayList<Gongu> startGonguList = adminGonguSetStatusService.startGonguAll();
 			
 			if(startGonguList.size() > 0) {
 				
-				request.setAttribute("startGonguList", startGonguList);
-				forward = new ActionForward("adminGonguListAction.ad", false);
+				String startMsg = "";
+				
+			   for(int i=0; i<startGonguList.size();i++) {
+				   String gonguName = startGonguList.get(i).getGongu_name();
+				   startMsg += gonguName + "\n";
+			   }
+				
+				request.setAttribute("startMsg", startMsg);
+				forward = new ActionForward("adminGonguListAction.ad?alert=exist", false);
 				
 			}else if(startGonguList.size() == 0){
 				
