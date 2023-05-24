@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
-<div id="content" class="">
+<div id="content" class="member">
 	<div class="container">
 		<div class="row">
 			<div class="col-12">

@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import action.Action;
 import admin.action.*;
@@ -46,6 +47,7 @@ public class AdminFrontController extends HttpServlet {
     	ActionForward forward = null;
     	
     	if(command.equals("/adminLogin.ad")) {
+    
     		forward = new ActionForward("./admin/adminLogin.jsp", false);
     	}
     	else if(command.equals("/adminJoin.ad")){

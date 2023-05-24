@@ -19,11 +19,9 @@ public class AdminSellerJoinCheckAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
 		HttpSession session = request.getSession();
-		String loginId = (String)session.getAttribute("loginId");
-		int loginAuthor = (int)session.getAttribute("loginAuthor");
-				
-		//세션 로그인&권한체크
-		if(loginId == null || loginAuthor!=0) {
+
+		if(session.getAttribute("loginId")==null || session.getAttribute("loginId").equals("") || 
+				session.getAttribute("loginAuthor") == null || (int)session.getAttribute("loginAuthor") > 1) {
 			//로그인 이동
 			response.setContentType("text/html;charset=utf-8");
 			PrintWriter out = response.getWriter();
@@ -31,8 +29,12 @@ public class AdminSellerJoinCheckAction implements Action {
 			out.print("alert('권한이 없습니다. 다시 로그인해주세요');");
 			out.print("location.href='adminLogin.ad';");
 			out.print("</script>");
+
+		}else {
 			
-		}else {//권한이 있다면
+			//파라미터처리
+			//String loginId = (String)session.getAttribute("loginId");
+			//int loginAuthor = (int)session.getAttribute("loginAuthor");
 			
 			//파라미터 처리
 			String seller_id = request.getParameter("seller_id");

@@ -37,22 +37,20 @@ public class AdminLoginAction implements Action {
 			//로그인 성공시
 			if(seller != null) {
 				
-				//세션에 id 남김
 				HttpSession session = request.getSession();
+				session.setMaxInactiveInterval(1800); //세션 30분 설정
+				//세션에 id 남김
 				session.setAttribute("loginId", seller.getSeller_id());
 				session.setAttribute("loginAuthor", seller.getSeller_author());
 				
 				int seller_author = seller.getSeller_author();
 				
 				//권한 확인
-				if(seller_author == 0) {//권한 0일 경우 -> 관리자 홈으로 이동
-					forward = new ActionForward("./adminMain.ad",true);
-					
-				}else if(seller_author == 1) {//권한 1일 경우 -> 판매자 홈으로 이동
-					forward = new ActionForward("./adminMain.ad",true);
-					
-				}else {//권한 99일 경우 -> 승인 대기 화면으로 이동
+				if(seller_author > 1) {//권한 99일 경우 -> 승인 대기 화면으로 이동
 					forward = new ActionForward("./adminStandby.ad",true);
+					
+				}else {//권한 0||1일 경우 -> 관리자 홈으로 이동
+					forward = new ActionForward("./adminMain.ad",true);
 				}
 				
 			}else {

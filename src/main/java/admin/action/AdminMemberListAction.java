@@ -21,13 +21,9 @@ public class AdminMemberListAction implements Action {
 		
 		//파라미터처리
 		HttpSession session = request.getSession();
-		String loginId = (String)session.getAttribute("loginId");
-		int loginAuthor = (int)session.getAttribute("loginAuthor");
-		String sOption = request.getParameter("search_option");
-		String sKeyword = request.getParameter("search_keyword");
 		
-		//세션 로그인&권한체크
-		if(loginId == null || loginId.equals("") || loginAuthor != 0) {
+		if(session.getAttribute("loginId")==null || session.getAttribute("loginId").equals("") || 
+				session.getAttribute("loginAuthor") == null || (int)session.getAttribute("loginAuthor") > 1) {
 			//로그인 이동
 			response.setContentType("text/html;charset=utf-8");
 			PrintWriter out = response.getWriter();
@@ -35,8 +31,14 @@ public class AdminMemberListAction implements Action {
 			out.print("alert('권한이 없습니다. 다시 로그인해주세요');");
 			out.print("location.href='adminLogin.ad';");
 			out.print("</script>");
-			
+
 		}else {
+			
+			String loginId = (String)session.getAttribute("loginId");
+			int loginAuthor = (int)session.getAttribute("loginAuthor");
+			String sOption = request.getParameter("search_option");
+			String sKeyword = request.getParameter("search_keyword");
+			
 			//서비스 생성
 			AdminMemberListService adminMemberListService = new AdminMemberListService();
 			

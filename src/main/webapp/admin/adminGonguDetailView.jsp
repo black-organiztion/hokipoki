@@ -187,11 +187,9 @@
 						</div>
 					</li>
 				</ul>
-				<c:if test="${gongu.gongu_status eq '0'}">
+				<c:if test="${gongu.gongu_status eq '0' && loginAuthor eq 1}">
 					<div class="bt_group">
 						<button id="btn_edit" class="bt" data-bs-toggle="modal" data-bs-target="#modalForm">수정</button>
-						<!-- <input type="submit" value="저장" id="btn_save" class="bt">
-						<button id="btn_cancel" class="bt" type="button">취소</button> -->
 					</div>
 				</c:if>
 				</div>

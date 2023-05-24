@@ -27,6 +27,9 @@ $(document).ready(function(){
 	  
 	});
 	
+	//$(".list .list_body").getNiceScroll().resize();
+  	//$(".list .list_body").niceScroll();
+	 $(".list .list_body").niceScroll({cursorwidth: '8px', zindex: 999, cursorcolor:'rgba(0,0,0,0.2)' });
 	
 	/* filter 전체 체크 액션*/
 	

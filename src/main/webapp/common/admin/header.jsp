@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <header id="header">
-	<a href="${pageContext.request.contextPath}/admin/adminTemplate.jsp" class="logo">
+	<a href="adminMain.ad" class="logo">
 		<img src="${pageContext.request.contextPath}/img/admin/logo_hokipoki_admin.png" alt="호키포키 관리자">
 		호키포키biz
 	</a>

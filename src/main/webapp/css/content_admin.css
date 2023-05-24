@@ -117,6 +117,8 @@
 .order_list>.list_header>span:nth-child(6),.order_list .list_item>a>span:nth-child(6){width:12%;}
 
 /*seller*/
+#content.seller>.container{height:100%;}
+#content.seller>.container>.row{height:100%;}
 #content.seller .sec1{flex:1 1 auto;}
 #content.seller .sec1>div{flex:1 1 auto; display:flex; flex-direction:column;}
 
@@ -130,6 +132,8 @@
 .seller_list .bt{min-width:auto;}
 
 /*member*/
+#content.member>.container{height:100%;}
+#content.member>.container>.row{height:100%;}
 .member_list>.list_header>span:nth-child(1),.member_list .list_item>a>span:nth-child(1){width:20%;}
 .member_list>.list_header>span:nth-child(2),.member_list .list_item>a>span:nth-child(2){width:20%;}
 .member_list>.list_header>span:nth-child(3),.member_list .list_item>a>span:nth-child(3){width:20%;}

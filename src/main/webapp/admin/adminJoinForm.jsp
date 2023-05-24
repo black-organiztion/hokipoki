@@ -20,7 +20,7 @@
 	html,body{width:100%; height:100%;}
 	body{position:relative; background-color:#16151A; overflow:hidden; font-family: 'Roboto','Noto Sans KR', sans-serif;}
 	#wrap{display:flex; height:100%;}
-	.img{flex:1 1 auto; height:100%; background:orange;}
+	.img{flex:1 1 auto; height:100%; background-image:url(./img/admin/login/login_bg.jpg); background-size:cover; background-repeat:center;}
 	.join_form {align-self:center; width:60%; padding:0 130px;}
 	.join_form form{display:flex; flex-direction:column;}
 	.logo{margin-bottom:30px; font-size:0;}
