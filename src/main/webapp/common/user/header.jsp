@@ -231,6 +231,34 @@
     		margin: 0;    		
     	}
     	
+    	  	.search_area{
+  		width:220px;
+  		display:flex;
+  		align-items: center;
+  		justify-content: space-between;
+  	}
+  	#searchings{
+  		padding-left:px;
+  		border:0px solid  black;
+  		width:160px;
+  		height:20px;
+  	}
+  	.searchbox{
+  		border:1px solid gray;
+  		width:190px;
+  		height:28px;
+  		border-radius: 14px;
+  		display: flex;
+  		align-items: center;
+  		justify-content: center;
+  	}
+  	.searchicon{
+  		display:flex;
+  		padding-bottom: 5px;
+  	}
+    	
+    	
+    	
 	  .biz{width:100%; background-color:#f5f6f7;}
 	  .biz>.inr{display:flex; max-width:1200px; width:100%; height:50px; margin:0 auto;}
 	  .biz a{display:inline-flex; align-items:center; font-size:14px; color:#666;}
@@ -330,24 +358,23 @@
     
 
 	
-<div class="search_area" style="display: flex;  width: 250px;">
-	<form action="${pageContext.request.contextPath}/searchGongu.go" method="post" name="searching" id="searching" style="display: flex;">
-		<div style="border: 1px solid #c9c9c9; width: 200px; border-radius: 15px; padding-left: 10px;">
-			<input type="text" name="search" placeholder="search" style="border: 0px solid red; width: 180px; height:15px; margin-bottom: 5px;">
+	<form action="${pageContext.request.contextPath}/searchGongu.go" method="post" name="searching" id="searching">
+<div class="search_area" >
+		<div class="searchbox">
+			<input type="text" name="search" id="searchings" placeholder="search" >
 		</div>
-		<button type="submit" style="border: 0; background: none; cursor: pointer; margin-left: 12px; display: flex;">
-			<img src="${pageContext.request.contextPath}/img/icon/search.svg">
-		</button>
-	</form>
+		<div class="searchicon">
+			<button type="submit" style="border: 0; background: none; cursor: pointer;">
+				<img src="${pageContext.request.contextPath}/img/icon/search.svg">
+			</button>
+		</div>
 	</div>
+	</form>
 </div><!-- search_area -->
 	
 	
      
   </header>
-  
-   
-  
 
 
 </body>
