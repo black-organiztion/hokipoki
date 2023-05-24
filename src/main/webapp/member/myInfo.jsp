@@ -51,6 +51,7 @@
 		text-align: left;
 	}
 	input{
+		width:380px;
 		border:none;
 		background-color: transparent;
 		outline: none;
