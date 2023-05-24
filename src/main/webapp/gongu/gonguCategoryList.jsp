@@ -126,6 +126,7 @@
 	
 	.none{
 		margin:0 auto;
+		margin-top:200px;
 		width:1200px;
 		text-align: center;
 	}
@@ -137,7 +138,7 @@
 <c:if test="${categoryList eq null || categoryList eq '[]' }">
 	<div class="none">
 	<img src="${pageContext.request.contextPath}/img/icon/folder.svg" style="height:150px;">
-	<div>준비된 공구가 없습니다.</div> 
+	<div style="margin-top: 20px; color:gray;">준비된 공구가 없습니다.</div> 
 	</div>
 </c:if>
 <c:if test="${categoryList!=null }">

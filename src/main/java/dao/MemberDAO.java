@@ -186,6 +186,30 @@ public class MemberDAO {
 		return result;
 	}
 
+	public boolean pwchk(String pw, String id) {
+		boolean flag = false;
+		String sql = "select member_pw from member where member_id = '"+id+"'";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = con.prepareStatement(sql);
+			System.out.println(pstmt);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+			do {
+				if(pw.equals(rs.getString("member_pw"))) flag=true;
+			}while(rs.next());
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return flag;
+	}
+
 
 
 

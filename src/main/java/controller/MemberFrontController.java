@@ -20,6 +20,8 @@ import member.action.MemberLoginAction;
 import member.action.MemberLogoutAction;
 import member.action.MemberUpdateAction;
 import member.action.MyInfoAction;
+import member.action.MyPageAction;
+import member.action.PwChkAction;
 import member.action.RecommendCheckAction;
 import vo.ActionForward;
 
@@ -144,7 +146,7 @@ public class MemberFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else if (command.equals("/MemberUpdate.me")) {
+		} else if (command.equals("/MemberUpdate.me")) {
 			action = new MemberUpdateAction();
 			try {
 				forward = action.execute(request, response);
@@ -154,7 +156,7 @@ public class MemberFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else if (command.equals("/MemberUpdate.me")) {
+		} else if (command.equals("/MemberUpdate.me")) {
 			action = new MemberUpdateAction();
 			try {
 				forward = action.execute(request, response);
@@ -163,22 +165,46 @@ public class MemberFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else if(command.equals("/recentOrderList.me")) {
-			forward = new ActionForward("/member/memberRecentOrder.jsp",false);
+		} else if (command.equals("/recentOrderList.me")) {
+			forward = new ActionForward("/member/memberRecentOrder.jsp", false);
 		}
-		
-		else if(command.equals("/MemberIdChk.me")) {
+
+		else if (command.equals("/MemberIdChk.me")) {
 			String id = request.getParameter("userId");
-    		String result = new MemberIdChkAction().checkId(id);
-    		response.setContentType("text/plain;charset=UTF-8");
-            response.getWriter().write(result);
-		}else if(command.equals("/memberInfo.me")) {
+			String result = new MemberIdChkAction().checkId(id);
+			response.setContentType("text/plain;charset=UTF-8");
+			response.getWriter().write(result);
+		} else if (command.equals("/memberInfo.me")) {
+
 			action = new MyInfoAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+
+		} else if (command.equals("/infoPwChk.me")) {
+			action = new PwChkAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else if (command.equals("/infoPwChkForm.me")) {
+			request.setAttribute("pagefile", "./member/infoPwChk.jsp");
+			forward = new ActionForward("/index.jsp", false);
+		} else if (command.equals("/myPage.me")) {
+			action = new MyPageAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			/*
+			 * request.setAttribute("pagefile", "./member/memberRecentOrder.jsp"); forward =
+			 * new ActionForward("/index.jsp", false);
+			 */
 		}
 
 		if (forward != null) {

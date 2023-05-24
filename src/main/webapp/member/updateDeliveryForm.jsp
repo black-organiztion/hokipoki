@@ -13,7 +13,7 @@ function selectAddr(f){
 	
 	opener.document.getElementById("delivery_name").value=f.deliveryname.value;
 	opener.document.getElementById("zip_code").value=f.sample4_postcode.value;
-	opener.document.getElementById("addr1").value=f.addr1.value;alert();
+	opener.document.getElementById("addr1").value=f.addr1.value;
 	opener.document.getElementById("addr2").value=f.addr2.value;
  	opener.document.getElementById("receiver_tel").value=f.tel11.value+f.tel12.value+f.tel13.value ;
 	opener.document.getElementById("receiver_tel2").value=f.tel21.value+f.tel22.value+f.tel23.value ; 
@@ -232,7 +232,7 @@ function selectAddr(f){
 				</div>
 				</div>
 			
-	
+   <span id="guide" style="color:#ffff;"></span>	
 <input type="hidden" id="sample4_jibunAddress" placeholder="지번주소">
 <input type="hidden" id="sample4_extraAddress" placeholder="참고항목">
 			<input type="button" value="저장" onclick="selectAddr(this.form)" class="submitbtn">	

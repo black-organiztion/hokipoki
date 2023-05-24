@@ -20,13 +20,12 @@
 	}
 	.left{
 		width:200px;
-		padding:10px;		
 	}
 	.right{
 		width:1000px;
 	}
 	.profile{
-		/* border:1px dashed black; */
+		margin-bottom: 15px;
 	}
 	.names{
 		display:flex;
@@ -42,7 +41,7 @@
 	}
 	.rates{
 		width:1000px;
-		height:80px;
+		height:100px;
 		display:flex; 
 		background-color: black; 
 		justify-content: space-between;
@@ -51,12 +50,11 @@
 	.rate{
 			color:white; 
 			width:400px; 
-			height:80px;			
+			height:100px;			
 			display:flex; 		  
 			flex-direction:column;		
 			justify-content: space-between;
 			padding:3px;
-			
 	}
 		.grade{
 			color:white;
@@ -75,7 +73,7 @@
 			font-size: 12px;
 			border-radius: 15px;
 			color:white;
-			border:1.5px solid white;
+			border:1px solid #fcfcfc;
 			text-align: center;
 		}
 		.temp{
@@ -149,6 +147,14 @@
 				align-items: center;
 				justify-content: center;
 			}		
+			a{
+				color:black !important;
+				text-decoration: none;
+			}
+			#f_li {
+				font-weight: bold;
+				font-size: 18px;
+			}
 </style>
 </head>
 <body>
@@ -163,24 +169,23 @@
 				님
 			</div>
 		</div>
-		<ul>
-			<li><a href="${pageContext.request.contextPath}/allorderlist.or">나의 쇼핑정보</a></li>
-			<li>주문배송조회</li>
-			<li>취소/교환/반품 내역</li>
-			<li>증빙서류 발급</li>
+		<ul style="padding-top: 12px;">
+			<li id="f_li">나의 쇼핑정보</li>
+			<li><a href="${pageContext.request.contextPath}/allorderlist.or">주문조회</a></li>
+			<li onclick="alert('고객센터에 문의바랍니다.');" style="cursor: pointer;">증빙서류 발급</li>
 		</ul>
-		<ul>
-			<li>나의 계정설정</li>
+		<ul style="padding-top: 12px; ">
+			<li id="f_li">나의 계정설정</li>
 			<li><a href="${pageContext.request.contextPath}/memberInfo.me">회원정보수정</a></li>
-			<li>회원등급</li>
-			<li>쿠폰</li>
-			<li>포인트</li>
+			<li onclick="alert('준비중인 서비스 입니다.');" style="cursor: pointer;">회원등급</li>
+			<li onclick="alert('준비중인 서비스 입니다.');" style="cursor: pointer;">쿠폰</li>
+			<li onclick="alert('준비중인 서비스 입니다.');" style="cursor: pointer;">포인트</li>
 		</ul>
-		<ul>
-			<li>고객센터</li>
-			<li>1:1문의내역</li>
-			<li>공지사항</li>
-			<li>고객의 소리</li>
+		<ul style="padding-top: 12px;">
+			<li onclick="alert('준비중인 서비스 입니다.');" style="cursor: pointer;" id="f_li">고객센터</li>
+			<li onclick="alert('준비중인 서비스 입니다.');" style="cursor: pointer;">1:1문의내역</li>
+			<li onclick="alert('준비중인 서비스 입니다.');" style="cursor: pointer;">공지사항</li>
+			<li onclick="alert('준비중인 서비스 입니다.');" style="cursor: pointer;">고객의 소리</li>
 		</ul>
 	</div>
 
@@ -189,7 +194,7 @@
 			<div class="rate">
 				<div class="temp">
 					<span>회원등급</span>
-						<div class="a" style="margin-top: 10px;">
+						<div class="a" style="margin-top: 25px;">
 							<div class="grade" >
 							${membership }
 							</div>
@@ -202,7 +207,7 @@
 			<div class="point">
 				<div class="temp">
 					<span>사용가능한 쿠폰</span>
-						<div class="a" style="margin-top: 13px;">
+						<div class="a" style="margin-top: 30px;">
 							<div class="grade" >
 							27
 							</div>
@@ -212,7 +217,7 @@
 			<div class="point">
 				<div class="temp">
 					<span >포인트</span>
-						<div class="a" style="margin-top: 13px;">
+						<div class="a" style="margin-top: 30px;">
 							<div class="grade" >
 								530
 							</div>
@@ -221,34 +226,36 @@
 			</div>
 		</div>
 	<div class="ordercontent">
-	<c:choose>
-		<c:when test="${ infofile ne null}">
+		<c:if test="${infofile eq 'allorder' }">
+			<jsp:include page="/member/memberAllOrderCheckForm.jsp"></jsp:include>
+		</c:if>
+		<c:if test="${infofile eq 'myinfo'}">
 			<jsp:include page="/member/myInfo.jsp"></jsp:include>
-		</c:when>
-		<c:otherwise>
-	<div class="table_ti">
-			<span style="font-size: 24px; font-weight: 500;">최근 주문내역</span>
-			<div class="more_icon"><a href="${pageContext.request.contextPath}/allorderlist.or"><img src="${pageContext.request.contextPath}/img/icon/more.svg"></a></div>
-		</div>
-		<table>
-			<tr style="text-align: center; height:30px; border-bottom: 1px solid black; ">
-				<td>주문일</td>
-				<td >주문내역</td>
-				<td>주문번호</td>
-				<td>결제금액</td>
-			</tr>
-		
-		<c:forEach var="orderlist" items="${orderList }">
-			<tr style="border-bottom : 1px solid black; text-align: center; height:55px;">
-				<td>${orderlist.order_date }</td>
-				<td class="imgtd"><div class="tb_img"><img src="${pageContext.request.contextPath}/gongu/images/${orderlist.gongu_thimg }" style="width:52px; height:52px;"></div><span style="margin-left: 8px;">${orderlist.gongu_name }</span></td>
-				<td>ORDERNUM-${orderlist.order_id }</td>
-				<td>${orderlist.order_price }</td>
-			</tr>
-			</c:forEach>
-		</table>
-		</c:otherwise>
-	</c:choose>
+		</c:if>
+		<c:if test="${infofile eq null }">		
+		<div class="table_ti">
+				<span style="font-size: 24px; font-weight: 500;">최근 주문내역</span>
+				<div class="more_icon"><a href="${pageContext.request.contextPath}/allorderlist.or"><img src="${pageContext.request.contextPath}/img/icon/more.svg"></a></div>
+			</div>
+			<table>
+				<tr style="text-align: center; height:30px; border-bottom: 1px solid black; ">
+					<td>주문일</td>
+					<td colspan='2'>주문내역</td>
+					<td>주문번호</td>
+					<td>결제금액</td>
+				</tr>
+			
+			<c:forEach var="orderlist" items="${orderList }">
+				<tr style="border-bottom : 1px solid black; text-align: center; height:55px;">
+					<td>${orderlist.order_date }</td>
+					<td class="imgtd"><div class="tb_img" style="margin-left: 30px;"><img src="${pageContext.request.contextPath}/gongu/images/${orderlist.gongu_thimg }" style="width:52px; height:52px;"></div></td>
+				<td style="text-align:left;">${orderlist.gongu_name }</td>
+					<td>ORDERNUM-00${orderlist.order_id }</td>
+					<td>${orderlist.order_price }</td>
+				</tr>
+				</c:forEach>
+			</table>
+			</c:if>
 		
 		</div>
 		</div>

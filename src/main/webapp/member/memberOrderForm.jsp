@@ -15,6 +15,7 @@
 <style>
 	.outer{
 		margin:0 auto;
+		padding-bottom:90px;
 		padding-top:40px;
 		width:1200px;	
 		
@@ -34,13 +35,13 @@
 	
 	.gongu_cate{
 		font-size:12px;
-		color:#c9c9c9;
+		color:gray;
 	}
 	.gongu_name{
 		font-size:21px;		
 	}
 	.extra{
-		color:#c9c9c9;
+		color:gray;
 		font-size: 12px;
 		margin-top:16px;
 		margin-bottom: 46px;
@@ -197,7 +198,7 @@
 	border:1px solid #c9c9c9; 
 	padding-left:16px;
 	padding-top:10px;
-	padding-bottom:20px;
+	padding-bottom:10px;
 	border-radius: 6px; 
 	margin-bottom: 24px;
 }
@@ -333,7 +334,7 @@
 					<div class="delivery_fee">
 						<c:if test="${gongu.gongu_discount_price < 50000}">
 							<c:set var="deliveryfee" value="2500"/>
-							50000원 이상 구매시 배송비 무료
+							배송비 +2500원
 						</c:if>
 					</div>
 					<div class="fee">

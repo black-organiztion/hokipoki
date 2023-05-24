@@ -57,8 +57,8 @@ public class AllOrderListAction implements Action {
 			request.setAttribute("pageInfo", pageInfo);
 			request.setAttribute("allList", allOrderList);
 			request.setAttribute("member", member);
-			request.setAttribute("pagefile", "/member/memberAllOrderCheckForm.jsp");
-			request.setAttribute("infofile", "/member/memberRecentOrder.jsp");
+			request.setAttribute("pagefile", "/member/memberRecentOrder.jsp");
+			request.setAttribute("infofile", "allorder");
 			forward = new ActionForward("./index.jsp", false);
 	
 			return forward;
