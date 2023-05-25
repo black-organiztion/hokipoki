@@ -36,29 +36,18 @@ public class AdminGonguCloseAction implements Action {
 			
 			ArrayList<Gongu> closeGonguList = adminGonguSetStatusService.closeGonguAll();
 			
-			//System.out.println("종료목록"+closeGonguList.size());
-			
-			//boolean isCloseAllSuccess = false;
-			//isCloseAllSuccecc =
-			
-			
-			//정산중공구목록
-			/*
-			 * ArrayList<Gongu> calcGonguList = new ArrayList<>(); for(int
-			 * i=0;i<closeGonguList.size(); i++) {
-			 * if(closeGonguList.get(i).getGongu_status().equals("8")) {
-			 * calcGonguList.add(closeGonguList.get(i)); } }
-			 */
-			
-			//System.out.println("정산중목록"+calcGonguList.size());
-			
-			//boolean isOrderChangeSuccess = orderSetStatusService.setStatusOrder()
+			String closeMsg = "";
 			
 			
 			if(closeGonguList.size() > 0) {
 				
-				request.setAttribute("closeGonguList", closeGonguList);
-				forward = new ActionForward("adminGonguListAction.ad", true);
+			 for(int i=0; i<closeGonguList.size();i++) {
+				   String gonguName = closeGonguList.get(i).getGongu_name();
+				   closeMsg += gonguName + "\n";
+			   }
+				
+				request.setAttribute("closeMsg", closeMsg);
+				forward = new ActionForward("adminGonguListAction.ad?alert=close", false);
 				
 			}else if(closeGonguList.size() == 0){
 				

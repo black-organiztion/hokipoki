@@ -19,12 +19,12 @@
 <div id="content" class="bg main">
 	<div class="container">
 		<div class="row">
-			<div class="col-xl-6 col-12">
+			<div class="col-xl-3 col-12">
 				<div class="row">
 					<c:choose>
 						<c:when test="${loginAuthor eq 0 }">
 							<!-- (관리자)conts1:공구승인대기건수 -->
-							<div class="section col-xl-6 col-4">
+							<div class="section col-xl-12 col-4">
 								<div class="card">
 									<h5>공구승인대기</h5>
 									${standByCnt }
@@ -33,7 +33,7 @@
 							<!-- //(관리자)conts1:공구승인대기건수 -->
 							
 							<!-- (관리자)conts2:회원가입승인대기건수 -->
-							<div class="section col-xl-6 col-4">
+							<div class="section col-xl-12 col-4">
 								<div class="card">
 									<h5>회원가입대기</h5>
 									${sellerStandByCnt }
@@ -46,7 +46,7 @@
 					</c:choose>
 					
 					<!-- (공통)conts3:미응답문의건수 -->
-					<div class="section col-xl-6 col-4">
+					<div class="section col-xl-12 col-4">
 						<div class="card">
 							<h5>문의현황</h5>
 							미응답 문의 건수
@@ -55,7 +55,7 @@
 					<!-- //(공통)conts3:미응답문의건수 -->
 				</div>
 			</div>
-			<div class="col-xl-6 col-12">
+			<div class="col-xl-9 col-12">
 				<div class="row">
 					<c:choose>
 						<c:when test="${loginAuthor eq 0 }">
