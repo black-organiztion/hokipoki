@@ -37,9 +37,9 @@ public class AdminGonguStartAction implements Action {
 			
 			ArrayList<Gongu> startGonguList = adminGonguSetStatusService.startGonguAll();
 			
+			String startMsg = "";
+			
 			if(startGonguList.size() > 0) {
-				
-				String startMsg = "";
 				
 			   for(int i=0; i<startGonguList.size();i++) {
 				   String gonguName = startGonguList.get(i).getGongu_name();
@@ -47,7 +47,7 @@ public class AdminGonguStartAction implements Action {
 			   }
 				
 				request.setAttribute("startMsg", startMsg);
-				forward = new ActionForward("adminGonguListAction.ad?alert=exist", false);
+				forward = new ActionForward("adminGonguListAction.ad?alert=start", false);
 				
 			}else if(startGonguList.size() == 0){
 				

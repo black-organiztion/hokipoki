@@ -6,15 +6,21 @@
 <%
 String alert = request.getParameter("alert");
 String startMsg = request.getParameter("startMsg");
+String closeMsg = request.getParameter("closeMsg");
 
-if(alert != null && alert.equals("exist")){
-	
+if(alert != null){
+	if(alert.equals("start")){
 %>
 <script>
 	alert('공구가 시작되었습니다.\n'+`${startMsg}`);
 </script>
 
-<%} %>
+<%}else if(alert.equals("close")){%>
+	<script>
+		alert('공구가 종료되었습니다.\n'+`${closeMsg}`);
+	</script>
+<% }
+} %>
 
 <div id="content" class="gongu">
 	<div class="container divide">

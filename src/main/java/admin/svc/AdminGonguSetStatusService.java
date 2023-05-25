@@ -49,7 +49,6 @@ public class AdminGonguSetStatusService {
 
 		try {
 			con = getConnection();
-			// System.out.println(con);
 			GonguDAO gonguDAO = GonguDAO.getInstance();
 			gonguDAO.setConnection(con);
 
@@ -92,15 +91,15 @@ public class AdminGonguSetStatusService {
 				OrderDAO orderDAO = OrderDAO.getInstance();
 				orderDAO.setConnection(con);
 
-				boolean isOrderUpdateSuccess = false;
-
-				int orderUpdateCount = 0;
+				int[] orderUpdateCount = new int[2];
 				orderUpdateCount = orderDAO.updateOrder(closeList);
 
 				System.out.println(orderUpdateCount);
+				
+				int runCnt = orderUpdateCount[0];
+				int updateCnt = orderUpdateCount[1];
 
-				if (orderUpdateCount > 0) {
-					isOrderUpdateSuccess = true;
+				if (runCnt > 0) {
 					commit(con);
 
 				} else {

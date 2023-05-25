@@ -526,8 +526,10 @@ public class OrderDAO {
 	}
 	
 	
-	public int updateOrder(ArrayList<Gongu> closeList) {
-		int result = 0;
+	public int[] updateOrder(ArrayList<Gongu> closeList) {
+		int[] runTotal = new int[2];
+		int result = 0; //updateCnt
+		int runCnt = 0; //종료공구에 대한 주문건수가 없을 수도 있음 -> update된 결과가 없어서 오류가 아니더라도 rollback됨
 		int totalCnt = 0;
 		PreparedStatement psmt = null;
 		try {
@@ -547,13 +549,22 @@ public class OrderDAO {
 				psmt = con.prepareStatement(sql);
 				System.out.println(psmt);
 				result = psmt.executeUpdate();
-
-				if (result > 0) {
-					totalCnt += result;
+				
+				runCnt++;
+				
+				if(result > 0) {
+					totalCnt++;
 				}
-				System.out.println("쿼리별order update건수" + totalCnt);
+				
+				
+				//System.out.println("쿼리별order update건수" + totalCnt);
 
 			}
+			
+			runTotal[0] = runCnt;
+			runTotal[1] = totalCnt;
+			
+			
 		} catch (Exception e) {
 			System.out.println("주문업데이트오류:" + e);
 
@@ -561,7 +572,7 @@ public class OrderDAO {
 			close(psmt);
 		}
 
-		return result;
+		return runTotal;
 	}
 
 

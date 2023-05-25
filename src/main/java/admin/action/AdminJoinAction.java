@@ -33,7 +33,7 @@ public class AdminJoinAction implements Action {
 		
 		if(isJoinSuccess) {
 			//로그인 페이지로 이동
-			forward = new ActionForward("adminLogin.ad?joinResult=true",true);
+			forward = new ActionForward("adminLogin.ad?alert=exist",true);
 			
 			
 		}else {

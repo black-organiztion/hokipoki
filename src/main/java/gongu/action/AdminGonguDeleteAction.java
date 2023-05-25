@@ -16,13 +16,11 @@ public class AdminGonguDeleteAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
 		
+		//파라미터처리
 		HttpSession session = request.getSession();
-		String loginId = (String)session.getAttribute("loginId");
-		int loginAuthor = (int)session.getAttribute("loginAuthor");
-		String gongu_id = request.getParameter("gongu_id");
 		
-		//세션 로그인&권한체크
-		if(loginId == null || loginId.equals("") || loginAuthor > 1) {
+		if(session.getAttribute("loginId")==null || session.getAttribute("loginId").equals("") || 
+				session.getAttribute("loginAuthor") == null || (int)session.getAttribute("loginAuthor") > 1) {
 			//로그인 이동
 			response.setContentType("text/html;charset=utf-8");
 			PrintWriter out = response.getWriter();
@@ -30,8 +28,13 @@ public class AdminGonguDeleteAction implements Action {
 			out.print("alert('권한이 없습니다. 다시 로그인해주세요');");
 			out.print("location.href='adminLogin.ad';");
 			out.print("</script>");
-			
+
 		}else {
+			
+			String loginId = (String)session.getAttribute("loginId");
+			int loginAuthor = (int)session.getAttribute("loginAuthor");
+			String gongu_id = request.getParameter("gongu_id");
+			
 			AdminGonguDeleteService adminGonguDeleteService = new AdminGonguDeleteService();
 			boolean isDeleteSuccess = false;
 			isDeleteSuccess = adminGonguDeleteService.deleteGongu(gongu_id);

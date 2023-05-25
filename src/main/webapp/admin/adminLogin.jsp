@@ -47,6 +47,16 @@ if(joinResult.equals("true")){%>
 <%	
 }
 %> --%>
+<%
+String alert = request.getParameter("alert");
+if(alert != null && alert.equals("exist")){
+%>
+<script>
+	alert('회원가입이 완료되었습니다.\n회원가입 승인까지 1~3일 소요됩니다.');
+</script>
+<%
+} 
+%>
 
 <div class="login_form">
 	<h1 class="logo"><img src="${pageContext.request.contextPath}/img/admin/logo_white.svg"/>호키포키biz</h1>

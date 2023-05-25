@@ -104,18 +104,14 @@
 				<tr>
 					<th>이름</th>
 					<td>
-						
 							<input type="text"  class ="form_control" name="member_name" value="${member.member_name }" readonly>
-						
 					</td>
 				</tr>
 				
 				<tr>
 					<th>아이디</th>
 					<td>
-						
 							<input type="text"  class ="form_control" name="member_id" value="${member.member_id }" readonly>
-						
 					</td>				
 				</tr>
 				<tr>
