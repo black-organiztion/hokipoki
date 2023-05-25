@@ -44,7 +44,7 @@
 			<div class="frm_group">
 				<label for="">내용</label>
 				<div class="input_group">
-					<textarea name="qna_content" id="qna_content" class="frm_control required"></textarea>
+					<textarea name="qna_content" id="qna_content" name="qna_content" class="frm_control required"></textarea>
 				</div>
 			</div>
 			<div class="frm_group">

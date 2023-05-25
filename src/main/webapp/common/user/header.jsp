@@ -293,7 +293,7 @@
     		<c:otherwise>
 	    		<div class="member_interaction_outer" >
 			        	<div class="member_interaction">
-			        		<a href="#">
+			        		<a href="${pageContext.request.contextPath}/memberheartList.me">
 			        		<img src="${pageContext.request.contextPath}/img/icon/heart.svg" id="member_icon">
 			        			<span id="tt">찜 목록</span>
 			        		</a>

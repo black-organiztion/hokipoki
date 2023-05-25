@@ -267,7 +267,7 @@
                </div>      
                   <div class="submit_container">
                      <div class="boxcontainer">
-                        <div class="box">
+                        <div class="box" onclick="hearting();" >
                            <div class="icon">
                            		<img src="${pageContext.request.contextPath}/img/icon/heart.svg" width="24">
                            </div>
@@ -296,10 +296,11 @@
                <img src="${pageContext.request.contextPath}/gongu/images/${gongu.detail_img }">
             </div>   
 
-
    </div>
 
 	<script>
+
+	
 	$(function(){
 		var fin_date = '${subday }';
 		console.log(fin_date);
@@ -309,6 +310,21 @@
 		}
 		
 	});		
+	
+	function hearting(){
+		var formheart = document.createElement("form");
+		formheart.method="POST";
+		formheart.action = '${pageContext.request.contextPath}/memberheart.me?id=${param.id}';
+		
+		var inputs = document.createElement("input");
+		inputs.type="hidden";
+		inputs.name="gid";
+
+		
+	     document.body.appendChild(formheart);
+	     formheart.submit();
+	}
+	
 	</script>
 
 </body>
