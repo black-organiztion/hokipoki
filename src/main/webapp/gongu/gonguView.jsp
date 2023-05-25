@@ -275,7 +275,9 @@
                         </div>   
                         <div class="box">
                            <div class="icon">
+                           	<a href="#" onclick="clip(); return false;">
                            	<img src="${pageContext.request.contextPath}/img/icon/share.svg" height="24">
+                           	</a>
                            </div>
                            <div class="tit">
                             공유
@@ -309,6 +311,20 @@
 		}
 		
 	});		
+	
+	function clip(){
+
+		var url = '';
+		var textarea = document.createElement("textarea");
+		document.body.appendChild(textarea);
+		url = window.document.location.href;
+		textarea.value = url;
+		textarea.select();
+		document.execCommand("copy");
+		document.body.removeChild(textarea);
+		alert("URL이 복사되었습니다.")
+	}
+	
 	</script>
 
 </body>
