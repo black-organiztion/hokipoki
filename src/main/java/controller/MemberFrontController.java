@@ -13,8 +13,6 @@ import action.Action;
 import admin.action.AdminSellerIdCheckAction;
 import delivery.action.AddDeliveryAction;
 import member.action.GonguPurchaseAction;
-import member.action.HeartAction;
-import member.action.HeartListAction;
 import member.action.MemberIdCheckAction;
 import member.action.MemberIdChkAction;
 import member.action.MemberJoinAction;
@@ -184,7 +182,7 @@ public class MemberFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
+
 		} else if (command.equals("/infoPwChk.me")) {
 			action = new PwChkAction();
 			try {
@@ -192,22 +190,7 @@ public class MemberFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else if (command.equals("/memberheart.me")) {
-			action = new HeartAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}else if (command.equals("/memberheartList.me")) {
-			action = new HeartListAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		else if (command.equals("/infoPwChkForm.me")) {
+		} else if (command.equals("/infoPwChkForm.me")) {
 			request.setAttribute("pagefile", "./member/infoPwChk.jsp");
 			forward = new ActionForward("/index.jsp", false);
 		} else if (command.equals("/myPage.me")) {

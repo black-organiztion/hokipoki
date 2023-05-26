@@ -169,6 +169,7 @@
 	    background:rgba(0,0,0,0.4);
 	    
     }
+    .sub_button.close{background-color:#ddd; pointer-events:none;}
 
 </style>
 
@@ -275,7 +276,9 @@
                         </div>   
                         <div class="box">
                            <div class="icon">
+                           	<a href="#" onclick="clip(); return false;">
                            	<img src="${pageContext.request.contextPath}/img/icon/share.svg" height="24">
+                           	</a>
                            </div>
                            <div class="tit">
                             공유
@@ -307,10 +310,26 @@
 		console.log(typeof(fin_date));
 		if(fin_date<0){
 			$(".th_img").addClass('close');
+			$(".sub_button").addClass('close');
 		}
 		
 	});		
 	
+
+	function clip(){
+
+		var url = '';
+		var textarea = document.createElement("textarea");
+		document.body.appendChild(textarea);
+		url = window.document.location.href;
+		textarea.value = url;
+		textarea.select();
+		document.execCommand("copy");
+		document.body.removeChild(textarea);
+		alert("URL이 복사되었습니다.")
+		
+	}
+
 	function hearting(){
 		var formheart = document.createElement("form");
 		formheart.method="POST";
@@ -323,6 +342,7 @@
 		
 	     document.body.appendChild(formheart);
 	     formheart.submit();
+
 	}
 	
 	</script>

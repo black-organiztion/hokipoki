@@ -102,8 +102,8 @@ public class QnaDAO {
 		
 		int result = 0;
 		PreparedStatement psmt = null;
-		String cols = "qna_category, seller_id, qna_author, qna_subject, qna_content, member_id, qna_qdate";
-		String sql = "INSERT INTO qna ("+cols+") VALUES(?, "+qna.getSeller_id()+",?,?,?,?,now(),?";
+		String cols = "qna_category, qna_author, qna_subject, qna_content, member_id, qna_qdate";
+		String sql = "INSERT INTO qna ("+cols+") VALUES(?,?,?,?,?,now()";
 		
 		System.out.println(cols);
 		System.out.println(sql);
@@ -125,6 +125,7 @@ public class QnaDAO {
 			 cols += ", order_id";
 			 sql += ", '"+qna.getOrder_id()+"'";
 		}
+		
 		sql +=")";
 		
 		try {

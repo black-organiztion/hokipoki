@@ -210,31 +210,6 @@ public class MemberDAO {
 		return flag;
 	}
 
-	public boolean insertHeart(String member_id, int gongu_id) {
-		boolean flag = false;
-		
-		String sql = "insert into heart (member_id, gongu_id) values (?,?)";
-		PreparedStatement pstmt = null;
-		ResultSet rs =null;
-		try {
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, member_id);
-			pstmt.setInt(2, gongu_id);
-			System.out.println(pstmt);
-			int a = pstmt.executeUpdate();
-			if(a>0) {
-				flag = true;
-			}
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally {
-			close(rs);
-			close(pstmt);
-		}
-		
-		return flag;
-	}
-
 
 
 
