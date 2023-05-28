@@ -268,9 +268,19 @@
                </div>      
                   <div class="submit_container">
                      <div class="boxcontainer">
-                        <div class="box" onclick="hearting();" >
+                     <script>
+                     console.log('${heartChk}');
+                     </script>
+                        <div class="box heart" onclick="if(!${heartChk}){hearting();}" >
                            <div class="icon">
-                          		<img src="${pageContext.request.contextPath}/img/icon/heart.svg" width="24">
+                           		<c:choose>
+                           			<c:when test = "${heartChk eq true }">
+                           				<img src="${pageContext.request.contextPath}/img/icon/hearting.svg" width="24">
+                           			</c:when>
+                           			<c:otherwise>
+                           				<img src="${pageContext.request.contextPath}/img/icon/heart.svg" width="24">
+                           			</c:otherwise>
+                           		</c:choose>
                            </div>
                            <div class="tit"> 찜하기</div>
                         </div>   
@@ -312,6 +322,7 @@
 			$(".th_img").addClass('close');
 			$(".sub_button").addClass('close');
 		}
+
 		
 	});		
 	
@@ -342,7 +353,7 @@
 		
 	     document.body.appendChild(formheart);
 	     formheart.submit();
-
+			
 	}
 	
 	</script>

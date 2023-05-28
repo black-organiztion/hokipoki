@@ -906,6 +906,7 @@ public class GonguDAO {
 			return gonguList;
 		}
 
+
 		public boolean heartChk(String member_id, int id) {
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
@@ -931,7 +932,36 @@ public class GonguDAO {
 			
 			return heartChk;
 			
+		}	
+
+		public ArrayList<Gongu> getHeartList(String member_id) {
+			ArrayList<Gongu> heartList = new ArrayList<Gongu>();
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			try {
+				pstmt = con.prepareStatement("select * from gongu where gongu_id in (select gongu_id from heart where member_id = '"+member_id+"')");
+				System.out.println(pstmt);
+				rs = pstmt.executeQuery();	
+				
+				if (rs.next()) {
+					do {
+						heartList.add(new Gongu(Integer.parseInt(rs.getString("gongu_id")),rs.getString("category_name"),rs.getString("seller_id"),rs.getString("gongu_name"),
+								rs.getString("gongu_price"),rs.getString("gongu_discount_price"),rs.getString("gongu_status"),rs.getString("gongu_startdate"),
+								rs.getString("gongu_findate"),rs.getString("gongu_reserve"),rs.getString("gongu_min"),rs.getString("thumbnail_img")));
+					} while (rs.next());
+				}	
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
 			
+			
+			
+			return heartList;
+
 		}
 
 
