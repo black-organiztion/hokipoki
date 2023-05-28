@@ -906,6 +906,34 @@ public class GonguDAO {
 			return gonguList;
 		}
 
+		public boolean heartChk(String member_id, int id) {
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			boolean heartChk = false;
+			String sql = "select * from heart where gongu_id = ? and member_id = ?";
+			try {
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setInt(1, id);
+				pstmt.setString(2, member_id);
+				
+				System.out.println(pstmt);
+				rs=pstmt.executeQuery();
+				if(rs.next()) {
+					heartChk = true;
+				}
+				
+			}catch(Exception e) {
+				
+			}finally {
+				
+			}
+			
+			return heartChk;
+			
+			
+		}
+
 
 
 

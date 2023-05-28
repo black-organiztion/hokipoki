@@ -6,9 +6,11 @@ import java.time.temporal.ChronoUnit;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import action.Action;
 import gongu.svc.GonguViewService;
+import gongu.svc.HeartChkService;
 import vo.ActionForward;
 import vo.Gongu;
 
@@ -17,9 +19,15 @@ public class GonguViewAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
-
+		HttpSession session = request.getSession();
 		int id = Integer.parseInt(request.getParameter("id"));
+		String member_id = (String)session.getAttribute("member_id");
 		Gongu gongu = GonguViewService.getGonguView(id);
+		HeartChkService heartChkService = new HeartChkService();
+		
+		boolean heartChk = heartChkService.heartChk(member_id, id);
+		
+		request.setAttribute("heartChk", heartChk);
 		request.setAttribute("gongu", gongu);
 		// 현재 날짜 가져오기
 		LocalDate currentDate = LocalDate.now();

@@ -270,7 +270,7 @@
                      <div class="boxcontainer">
                         <div class="box" onclick="hearting();" >
                            <div class="icon">
-                           		<img src="${pageContext.request.contextPath}/img/icon/heart.svg" width="24">
+                          		<img src="${pageContext.request.contextPath}/img/icon/heart.svg" width="24">
                            </div>
                            <div class="tit"> 찜하기</div>
                         </div>   
