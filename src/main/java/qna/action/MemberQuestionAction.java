@@ -35,6 +35,7 @@ public class MemberQuestionAction implements Action {
 			String encoding = "utf-8";
 			int maxSize = 10*1024*1024; //10MB
 			
+			
 			String realFolder = request.getServletContext().getRealPath(saveFolder);
 			MultipartRequest multi = new MultipartRequest(request, realFolder, maxSize, encoding, new DefaultFileRenamePolicy());
 			
