@@ -51,11 +51,11 @@ body{font-family: 'Roboto','Noto Sans KR', sans-serif;}
 .section h5>small{flex:0 0 auto; margin-left:8px; font-family:'Roboto','Noto Sans KR', sans-serif; font-size:14px; font-weight:400;}
 
 /*content>side*/
-#content>.row>.side{display:flex; flex-direction:column;}
+#content>.container>.row>.side{display:flex; flex-direction:column; height:100%;}
 #content>.row>.side .section{height:auto;}
 
 /*content>main*/
-#content>.row>.main{}
+#content>.container>.row>.main{height:100%;}
 
 
 

@@ -121,5 +121,37 @@ public class AdminGonguSetStatusService {
 
 		return closeList;
 	}
+	
+	//비활성화 대기로 변경
+	public boolean setNextStatus(int gongu_id, String nextStatus, String d_date, String d_text) {
+		boolean nextResult = false;
+
+		Connection con = null;
+
+		try {
+			con = getConnection();
+			GonguDAO gonguDAO = GonguDAO.getInstance();
+			gonguDAO.setConnection(con);
+
+			int updateCount = gonguDAO.updateGonguStatus(gongu_id, nextStatus, d_date, d_text);
+
+			if (updateCount > 0) {
+				nextResult = true;
+				commit(con);
+
+			} else {
+				rollback(con);
+			}
+
+		} catch (Exception e) {
+			System.out.println("공구상태변경오류:" + e);
+			rollback(con);
+
+		} finally {
+			close(con);
+		}
+
+		return nextResult;
+	}
 
 }

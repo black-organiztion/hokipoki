@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
 import javax.servlet.RequestDispatcher;
@@ -11,9 +12,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
+
 import action.Action;
 import admin.action.*;
 import gongu.action.AdminGonguDeleteAction;
+import gongu.action.MemberGonguListAction;
 /*import admin.action.adminLoginAction;
 import admin.action.adminSellerListAction;*/
 import vo.ActionForward;
@@ -58,17 +62,60 @@ public class AdminFrontController extends HttpServlet {
     		forward = new ActionForward("/adminLogin.ad", false);
     	}
     	else if(command.equals("/adminMain.ad")){
-    		//request.setAttribute("pagefile","/admin/adminMain.jsp");
-    		//forward = new ActionForward("/admin/adminTemplate.jsp", false);
-			
-			 action = new AdminMainAction(); 
-			 try {
-				 forward = action.execute(request,response); 
-			 } catch (Exception e) { // TODO Auto-generated catch block
-				 e.printStackTrace(); 
-			 }
-			 
+    		action = new AdminMainAction();
+    		try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
     		
+    	}
+    	else if(command.equals("/adminMainAction.ad")){
+    		HttpSession session = request.getSession();
+    		String id = (String)session.getAttribute("loginId");
+    		int author = (int)session.getAttribute("loginAuthor");
+    		
+    		System.out.println(id);
+    		 System.out.println(author);
+    		
+			if(request.getParameter("loginId") == null || request.getParameter("loginId").equals("")) {
+				//로그인 이동
+    			response.setContentType("text/html;charset=utf-8");
+    			PrintWriter out = response.getWriter();
+    			out.print("<script>");
+    			out.print("alert('권한이 없습니다. 다시 로그인해주세요');");
+    			out.print("location.href='adminLogin.ad';");
+    			out.print("</script>");
+				
+			}else {
+    				String loginId = request.getParameter("loginId");
+            		int loginAuthor = Integer.parseInt(request.getParameter("loginAuthor"));
+            		JSONObject responseData = new JSONObject();
+            		
+            		if(loginAuthor > 0) {//판매자라면
+            			String onGoingList = new AdminMainAction().getOnGoingList(loginId,loginAuthor);
+            			int noAnswerCnt = 0; //임의값
+            			responseData.put("onGoingList", onGoingList);
+            			responseData.put("noAnswerCnt", noAnswerCnt);
+            			
+            		}else {//관리자라면
+            			String closingList = new AdminMainAction().getClosingList(loginId,loginAuthor);
+            			int standByCnt = new AdminMainAction().getStandbyCnt(loginId,loginAuthor);
+            			int sellerStandByCnt = new AdminMainAction().getSellerStandbyCnt(loginId,loginAuthor);
+            			int noAnswerCnt = 0; //임의값
+            			
+            			responseData.put("closingList", closingList);
+            			responseData.put("standByCnt", standByCnt);
+            			responseData.put("sellerStandByCnt", sellerStandByCnt);
+            			responseData.put("noAnswerCnt", noAnswerCnt);
+            		}
+            					
+              	  response.setContentType("application/json");
+              	  response.setCharacterEncoding("UTF-8");
+              	  response.getWriter().write(responseData.toString());
+        			
+			}
     	}
     	else if(command.equals("/adminStandby.ad")){
     		forward = new ActionForward("./admin/adminStandby.jsp", false);

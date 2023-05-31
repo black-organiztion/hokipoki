@@ -81,7 +81,7 @@
 						</div>
 					</div>
 					
-					<c:if test="${loginId eq 'system' || loginAuthor eq 0 }">
+					<c:if test="${sessionScope.loginAuthor eq 0 }">
 					<div class="section col-12">
 						<div class="card">
 							<h5>판매자 정보</h5>
@@ -122,9 +122,9 @@
 									<em>주문자 이메일주소</em>
 									<span>${order.member_email }</span>
 								</li>
-								<c:if test="${loginId eq 'system' || loginAuthor eq 0 }">
+								<c:if test="${sessionScope.loginAuthor eq 0 }">
 									<div class="bt_group">
-										<a href="memberDetailView.me" class="bt">회원상세 정보 보기</a>
+										<a href="adminMemberDetailView.ad?member_id=${order.member_id }" class="bt">회원상세 정보 보기</a>
 									</div>
 								</c:if>
 							</ul>

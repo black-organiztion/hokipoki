@@ -125,14 +125,14 @@ select:disabled {background-image:none;}
 }
 
 /*card_list*/
-.card_list>li{display:flex; padding:14px 5px;}
-.card_list>li+li{border-top:1px solid #D9D9D9;}
-.card_list>li>em{flex:0 0 auto; width:30%; color:#7B8083;}
-.card_list>li>em+*{flex:1 1 auto;}
-.card_list>li .img{position:relative; width:150px; height:150px; background-color:#D9D9D9; overflow:hidden;}
-.card_list>li .img>img{position:absolute; top:50%; left:50%; height:150px; transform:translate(-50%,-50%);}
+.card_list li{display:flex; padding:14px 5px;}
+.card_list li+li{border-top:1px solid #D9D9D9;}
+.card_list li>em{flex:0 0 auto; width:30%; color:#7B8083;}
+.card_list li>em+*{flex:1 1 auto;}
+.card_list li .img{position:relative; width:150px; height:150px; background-color:#D9D9D9; overflow:hidden;}
+.card_list li .img>img{position:absolute; top:50%; left:50%; height:150px; transform:translate(-50%,-50%);}
 
-.card_list ul{background-color:#F4F4F4;}
+/* .card_list ul{background-color:#F4F4F4;} */
 .card_list_header{display:flex;}
 .card_list_header>span{font-weight:500; color:#7B8083;}
 
@@ -185,6 +185,10 @@ select:disabled {background-image:none;}
 .modal-body{padding:0 30px;}
 .modal-body form >.row{margin-left:-24px; margin-right:-24px;}
 .modal-footer{padding:30px; border-top:none;}
+
+/*confirmBox,msgBox*/
+.cfmBox .modal-body{text-align:center;}
+.cfmBox .modal-footer{justify-content:center;}
 
 /*기타*/
 .input_group{display:inline-flex;}

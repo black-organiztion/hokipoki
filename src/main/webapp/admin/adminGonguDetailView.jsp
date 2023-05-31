@@ -26,7 +26,7 @@
 									</c:if>
 									<!-- 진행중(4)은 공구글이 게시된 시점부터. -->
 									<c:if test="${gongu.gongu_status eq '4' }"><!-- 비활성화 : 진행중일때만 표시 =>지만 사실 비활성화 대기로 바꾸는거고 일정 기간 이후에 자동 비활성화 -->
-										<a href="adminGonguSetStatus.ad?gongu_id=${gongu.gongu_id}&gongu_status=${gongu.gongu_status}&setStatus=5&seller_id=${seller.seller_id}" class="bt bt_primary">비활성화</a>
+										<button id="btn_disable" class="bt bt_primary">비활성화</button>
 									</c:if>
 									
 								</c:if>
@@ -240,7 +240,7 @@
 	</div>
 </div>
 
-<!-- modal -->
+<c:if test="${sessionScope.loginAuthor eq 1 && gongu.gongu_status eq '0' }">
 <div id="modalForm" class="modal fade" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
     <div class="modal-content section">
@@ -371,8 +371,12 @@
     </div>
   </div>
 </div>
+</c:if>
+<!-- modal -->
 
-<div id="confirmBox" class="modal fade delete" tabindex="-1">
+
+<c:if test="${sessionScope.loginAuthor eq 1 }">
+<div id="confirmBox" class="modal fade delete cfmBox" tabindex="-1">
   <div class="modal-dialog modal-sm modal-dialog-centered">
     <div class="modal-content section">
       <div class="modal-header">
@@ -389,7 +393,69 @@
     </div>
   </div>
 </div>
+</c:if>
 
+<c:if test="${gongu.gongu_status eq '4' }">
+<div id="modal_disabled" class="modal fade" tabindex="-1">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content section">
+			<div class="modal-header">
+				<h5 class="modal-title">공구 비활성화</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				
+				<form id="gonguDisabledform" class="input_form" action="adminGonguSetStatus.ad" method="post">
+					<input type="hidden" name="gongu_id" value="${gongu.gongu_id}"/>
+					<input type="hidden" name="gongu_status" value="${gongu.gongu_status}"/>
+					<input type="hidden" name="setStatus" value="5"/>
+					<input type="hidden" name="seller_id" value="${seller.seller_id}"/>
+					<div class="frm_group">
+						<label>비활성화 일시</label>
+						<div class="input_group">
+							<input id="gongu_disabled_date" name="gongu_disabled_date" type="text" class="frm_control frm_date required">
+						</div>
+						<p class="frm_vld_txt"></p>
+					</div>
+					<div class="frm_group mt-2">
+						<label>비활성화 사유</label>
+						<div class="input_group">
+							<textarea id="gongu_disabled_text" name="gongu_disabled_text" class="frm_control p-2 required" placeholder="비활성화 사유를 입력해주세요. 입력하신 내용은 쇼핑몰 상세페이지의 비활성화 공지로 사용합니다." style="height: 200px;"></textarea>
+						</div>
+						<p class="frm_vld_txt"></p>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button id="btn_reset" type="button" class="bt">취소</button>
+				<button id="btn_disable_ok" type="button" class="bt bt_primary">확인</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="confirmBox" class="modal fade disabled cfmBox" tabindex="-1">
+  <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content section">
+      <div class="modal-header">
+        <h5 class="modal-title">공구 비활성화</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>비활성화 하시겠습니까?</p>
+      </div>
+      <div class="modal-footer">
+        <button id="btn_cancel" type="button" class="bt">취소</button>
+        <button id="btn_submit" type="button" class="bt bt_primary">확인</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</c:if>
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <script>
 	$(function(){
 		//header 메뉴 active
@@ -397,17 +463,7 @@
 		$(".header_item.gongu").addClass("active");
 		
 		//버튼클릭이벤트
-		/* $("#btn_edit").on('click', function(){
-			var formId = $(this).closest("form").attr("id")
-			//console.log(formId);
-			modeEdit(formId);
-		});
-		$("#btn_cancel").on('click', function(){
-			var formId = $(this).closest("form").attr("id")
-			console.log(formId);
-			modeView(formId);
-		});
-		 */
+		 
 		//파일인풋
 		$("input[type=file]").on('change', function(){
 			var fileName = $(this).val();
@@ -427,5 +483,78 @@
 			$("#confirmBox.delete").modal('show');
 		});
 		
+		//비활성화
+		$(".frm_control").each(function(idx,item){
+			$(item).on('propertychange change keyup paste input',function(){
+				var frmGroup = $(this).parents(".frm_group");
+				if($(item).val === ''){
+					
+				}else{
+					frmGroup.removeClass("fail");
+				}
+			});
+		});
+		
+		$("#btn_disable").on('click', function(){
+			$("#gongu_disabled_date").datepicker('setDate','today'+3);
+			$("#modal_disabled").modal('show');
+		});
+		
+		$("#btn_reset").on('click', function(){
+			formReset('modal_disabled');
+			$("#modal_disabled").modal('hide');
+		});
+		
+		$("#btn_disable_ok").on('click', function(){
+			if(fieldNullChk()==true){
+				$("#confirmBox.disabled").modal('show');
+			}
+			
+		});
+		
+		$("#btn_submit").on("click", function(){
+			$("#gonguDisabledform").submit();
+		});
+		
+		$("#btn_cancel").on('click', function(){
+			formReset('modal_disabled');
+			$(".modal").modal('hide');
+		});
+		
+		//비활성화 datepicker
+		$("#gongu_disabled_date").datepicker({
+			dateFormat:'yy-mm-dd',
+			minDate:3,
+		});
+		
+		
+		
 	});
+	
+	function fieldNullChk(){
+		var failCnt = 0;
+		var field = $(".required");		
+		//console.log(failCnt);
+		
+		for(var i=0; i<field.length; i++){
+			if($(field[i]).val() == "" || $(field[i]).val() == null){
+				//var field_id = $(field[i]).attr("id");
+				var field_name =  $(field[i]).parent().prev("label").text();
+				$(field[i]).parents(".frm_group").addClass("fail");
+				$(field[i]).parent().next(".frm_vld_txt").text(field_name + "을 입력해주세요.");
+				
+				console.log(field_name);
+				
+				failCnt++;
+				
+				console.log(failCnt);
+			}
+		}
+		
+		if(failCnt === 0){
+			return true;
+		}else{
+			return false;
+		}
+	}
 </script>

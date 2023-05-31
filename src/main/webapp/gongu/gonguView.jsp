@@ -170,6 +170,10 @@
 	    
     }
     .sub_button.close{background-color:#ddd; pointer-events:none;}
+    
+    .disabled_txt{position:relative; display:flex; align-items:center; justify-content:center; min-height:200px; margin-top:180px; padding:20px; border:3px solid #ddd;}
+    .disabled_txt>span{margin:0 10px; padding:0 5px; box-shadow:inset 0 -12px 0 #D9E3F9; font-weight:600;}
+    .disabled_txt:before{content:'알려드립니다'; position:absolute; top:20px; left:20px;}
 
 </style>
 
@@ -185,7 +189,7 @@
          </div>   
       </div>
       <div class="content_container" >
-         <div class="th_img" >
+         <div class="th_img ${gongu.gongu_status eq '5'? 'close':'' }" >
             <img src="${pageContext.request.contextPath}/gongu/images/${gongu.thumbnail_img }" style="width:550px; height:550px;">
          </div>
          <div class="gongu_container" >
@@ -296,7 +300,7 @@
                         </div>      
                      </div>
                   <div class="get_gongu">
-                     <div class="sub_button">
+                     <div class="sub_button ${gongu.gongu_status eq '5'? 'close':'' }">
                         <a href="${pageContext.request.contextPath}/gonguPurchase.me?gongu_id=${gongu.gongu_id }&isdefault=1" id="mya">공구하기</a>
                      </div>
                   </div>      
@@ -305,6 +309,12 @@
             </div>
             
          </div>   
+         <c:if test="${gongu.gongu_status eq '5' }">
+         	<div class="disabled_txt">
+         		해당 공구는 <span>${gongu.gongu_disabled_text }</span> 사유로 인해 <span>${gongu.gongu_disabled_date }</span>에 숨김처리 될 예정입니다.
+         		주문하신 회원님들께 양해와 이해를 부탁드립니다.
+         	</div>
+         </c:if>
          <div class="sanseimg">
                <img src="${pageContext.request.contextPath}/gongu/images/${gongu.detail_img }">
             </div>   

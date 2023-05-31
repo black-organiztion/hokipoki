@@ -112,7 +112,7 @@ public class OrderDAO {
 		
 		ResultSet rs = null;
 		String sql = "SELECT * FROM orders o JOIN gongu g ON o.gongu_id = g.gongu_id "
-				+ "JOIN member m ON o.member_id = m.member_id " + "JOIN delivery d ON o.delivery_id = d.delivery_id "
+				+ "JOIN member m ON o.member_id = m.member_id " + "JOIN delivery d ON o.delivery_id = d.delivery_id " + "JOIN seller s ON g.seller_id = s.seller_id "
 				+ "WHERE order_id = ?";
 
 		try {
@@ -120,7 +120,7 @@ public class OrderDAO {
 			psmt.setInt(1, order_id);
 			rs = psmt.executeQuery();
 
-			System.out.println(sql);
+			System.out.println(psmt);
 
 			if (rs.next()) {
 				order.put("order_id", rs.getInt("order_id"));
@@ -129,6 +129,7 @@ public class OrderDAO {
 				order.put("gongu_name", rs.getString("gongu_name"));
 				order.put("order_count", rs.getInt("order_count"));
 				order.put("order_price", rs.getInt("order_price"));
+				order.put("member_id", rs.getString("member_id"));
 				order.put("member_name", rs.getString("member_name"));
 				order.put("member_tel", rs.getString("member_tel"));
 				order.put("member_email", rs.getString("member_email"));
@@ -137,6 +138,9 @@ public class OrderDAO {
 				order.put("zipcode", rs.getString("zipcode"));
 				order.put("addr1", rs.getString("addr1"));
 				order.put("addr2", rs.getString("addr2"));
+				order.put("seller_id", rs.getString("seller_id"));
+				order.put("seller_name", rs.getString("seller_name"));
+				order.put("seller_number", rs.getString("seller_number"));
 
 			}
 

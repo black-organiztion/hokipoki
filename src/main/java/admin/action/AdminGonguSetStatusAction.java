@@ -17,23 +17,12 @@ public class AdminGonguSetStatusAction implements Action {
 		ActionForward forward = null;
 		
 		HttpSession session = request.getSession();
-		String loginId = (String)session.getAttribute("loginId");
-		int loginAuthor = (int)session.getAttribute("loginAuthor");
-		int gongu_id = Integer.parseInt(request.getParameter("gongu_id"));
-		String gongu_status = request.getParameter("gongu_status");
-		String nextStatus = request.getParameter("setStatus");
 		
 		
-		AdminGonguSetStatusService adminGonguSetStatusService = new AdminGonguSetStatusService();
 		
-		boolean isNextSuccess = false;
-		
-		boolean nowStatusChk = true; //현재공구상태 체크
-		
-		String msg = "";
 				
-		//세션 로그인&권한체크
-		if(loginId == null || loginId.equals("") || loginAuthor!=0) {
+		if(session.getAttribute("loginId")==null || session.getAttribute("loginId").equals("") || 
+				session.getAttribute("loginAuthor") == null || (int)session.getAttribute("loginAuthor") > 1) {
 			//로그인 이동
 			response.setContentType("text/html;charset=utf-8");
 			PrintWriter out = response.getWriter();
@@ -41,8 +30,25 @@ public class AdminGonguSetStatusAction implements Action {
 			out.print("alert('권한이 없습니다. 다시 로그인해주세요');");
 			out.print("location.href='adminLogin.ad';");
 			out.print("</script>");
+
+		}else{//권한이 있다면
+			String loginId = (String)session.getAttribute("loginId");
+			int loginAuthor = (int)session.getAttribute("loginAuthor");
+			int gongu_id = Integer.parseInt(request.getParameter("gongu_id"));
+			String gongu_status = request.getParameter("gongu_status");
+			String nextStatus = request.getParameter("setStatus");
+			String msg = "";
+			String d_date = "";
+			String d_text = "";
 			
-		}else {//권한이 있다면
+			
+			AdminGonguSetStatusService adminGonguSetStatusService = new AdminGonguSetStatusService();
+			
+			boolean isNextSuccess = false;
+			
+			boolean nowStatusChk = true; //현재공구상태 체크
+			
+			
 
 			switch(nextStatus) {
 			//승인대기 -> 심사중(심사시작)
@@ -71,6 +77,11 @@ public class AdminGonguSetStatusAction implements Action {
 			
 			//진행중 -> 비활성화
 			case "5" : 
+				d_date = request.getParameter("gongu_disabled_date");
+				d_text = request.getParameter("gongu_disabled_text");
+				
+				System.out.println(d_date+","+d_text);
+				
 				if(!gongu_status.equals("4")) { //현재공구상태가 진행중(4)이 아니라면 종료
 					msg = "공구상태를 확인해주세요. 공구 비활성화는 진행중인 공구만 진행할 수 있습니다.";
 					nowStatusChk = false;
@@ -95,7 +106,11 @@ public class AdminGonguSetStatusAction implements Action {
 				out.print("</script>");
 				
 			}else { //조건에 맞다면 서비스에서 메서드호출
-				isNextSuccess = adminGonguSetStatusService.setNextStatus(gongu_id, nextStatus);
+				if(nextStatus.equals("5")) {
+					isNextSuccess = adminGonguSetStatusService.setNextStatus(gongu_id, nextStatus, d_date, d_text);
+				}else {
+					isNextSuccess = adminGonguSetStatusService.setNextStatus(gongu_id, nextStatus);
+				}
 				
 			}
 			

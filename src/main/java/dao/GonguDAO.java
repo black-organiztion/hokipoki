@@ -101,6 +101,8 @@ public class GonguDAO {
 				gongu.setGongu_reserve(rs.getString("gongu_reserve"));
 				gongu.setGongu_min(rs.getString("gongu_min"));
 				gongu.setGongu_status(rs.getString("gongu_status"));
+				gongu.setGongu_disabled_date(rs.getDate("gongu_disabled_date"));
+				gongu.setGongu_disabled_text(rs.getString("gongu_disabled_text"));
 				
 				System.out.println(gongu);
 			}
@@ -118,7 +120,7 @@ public class GonguDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			pstmt = con.prepareStatement("select * from gongu where gongu_status='4'");
+			pstmt = con.prepareStatement("select * from gongu where gongu_status in ('4','5')");
 			rs = pstmt.executeQuery();	
 			
 			if (rs.next()) {
@@ -239,6 +241,34 @@ public class GonguDAO {
 		
 		return updateCount;
 	}
+	
+	//비활성화 대기로 변경
+	public int updateGonguStatus(int gongu_id, String nextStatus, String d_date, String d_text) {
+		int updateCount = 0;
+		PreparedStatement psmt = null;
+		String sql = "UPDATE gongu SET gongu_status = ?, gongu_disabled_date = ?, gongu_disabled_text = ? WHERE gongu_id = ?";
+		
+		try {
+			psmt = con.prepareStatement(sql);
+			psmt.setString(1, nextStatus);
+			psmt.setString(2, d_date);
+			psmt.setString(3, d_text);
+			psmt.setInt(4, gongu_id);
+			System.out.println(psmt);
+
+			updateCount = psmt.executeUpdate();
+			
+		}catch(Exception e) {
+			System.out.println("공구상태업데이트오류:"+e);
+			e.printStackTrace();
+			
+		}finally {
+			close(psmt);
+		}
+		
+		return updateCount;
+	}
+	
 
 	public ArrayList<Gongu> startGongu() {
 		ArrayList<Gongu> startList = new ArrayList<>();
@@ -582,6 +612,9 @@ public class GonguDAO {
 				if(i<filterList.size()-1) {
 					sql += ",";
 				}
+				if(filterList.get(i).equals("5")) {
+					sql += ",'6'";
+				}
 			}
 			sql += ")";
 			
@@ -727,6 +760,9 @@ public class GonguDAO {
 				sql += "'"+filterList.get(i)+"'";
 				if(i<filterList.size()-1) {
 					sql += ",";
+				}
+				if(filterList.get(i).equals("5")) {
+					sql += ",'6'";
 				}
 			}
 			sql += ")";
@@ -963,6 +999,8 @@ public class GonguDAO {
 			return heartList;
 
 		}
+
+		
 
 
 

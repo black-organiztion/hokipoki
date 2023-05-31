@@ -1,5 +1,7 @@
 package vo;
 
+import java.sql.Date;
+
 public class Gongu {
 
 	public int gongu_id;
@@ -19,6 +21,8 @@ public class Gongu {
 	public String gongu_caldate;
 	public String detail_img;
 	public String thumbnail_img;
+	public Date gongu_disabled_date;
+	public String gongu_disabled_text;
 	
 	
 	public Gongu() {}
@@ -56,6 +60,7 @@ public class Gongu {
 		this.gongu_reserve = gongu_reserve;
 		this.gongu_min = gongu_min;
 		this.thumbnail_img = thumbnail_img;
+		
 	}
 
 	public Gongu(int gongu_id, String category, String seller_id, String gongu_name, String gongu_price,
@@ -81,6 +86,7 @@ public class Gongu {
 		this.detail_img = detail_img;
 		this.thumbnail_img = thumbnail_img;
 	}
+	
 
 	public String getDetail_img() {
 		return detail_img;
@@ -220,6 +226,22 @@ public class Gongu {
 		this.gongu_caldate = gongu_caldate;
 	}
 
+	public Date getGongu_disabled_date() {
+		return gongu_disabled_date;
+	}
+
+	public void setGongu_disabled_date(Date gongu_disabled_date) {
+		this.gongu_disabled_date = gongu_disabled_date;
+	}
+
+	public String getGongu_disabled_text() {
+		return gongu_disabled_text;
+	}
+
+	public void setGongu_disabled_text(String gongu_disabled_text) {
+		this.gongu_disabled_text = gongu_disabled_text;
+	}
+
 	@Override
 	public String toString() {
 		return "Gongu [gongu_id=" + gongu_id + ", category=" + category + ", seller_id=" + seller_id + ", gongu_name="
@@ -228,8 +250,10 @@ public class Gongu {
 				+ gongu_status + ", gongu_startdate=" + gongu_startdate + ", gongu_findate=" + gongu_findate
 				+ ", gongu_stock=" + gongu_stock + ", gongu_reserve=" + gongu_reserve + ", gongu_min=" + gongu_min
 				+ ", gongu_caldate=" + gongu_caldate + ", detail_img=" + detail_img + ", thumbnail_img=" + thumbnail_img
-				+ "]";
+				+ ", gongu_disabled_date=" + gongu_disabled_date + ", gongu_disabled_text=" + gongu_disabled_text + "]";
 	}
+
+	
 
 	
 

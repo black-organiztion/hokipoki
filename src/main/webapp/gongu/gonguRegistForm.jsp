@@ -92,7 +92,7 @@
 							<div class="frm_group col-lg-4 col-12">
 								<label for="">정산일</label>
 								<div class="input_group">
-									<input type="text" id="" name="" >
+									<input type="text" id="" name=""  value="" disabled style="height:40px; border:none;">
 								</div>
 								<p class="frm_vld_txt"></p>
 								<p class="frm_txt">판매금액은 결제마감일 다음날부터 7일째 되는 날 정산됩니다.</p>

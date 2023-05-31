@@ -27,7 +27,7 @@ if(alert != null){
 		<div class="row">
 			<div class="col-xl-2 col-12 side">
 				<!-- conts1 : 공구 처리 버튼 -->
-				<c:if test="${sessionScope.loginId eq 'system' || sessionScope.loginAuthor eq 0 }">
+				<c:if test="${sessionScope.loginAuthor eq 0 }">
 				<div class="section sec1">
 					<h5>공구일괄처리</h5>
 					<div class="gongu_btns">

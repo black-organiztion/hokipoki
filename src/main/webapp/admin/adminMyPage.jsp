@@ -69,8 +69,8 @@
         </form>
       </div>
       <div class="modal-footer justify-content-center">
+      	<button id="btn_identify" type="button" class="bt bt_primary">확인</button>
         <button id="btn_reset" type="button" class="bt">취소</button>
-        <button id="btn_identify" type="button" class="bt bt_primary">확인</button>
       </div>
     </div>
   </div>

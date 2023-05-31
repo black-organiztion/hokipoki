@@ -13,7 +13,7 @@ pageTitle = "호키포키";
 <html>
 <head>
 <meta charset="UTF-8">
-<title><%=pageTitle %></title> 
+<title>호키포키</title> 
 <jsp:include page="/common/common.jsp"></jsp:include>
 </head>
 <body>
