@@ -16,8 +16,6 @@
 		font-family: 'Noto Sans KR', sans-serif;
 	}
 
-
-	
 	.info_container{
 		margin-top:10px;
 		width:1000px;

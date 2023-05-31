@@ -18,6 +18,7 @@
 		margin-top:30px;		
 		display:flex;	
 		flex-wrap: wrap;
+		
 	}
 	.left{
 		width:200px;
@@ -184,7 +185,7 @@
 		</ul>
 		<ul style="padding-top: 12px;">
 			<li onclick="alert('준비중인 서비스 입니다.');" style="cursor: pointer;" id="f_li">고객센터</li>
-			<li onclick="alert('준비중인 서비스 입니다.');" style="cursor: pointer;">1:1문의내역</li>
+			<li><a href="${pageContext.request.contextPath}/QnAForm.me">1:1문의내역</a></li>
 			<li onclick="alert('준비중인 서비스 입니다.');" style="cursor: pointer;">공지사항</li>
 			<li onclick="alert('준비중인 서비스 입니다.');" style="cursor: pointer;">고객의 소리</li>
 		</ul>
@@ -219,7 +220,7 @@
 				<div class="temp">
 					<span >포인트</span>
 						<div class="a" style="margin-top: 30px;">
-							<div class="grade" >
+							<div class="grade">
 								530
 							</div>
 						</div>	
@@ -227,14 +228,17 @@
 			</div>
 		</div>
 	<div class="ordercontent">
-		<c:if test="${infofile eq 'allorder' }">
+		<c:if test="${infofile eq 'allorder'}">
 			<jsp:include page="/member/memberAllOrderCheckForm.jsp"></jsp:include>
 		</c:if>
 		<c:if test="${infofile eq 'myinfo'}">
 			<jsp:include page="/member/myInfo.jsp"></jsp:include>
 		</c:if>
+		<c:if test="${infofile eq 'QnAForm'}">
+			<jsp:include page="/member/memberQnAForm.jsp"></jsp:include>
+		</c:if>
 		<c:if test="${infofile eq null }">		
-		<div class="table_ti">
+		<div class="table_ti" >
 				<span style="font-size: 24px; font-weight: 500;">최근 주문내역</span>
 				<div class="more_icon"><a href="${pageContext.request.contextPath}/allorderlist.or"><img src="${pageContext.request.contextPath}/img/icon/more.svg"></a></div>
 			</div>

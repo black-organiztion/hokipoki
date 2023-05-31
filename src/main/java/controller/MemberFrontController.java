@@ -24,6 +24,7 @@ import member.action.MemberUpdateAction;
 import member.action.MyInfoAction;
 import member.action.MyPageAction;
 import member.action.PwChkAction;
+import member.action.QnAAction;
 import member.action.RecommendCheckAction;
 import vo.ActionForward;
 
@@ -222,7 +223,14 @@ public class MemberFrontController extends HttpServlet {
 			 * request.setAttribute("pagefile", "./member/memberRecentOrder.jsp"); forward =
 			 * new ActionForward("/index.jsp", false);
 			 */
-		}
+		}else if(command.equals("/QnAForm.me")) {
+    		action=new QnAAction();
+			try {
+    			forward=action.execute(request,response);
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    	}
 
 		if (forward != null) {
 			if (forward.isRedirect()) {

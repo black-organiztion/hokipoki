@@ -19,7 +19,7 @@ pageTitle = "호키포키";
 <body>
 <div id="wrap">
 	<jsp:include page="/common/user/header.jsp"></jsp:include>
-	<jsp:include page="${pagefile }"></jsp:include>
+	<jsp:include page="${pagefile}"></jsp:include>
 	<jsp:include page="/common/user/footer.jsp"></jsp:include>
 </div>
 </body>

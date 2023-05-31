@@ -70,8 +70,6 @@
 </style>
 </head>
 <body>
-
-
 	<div class="outers">
 		<div class="table_ti">
 			<div style="font-size: 24px; font-weight: 500;">주문내역</div>
