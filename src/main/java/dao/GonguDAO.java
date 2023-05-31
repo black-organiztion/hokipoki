@@ -578,7 +578,7 @@ public class GonguDAO {
 		ResultSet rs = null;
 		
 		try {
-			pstmt=con.prepareStatement("select * from gongu where gongu_name like '%"+search+"%'");
+			pstmt=con.prepareStatement("select * from gongu where gongu_name like '%"+search+"%' and gongu_status='4'");
 			System.out.println(pstmt);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {

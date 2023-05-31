@@ -266,16 +266,14 @@ public class AdminFrontController extends HttpServlet {
 			}
     		
     	}
-    	else if(command.equals("/adminQnaListAction.ad")){
-    		action = new AdminQnaListAction();
-    		try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-    		
-    	}
+		/*
+		 * else if(command.equals("/adminQnaListAction.ad")){ action = new
+		 * AdminQnaListAction(); try { forward = action.execute(request, response); }
+		 * catch (Exception e) { // TODO Auto-generated catch block e.printStackTrace();
+		 * }
+		 * 
+		 * }
+		 */
     	
 
     	//포워딩

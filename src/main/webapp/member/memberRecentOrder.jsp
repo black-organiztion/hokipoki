@@ -183,9 +183,10 @@
 			<li onclick="alert('준비중인 서비스 입니다.');" style="cursor: pointer;">쿠폰</li>
 			<li onclick="alert('준비중인 서비스 입니다.');" style="cursor: pointer;">포인트</li>
 		</ul>
+		
 		<ul style="padding-top: 12px;">
 			<li onclick="alert('준비중인 서비스 입니다.');" style="cursor: pointer;" id="f_li">고객센터</li>
-			<li><a href="${pageContext.request.contextPath}/QnAForm.me">1:1문의내역</a></li>
+			<li><a href="${pageContext.request.contextPath}/memberQnAList.qu">1:1문의내역</a></li>
 			<li onclick="alert('준비중인 서비스 입니다.');" style="cursor: pointer;">공지사항</li>
 			<li onclick="alert('준비중인 서비스 입니다.');" style="cursor: pointer;">고객의 소리</li>
 		</ul>
@@ -233,6 +234,9 @@
 		</c:if>
 		<c:if test="${infofile eq 'myinfo'}">
 			<jsp:include page="/member/myInfo.jsp"></jsp:include>
+		</c:if>
+		<c:if test="${infofile eq 'QnAList'}">
+			<jsp:include page="/member/memberQnAList.jsp"></jsp:include>
 		</c:if>
 		<c:if test="${infofile eq 'QnAForm'}">
 			<jsp:include page="/member/memberQnAForm.jsp"></jsp:include>
