@@ -546,7 +546,7 @@ public class OrderDAO {
 					sql = "UPDATE orders SET order_status = '2' WHERE gongu_id = '" + closeList.get(i).getGongu_id()
 							+ "'";
 				} else {
-					sql = "UPDATE orders SET order_status = '0' WHERE gongu_id = '" + closeList.get(i).getGongu_id()
+					sql = "UPDATE orders SET order_status = '9' WHERE gongu_id = '" + closeList.get(i).getGongu_id()
 							+ "'";
 				}
 

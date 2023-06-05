@@ -310,7 +310,7 @@ public class AdminDAO {
 		int listCount = 0;
 		PreparedStatement psmt =  null;
 		ResultSet rs = null;
-		String sql = "SELECT count(*) FROM seller";
+		String sql = "SELECT count(*) FROM seller WHERE seller_author !=0";
 		
 		if(sOption != null && sKeyword != null) {
 			sql += " WHERE "+ sOption + " LIKE '%"+sKeyword+"%'";
@@ -343,7 +343,7 @@ public class AdminDAO {
 		
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT * FROM seller WHERE seller_author !=0 ";
+		String sql = "SELECT * FROM seller WHERE seller_author !=0";
 		
 		int startRow = (page-1)*limit; //시작행
 		
