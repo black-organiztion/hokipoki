@@ -67,7 +67,7 @@
 							<div class="frm_group col-lg-4 col-12">
 					            <label>판매시작 희망일</label>
 					            <div class="input_group">
-					            	<input type="text" id="datepicker_start" name="gongustart" class="frm_control frm_date">   
+					            	<input type="text" id="datepicker_start" name="gongustart" class="frm_control frm_date" autocomplete="off">   
 					            </div> 
 					            <p class="frm_vld_txt"></p>
 					            <p class="frm_txt">판매시작일은 공구 심사기간 및 승인여부에 따라 선택하신 날짜와 상이할 수 있습니다.</p>
@@ -75,28 +75,28 @@
 							<div class="frm_group col-lg-4 col-12">
 								<label>판매종료일</label>
 								<div class="input_group">
-					            	<input type="text" id="datepicker_end"  name="gongufinish" class="frm_control frm_date">
+					            	<input type="text" id="datepicker_end"  name="gongufinish" class="frm_control frm_date" autocomplete="off">
 					            </div>
 					            <p class="frm_vld_txt"></p>
 					            <p class="frm_txt">선택하신 종료일 다음 날 0시에 판매가 종료됩니다.</p>
 							</div>
 							<div class="w-100"></div>
 							<div class="frm_group col-lg-4 col-12">
-								<label for="datepicker_start">결제마감일</label>
+								<label for="datepicker_calc">결제마감일</label>
 								<div class="input_group">
-									<input type="text" id="datepicker_calc" name="caldate" class="frm_control">
+									<input type="text" id="datepicker_calc" name="caldate" class="frm_control frm_date" autocomplete="off">
 								</div>
 								<p class="frm_vld_txt"></p>
 								<p class="frm_txt">판매가 종료된 후에도 선택하신 결제마감일까지 구매자의 결제가 진행됩니다.</p>
 							</div>
-							<div class="frm_group col-lg-4 col-12">
+							<!-- <div class="frm_group col-lg-4 col-12">
 								<label for="">정산일</label>
 								<div class="input_group">
 									<input type="text" id="" name=""  value="" disabled style="height:40px; border:none;">
 								</div>
 								<p class="frm_vld_txt"></p>
 								<p class="frm_txt">판매금액은 결제마감일 다음날부터 7일째 되는 날 정산됩니다.</p>
-							</div>
+							</div> -->
 						</div>
 					</div>
 					<div class="col-12">
@@ -105,7 +105,7 @@
 							<div class="frm_group col-lg-4 col-12">
 								<label for="originprice">정가</label>
 								<div class="input_group">
-									<input type="text" name="originprice" id="originprice" class="frm_control"> 
+									<input type="number" name="originprice" id="originprice" class="frm_control"> 
 								</div>
 								<p class="frm_vld_txt"></p>
 								<p class="frm_txt">상품의 원가격을 입력해주세요.</p>
@@ -113,7 +113,7 @@
 							<div class="frm_group col-lg-4 col-12">
 								<label for="shareprice">공구가</label>
 								<div class="input_group">
-									<input type="text" name="gonguprice" id="gonguprice" class="frm_control">
+									<input type="number" name="gonguprice" id="gonguprice" class="frm_control">
 								</div>
 								<p class="frm_vld_txt"></p>
 								<p class="frm_txt">목표달성시 판매할 상품가격을 입력해주세요.</p>
@@ -126,7 +126,7 @@
 							<div class="frm_group col-lg-4 col-12">
 								<label for="gongustock">최대 판매가능 수량</label>
 								<div class="input_group">
-									<input type="text" name="gongustock" id="gongustock" class="frm_control">
+									<input type="number" name="gongustock" id="gongustock" class="frm_control">
 								</div>
 								<p class="frm_vld_txt"></p>
 								<p class="frm_txt dot">판매 가능한 최대 상품 수량을 입력해주세요.</p>
@@ -136,7 +136,7 @@
 							<div class="frm_group col-lg-4 col-12">
 								<label for="mingongu">최소 목표 수량</label>
 								<div class="input_group">
-									<input type="text" name="minGongu" id="mingongu" class="frm_control">
+									<input type="number" name="minGongu" id="mingongu" class="frm_control">
 								</div>
 								<p class="frm_vld_txt"></p>
 								<p class="frm_txt dot">공구를 완료하기 위한 최소 목표 수량을 설정해주세요.</p>
@@ -198,6 +198,12 @@
 		
 		fn_default_datepicker();
 		
+		//결제마감일
+		/* $("#datepicker_calc").datepicker('setDate','end+7D');
+		$("#datepicker_calc").datepicker({
+			dateFormat:'yy-mm-dd',
+		
+		}); */
 		
 		//input validation
 		
@@ -211,13 +217,14 @@
 			console.log(category);
 		});
 		
-		$(".frm_control").each(function(idx,item){
+		$(".frm_control").not("#originprice,#gonguprice,#gongustock,#mingongu").each(function(idx,item){
 			$(item).on('propertychange change keyup paste input',function(){
 				var frmGroup = $(this).parents(".frm_group");
 				if($(item).val === ''){
 					
 				}else{
 					frmGroup.removeClass("fail");
+					frmGroup.parent().next(".frm_vld_txt").text("");
 				}
 			});
 		});
@@ -227,6 +234,64 @@
 				$("#form").submit();
 			}
 		});
+		
+		
+		//정가,공구가격 체크
+		$("#originprice,#gonguprice").each(function(){
+			$(this).keyup(function(){
+				var origin = $("#originprice");
+				var gongu = $("#gonguprice");
+				
+				console.log(origin.val());
+				console.log(gongu.val());
+				
+				if($(this).val() != ''){
+					origin.parents(".input_group").next(".frm_vld_txt").text("");
+					gongu.parents(".input_group").next(".frm_vld_txt").text("");
+				}
+				
+				if(Number(origin.val()) > Number(gongu.val())){
+					origin.parents(".frm_group").removeClass("fail");
+					gongu.parents(".frm_group").removeClass("fail");
+					origin.parents(".input_group").next(".frm_vld_txt").text("");
+					
+				}else{
+					origin.parents(".frm_group").addClass("fail");
+					gongu.parents(".frm_group").addClass("fail");
+					origin.parents(".input_group").next(".frm_vld_txt").text("공구가는 정가 미만으로 입력해주세요.");
+				}
+			});
+		});
+		
+		//재고랑,공구최소수량 체크
+		$("#gongustock,#mingongu").each(function(){
+			$(this).keyup(function(){
+				var stock = $("#gongustock");
+				var min = $("#mingongu");
+				
+				//console.log(origin.val());
+				//console.log(gongu.val());
+				
+				if($(this).val() != ''){
+					stock.parents(".input_group").next(".frm_vld_txt").text("");
+					min.parents(".input_group").next(".frm_vld_txt").text("");
+				}
+				
+				if(Number(stock.val()) > Number(min.val())){
+					stock.parents(".frm_group").removeClass("fail");
+					min.parents(".frm_group").removeClass("fail");
+					stock.parents(".input_group").next(".frm_vld_txt").text("");
+					
+				}else{
+					stock.parents(".frm_group").addClass("fail");
+					min.parents(".frm_group").addClass("fail");
+					stock.parents(".input_group").next(".frm_vld_txt").text("최소목표수량은 최대판매가능수량 이하로 입력해주세요.");
+				}
+			});
+		});
+		
+		
+		
 	});
 	
 	function fieldNullChk(){
@@ -296,12 +361,39 @@
 	        ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 부분 Tooltip 텍스트
 	        ,minDate: "1D" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
 	        ,maxDate: "14D" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)
-	           ,defaultDate: "+1w"
+	        ,defaultDate: "+1w"
+	        ,onSelect: function(selectedDate){ //마감일 선택날짜를 가져옴
+	        	var selected = new Date(selectedDate);
+	        	selected.setDate(selected.getDate()+1); //선택된 날의 다음날로 설정
+	        	calc.datepicker("option","minDate",selected); //calc의 minDate 로 설정
+	        }
 	      });
 	    
-	    //초기값을 오늘 날짜로 설정
+	  //초기값을 오늘 날짜로 설정
 	    $('#datepicker_start').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
 	    $('#datepicker_end').datepicker('setDate', 'start+3D'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
+	    
+	    //end의 Date를 가져오기 위해 end 실행이후 위치
+	    var calc = $( "#datepicker_calc" ).datepicker({
+	        dateFormat: 'yy-mm-dd' //Input Display Format 변경
+	        ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
+	        ,showMonthAfterYear:true //년도 먼저 나오고, 뒤에 월 표시
+	        ,changeYear: true //콤보박스에서 년 선택 가능
+	        ,changeMonth: true //콤보박스에서 월 선택 가능                
+	        //,showOn: "both" //button:버튼을 표시하고,버튼을 눌러야만 달력 표시 ^ both:버튼을 표시하고,버튼을 누르거나 input을 클릭하면 달력 표시  
+	        //,buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif" //버튼 이미지 경로
+	        //,buttonImageOnly: true //기본 버튼의 회색 부분을 없애고, 이미지만 보이게 함
+	        ,buttonText: "선택" //버튼에 마우스 갖다 댔을 때 표시되는 텍스트                
+	        ,yearSuffix: "년" //달력의 년도 부분 뒤에 붙는 텍스트
+	        ,monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 텍스트
+	        ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip 텍스트
+	        ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 부분 텍스트
+	        ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 부분 Tooltip 텍스트
+	        ,minDate: end.datepicker("getDate") //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
+	        ,maxDate: "14D" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)
+	      });
+	    
+	    $('#datepicker_calc').datepicker('setDate', 'end+7D');
 	} 
 	 
 	function getDate( element ) {
