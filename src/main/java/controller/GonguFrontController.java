@@ -20,6 +20,7 @@ import gongu.action.GonguViewAction;
 import gongu.action.MemberGonguListAction;
 import gongu.action.MenuListAction;
 import gongu.action.SearchGonguAction;
+import gongu.action.qnaGonguListAction;
 import vo.ActionForward;
 
 /**
@@ -126,13 +127,22 @@ public class GonguFrontController extends HttpServlet {
             e.printStackTrace();
          }
        }
-       else if(command.equals("/memberGonguListAction.go")) {
-    	  String member_id = request.getParameter("member_id");
-    	  String result = new MemberGonguListAction().getGonguList(member_id);
-    	  response.setContentType("application/json");
-    	  response.setCharacterEncoding("UTF-8");
-    	  response.getWriter().write(result);
-        }
+//       else if(command.equals("/memberQnaGonguListAction.go")) {
+//    	  String member_id = request.getParameter("member_id");
+//    	  System.out.println(member_id);
+//    	  String result = new MemberGonguListAction().getGonguList(member_id);
+//    	  response.setContentType("application/json");
+//    	  response.setCharacterEncoding("UTF-8");
+//    	  response.getWriter().write(result);
+//        }
+       else if(command.equals("/qnaGonguListAction.go")) {
+    	   action = new qnaGonguListAction();
+           try {
+              forward = action.execute(request, response);
+           } catch (Exception e) {
+              e.printStackTrace();
+           }
+         }
        
        
        if (forward != null) {

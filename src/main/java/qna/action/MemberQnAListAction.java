@@ -1,5 +1,6 @@
 package qna.action;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,8 @@ public class MemberQnAListAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		
 		ActionForward forward = null;
 		HttpSession session = request.getSession();
 		String member_id=(String)session.getAttribute("member_id");
@@ -31,10 +34,14 @@ public class MemberQnAListAction implements Action {
 		if(QnAList != null) {
 			request.setAttribute("QnAList", QnAList);
 		}
-		request.setAttribute("pagefile","member/memberRecentOrder.jsp");
+		request.setAttribute("pagefile","/member/memberRecentOrder.jsp");
 		request.setAttribute("infofile", "QnAList");
 		forward = new ActionForward("./index.jsp", false);
 		return forward;
+		
+		
+		
+		
 	}
 
 }

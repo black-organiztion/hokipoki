@@ -16,7 +16,7 @@ import vo.MemberOrderGongu;
 
 public class OrderDAO {
 	private static OrderDAO orderDAO;
-	Connection con;
+	private Connection con;
 
 	// private 기본생성자
 	private OrderDAO() {
@@ -578,6 +578,39 @@ public class OrderDAO {
 
 		return runTotal;
 	}
+
+	public HashMap<Integer, String> selectMemberOrder(String member_id) {
+		HashMap<Integer, String> orderList = new HashMap<Integer,String>();
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT o.order_id, CONCAT(o.order_date, ' ', LEFT(g.gongu_name, 10), '...') "
+					+ "FROM orders o JOIN member m ON o.member_id = m.member_id "
+					+ "JOIN gongu g ON o.gongu_id = g.gongu_id WHERE o.member_id = ?";
+		
+		try {
+			psmt = con.prepareStatement(sql);
+			psmt.setString(1, member_id);
+			System.out.println(psmt);
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				do {
+					orderList.put(rs.getInt(1), rs.getString(2));
+					
+				}while(rs.next());
+			}
+			
+		}catch(Exception e){
+			System.out.println("회원문의주문정보선택:"+e);
+			
+		}finally {
+			close(rs);
+			close(psmt);
+		}
+		
+		return orderList;
+	}
+	
 
 
 

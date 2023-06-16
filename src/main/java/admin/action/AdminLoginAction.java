@@ -50,8 +50,8 @@ public class AdminLoginAction implements Action {
 					forward = new ActionForward("./adminStandby.ad",true);
 					
 				}else {//권한 0||1일 경우 -> 관리자 홈으로 이동
-					request.setAttribute("pagefile", "/admin/adminMain.jsp");
-					forward = new ActionForward("/admin/adminTemplate.jsp",false);
+					//request.setAttribute("pagefile", "/admin/adminMain.jsp");
+					forward = new ActionForward("adminMain.ad",true);
 				}
 				
 			}else {

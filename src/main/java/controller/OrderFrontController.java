@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
 import admin.action.AdminSellerJoinCheckAction;
+import gongu.action.MemberGonguListAction;
 import order.action.AdminOrderDetailViewAction;
 import order.action.AdminOrderListAction;
 import order.action.AllOrderListAction;
@@ -100,6 +101,18 @@ public class OrderFrontController extends HttpServlet {
     		}
     		
     	}
+    	else if(command.equals("/memberQnaOrderListAction.or")) {
+      	  String member_id = request.getParameter("member_id");
+      	  System.out.println(member_id);
+      	  String result = new MemberOrderListAction().getOrderList(member_id);
+      	  response.setContentType("application/json");
+      	  response.setCharacterEncoding("UTF-8");
+      	  response.getWriter().write(result);
+          }
+    	
+    	
+    	
+    	
     	//포워딩
     	if(forward != null) {
     		if(forward.isRedirect()) {

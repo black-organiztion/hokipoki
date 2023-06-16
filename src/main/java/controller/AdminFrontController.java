@@ -18,6 +18,7 @@ import action.Action;
 import admin.action.*;
 import gongu.action.AdminGonguDeleteAction;
 import gongu.action.MemberGonguListAction;
+import qna.action.AdminQnaDetailViewAction;
 /*import admin.action.adminLoginAction;
 import admin.action.adminSellerListAction;*/
 import vo.ActionForward;
@@ -95,7 +96,7 @@ public class AdminFrontController extends HttpServlet {
             		
             		if(loginAuthor > 0) {//판매자라면
             			String onGoingList = new AdminMainAction().getOnGoingList(loginId,loginAuthor);
-            			int noAnswerCnt = 0; //임의값
+            			int noAnswerCnt = new AdminMainAction().getNoAnswerCnt(loginId,loginAuthor);
             			responseData.put("onGoingList", onGoingList);
             			responseData.put("noAnswerCnt", noAnswerCnt);
             			
@@ -103,7 +104,7 @@ public class AdminFrontController extends HttpServlet {
             			String closingList = new AdminMainAction().getClosingList(loginId,loginAuthor);
             			int standByCnt = new AdminMainAction().getStandbyCnt(loginId,loginAuthor);
             			int sellerStandByCnt = new AdminMainAction().getSellerStandbyCnt(loginId,loginAuthor);
-            			int noAnswerCnt = 0; //임의값
+            			int noAnswerCnt = new AdminMainAction().getNoAnswerCnt(loginId,loginAuthor);
             			
             			responseData.put("closingList", closingList);
             			responseData.put("standByCnt", standByCnt);
@@ -266,14 +267,28 @@ public class AdminFrontController extends HttpServlet {
 			}
     		
     	}
-		/*
-		 * else if(command.equals("/adminQnaListAction.ad")){ action = new
-		 * AdminQnaListAction(); try { forward = action.execute(request, response); }
-		 * catch (Exception e) { // TODO Auto-generated catch block e.printStackTrace();
-		 * }
-		 * 
-		 * }
-		 */
+    	else if(command.equals("/adminQnaListAction.ad")){
+    		action = new AdminQnaListAction();
+    		try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    		
+    	}
+    	else if(command.equals("/adminQnaDetailViewAction.ad")){
+    		action = new AdminQnaDetailViewAction();
+    		try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    		
+    	}
+    	
+    	
     	
 
     	//포워딩

@@ -11,7 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
 import member.action.memberQnAFormAction;
+import qna.action.AdminAnswerAction;
+import qna.action.AdminChangeQnaAuthorAction;
+import qna.action.MemberQaListAction;
 import qna.action.MemberQnAListAction;
+import qna.action.MemberQuestionAction;
 import qna.action.memberQuestionEnroll;
 import vo.ActionForward;
 
@@ -41,7 +45,7 @@ public class QuestionController extends HttpServlet {
         Action action = null;
         
         System.out.println(command);
-        
+     /*  
      if(command.equals("/memberQuestionAction.qu")) {
     	action = new memberQuestionEnroll();
     	try {
@@ -49,14 +53,55 @@ public class QuestionController extends HttpServlet {
     	}catch(Exception e){
     		e.printStackTrace();
     	}
-     }else if(command.equals("/memberQnAList.qu")) {
-    	 action = new MemberQnAListAction();
-    	 try {
-    		 forward = action.execute(request, response);
-    	 }catch(Exception e) {
-    		 e.printStackTrace();
-    	 }
-     }else if(command.equals("/memberQnAForm.qu")) {
+     }*/
+      if(command.equals("/memberQuestionAction.qu")) {
+     		action = new MemberQuestionAction();
+     		try {
+    				forward = action.execute(request, response);
+    			} catch (Exception e) {
+    				// TODO Auto-generated catch block
+    				e.printStackTrace();
+    			}
+     	}
+      else if(command.equals("/memberQnAList.qu")) {
+  		action = new MemberQaListAction();
+  		try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+  		}
+      else if(command.equals("/adminAnswerAction.qu")) {
+    		action = new AdminAnswerAction();
+    		try {
+  				forward = action.execute(request, response);
+  			} catch (Exception e) {
+  				// TODO Auto-generated catch block
+  				e.printStackTrace();
+  			}
+		}
+      else if(command.equals("/adminChangeQnaAuthor.qu")) {
+  		action = new AdminChangeQnaAuthorAction();
+  		try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+      
+      
+      
+//     else if(command.equals("/memberQnAList.qu")) {
+//    	 action = new MemberQnAListAction();
+//    	 try {
+//    		 forward = action.execute(request, response);
+//    	 }catch(Exception e) {
+//    		 e.printStackTrace();
+//    	 }
+//     }
+     else if(command.equals("/memberQnAForm.qu")) {
     	action = new memberQnAFormAction();
     	try {
     		forward = action.execute(request, response);

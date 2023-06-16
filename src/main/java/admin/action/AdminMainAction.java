@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import action.Action;
 import admin.svc.AdminClosingGonguListService;
 import admin.svc.AdminOngoingGonguListService;
+import admin.svc.AdminQnaListService;
 import admin.svc.AdminSellerListService;
 import gongu.svc.GonguListService;
 import vo.ActionForward;
@@ -131,6 +132,15 @@ public class AdminMainAction implements Action {
 		sellerStandByCnt = adminSellerListService.sellerStandByCnt(loginId,loginAuthor); 
 		
 		return sellerStandByCnt;
+	}
+
+	public int getNoAnswerCnt(String loginId, int loginAuthor) {
+		int noAnswerCnt = 0;
+		
+		AdminQnaListService adminQnaListService = new AdminQnaListService();
+		noAnswerCnt = adminQnaListService.getNoAnswerCnt(loginId,loginAuthor);
+		
+		return noAnswerCnt;
 	}
 
 }

@@ -1,13 +1,23 @@
 package order.action;
 
+import static db.JdbcUtil.close;
+import static db.JdbcUtil.getConnection;
+
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import action.Action;
+import dao.OrderDAO;
+import order.svc.MemberOrderListService;
 import order.svc.OrderListService;
 import vo.ActionForward;
 
@@ -59,4 +69,31 @@ public class MemberOrderListAction implements Action {
 		return forward;
 	}
 
+	public String getOrderList(String member_id) {
+		String result = null;
+				
+		//서비스객체생성
+		MemberOrderListService memberOrderListService = new MemberOrderListService();
+		
+		HashMap<Integer,String> orderList = null;
+		
+		orderList = memberOrderListService.getMemberOrderList(member_id);
+		
+		ObjectMapper objectMapper = new ObjectMapper();
+		
+		try {
+			result = objectMapper.writeValueAsString(orderList);
+			
+		}catch(JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println(result);
+		
+		return result;
+
+	}
+
+
 }
+

@@ -32,13 +32,17 @@
 .bt .bt_ic.plus{background:url(../img/admin/utils/utils_plus_circle.svg) no-repeat center;}
 
 .bt.bt_primary{background-color:#5d92fb; color:#fff;}
-.bt.bt_primary:hover{background-color:#5a87e3;}
+.bt.bt_primary:not(.disabled):hover{background-color:#5a87e3;}
 
 .bt.bt_lg {height:50px; padding:8px 25px;}
 
 .bt_group{display:flex; justify-content:flex-end;}
 .bt_group>.bt:first-child{margin-left:0;}
 .bt_group>.bt:last-child{margin-right:0;}
+
+.bt.disabled{opacity:0.5; cursor:default;}
+
+
 
 /* 반응형에 따라 show/hide */
 .w_bt{display:inline-block;}
@@ -136,6 +140,13 @@ select:disabled {background-image:none;}
 .card_list_header{display:flex;}
 .card_list_header>span{font-weight:500; color:#7B8083;}
 
+/*card_table*/
+.card_table{font-size:15px; font-weight:400;}
+.card_table th,.card_table td{padding:10px 0;}
+.card_table th{color:#7B8083;}
+.card_table .subject{font-size:24px; font-weight:bold;}
+.card_table .content{height:100px; vertical-align:top;}
+
 /*pagination*/
 .pagination{justify-content:center; margin-top:20px;}
 .page-item{margin:0 2px;}
@@ -157,7 +168,7 @@ select:disabled {background-image:none;}
 .list .list_header .help_icon{background-color:#fff; background-image:url(../img/admin/utils/help_icon_gy.svg); background-repeat:no-repeat; background-position:center;}
 
 /*layer*/
-.ly {position:absolute; display:none; border:1px solid #D9D9D9; border-radius:5px; background-color:#fff; box-shadow:0 6px 12px rgba(0,0,0,0.15);}
+.ly {position:absolute; display:none; border:1px solid #D9D9D9; border-radius:5px; background-color:#fff; box-shadow:0 6px 12px rgba(0,0,0,0.15); z-index:1;}
 
 /*card*/
 .card{padding:30px; border:none; border-radius:15px; box-shadow:0 0 12px rgba(0,0,0,0.05);}
@@ -192,3 +203,6 @@ select:disabled {background-image:none;}
 
 /*기타*/
 .input_group{display:inline-flex;}
+.img_wrap{position:relative; width:300px; height:300px; background:#D9D9D9;}
+.img_wrap>img{max-width:100%;}
+.img_wrap>.btn_scale{position:absolute; bottom:0; right:0; padding:8px 12px; background:#457BE4; color:#fff; font-size:14px;}

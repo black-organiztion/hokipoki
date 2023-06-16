@@ -37,6 +37,7 @@ public class AdminGonguSetStatusAction implements Action {
 			int gongu_id = Integer.parseInt(request.getParameter("gongu_id"));
 			String gongu_status = request.getParameter("gongu_status");
 			String nextStatus = request.getParameter("setStatus");
+			String seller_id = request.getParameter("seller_id");
 			String msg = "";
 			String d_date = "";
 			String d_text = "";
@@ -113,10 +114,10 @@ public class AdminGonguSetStatusAction implements Action {
 				}
 				
 			}
-			
+
 
 			if(isNextSuccess) {	
-				forward = new ActionForward("adminGonguDetailViewAction.ad?gongu_id"+gongu_id, false);
+				forward = new ActionForward("adminGonguDetailViewAction.ad?gongu_id="+gongu_id+"&seller_id="+seller_id, true);
 				System.out.println("공구상태변경("+nextStatus+")");
 				
 			}else {

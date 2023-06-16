@@ -182,7 +182,20 @@ if(alert != null){
 						<c:choose>
 							<c:when test="${gonguList.size() > 0 }">
 								<c:forEach var="gongu" items="${gonguList}" varStatus="">
-										<div class="list_item ${gongu.gongu_status eq '3'? 'reject':'' } ${gongu.gongu_status eq '4'? 'on':'' }">	
+										<c:set var="listStyle" value=""/>
+										<c:if test="${gongu.gongu_status eq '3' }">
+											<c:set var="listStyle" value="reject"/>
+										</c:if>
+										<c:if test="${gongu.gongu_status eq '6' }">
+											<c:set var="listStyle" value="reject"/>
+										</c:if>
+										<c:if test="${gongu.gongu_status eq '7' }">
+											<c:set var="listStyle" value="reject"/>
+										</c:if>
+										<c:if test="${gongu.gongu_status eq 'A' }">
+											<c:set var="listStyle" value="reject"/>
+										</c:if>
+										<div class="list_item ${listStyle} ${gongu.gongu_status eq '4'? 'on':'' }">	
 											<a href="adminGonguDetailViewAction.ad?gongu_id=${gongu.gongu_id}&seller_id=${gongu.seller_id}">
 											<span>
 												<span class="status">
@@ -215,6 +228,7 @@ if(alert != null){
 							</c:otherwise>	
 						</c:choose>
 					</div>
+					
 					<c:if test="${pageInfo.page > 0 }">
 						<div class="list_footer">
 							<ul class="pagination">

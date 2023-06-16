@@ -33,6 +33,10 @@ $(document).ready(function(){
 	
 	/* filter 전체 체크 액션*/
 	
+	
+	/*tootips */
+	$("[data-bs-toggle='tooltip']").tooltip();
+	
 });
 
 
