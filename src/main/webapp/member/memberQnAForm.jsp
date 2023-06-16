@@ -158,6 +158,7 @@
 				$(".sel_gongu").hide();
 				$(".sel_gongu").find("input[type='hidden']").removeClass("required");
 				$("#gongu_id").val("");
+				$("#search_gongu").val("");
 				
 				$(".sel_order").show();
 				$(".sel_order").find("select").addClass("required");

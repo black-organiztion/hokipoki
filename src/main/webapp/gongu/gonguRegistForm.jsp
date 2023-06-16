@@ -198,12 +198,6 @@
 		
 		fn_default_datepicker();
 		
-		//결제마감일
-		/* $("#datepicker_calc").datepicker('setDate','end+7D');
-		$("#datepicker_calc").datepicker({
-			dateFormat:'yy-mm-dd',
-		
-		}); */
 		
 		//input validation
 		
@@ -360,11 +354,11 @@
 	        ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 부분 텍스트
 	        ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 부분 Tooltip 텍스트
 	        ,minDate: "1D" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
-	        ,maxDate: "14D" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)
+	        //,maxDate: "14D" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)
 	        ,defaultDate: "+1w"
 	        ,onSelect: function(selectedDate){ //마감일 선택날짜를 가져옴
 	        	var selected = new Date(selectedDate);
-	        	selected.setDate(selected.getDate()+1); //선택된 날의 다음날로 설정
+	        	selected.setDate(selected.getDate()+3); //선택된 날의 3일후로 설정
 	        	calc.datepicker("option","minDate",selected); //calc의 minDate 로 설정
 	        }
 	      });
@@ -372,6 +366,9 @@
 	  //초기값을 오늘 날짜로 설정
 	    $('#datepicker_start').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
 	    $('#datepicker_end').datepicker('setDate', 'start+3D'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
+	    
+	    var calcMin = new Date(end.datepicker("getDate"));
+	    calcMin.setDate(calcMin.getDate()+3);
 	    
 	    //end의 Date를 가져오기 위해 end 실행이후 위치
 	    var calc = $( "#datepicker_calc" ).datepicker({
@@ -389,11 +386,11 @@
 	        ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip 텍스트
 	        ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 부분 텍스트
 	        ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 부분 Tooltip 텍스트
-	        ,minDate: end.datepicker("getDate") //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
-	        ,maxDate: "14D" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)
+	        ,minDate: calcMin //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
+	        //,maxDate: "14D" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)
 	      });
 	    
-	    $('#datepicker_calc').datepicker('setDate', 'end+7D');
+	    $('#datepicker_calc').datepicker('setDate','minDate');
 	} 
 	 
 	function getDate( element ) {
