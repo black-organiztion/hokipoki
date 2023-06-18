@@ -31,9 +31,10 @@ public class GonguViewAction implements Action {
 		request.setAttribute("gongu", gongu);
 		// 현재 날짜 가져오기
 		LocalDate currentDate = LocalDate.now();
+
 		
 		// 주어진 문자열을 LocalDate로 변환
-		LocalDate targetDate = LocalDate.parse(gongu.gongu_findate, DateTimeFormatter.ISO_LOCAL_DATE);
+		LocalDate targetDate = LocalDate.parse(gongu.gongu_findate.substring(0, 10), DateTimeFormatter.ISO_LOCAL_DATE);
 		long daysDifference = ChronoUnit.DAYS.between(currentDate, targetDate);
 		
 		request.setAttribute("subday", daysDifference);

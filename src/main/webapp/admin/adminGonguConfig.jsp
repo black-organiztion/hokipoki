@@ -214,7 +214,7 @@ if(alert != null){
 												</span>
 											</span>
 											<span>${gongu.gongu_name }</span>
-											<span>${gongu.gongu_startdate }~${gongu.gongu_findate }</span>
+											<span>${fn:substring(gongu.gongu_startdate,0,10) }~${fn:substring(gongu.gongu_findate,0,10) }</span>
 											<span>${gongu.seller_id }</span>
 											<span>${gongu.gongu_date }</span>
 											

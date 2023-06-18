@@ -262,7 +262,7 @@
                         공구기간 &nbsp;&nbsp;&nbsp;&nbsp;
                      </div>
                      <div class="sub_info_content">
-                        ${gongu.gongu_startdate } ~  ${gongu.gongu_findate }
+                        ${fn:substring(gongu.gongu_startdate,0,10) } ~  ${fn:substring(gongu.gongu_findate,0,10) }
                      </div>
                   </div>
                   <div class="sub2">      
@@ -271,7 +271,7 @@
                      </div>
                      
                      <div class="sub_info_content">
-                         ${gongu.gongu_caldate }
+                         ${fn:substring(gongu.gongu_caldate,0,10) }
                      </div>
                   </div>
                </div>      
@@ -339,7 +339,7 @@
 		}
 
 		
-	});		
+	});
 	
 
 	function clip(){

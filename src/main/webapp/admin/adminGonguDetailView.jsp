@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 
 <div id="content" class="bg gongu_detail">
@@ -153,11 +153,11 @@
 					</li>
 					<li>
 						<em>공구기간</em>
-						<span>${gongu.gongu_startdate } ~ ${gongu.gongu_findate }</span>
+						<span>${fn:substring(gongu.gongu_startdate,0,10) }~${fn:substring(gongu.gongu_findate,0,10) }</span>
 					</li>
 					<li>
 						<em>결제마감일</em>
-						<span>${gongu.gongu_caldate }</span>
+						<span>${fn:substring(gongu.gongu_caldate,0,10) }</span>
 					</li>
 					<li>
 						<em>최대 판매가능 수량</em>
