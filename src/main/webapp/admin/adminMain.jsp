@@ -236,10 +236,19 @@
 				
 				//D-day 표시를 위해 오늘 날짜 가져오기
 				var today = new Date();
+				today.setHours(0, 0, 0, 0); //시간 제외하기
+
+				
 				//yyyy-MM-dd형식의 날짜 문자열 생성
-				var curDateStr = (today.getFullYear())+"-"+(("0" + (1 + today.getMonth())).slice(-2))+"-"+(("0"+today.getDate()).slice(-2));
+				//var curDateStr = (today.getFullYear())+"-"+(("0" + (1 + today.getMonth())).slice(-2))+"-"+(("0"+today.getDate()).slice(-2));
+				//처음에 findate값이 yyyy-MM-dd 형식이라 똑같이 맞추려고 문자열 생성했는데 findate 형식이 yyyy-MM-dd HH:MM:SS로 바뀌어서 생략
+				
 				//생성한 문자열로 시간 가져오기
-				const curDate = new Date(curDateStr).getTime();
+				const curDate = today.getTime();
+				
+				
+				//console.log("curday"+curDay);
+				//console.log("CurdateGetTime"+curDate);
 				
 				//이미 만들어진 공구 li들이 있으면 삭제
 				if(closingListEl.hasChildNodes()){
@@ -252,8 +261,6 @@
 					var gongu_name = gongu.gongu_name;//공구명
 					var gongu_findate = gongu.gongu_findate;//종료일
 					
-					//console.log(gongu_name);
-					
 					//HTML 요소 생성 및 값 할당
 					var li = document.createElement("li");
 					li.classList.add("card_list_item");
@@ -262,7 +269,7 @@
 					nameSpan.textContent = gongu_name;
 					
 					var findateSpan = document.createElement("span");
-					findateSpan.textContent = gongu_findate;
+					findateSpan.textContent = gongu_findate.substring(0,10);
 					
 					var badgeSpan = document.createElement("span");
 					var dateSpan = document.createElement("span");
@@ -272,8 +279,14 @@
 					//d-day 계산을 위해 종료일문자열을 매개값으로 시간 가져옴
 					const finDate = new Date(gongu_findate).getTime();
 					
+					//console.log("findateGetTime"+finDate);
+					
 					//현재일시간 - 종료일시간 계산
 					let diffDate = Math.abs(curDate-finDate);
+					
+					
+					
+					//console.log("내림전diffDate:"+(diffDate/(1000*60*60*24)),typeof(diffDate));
 					//계산결과를 일단위로 변환
 					diffDate = Math.ceil(diffDate/(1000*60*60*24));
 					//계산값을 텍스트로 할당
@@ -281,6 +294,7 @@
 					badgeSpan.appendChild(dateSpan);
 					
 					//console.log("findate:"+finDate,typeof(finDate));
+					//console.log("curDate:"+curDate,typeof(curDate));
 					//console.log("diffDate:"+diffDate,typeof(diffDate));
 					
 					li.appendChild(badgeSpan);

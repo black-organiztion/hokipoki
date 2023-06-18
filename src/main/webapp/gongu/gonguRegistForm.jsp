@@ -35,7 +35,7 @@
 										<option value="pet">반려견</option>
 										<option value="beauty">뷰티</option>
 										<option value="book">도서</option>
-										<option value="mouth">구강/면도</option>
+										<option value="gugang">구강/면도</option>
 										<option value="elec">전자기기</option>
 										<option value="interior">홈인테리어</option>
 										<option value="design">디자인문구</option>
@@ -335,8 +335,19 @@
 	        ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 부분 텍스트
 	        ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 부분 Tooltip 텍스트
 	        ,minDate: "+0M" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
-	        ,maxDate: "+14D" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)                
+	        ,maxDate: "+14D" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)   
+        	,onSelect: function(selectedDate){ //마감일 선택날짜를 가져옴
+	        	var endDate = new Date(selectedDate);
+	        	endDate.setDate(endDate.getDate()+3); //선택된 날의 3일후로 설정
+	        	end.datepicker("option","minDate",endDate); //calc의 minDate 로 설정
+	        	
+	        	var calcDate = new Date(end.datepicker("getDate"));
+	        	calcDate.setDate(calcDate.getDate()+3);
+	        	calc.datepicker("option","minDate",calcDate);
+	        	
+	        }
 	    });
+
 	        
 	    var end = $( "#datepicker_end" ).datepicker({
 	        dateFormat: 'yy-mm-dd' //Input Display Format 변경

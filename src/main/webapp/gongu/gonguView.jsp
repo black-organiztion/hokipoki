@@ -179,6 +179,11 @@
 
 </head>
 <body>
+
+<c:set var="close" value="open"/>
+<c:if test="${gongu.gongu_reserve == gongu.gongu_stock || gongu.gongu_status eq '5' }">
+	<c:set var="close" value="close"/>
+</c:if>
    <div class="out_container">
       <div class="title_container">
          <div class="cate">
@@ -189,7 +194,7 @@
          </div>   
       </div>
       <div class="content_container" >
-         <div class="th_img ${gongu.gongu_status eq '5'? 'close':'' }" >
+         <div class="th_img ${close}" >
             <img src="${pageContext.request.contextPath}/gongu/images/${gongu.thumbnail_img }" style="width:550px; height:550px;">
          </div>
          <div class="gongu_container" >
@@ -300,7 +305,7 @@
                         </div>      
                      </div>
                   <div class="get_gongu">
-                     <div class="sub_button ${gongu.gongu_status eq '5'? 'close':'' }">
+                     <div class="sub_button ${close}">
                         <a href="${pageContext.request.contextPath}/gonguPurchase.me?gongu_id=${gongu.gongu_id }&isdefault=1" id="mya">공구하기</a>
                      </div>
                   </div>      

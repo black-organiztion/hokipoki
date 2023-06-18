@@ -443,8 +443,8 @@ public class GonguDAO {
 		PreparedStatement psmt2 = null;
 		ResultSet rs = null;
 		
-		String sql = "SELECT gongu_id, gongu_name, gongu_status, gongu_reserve, gongu_min, gongu_findate FROM gongu WHERE gongu_status = '4' AND (gongu_findate <= CURDATE() OR gongu_reserve >= gongu_stock)";
-		String sql2 = "UPDATE gongu SET gongu_status = IF(gongu_reserve < gongu_min, '7', '8'), gongu_update = CURDATE() WHERE gongu_id IN (SELECT gongu_id FROM ("
+		String sql = "SELECT gongu_id, gongu_name, gongu_status, gongu_reserve, gongu_min, gongu_findate FROM gongu WHERE gongu_status = '4' AND ((gongu_findate + INTERVAL '23:59:59' HOUR_SECOND) <= CURDATE() OR gongu_reserve >= gongu_stock)";
+		String sql2 = "UPDATE gongu SET gongu_status = IF(gongu_reserve < gongu_min, '7', '8'), gongu_update = NOW() WHERE gongu_id IN (SELECT gongu_id FROM ("
 				+sql+") AS tmp_table)";
 		
 		//String sql = "UPDATE gongu SET gongu_status = IF(gongu_reserve < gongu_min, '7', '8'), gongu_update=CURDATE() WHERE gongu_status = '4' && (gongu_findate <= CURDATE() || gongu_reserve >= gongu_stock)";
@@ -452,7 +452,7 @@ public class GonguDAO {
 		
 		try {
 			psmt = con.prepareStatement(sql);
-			System.out.println(psmt);
+			System.out.println("공구일괄종료sql:"+psmt);
 			rs = psmt.executeQuery();
 			
 			if(rs.next()) {
