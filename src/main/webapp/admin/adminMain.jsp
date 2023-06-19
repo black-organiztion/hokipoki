@@ -184,7 +184,7 @@
 					nameSpan.textContent = gongu_name;
 					
 					var termSpan = document.createElement("span");
-					termSpan.textContent = gongu_startdate + "~" + gongu_findate;
+					termSpan.textContent = gongu_startdate.substring(0,10) + "~" + gongu_findate.substring(0,10);
 					
 					var reserveSpan = document.createElement("span");
 					reserveSpan.textContent = gongu_reserve;
