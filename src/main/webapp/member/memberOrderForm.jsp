@@ -221,7 +221,7 @@
 					${gongu.gongu_name }
 				</div>
 				<div class="extra">				
-					공구 성공시, 결제는 ${gongu.gongu_caldate }에 진행됩니다.<br> 공구가 무산되거나 중단된 경우에는 예약된 결제는 자동으로 취소됩니다.
+					공구 성공시, 결제는 ${fn:substring(gongu.gongu_caldate,0,10) }에 진행됩니다.<br> 공구가 무산되거나 중단된 경우에는 예약된 결제는 자동으로 취소됩니다.
 					이용에 참고 부탁드립니다.					
 				</div>
 				<div class="gongu_num">				
@@ -229,7 +229,7 @@
 						${gongu.gongu_discount_price }
 					</div>
 					<div class="gongu_findate">				
-						${gongu.gongu_findate}
+						${fn:substring(gongu.gongu_findate,0,10)}
 					</div>
 				</div>	
 			</div>
@@ -259,7 +259,7 @@
 						예상 결제일
 					</div>
 					<div class="sanse_content">
-						${gongu.gongu_caldate}
+						${fn:substring(gongu.gongu_caldate,0,10)}
 					</div>
 				</div>
 			</div>
@@ -323,7 +323,7 @@
 				
 		<div class="right_side" style="padding-top: 35px;">
 			<div class="etc">
-				공구 성공시, 결제는 ${gongu.gongu_caldate }에 진행됩니다.<br> 공구가 무산되거나 중단된 경우, 예약된 결제는 자동으로 취소되며
+				공구 성공시, 결제는 ${fn:substring(gongu.gongu_caldate,0,10) }에 진행됩니다.<br> 공구가 무산되거나 중단된 경우, 예약된 결제는 자동으로 취소되며
 				해당 공구에 대한 진행권한은 판매당사자에 있습니다.
 			</div>
 			
